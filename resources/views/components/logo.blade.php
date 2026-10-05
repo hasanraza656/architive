@@ -1,9 +1,6 @@
 @props(['light' => false])
+{{-- Client logo. $light = true -> always the light-lettered version (dark backgrounds such as the footer). --}}
 <span {{ $attributes->merge(['class' => 'brand' . ($light ? ' brand--light' : '')]) }}>
-    <svg class="brand__mark" viewBox="0 0 64 64" width="34" height="34" aria-hidden="true" focusable="false">
-        <rect width="64" height="64" rx="15" class="brand__tile"/>
-        <path class="brand__a" d="M14 50 L32 12 L50 50" fill="none" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
-        <path d="M22 38 H42" stroke="#FFD60A" stroke-width="5" stroke-linecap="round"/>
-    </svg>
-    <span class="brand__word">ARCHITIVE<small>Production Studio</small></span>
+    <img class="brand__img brand__img--dark" src="{{ asset('assets/img/logo.png') }}" width="580" height="100" alt="Architive: visualization and design studio" decoding="async">
+    <img class="brand__img brand__img--light" src="{{ asset('assets/img/logo-light.png') }}" width="580" height="100" alt="" aria-hidden="true" loading="lazy" decoding="async">
 </span>

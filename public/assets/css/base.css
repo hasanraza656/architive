@@ -67,8 +67,8 @@
 /* ---- Reset on top of Bootstrap ------------------------------------------ */
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; font-family: var(--f-body); font-size: 1rem; line-height: 1.7; font-weight: 400;
-  color: var(--ink); background: var(--bg); overflow-x: hidden;
+  margin: 0; font-family: var(--f-body); font-size: 1rem; line-height: 1.7; font-weight: 300;   /* client dummy body text is Plus Jakarta Sans Light */
+  color: var(--ink); background: var(--bg); overflow-x: clip;   /* clip (not hidden) so the sticky header keeps working */
   -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility;
   transition: background-color .4s var(--ease), color .4s var(--ease);
 }
@@ -77,6 +77,8 @@ a:hover { color: inherit; }
 img, svg, video { max-width: 100%; }
 img { height: auto; }
 h1, h2, h3, h4, h5, h6 { margin: 0; font-weight: 500; line-height: 1.15; color: inherit; }
+b, strong { font-weight: 600; }   /* 'bolder' of a light body would only reach 400 */
+input, textarea, select, button { font-weight: 400; }
 p { margin: 0 0 1rem; }
 ul, ol { padding: 0; margin: 0; list-style: none; }
 button { font: inherit; color: inherit; }
@@ -175,25 +177,23 @@ html.is-entering .curtain { transform: translateY(0); animation: curtain-out .8s
 .site-header {
   position: sticky; top: 0; z-index: 1000; height: var(--header-h);
   background: color-mix(in srgb, var(--bg) 88%, transparent); -webkit-backdrop-filter: saturate(160%) blur(16px); backdrop-filter: saturate(160%) blur(16px);
-  border-bottom: 1px solid transparent; transition: transform .5s var(--ease), border-color .3s, box-shadow .3s, background-color .4s;
+  border-bottom: 1px solid transparent; transition: height .35s var(--ease), border-color .3s, box-shadow .3s, background-color .4s;
 }
-.site-header.is-scrolled { border-bottom-color: var(--line); box-shadow: 0 8px 30px -20px rgba(0, 0, 0, .25); }
-.site-header.is-hidden { transform: translateY(-100%); }
+.site-header.is-scrolled { height: calc(var(--header-h) - 10px); border-bottom-color: var(--line); box-shadow: 0 8px 30px -20px rgba(0, 0, 0, .25); }   /* always visible; slightly compact once scrolled */
+.site-header.is-scrolled .brand__img { height: 40px; }
 .header-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
 
-.brand { display: inline-flex; align-items: center; gap: .7rem; color: var(--ink); }
-.brand__tile { fill: var(--dark); }
-.brand__a { stroke: #fff; }
-.brand__mark { transition: transform .6s var(--ease); }
-.header-logo:hover .brand__mark, .footer-logo:hover .brand__mark { transform: rotate(-8deg) scale(1.06); }
-.brand__word { display: flex; flex-direction: column; font: 800 1.02rem/1 var(--f-body); letter-spacing: .26em; }
-.brand__word small { margin-top: .32rem; font: 500 .55rem/1 var(--f-mono); letter-spacing: .22em; text-transform: uppercase; color: var(--ink-3); }
-[data-theme="dark"] .brand__tile { fill: #fff; }
-[data-theme="dark"] .brand__a { stroke: #141414; }
-.brand--light { color: var(--on-dark); }
-.brand--light .brand__tile { fill: #fff !important; }
-.brand--light .brand__a { stroke: #141414 !important; }
-.brand--light small { color: var(--on-dark-2); }
+/* Logo (client file). Dark-lettered version on light theme, light-lettered version on dark theme / footer. */
+.brand { display: inline-flex; align-items: center; line-height: 0; }
+.brand__img { display: block; height: 46px; width: auto; flex: none; object-fit: contain; transform: translateY(9%); transition: height .35s var(--ease), transform .5s var(--ease); }   /* 9% drop lines the wordmark up with the nav text */
+.brand__img--light { display: none; }
+[data-theme="dark"] .brand__img--dark { display: none; }
+[data-theme="dark"] .brand__img--light { display: block; }
+.brand--light .brand__img--dark { display: none !important; }
+.brand--light .brand__img--light { display: block !important; }
+.brand--light .brand__img { height: 50px; transform: none; }
+.header-logo { display: flex; align-items: center; flex: none; }
+.header-logo:hover .brand__img { transform: translateY(9%) scale(1.03); }
 
 .main-nav__list { display: flex; align-items: center; gap: .4rem; }
 .main-nav__item { position: relative; display: flex; align-items: center; }
@@ -336,8 +336,11 @@ html.is-entering .curtain { transform: translateY(0); animation: curtain-out .8s
 
 @media (max-width: 575.98px) {
   :root { --header-h: 66px; }
-  .brand__word { font-size: .92rem; letter-spacing: .22em; }
-  .brand__word small { display: none; }
+  .brand__img { height: 34px; }
+  .site-header.is-scrolled { height: calc(var(--header-h) - 8px); }
+  .site-header.is-scrolled .brand__img { height: 30px; }
+  .brand--light .brand__img { height: 42px; }
+  .header-actions { gap: .5rem; }
   .chat-fab__label, .chat-fab__dot { display: none; }
   .chat-fab { padding: .6rem; }
   .to-top { bottom: 4.6rem; right: 1rem; }
@@ -346,3 +349,23 @@ html.is-entering .curtain { transform: translateY(0); animation: curtain-out .8s
 /* Keep Bootstrap's large row gutters inside the page gutter on small screens (prevents horizontal scroll). */
 @media (max-width: 767.98px) { .row.g-5 { --bs-gutter-x: 2rem; --bs-gutter-y: 2.2rem; } }
 html { overflow-x: clip; }
+
+/* very small phones: keep logo + toggles on one line */
+@media (max-width: 380px) {
+  .brand__img { height: 29px; }
+  .site-header.is-scrolled .brand__img { height: 27px; }
+  .header-inner { gap: .75rem; }
+  .header-actions { gap: .35rem; }
+  .theme-toggle, .menu-toggle { width: 38px; height: 38px; }
+}
+
+/* laptop/tablet landscape: smaller logo + tighter nav so nothing is squeezed or wraps */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .brand__img { height: 36px; }
+  .site-header.is-scrolled .brand__img { height: 33px; }
+  .header-inner { gap: 1rem; }
+  .main-nav__link { padding: .6rem .55rem; letter-spacing: .1em; }
+  .main-nav__list { gap: .1rem; }
+  .header-actions { gap: .5rem; }
+  .header-actions .btn-ay--sm { padding: .65rem .85rem; }
+}

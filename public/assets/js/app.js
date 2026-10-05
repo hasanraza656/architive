@@ -99,10 +99,6 @@
   function onScroll() {
     var y = window.pageYOffset, h = document.documentElement.scrollHeight - window.innerHeight;
     $header.toggleClass('is-scrolled', y > 8);
-    if (!$('.mobile-menu.show').length && !$header.find('.has-mega.open').length) {
-      if (y > lastY + 8 && y > 280) { $header.addClass('is-hidden'); }
-      else if (y < lastY - 6 || y < 120) { $header.removeClass('is-hidden'); }
-    }
     lastY = y;
     if ($progress.length && h > 0) { $progress[0].style.transform = 'scaleX(' + Math.min(y / h, 1) + ')'; }
     $top.toggleClass('is-visible', y > 700);

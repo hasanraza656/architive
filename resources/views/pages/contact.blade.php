@@ -93,7 +93,7 @@
                             </div>
                             <div class="col-12 f-field">
                                 <label for="f-links">Links to files, plans or references</label>
-                                <textarea id="f-links" name="links" rows="2" maxlength="1000" placeholder="Share links to drawings, models or references. We'll agree a secure transfer method before detailed files are shared.">{{ old('links') }}</textarea>
+                                <textarea id="f-links" name="links" rows="3" maxlength="1000" placeholder="Share links to drawings, models or references. We'll agree a secure transfer method before detailed files are shared.">{{ old('links') }}</textarea>
                             </div>
                             <div class="col-12 f-field">
                                 <label for="f-message">Project details and the outcome you need <b>*</b></label>
