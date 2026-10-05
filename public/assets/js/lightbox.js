@@ -108,6 +108,7 @@
     lastFocus = document.activeElement;
     $lb.prop('hidden', false);
     $root.addClass('lb-open');
+    if (window.architiveTawk) { window.architiveTawk(false); }
     show(idx);
     requestAnimationFrame(function () { $lb.addClass('is-open'); });
     $lb.find('.lb__close').trigger('focus');
@@ -116,7 +117,7 @@
   function close() {
     if (!$lb || $lb.prop('hidden')) { return; }
     $lb.removeClass('is-open is-zoomed');
-    var done = function () { $lb.prop('hidden', true); $lb.find('.lb__img').attr('src', ''); $root.removeClass('lb-open'); if (lastFocus && lastFocus.focus) { lastFocus.focus(); } };
+    var done = function () { $lb.prop('hidden', true); $lb.find('.lb__img').attr('src', ''); $root.removeClass('lb-open'); if (window.architiveTawk) { window.architiveTawk(true); } if (lastFocus && lastFocus.focus) { lastFocus.focus(); } };
     reduceMotion ? done() : setTimeout(done, 260);
   }
 

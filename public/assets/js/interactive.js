@@ -118,6 +118,19 @@
     $region.add($slider).on('input change', render); render();
   });
 
+  /* ---- reCAPTCHA v2 widget (called by Google's script once it has loaded) ---- */
+  window.architiveCaptcha = function () {
+    $('[data-captcha]').each(function () {
+      var el = this, w = $(el).parent().width();
+      el._wid = grecaptcha.render(el, {
+        sitekey: $(el).data('sitekey'),
+        theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light',
+        size: (w && w < 306) ? 'compact' : 'normal',          // keeps it inside narrow phone screens
+        callback: function () { $(el).closest('form').find('[data-err-for="captcha"]').text(''); }
+      });
+    });
+  };
+
   /* ---- Contact form --------------------------------------------------------- */
   $('[data-contact-form]').each(function () {
     var form = this, $f = $(form);
@@ -127,13 +140,18 @@
     }
     function validate() {
       var ok = true, v = function (n) { return $.trim($f.find('[name="' + n + '"]').val() || ''); };
-      ['name', 'email', 'message', 'consent'].forEach(function (n) { setErr(n, ''); });
+      ['name', 'email', 'message', 'consent', 'captcha'].forEach(function (n) { setErr(n, ''); });
       if (!v('name')) { setErr('name', 'Please tell us your name.'); ok = false; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email'))) { setErr('email', 'Please enter a valid email address.'); ok = false; }
       if (v('message').length < 10) { setErr('message', 'A little more detail helps—at least 10 characters.'); ok = false; }
       if (!$f.find('[name="consent"]').is(':checked')) { setErr('consent', 'Please confirm you agree to be contacted about this enquiry.'); ok = false; }
+      var $cap = $f.find('[data-captcha]');
+      if ($cap.length && !(window.grecaptcha && $cap[0]._wid !== undefined && grecaptcha.getResponse($cap[0]._wid))) {
+        setErr('captcha', 'Please tick “I’m not a robot” to continue.'); ok = false;
+      }
       return ok;
     }
+    function resetCaptcha() { var $c = $f.find('[data-captcha]'); if ($c.length && window.grecaptcha && $c[0]._wid !== undefined) { grecaptcha.reset($c[0]._wid); } }
     $f.on('input change', 'input, textarea', function () { if (this.name && $(this).attr('aria-invalid')) { setErr(this.name, ''); } });
     $f.on('submit', function (e) {
       var $err = $f.find('[data-form-error]').prop('hidden', true);
@@ -149,18 +167,20 @@
         .then(function (res) { return res.json().then(function (data) { return { res: res, data: data }; }); })
         .then(function (o) {
           $f.removeClass('is-loading');
+          resetCaptcha();
           if (o.res.ok) {
             var $s = $('[data-success]'); $s.find('[data-success-text]').text(o.data.message || '');
             $f.prop('hidden', true); $s.prop('hidden', false).addClass('is-shown');
             $s[0].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
           } else if (o.res.status === 422 && o.data.errors) {
-            $.each(o.data.errors, function (k, msgs) { setErr(k, msgs[0]); });
+            $.each(o.data.errors, function (k, msgs) { setErr(k === 'g-recaptcha-response' ? 'captcha' : k, msgs[0]); });
           } else {
             $err.text('Something went wrong—please try again, or email us directly.').prop('hidden', false);
           }
         })
         .catch(function () {
           $f.removeClass('is-loading');
+          resetCaptcha();
           $err.text('We could not send your message. Please check your connection or email us directly.').prop('hidden', false);
         });
     });

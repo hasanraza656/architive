@@ -42,15 +42,15 @@ Route names: `home, about, team, services.index, services.visualization, service
 | Per-page title/description/OG image/sitemap priority (keyed by route name) | `config/seo.php` |
 | Services, process steps, audiences, 8 FAQs, collaborations, quote slides | `app/Support/Content.php` |
 | Page copy | `resources/views/pages/*.blade.php` |
-| Shared blocks (hero, CTA band, FAQ list+schema, process steps, schema, chat, header, footer, breadcrumbs, diagrams) | `resources/views/partials/*`, `resources/views/components/*` (`x-icon`, `x-logo`, `x-compare`) |
+| Shared blocks (hero, CTA band, FAQ list+schema, process steps, schema, Tawk loader (`partials/tawk`), header, footer, breadcrumbs, diagrams) | `resources/views/partials/*`, `resources/views/components/*` (`x-icon`, `x-logo`, `x-compare`) |
 | Layout / `<head>` / SEO tags | `resources/views/layouts/app.blade.php` |
 | SEO meta + breadcrumbs resolver (view composer) | `app/Providers/AppServiceProvider.php` |
 | URL helpers `pu()`, `abs_pu()`, `asset_v()`, `is_page()` | `app/helpers.php` (autoloaded via composer.json) |
 | Trailing-slash 301 + security headers | `app/Http/Middleware/EnsureTrailingSlash.php`, `SecurityHeaders.php` |
-| Contact form (validate + honeypot + throttle; **only logs**) | `app/Http/Controllers/ContactController.php` |
+| Contact form: validate + honeypot + throttle + **reCAPTCHA v2** + **admin email notification** | `app/Http/Controllers/ContactController.php`, `app/Rules/Recaptcha.php`, `app/Mail/ContactEnquiry.php`, `resources/views/emails/contact-enquiry*.blade.php`, tests in `tests/Feature/ContactFormTest.php` |
 | Sitemap/robots | `app/Http/Controllers/SeoController.php`, `resources/views/seo/sitemap.blade.php` |
-| CSS | `public/assets/css/base.css` (tokens, header, footer, chat, motion), `pages.css` (home + shared sections), `widgets.css` (interactive widgets + inner pages) |
-| JS | `public/assets/js/app.js` (theme, reveal/split text, counters, page-transition curtain, parallax, chat, FAQ filter, quotes), `interactive.js` (unify diagram, compare slider, CAD layers, time-zone widget, picker, filters, vertical timeline, contact form AJAX) |
+| CSS | `public/assets/css/base.css` (tokens, header, footer, motion), `pages.css` (home + shared sections), `widgets.css` (interactive widgets + inner pages) |
+| JS | `public/assets/js/app.js` (theme, reveal/split text, counters, page-transition curtain, parallax, FAQ filter, quotes, Tawk show/hide helper), `interactive.js` (unify diagram, compare slider, CAD layers, time-zone widget, picker, filters, vertical timeline, contact form AJAX) |
 | Vendor libs | `public/assets/vendor/` (bootstrap, jquery – self-hosted) |
 | Portfolio data (viz gallery, permit/BIM sets, scan pairs, case media, home highlights) | `app/Support/Portfolio.php` + generated `resources/data/work-manifest.json` |
 | Portfolio partials | `partials/set-card`, `partials/work-gallery`, `partials/collab-card` (real image when available) |
@@ -73,12 +73,14 @@ Images: `public/assets/img/` (hero from client PDF, `og/` 1200×630 share crops,
 9. Page-transition curtain uses `sessionStorage('ay-nav')` + `html.is-leaving/is-entering`.
 10. Git Bash path conversion: when passing `/` args to Windows programs set `MSYS_NO_PATHCONV=1`. Big multi-line heredocs with quotes sometimes break the Bash tool – prefer the Write tool for files.
 12. Bash tool quirk: heredocs/`node -e` strings containing apostrophes or `$` can break the whole command (nothing runs). Write files with the Write tool (or a script file) instead; for appending CSS create a new file rather than `cat >>`.
+15. **Live chat = Tawk.to** (replaced the old custom "Ask Architive" widget on 2026-10-06). `resources/views/partials/tawk.blade.php` loads `embed.tawk.to/<TAWK_PROPERTY_ID>/<TAWK_WIDGET_ID>` (public IDs in `config/services.php`, overridable in `.env`; `TAWK_ENABLED=false` switches it off) only after page load / first interaction. `app.js` exposes `window.architiveTawk(show)` which hides the bubble while the lightbox or mobile menu is open. The back-to-top button lives bottom-LEFT so it never collides with Tawk's bubble/pop-ups. Tawk answers `403` to HeadlessChrome user agents, so automated tests must set a normal Chrome user agent. Chat appearance, greeting and 'quick reply' buttons are configured in the Tawk dashboard, not in this repo. Privacy policy has a Tawk section.
+14. Env vars for forms: `ADMIN_EMAIL` (notification recipient, read via `config('site.admin_email')`), `RECAPTCHA_SITE_KEY`, `RECAPTCHA_SECRET_KEY` (via `config('services.recaptcha.*')`), plus the normal `MAIL_*` SMTP settings. reCAPTCHA keys must allow the live domain (and localhost/127.0.0.1 for local testing) in the Google admin console. Rule fails CLOSED in production if the secret is missing; in local/testing it is skipped when unset. Real CAPTCHA can't be ticked by automated tests, so the original Puppeteer 'valid submit shows success' check no longer applies; use `php artisan test` (Http/Mail are faked).
 13. Anchors used by the lightbox must not be intercepted by the page-transition curtain: `app.js` skips `a[data-lightbox]` and media/file extensions.
 11. Environment: **Node 16.15** only → use older packages (sharp 0.32.x, puppeteer-core 19). Python is not installed. Chrome at `C:\Program Files (x86)\Google\Chrome\Application\chrome.exe` (used headless for screenshots).
 
 ## 8. How QA was done (re-create in scratch dir, not in repo)
 - `puppeteer-core` + Chrome: full-page screenshots (scroll through page first so reveal animations fire), mobile 390px, dark mode, console-error capture.
-- Interaction script covered: theme toggle, FAQ search/filters/accordion, chat, diagram, quotes, page transition, mobile menu, BIM tabs + compare, CAD layers, engagement tabs, time-zone widget, picker, collaboration filter, contact form (validation + AJAX success), 404.
+- Interaction script covered: theme toggle, FAQ search/filters/accordion, diagram, quotes, page transition, mobile menu, BIM tabs + compare, CAD layers, engagement tabs, time-zone widget, picker, collaboration filter, contact form (validation + AJAX success), 404.
 - SEO audit script: one H1/page, title 20–70 chars, description 70–175, canonical = URL, JSON-LD parses, no duplicate IDs/titles/descriptions, images have alt + dimensions, crawl all internal links (all 200).
 Run server: `php artisan serve --host=127.0.0.1 --port=8000`.
 
@@ -110,7 +112,7 @@ How it is used:
 **Still stock:** only hero backgrounds on some pages (BIM, CAD, process, team, faqs, contact, about, collaborations, outsourcing) – credits in `docs/FRONTEND.md`.
 
 ## 10. Likely next tasks
-1. Contact form backend: persist (migration/model), notification + auto-reply mail (`ContactController@store` has the TODO), spam protection beyond honeypot.
+1. Contact form: admin notification + reCAPTCHA are DONE. Still optional: store enquiries in a database table, auto-reply to the visitor, admin dashboard.
 2. Deployment: web server rewrite to `public/`, set `APP_URL` (drives canonical/sitemap/OG), `APP_ENV=production`, `APP_DEBUG=false`, HTTPS, ensure `.htaccess` gzip/caching works, submit `sitemap.xml` to Search Console.
 3. Analytics/consent banner if wanted (then update privacy policy).
 4. Replace placeholders per §9; add real portfolio imagery when the client provides it.

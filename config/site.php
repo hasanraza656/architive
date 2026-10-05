@@ -16,6 +16,9 @@ return [
     'founder'     => 'Madiha Altaf',
     'founder_role' => 'Founder and Architectural Engineer',
     'email'       => 'architive.net@gmail.com',
+
+    // Internal: where form notifications are delivered (ADMIN_EMAIL in .env)
+    'admin_email' => env('ADMIN_EMAIL', env('MAIL_FROM_ADDRESS')),
     'locale'      => 'en_US',
     'theme_color' => '#FFD60A',
 

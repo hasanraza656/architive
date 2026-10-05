@@ -27,7 +27,16 @@
         <p>Detailed project files are shared only through a transfer method confirmed with you. If you ask for it, we will review and sign a mutual NDA before detailed project information is shared. Project access is limited to the assigned team.</p>
 
         <h2>Cookies and local storage</h2>
-        <p>This website stores a single preference in your browser's local storage—your light or dark theme choice—so the site looks the way you left it. It is not used to identify or track you. If we add analytics or marketing tools in future, we will update this policy and, where required, ask for consent.</p>
+        <p>Apart from the third-party services described below (Google reCAPTCHA and Tawk.to live chat), this website stores a single preference in your browser's local storage—your light or dark theme choice—so the site looks the way you left it. It is not used to identify or track you. If we add analytics or marketing tools in future, we will update this policy and, where required, ask for consent.</p>
+
+        <h2>Spam protection (Google reCAPTCHA)</h2>
+        <p>Our enquiry form is protected by Google reCAPTCHA (the "I'm not a robot" check) to stop automated spam. reCAPTCHA is only loaded on the contact page. It may set cookies and collect technical information such as your IP address and how you interact with the check, which is sent to Google for that purpose. Google's use of this information is governed by the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a> and <a href="https://policies.google.com/terms" target="_blank" rel="noopener">Terms of Service</a>.</p>
+
+        <h2>Live chat (Tawk.to)</h2>
+        <p>This website offers a live chat powered by Tawk.to. When the chat loads or you use it, Tawk.to may set cookies and process technical information (such as your IP address, browser and the page you are viewing) and anything you type into the chat, including a name or email address if you share one. This is used to deliver the chat and let our team reply to you. Tawk.to handles this information under its own <a href="https://www.tawk.to/privacy-policy/" target="_blank" rel="noopener">privacy policy</a>.</p>
+
+        <h2>Email notifications</h2>
+        <p>When you send an enquiry, the details you entered are emailed to our team so we can reply to you. We do not add you to any mailing list.</p>
 
         <h2>Sharing</h2>
         <p>We share information only with the people and service providers who need it to respond to you or deliver the agreed work, and where required by law.</p>

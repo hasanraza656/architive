@@ -79,7 +79,7 @@
     </main>
 
     @include('partials.footer')
-    @include('partials.chat')
+    @include('partials.tawk')
 
     <button class="to-top" type="button" aria-label="Back to top"><x-icon name="arrow-up" /></button>
 

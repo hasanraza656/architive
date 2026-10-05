@@ -1,7 +1,7 @@
 /* ==========================================================================
    Architive – core behaviour (jQuery + Bootstrap 5)
    Theme, header, reveal/split animations, counters, page transitions,
-   parallax, micro-interactions, chat widget, FAQ filter, quote slider.
+   parallax, micro-interactions, FAQ filter, quote slider.
    Everything degrades gracefully without JS; motion respects reduced-motion.
    ========================================================================== */
 (function ($, window, document) {
@@ -120,7 +120,7 @@
     if (!$(e.target).closest('.has-mega').length) { $('.has-mega').removeClass('open').find('.mega-toggle').attr('aria-expanded', false); }
   });
   $(document).on('keydown', function (e) {
-    if (e.key === 'Escape') { $('.has-mega').removeClass('open').find('.mega-toggle').attr('aria-expanded', false); closeChat(); }
+    if (e.key === 'Escape') { $('.has-mega').removeClass('open').find('.mega-toggle').attr('aria-expanded', false); }
   });
   $('.has-mega').on('mouseenter', function () { $(this).find('.mega-toggle').attr('aria-expanded', true); })
                 .on('mouseleave', function () { $(this).find('.mega-toggle').attr('aria-expanded', false); });
@@ -183,23 +183,13 @@
   });
   window.addEventListener('pageshow', function (e) { if (e.persisted) { root.classList.remove('is-leaving', 'is-entering'); } });
 
-  /* ---- Chat widget (quick answers drawn from the FAQ copy) ----------------- */
-  var $chat = $('[data-chat]'), $panel = $('#chatPanel'), $fab = $('.chat-fab');
-  function closeChat() { if ($panel.length && !$panel.prop('hidden')) { $panel.prop('hidden', true); $fab.attr('aria-expanded', false); } }
-  function openChat() { $panel.prop('hidden', false); $fab.attr('aria-expanded', true); $panel.find('.chat-panel__close').trigger('focus'); }
-  $fab.on('click', function () { $panel.prop('hidden') ? openChat() : closeChat(); });
-  $('.chat-panel__close').on('click', function () { closeChat(); $fab.trigger('focus'); });
-  $(document).on('click', function (e) { if ($panel.length && !$(e.target).closest('[data-chat]').length) { closeChat(); } });
-  $('.chat-panel__chips').on('click', '.chip', function () {
-    var $log = $('.chat-panel__log'), q = $(this).data('q'), a = $(this).data('a');
-    $('<div class="bubble bubble--me"></div>').text(q).appendTo($log);
-    var $typing = $('<div class="bubble bubble--bot">…</div>').appendTo($log);
-    $log.scrollTop($log[0].scrollHeight);
-    setTimeout(function () {
-      $typing.text(a);
-      $log.scrollTop($log[0].scrollHeight);
-    }, reduceMotion ? 0 : 520);
-  });
+  /* ---- Tawk.to live chat: hide its bubble while a full-screen overlay is open ---- */
+  window.architiveTawk = function (show) {
+    var t = window.Tawk_API;
+    if (t && typeof t.hideWidget === 'function') { try { show ? t.showWidget() : t.hideWidget(); } catch (e) {} }
+  };
+  document.addEventListener('show.bs.offcanvas', function () { window.architiveTawk(false); });
+  document.addEventListener('hidden.bs.offcanvas', function () { window.architiveTawk(true); });
 
   /* ---- FAQ search + category filter -------------------------------------- */
   $('[data-faq-tools]').each(function () {

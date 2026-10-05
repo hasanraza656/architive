@@ -132,3 +132,8 @@ html.lb-open { overflow: hidden; }
 
 /* two default-background sections in a row: don't double the gap */
 .section--flush-top { padding-top: clamp(1rem, 3vw, 2rem); }
+
+/* reCAPTCHA widget on the enquiry form */
+.captcha { margin-top: 1.6rem; min-height: 78px; }
+.captcha > div { max-width: 100%; }
+.captcha .f-err { margin-top: .6rem; }

@@ -30,11 +30,11 @@ Run locally: `php artisan serve` → http://127.0.0.1:8000
 | Page `<title>`, meta description, OG image, sitemap priority | `config/seo.php` (keyed by route name) |
 | Services, process steps, audiences, FAQs, collaborations, quotes | `app/Support/Content.php` |
 | Page copy | `resources/views/pages/*.blade.php` |
-| Shared blocks (hero, CTA, FAQ list, schema, chat, header/footer) | `resources/views/partials/*`, `components/*` |
+| Shared blocks (hero, CTA, FAQ list, schema, header/footer, Tawk loader) | `resources/views/partials/*`, `components/*` |
 | Design tokens (colours, fonts, radii), header, footer, motion primitives | `public/assets/css/base.css` |
 | Home + shared sections | `public/assets/css/pages.css` |
 | Interactive widgets + inner pages | `public/assets/css/widgets.css` |
-| Core JS (theme, reveal, counters, transitions, chat, FAQ, slider) | `public/assets/js/app.js` |
+| Core JS (theme, reveal, counters, transitions, FAQ, slider) | `public/assets/js/app.js` |
 | Page widgets (compare slider, CAD layers, time zones, picker, form) | `public/assets/js/interactive.js` |
 
 Colours (from the client dummy): off-white `#FBFBF9`, ink `#141414`, signal yellow `#FFD60A`. Fonts: Playfair Display (headings), Plus Jakarta Sans (body), JetBrains Mono (labels). Dark mode via the header toggle (`data-theme`).
@@ -43,9 +43,13 @@ Colours (from the client dummy): off-white `#FBFBF9`, ink `#141414`, signal yell
 
 Unique title/description/canonical per page · Open Graph + Twitter cards (per-page 1200×630 crops in `public/assets/img/og/`) · JSON-LD graph (Organization/ProfessionalService, WebSite, WebPage types, BreadcrumbList, Service on the 4 service pages, FAQPage wherever FAQs are visible) · dynamic `sitemap.xml` + `robots.txt` · semantic landmarks, one `<h1>` per page, skip link, descriptive alt text, explicit image sizes, lazy-loading, preloaded hero + fonts, self-hosted WOFF2 fonts, immutable asset caching + gzip in `.htaccess`, `noindex` on the 404 page.
 
-## Contact form (front-end phase)
+## Live chat (Tawk.to)
 
-`POST /contact/send` validates server-side (+ honeypot, throttle 6/min, CSRF) and returns JSON; it **only logs** the enquiry (`storage/logs/laravel.log`). Backend phase: persist + send notification/auto-reply mail in `ContactController@store`.
+The floating chat bubble is Tawk.to (`resources/views/partials/tawk.blade.php`). Property/widget IDs live in `config/services.php` (`TAWK_PROPERTY_ID`, `TAWK_WIDGET_ID`, switch off with `TAWK_ENABLED=false`). The script loads after the page has finished loading, so it never slows rendering. Look, greeting text and agent availability are managed in the Tawk dashboard; add the live domain there if its domain whitelist is on.
+
+## Contact form
+
+`POST /contact/send` validates server-side (+ honeypot, throttle 6/min, CSRF, **Google reCAPTCHA v2**), logs the enquiry and **emails it to `ADMIN_EMAIL`** (Reply-To is the visitor). If the email cannot be sent the visitor sees a friendly error and the enquiry is still in `storage/logs/laravel.log`. Set `ADMIN_EMAIL`, `RECAPTCHA_SITE_KEY`, `RECAPTCHA_SECRET_KEY` and the `MAIL_*` SMTP settings in `.env`; register the live domain in the reCAPTCHA admin console.
 
 ## Content to verify before launch (from the client copy deck)
 

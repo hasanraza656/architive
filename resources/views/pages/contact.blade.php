@@ -2,6 +2,7 @@
 
 @section('content')
 @php
+    $captchaKey = config('services.recaptcha.site_key');
     $selService  = old('service', request('service'));
     $selAudience = old('audience', request('audience'));
     $services = ['visualization' => ['Visualization', 'eye'], 'bim' => ['BIM and Revit', 'box'], 'cad' => ['CAD drafting', 'file-text'], 'outsourcing' => ['Production support', 'users'], 'unsure' => ['Not sure yet', 'message']];
@@ -106,8 +107,15 @@
                         <label class="check"><input type="checkbox" name="consent" value="1" required @checked(old('consent'))><span>I agree to be contacted about this enquiry. See our <a href="{{ pu('privacy') }}">Privacy Policy</a>. <b>*</b></span></label>
                         <p class="f-err" data-err-for="consent">@error('consent'){{ $message }}@enderror</p>
 
+                        @if ($captchaKey)
+                            <div class="captcha">
+                                <div data-captcha data-sitekey="{{ $captchaKey }}" aria-label="Security check"></div>
+                                <p class="f-err" data-err-for="captcha">@error('g-recaptcha-response'){{ $message }}@enderror</p>
+                            </div>
+                        @endif
+
                         <button class="btn-ay btn-ay--lg btn-ay--block" type="submit" data-submit><span class="btn-label">Send enquiry</span> <x-icon name="send" /><span class="spinner" aria-hidden="true"></span></button>
-                        <p class="f-global" role="alert" data-form-error hidden></p>
+                        <p class="f-global" role="alert" data-form-error @unless ($errors->has('mail')) hidden @endunless>{{ $errors->first('mail') }}</p>
                     </form>
 
                     <div class="enquiry-success" data-success hidden role="status">
@@ -122,3 +130,10 @@
     </div>
 </section>
 @endsection
+
+@if ($captchaKey ?? config('services.recaptcha.site_key'))
+    @push('scripts')
+        {{-- Google reCAPTCHA v2 (checkbox). Loaded on this page only; the render callback lives in interactive.js --}}
+        <script src="https://www.google.com/recaptcha/api.js?onload=architiveCaptcha&amp;render=explicit" async defer></script>
+    @endpush
+@endif
