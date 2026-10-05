@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Support\Content;
+use App\Support\Portfolio;
 
 class SeoController extends Controller
 {
@@ -18,6 +19,9 @@ class SeoController extends Controller
                 'priority'   => $meta['sitemap'][0],
                 'changefreq' => $meta['sitemap'][1],
                 'lastmod'    => $this->lastmod($name),
+                'images'     => $name === 'services.visualization'
+                    ? array_map(fn ($i) => ['loc' => $i['src'], 'title' => $i['title'], 'caption' => $i['alt']], Portfolio::viz())
+                    : [],
             ];
         }
         foreach (array_keys(Content::collaborations()) as $slug) {
@@ -26,6 +30,7 @@ class SeoController extends Controller
                 'priority'   => 0.7,
                 'changefreq' => 'monthly',
                 'lastmod'    => $this->lastmod('collaboration'),
+                'images'     => ($m = Portfolio::caseMedia($slug)) ? [['loc' => $m['cover']['src'], 'title' => $m['caption'], 'caption' => $m['alt']]] : [],
             ];
         }
 

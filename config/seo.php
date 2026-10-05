@@ -33,19 +33,19 @@ return [
         'services.visualization' => [
             'title'       => 'Architectural Visualization and Rendering | Architive',
             'description' => 'Architectural visualization for design reviews, approvals and marketing, including interior and exterior renderings, 3D floor plans and renovation visuals.',
-            'image'       => 'assets/img/og/exterior-modern-house.jpg',
+            'image'       => 'assets/img/og/viz-bandon.jpg',
             'sitemap'     => [0.9, 'monthly'],
         ],
         'services.bim' => [
             'title'       => 'BIM Modeling and Revit Services | Architive',
             'description' => 'BIM and Revit services for architects and project teams, including CAD to BIM, scan to BIM, Revit families, model updates and documentation.',
-            'image'       => 'assets/img/og/bim-house-model.jpg',
+            'image'       => 'assets/img/og/bim-scan.jpg',
             'sitemap'     => [0.9, 'monthly'],
         ],
         'services.cad' => [
             'title'       => 'CAD Drafting and Permit Drawing Support | Architive',
             'description' => 'CAD drafting for architects, interior designers and contractors, including plans, elevations, sections, PDF to DWG, redlines and permit-support packages.',
-            'image'       => 'assets/img/og/cad-floor-plan.jpg',
+            'image'       => 'assets/img/og/cad-permit.jpg',
             'sitemap'     => [0.9, 'monthly'],
         ],
         'services.outsourcing' => [

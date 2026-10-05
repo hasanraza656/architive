@@ -18,8 +18,8 @@ class Content
                 'short' => 'Photorealistic interiors, exteriors, 3D floor plans and presentation visuals that help clients, investors and homeowners understand the design before it is built.',
                 'items' => ['Interior and exterior renderings', '3D floor plans and axonometric views', 'Renovation and option visuals', 'Animation and 360-degree views by scope'],
                 'link'  => 'Explore visualization',
-                'image' => 'assets/img/photos/exterior-modern-house',
-                'alt'   => 'Modern residence with landscaped garden, an example of an architectural exterior view',
+                'image' => 'assets/img/work/viz/bandon-dusk-lawn',
+                'alt'   => 'Architectural exterior visualization of a timber-and-stone residence at dusk',
             ],
             'bim' => [
                 'route' => 'services.bim',
@@ -28,8 +28,8 @@ class Content
                 'short' => 'Structured Revit models and documentation built from CAD files, surveys and point clouds, with the model purpose, version, views and standards agreed before production.',
                 'items' => ['Architectural Revit modeling', 'CAD to BIM and scan to BIM', 'Plans, sections, elevations and schedules', 'Revit families and model updates'],
                 'link'  => 'Explore BIM and Revit',
-                'image' => 'assets/img/photos/bim-house-model',
-                'alt'   => 'White three-storey house model with blue and timber accents',
+                'image' => 'assets/img/work/scan/house-1-model',
+                'alt'   => 'Revit existing-conditions model of a historic brick house built from a point cloud',
             ],
             'cad' => [
                 'route' => 'services.cad',
@@ -39,8 +39,8 @@ class Content
                 'items' => ['Floor plans, elevations and sections', 'Permit-support and construction drawing packages', 'PDF, sketch and scan to DWG', 'As-built, renovation and redline updates'],
                 'link'  => 'Explore CAD drafting',
                 'note'  => 'Where local regulations require drawings to be signed or sealed, we prepare the package for review by your locally licensed professional.',
-                'image' => 'assets/img/photos/cad-floor-plan',
-                'alt'   => 'Architectural floor plan drawing on paper',
+                'image' => 'assets/img/work/sets/ny/01-main-level-plan',
+                'alt'   => 'Main level floor plan from a residential addition permit set',
             ],
             'outsourcing' => [
                 'route' => 'services.outsourcing',
@@ -49,8 +49,8 @@ class Content
                 'short' => 'A flexible extension of your studio. Bring us one defined assignment, begin with a paid pilot or use Architive as recurring production support.',
                 'items' => ['One point of contact', 'Your templates and standards', 'Agreed review stages', 'Flexible project-based or ongoing support'],
                 'link'  => 'Explore production support',
-                'image' => 'assets/img/photos/site-cranes',
-                'alt'   => 'Tower cranes on a construction site against a pale sky',
+                'image' => 'assets/img/work/cases/manuel-house-3d',
+                'alt'   => 'Revit 3D view of a two-storey house produced for a residential development team',
             ],
         ];
     }

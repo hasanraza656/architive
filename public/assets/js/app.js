@@ -176,7 +176,8 @@
     var a = this, href = a.getAttribute('href');
     if (e.defaultPrevented || reduceMotion || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.which > 1) { return; }
     if (a.target && a.target !== '_self' || a.hasAttribute('download') || !href || href.charAt(0) === '#' || /^(mailto:|tel:|sms:|javascript:)/i.test(href)) { return; }
-    if (a.hostname !== window.location.hostname || a.hasAttribute('data-bs-toggle')) { return; }
+    if (a.hostname !== window.location.hostname || a.hasAttribute('data-bs-toggle') || a.hasAttribute('data-lightbox')) { return; }
+    if (/\.(webp|jpe?g|png|gif|svg|mp4|webm|pdf|zip|xml|txt)(\?|$)/i.test(a.pathname + a.search)) { return; }   // files/media: normal browser handling
     if (a.pathname === window.location.pathname && a.search === window.location.search) { return; }
     e.preventDefault();
     root.classList.add('is-leaving');

@@ -115,8 +115,27 @@
     </div>
 </section>
 
+{{-- SAMPLE PERMIT / DRAWING SETS (real, redacted sheets) --}}
+<section class="section section--alt" id="samples" aria-labelledby="cad-samples">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow" data-reveal>Sample drawing sets</p>
+                <h2 class="display-h mb-0" id="cad-samples" data-split>Permit and Construction <em>Drawing Samples</em></h2>
+            </div>
+            <p class="lead-p mb-0" data-reveal style="max-width: 46ch">Drawing sets prepared by Architive. Select a set to browse its sheets, then zoom in to read the detail.</p>
+        </div>
+        <div class="set-grid">
+            @foreach (\App\Support\Portfolio::sets('cad') as $set)
+                @include('partials.set-card', ['set' => $set])
+            @endforeach
+        </div>
+        <p class="callout callout--wide mt-4" data-reveal><x-icon name="info" /><span><b>Note:</b> These samples show drawing production. Where local law requires drawings to be signed or sealed, the client appoints the locally licensed professional. Cover sheets and site plans are omitted, and title blocks (owner, address and contractor details) are removed to protect client privacy.</span></p>
+    </div>
+</section>
+
 {{-- PERMIT + RENOVATIONS --}}
-<section class="section section--alt" aria-labelledby="cad-permit">
+<section class="section" aria-labelledby="cad-permit">
     <div class="wrap">
         <div class="row g-4">
             <div class="col-lg-6" data-reveal>
@@ -141,7 +160,7 @@
     </div>
 </section>
 
-<section class="section" aria-labelledby="cad-faq">
+<section class="section section--alt" aria-labelledby="cad-faq">
     <div class="wrap wrap--narrow">
         <p class="eyebrow eyebrow--center" data-reveal>Questions</p>
         <h2 class="display-h text-center" id="cad-faq" data-split>Before You <em>Start</em></h2>

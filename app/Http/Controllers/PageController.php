@@ -37,6 +37,7 @@ class PageController extends Controller
             'seo'  => [
                 'title'       => $all[$slug]['title'] . ' | Architive',
                 'description' => $all[$slug]['description'],
+                'image'       => ['bonderud-design-visualization' => 'assets/img/og/case-bonderud.jpg', 'fifa-2026-circulation-plan-drafting' => 'assets/img/og/case-fifa.jpg', 'manuel-development-revit-support' => 'assets/img/og/case-manuel.jpg'][$slug] ?? config('seo.default_image'),
             ],
         ]);
     }

@@ -140,8 +140,36 @@
     </div>
 </section>
 
+{{-- ===================== SELECTED WORK (real renders, sheets, models) ===================== --}}
+@php
+    $hl = \App\Support\Portfolio::highlights();
+    $anchors = ['services.visualization' => 'work', 'services.cad' => 'samples', 'services.bim' => 'convert'];
+@endphp
+<section class="section" aria-labelledby="work-title">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow" data-reveal>Selected work</p>
+                <h2 class="display-h mb-0" id="work-title" data-split>Visuals, Drawings <em>and Models.</em></h2>
+            </div>
+            <a class="btn-ay" href="{{ pu('services.visualization') }}#work" data-reveal>See the work <x-icon name="arrow-right" /></a>
+        </div>
+        <div class="mosaic">
+            @foreach ($hl as $t)
+                @php $img = $t['img']; $light = str_starts_with($img['key'], 'sets/'); @endphp
+                <a class="mosaic__tile {{ $light ? 'mosaic__tile--light' : '' }}" href="{{ pu($t['url']) }}#{{ $anchors[$t['url']] ?? '' }}" data-reveal style="--d: {{ $loop->index * .08 }}s">
+                    <img src="{{ $img['thumb'] }}" srcset="{{ $img['thumb'] }} {{ $img['tw'] }}w, {{ $img['src'] }} {{ $img['w'] }}w" sizes="(min-width: 768px) 55vw, 100vw"
+                         width="{{ $img['w'] }}" height="{{ $img['h'] }}" alt="{{ $t['alt'] ?? $img['alt'] ?? $t['title'] }}" loading="lazy" decoding="async">
+                    <span class="mosaic__cap"><span><small>{{ $t['tag'] }}</small><strong>{{ $t['title'] }}</strong></span><span class="mosaic__go"><x-icon name="arrow-up-right" /></span></span>
+                </a>
+            @endforeach
+        </div>
+        <p class="note-line text-center" data-reveal>Examples from the studio's visualization, CAD and BIM work. Client identities are withheld on drawings.</p>
+    </div>
+</section>
+
 {{-- ===================== ENGAGEMENT MODEL ===================== --}}
-<section class="section" aria-labelledby="engage-title">
+<section class="section section--flush-top" aria-labelledby="engage-title">
     <div class="wrap">
         <div class="row g-5 align-items-center">
             <div class="col-lg-5">

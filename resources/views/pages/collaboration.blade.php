@@ -9,6 +9,7 @@
     $next = $all[$keys[($i + 1) % count($keys)]];
     $prevSlug = $keys[($i + count($keys) - 1) % count($keys)];
     $nextSlug = $keys[($i + 1) % count($keys)];
+    $media = \App\Support\Portfolio::caseMedia($slug);
 @endphp
 
 <section class="page-hero page-hero--plain">
@@ -25,13 +26,21 @@
                 <p class="page-hero__lead" data-reveal style="--d:.2s">{{ $c['situation'] }}</p>
             </div>
             <div class="col-lg-5" data-reveal="zoom">
-                <div class="collab-card collab-card--hero">
-                    <div class="collab-card__art">
-                        <div class="collab-card__row"><span>Project {{ $c['num'] }}</span><b class="tag-{{ $c['key'] }}">{{ $c['tag'] }}</b></div>
-                        @include('partials.blueprint-card', ['kind' => $c['key']])
-                        <div class="collab-card__row"><span>Illustrative line drawing</span><span>Scale 1:100</span></div>
+                @if ($media)
+                    <a class="case-cover case-cover--hero" href="{{ $media['cover']['src'] }}" data-lightbox="case-cover" data-title="{{ $media['caption'] }}" data-sub="{{ $c['title'] }}" data-alt="{{ $media['alt'] }}">
+                        <img src="{{ $media['cover']['thumb'] }}" srcset="{{ $media['cover']['thumb'] }} {{ $media['cover']['tw'] }}w, {{ $media['cover']['src'] }} {{ $media['cover']['w'] }}w" sizes="(min-width: 992px) 40vw, 100vw"
+                             width="{{ $media['cover']['w'] }}" height="{{ $media['cover']['h'] }}" alt="{{ $media['alt'] }}" fetchpriority="high" decoding="async">
+                        <span class="case-cover__tag">{{ $media['caption'] }}</span>
+                    </a>
+                @else
+                    <div class="collab-card collab-card--hero">
+                        <div class="collab-card__art">
+                            <div class="collab-card__row"><span>Project {{ $c['num'] }}</span><b class="tag-{{ $c['key'] }}">{{ $c['tag'] }}</b></div>
+                            @include('partials.blueprint-card', ['kind' => $c['key']])
+                            <div class="collab-card__row"><span>Illustrative line drawing</span><span>Scale 1:100</span></div>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -61,6 +70,56 @@
         </div>
     </div>
 </section>
+
+@if ($media)
+    {{-- PROJECT VISUALS --}}
+    <section class="section section--alt" aria-labelledby="case-visuals">
+        <div class="wrap">
+            <p class="eyebrow" data-reveal>Project visuals</p>
+            <h2 class="display-h" id="case-visuals" data-split>The Work, <em>in Detail</em></h2>
+
+            @if (! empty($media['video']))
+                <div class="row g-4 align-items-center mt-1">
+                    <div class="col-lg-7" data-reveal="zoom">
+                        <figure class="video-card">
+                            <video controls preload="none" playsinline poster="{{ $media['video']['poster'] }}" width="1280" height="720" aria-label="{{ $media['video']['title'] }}">
+                                <source src="{{ $media['video']['src'] }}" type="video/mp4">
+                                Your browser can't play this video. <a href="{{ $media['video']['src'] }}">Download the MP4</a>.
+                            </video>
+                            <figcaption><span>{{ $media['video']['title'] }}</span><span>23 sec · Revit 3D views</span></figcaption>
+                        </figure>
+                    </div>
+                    <div class="col-lg-5">
+                        <p class="lead-p" data-reveal>A short walkthrough of the architectural Revit model: exterior views, wall and roof build-ups and building sections, developed and updated in line with the agreed drawings, model requirements and review comments.</p>
+                        <p class="mono-note" data-reveal>The video loads only when you press play.</p>
+                    </div>
+                </div>
+            @else
+                <div class="case-board" data-reveal="zoom">
+                    <a class="case-cover" href="{{ $media['cover']['src'] }}" data-lightbox="case-board" data-title="{{ $media['caption'] }}" data-sub="{{ $c['title'] }}" data-alt="{{ $media['alt'] }}">
+                        <img src="{{ $media['cover']['src'] }}" width="{{ $media['cover']['w'] }}" height="{{ $media['cover']['h'] }}" alt="{{ $media['alt'] }}" loading="lazy" decoding="async">
+                        <span class="case-cover__tag">{{ $media['caption'] }} · click to enlarge</span>
+                    </a>
+                </div>
+            @endif
+
+            @if (! empty($media['sheets']))
+                <h3 class="display-h display-h--sm mt-5" data-reveal>Documentation <em>sheets</em></h3>
+                <ul class="work-grid mt-3" data-reveal>
+                    @foreach ($media['sheets'] as $sh)
+                        <li class="work-item">
+                            <a href="{{ $sh['src'] }}" data-lightbox="case-sheets" data-title="{{ $sh['no'] }} · {{ $sh['title'] }}" data-sub="{{ $c['title'] }}" data-alt="{{ $sh['alt'] }}">
+                                <img src="{{ $sh['thumb'] }}" width="{{ $sh['tw'] }}" height="{{ $sh['th'] }}" alt="{{ $sh['alt'] }}" loading="lazy" decoding="async">
+                                <span class="work-item__cap"><span><small>Sheet {{ $sh['no'] }}</small><strong>{{ $sh['title'] }}</strong></span><i><x-icon name="search" /></i></span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+                <p class="note-line">Sheets are shown without title blocks (owner, address and client branding removed). Click any sheet to zoom.</p>
+            @endif
+        </div>
+    </section>
+@endif
 
 <section class="section section--alt pager-sec" aria-label="More collaborations">
     <div class="wrap">

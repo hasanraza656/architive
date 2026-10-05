@@ -62,6 +62,7 @@
     <link rel="stylesheet" href="{{ asset_v('assets/css/base.css') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/pages.css') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/widgets.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('assets/css/portfolio.css') }}">
 
     @include('partials.schema')
     @stack('head')
@@ -88,6 +89,7 @@
     <script src="{{ asset('assets/vendor/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset_v('assets/js/app.js') }}"></script>
     <script src="{{ asset_v('assets/js/interactive.js') }}"></script>
+    <script src="{{ asset_v('assets/js/lightbox.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

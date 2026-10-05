@@ -12,8 +12,8 @@
     'title' => 'Make the Design Easy to Understand—<em>and Easier to Approve.</em>',
     'lead' => 'Accurate, presentation-ready visuals for client decisions, design approvals, investor conversations and pre-construction marketing—developed from your drawings, models and references.',
     'cta' => 'Start a visualization project', 'ctaUrl' => pu('contact', [], ['service' => 'visualization']),
-    'secondary' => ['How reviews work', '#process'],
-    'image' => 'assets/img/photos/exterior-modern-house', 'imgPos' => '50% 60%',
+    'secondary' => ['See our work', '#work'],
+    'image' => 'assets/img/work/viz/bandon-dusk-wrap', 'imgPos' => '50% 55%',
     'chips' => ['Interior and exterior renderings', '3D floor plans and axonometric views', 'Renovation and option visuals'],
 ])
 
@@ -28,11 +28,12 @@
                 <p class="lead-p" data-reveal style="--d:.2s">We translate the agreed design into clear, realistic visuals, with geometry and camera views reviewed before final materials and lighting are developed.</p>
             </div>
             <div class="col-lg-7" data-reveal="zoom">
-                <x-compare label-a="Grayscale review" label-b="Final render" aria="Drag to compare the grayscale geometry review with the final rendered image">
-                    <x-slot:a><img class="compare__img compare__img--gray" src="{{ asset('assets/img/photos/exterior-modern-house.webp') }}" width="1600" height="1068" loading="lazy" decoding="async" alt="Grayscale geometry review of a modern residence exterior"></x-slot:a>
-                    <x-slot:b><img class="compare__img" src="{{ asset('assets/img/photos/exterior-modern-house.webp') }}" width="1600" height="1068" loading="lazy" decoding="async" alt="Final rendered exterior of a modern residence with materials, landscape and lighting"></x-slot:b>
+                @php $cmp = \App\Support\Portfolio::img('viz/brick-mixed-use'); @endphp
+                <x-compare label-a="Grayscale review" label-b="Final render" ratio="16 / 9" aria="Drag to compare the grayscale geometry review with the final rendered image">
+                    <x-slot:a><img class="compare__img compare__img--gray" src="{{ $cmp['src'] }}" width="{{ $cmp['w'] }}" height="{{ $cmp['h'] }}" loading="lazy" decoding="async" alt="Grayscale geometry review of a brick mixed-use building"></x-slot:a>
+                    <x-slot:b><img class="compare__img" src="{{ $cmp['src'] }}" width="{{ $cmp['w'] }}" height="{{ $cmp['h'] }}" loading="lazy" decoding="async" alt="Final rendered brick mixed-use building with materials, landscape and lighting"></x-slot:b>
                 </x-compare>
-                <p class="mono-note mt-3">Drag to see how a grayscale geometry review becomes a finished image. Illustrative imagery.</p>
+                <p class="mono-note mt-3">Drag to see how a grayscale geometry review becomes a finished image (the grayscale view is a simulation of the review stage).</p>
             </div>
         </div>
     </div>
@@ -55,22 +56,26 @@
                 </ul>
             </div>
         </div>
-        <div class="row g-3 mt-4 photo-row">
-            @foreach ([['interior-kitchen-render', 'Interior views', 'Modern kitchen interior with timber cabinetry and a central island'], ['exterior-residence', 'Exterior views', 'Contemporary residence exterior with landscaped frontage'], ['renovation-interior', 'Renovation and option visuals', 'Interior mid-renovation with ladders and exposed walls']] as [$img, $cap, $alt])
-                <div class="col-md-4" data-reveal style="--d: {{ $loop->index * .12 }}s">
-                    <figure class="photo" data-tilt>
-                        <img src="{{ asset('assets/img/photos/' . $img . '-800.webp') }}" width="800" height="533" loading="lazy" decoding="async" alt="{{ $alt }}">
-                        <figcaption>{{ $cap }}</figcaption>
-                    </figure>
-                </div>
-            @endforeach
+    </div>
+</section>
+
+{{-- SELECTED WORK (real renders) --}}
+<section class="section" id="work" aria-labelledby="viz-work">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow" data-reveal>Selected work</p>
+                <h2 class="display-h mb-0" id="viz-work" data-split>Visuals <em>We Have Delivered</em></h2>
+            </div>
+            <p class="lead-p mb-0" data-reveal style="max-width: 44ch">Exteriors, interiors, 3D floor plans and concept visuals. Select any image to enlarge it.</p>
         </div>
-        <p class="mono-note text-center mt-3">Illustrative photography showing the types of space we visualize.</p>
+        @include('partials.work-gallery')
+        <p class="note-line">Selected examples of Architive visualization work; some images carry the Architive studio mark.</p>
     </div>
 </section>
 
 {{-- AUDIENCE --}}
-<section class="section" aria-labelledby="viz-aud">
+<section class="section section--alt" aria-labelledby="viz-aud">
     <div class="wrap">
         <p class="eyebrow" data-reveal>Audience</p>
         <h2 class="display-h" id="viz-aud" data-split>Built for the Decision <em>in Front of You.</em></h2>

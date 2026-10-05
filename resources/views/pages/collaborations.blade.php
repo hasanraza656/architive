@@ -27,11 +27,16 @@
                 <article class="collab-row" data-kind="{{ $c['key'] }}" data-reveal>
                     <div class="row g-4 g-lg-5 align-items-center">
                         <div class="col-lg-5">
+                            @php $m = \App\Support\Portfolio::caseMedia($slug); @endphp
                             <a class="collab-card collab-card--big" href="{{ pu('collaborations.show', ['slug' => $slug]) }}" aria-label="{{ $c['title'] }}" data-spotlight>
-                                <div class="collab-card__art">
+                                <div class="collab-card__art {{ $m ? 'collab-card__art--photo' : '' }}">
                                     <div class="collab-card__row"><span>Project {{ $c['num'] }}</span><b class="tag-{{ $c['key'] }}">{{ $c['tag'] }}</b></div>
-                                    @include('partials.blueprint-card', ['kind' => $c['key']])
-                                    <div class="collab-card__row"><span>Scale 1:100</span><i class="collab-card__go"><x-icon name="arrow-up-right" /></i></div>
+                                    @if ($m)
+                                        <span class="collab-card__photo"><img src="{{ $m['cover']['thumb'] }}" width="{{ $m['cover']['tw'] }}" height="{{ $m['cover']['th'] }}" alt="{{ $m['alt'] }}" loading="lazy" decoding="async"></span>
+                                    @else
+                                        @include('partials.blueprint-card', ['kind' => $c['key']])
+                                    @endif
+                                    <div class="collab-card__row"><span>{{ $m ? $m['caption'] : 'Scale 1:100' }}</span><i class="collab-card__go"><x-icon name="arrow-up-right" /></i></div>
                                 </div>
                             </a>
                         </div>
