@@ -26,5 +26,4 @@
     </div>
 </section>
 
-@include('partials.cta-band')
 @endsection
