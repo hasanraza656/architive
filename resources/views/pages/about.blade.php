@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.app', ['overlay' => true])
 
 @section('content')
 @php use App\Support\Content; @endphp
 
 @include('partials.page-hero', [
-    'eyebrow' => 'About Architive',
+    'eyebrow' => 'Who we are',
     'title' => 'Built from the Same Production Problem <em>Our Clients Still Face.</em>',
     'lead' => 'Architive began because good design teams were losing time coordinating separate people for drawings, BIM and visualization.',
     'image' => 'assets/img/photos/blueprint-tools', 'imgPos' => '50% 45%',
@@ -74,24 +74,25 @@
     </div>
 </section>
 
-{{-- TEAM TEASER --}}
-<section class="section section--dark" aria-labelledby="about-team">
+{{-- WHAT WE DO --}}
+<section class="section section--dark" aria-labelledby="about-do">
     <div class="process__glow" aria-hidden="true"></div>
     <div class="wrap">
         <div class="row g-5 align-items-center">
-            <div class="col-lg-7">
-                <p class="eyebrow eyebrow--light" data-reveal>Team</p>
-                <h2 class="display-h display-h--light" id="about-team" data-split>Specialists Who <em>Work as One Studio</em></h2>
-                <p class="lead-p" data-reveal>Our CAD, Revit and visualization specialists work within one production structure, with a named point of contact and an architectural review appropriate to the scope.</p>
-                <a class="btn-ay mt-2" href="{{ pu('team') }}" data-reveal>Meet the team <x-icon name="arrow-right" /></a>
+            <div class="col-lg-6">
+                <p class="eyebrow eyebrow--light" data-reveal>What we do</p>
+                <h2 class="display-h display-h--light" id="about-do" data-split>One Studio, <em>Three Disciplines.</em></h2>
+                <p class="lead-p" data-reveal>Our CAD, Revit and visualization specialists work within one production structure, with a named point of contact and an architectural review appropriate to the scope. You lead the design; we keep the production moving.</p>
+                <a class="btn-ay mt-2" href="{{ pu('contact') }}" data-reveal>Start your project <x-icon name="arrow-right" /></a>
                 <p class="mono-note mono-note--light" data-reveal>Start with a free consultation or a small paid pilot. No commitment until you approve the scope.</p>
             </div>
-            <div class="col-lg-5" data-reveal="zoom">
-                <div class="stat-stack">
-                    <div><strong data-count="2017" data-from="1990">2017</strong><span>Established</span></div>
-                    <div><strong data-count="1500" data-suffix="+">1,500+</strong><span>Projects delivered</span></div>
-                    <div><strong data-count="12" data-suffix="+">12+</strong><span>Team specialists</span></div>
-                </div>
+            <div class="col-lg-6" data-reveal="zoom">
+                <ul class="do-list">
+                    @foreach (Content::coreServices() as $svc)
+                        <li><a href="{{ pu($svc['route']) }}"><span class="do-list__ic"><x-icon :name="$svc['icon']" /></span><span><strong>{{ $svc['title'] }}</strong><small>{{ $svc['items'][0] }} · {{ $svc['items'][1] }}</small></span><x-icon name="arrow-right" /></a></li>
+                    @endforeach
+                    <li><a href="{{ pu('services.outsourcing') }}"><span class="do-list__ic"><x-icon name="users" /></span><span><strong>Architectural production support</strong><small>Pilot, project, hourly from ${{ config('site.hourly_from') }} or ongoing</small></span><x-icon name="arrow-right" /></a></li>
+                </ul>
             </div>
         </div>
     </div>

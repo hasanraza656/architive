@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         $labels = [
-            'about' => 'About', 'team' => 'Team', 'services.index' => 'Services',
+            'about' => 'Who We Are', 'team' => 'Team', 'services.index' => 'Services',
             'services.visualization' => 'Architectural Visualization', 'services.bim' => 'BIM and Revit',
             'services.cad' => 'CAD Drafting', 'services.outsourcing' => 'Production Support',
             'collaborations.index' => 'Collaborations', 'process' => 'How It Works', 'faqs' => 'FAQs',

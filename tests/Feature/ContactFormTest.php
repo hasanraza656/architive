@@ -127,6 +127,37 @@ class ContactFormTest extends TestCase
     public function test_contact_page_renders_the_captcha_widget_when_configured(): void
     {
         $this->withoutMiddleware(\App\Http\Middleware\EnsureTrailingSlash::class)   // the test client drops the trailing slash
-            ->get('/contact/')->assertOk()->assertSee('data-captcha', false)->assertSee('recaptcha/api.js', false);
+            ->get('/contact/')->assertOk()->assertSee('data-captcha', false)->assertSee('data-sitekey="site-key"', false)->assertDontSee('recaptcha/api.js', false);   // the script is loaded lazily by interactive.js
+    }
+
+    public function test_selected_situation_is_included_in_the_admin_email(): void
+    {
+        Mail::fake();
+        Http::fake(['www.google.com/recaptcha/api/siteverify' => Http::response(['success' => true])]);
+
+        $this->postJson('/contact/send', $this->payload(['topic' => 'I have sketches, PDFs or markups']))->assertOk();
+
+        Mail::assertSent(ContactEnquiry::class, fn (ContactEnquiry $m) => $m->enquiry['topic'] === 'I have sketches, PDFs or markups');
+    }
+
+    public function test_overlong_topic_is_rejected(): void
+    {
+        Mail::fake();
+        Http::fake();
+
+        $this->postJson('/contact/send', $this->payload(['topic' => str_repeat('x', 161)]))->assertStatus(422)->assertJsonValidationErrors('topic');
+        Mail::assertNothingSent();
+    }
+
+    public function test_home_page_has_the_enquiry_popup_but_the_contact_page_does_not(): void
+    {
+        $this->get('/')->assertOk()->assertSee('id="enquiryModal"', false)->assertDontSee('1,500+')->assertSee('1,200+')->assertSee('From $16 / hour');
+        $this->withoutMiddleware(\App\Http\Middleware\EnsureTrailingSlash::class)->get('/contact/')->assertOk()->assertDontSee('id="enquiryModal"', false);
+    }
+
+    public function test_team_page_is_parked_out_of_search(): void
+    {
+        $this->withoutMiddleware(\App\Http\Middleware\EnsureTrailingSlash::class)->get('/team/')->assertOk()->assertSee('noindex', false);
+        $this->get('/sitemap.xml')->assertOk()->assertDontSee('/team/', false);
     }
 }

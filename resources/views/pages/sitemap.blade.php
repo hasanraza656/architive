@@ -16,7 +16,6 @@
                 <ul class="sitemap-list">
                     <li><a href="{{ pu('home') }}">Home</a></li>
                     <li><a href="{{ pu('about') }}">About Architive</a></li>
-                    <li><a href="{{ pu('team') }}">Team</a></li>
                     <li><a href="{{ pu('process') }}">How It Works</a></li>
                     <li><a href="{{ pu('faqs') }}">FAQs</a></li>
                     <li><a href="{{ pu('contact') }}">Contact</a></li>

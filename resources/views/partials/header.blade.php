@@ -30,7 +30,11 @@
                                         </a>
                                     @endforeach
                                 </div>
-                                <a class="mega__all" href="{{ pu('services.index') }}">View all services <x-icon name="arrow-right" /></a>
+                                <div class="mega__more">
+                                    @foreach ($item['more'] ?? [] as $more)
+                                        <a href="{{ pu($more['route']) }}">{{ $more['label'] }} <x-icon name="arrow-right" /></a>
+                                    @endforeach
+                                </div>
                             </div>
                         </li>
                     @else
@@ -69,6 +73,11 @@
                         <ul class="mobile-menu__sub">
                             @foreach ($item['children'] as $child)
                                 <li><a href="{{ pu($child['route']) }}"><x-icon :name="$child['icon']" /> {{ $child['label'] }}</a></li>
+                            @endforeach
+                            @foreach ($item['more'] ?? [] as $more)
+                                @if ($more['route'] !== 'services.index')
+                                    <li><a href="{{ pu($more['route']) }}"><x-icon name="users" /> {{ $more['label'] }}</a></li>
+                                @endif
                             @endforeach
                         </ul>
                     @endif

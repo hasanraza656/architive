@@ -33,13 +33,15 @@ return [
     ],
 
     'nav' => [
-        ['label' => 'Home',     'route' => 'home'],
-        ['label' => 'About',    'route' => 'about'],
-        ['label' => 'Services', 'route' => 'services.index', 'children' => [
-            ['label' => 'Architectural Visualization', 'route' => 'services.visualization', 'icon' => 'eye',  'text' => 'Interiors, exteriors, 3D floor plans'],
-            ['label' => 'BIM and Revit',               'route' => 'services.bim',           'icon' => 'box',  'text' => 'CAD to BIM, scan to BIM, families'],
+        ['label' => 'Home',       'route' => 'home'],
+        ['label' => 'Who We Are', 'route' => 'about'],
+        ['label' => 'Services',   'route' => 'services.index', 'children' => [
+            ['label' => 'Architectural Visualization', 'route' => 'services.visualization', 'icon' => 'eye',       'text' => 'Interiors, exteriors, 3D floor plans'],
+            ['label' => 'BIM and Revit',               'route' => 'services.bim',           'icon' => 'box',       'text' => 'CAD to BIM, scan to BIM, families'],
             ['label' => 'CAD Drafting',                'route' => 'services.cad',           'icon' => 'file-text', 'text' => 'Plans, sections, PDF to DWG'],
-            ['label' => 'Production Support',          'route' => 'services.outsourcing',   'icon' => 'users', 'text' => 'Flexible extension of your studio'],
+        ], 'more' => [
+            ['label' => 'Production support', 'route' => 'services.outsourcing', 'text' => 'How we extend your studio'],
+            ['label' => 'View all services',  'route' => 'services.index',       'text' => ''],
         ]],
         ['label' => 'Projects', 'route' => 'collaborations.index'],
         ['label' => 'Process',  'route' => 'process'],
@@ -47,14 +49,28 @@ return [
     ],
 
     'footer_links' => [
-        ['label' => 'Home',               'route' => 'home'],
-        ['label' => 'About Architive',    'route' => 'about'],
-        ['label' => 'Services',           'route' => 'services.index'],
-        ['label' => 'Collaborations',     'route' => 'collaborations.index'],
-        ['label' => 'Our Process',        'route' => 'process'],
-        ['label' => 'Team',               'route' => 'team'],
-        ['label' => 'FAQs',               'route' => 'faqs'],
+        ['label' => 'Home',            'route' => 'home'],
+        ['label' => 'Who We Are',      'route' => 'about'],
+        ['label' => 'Services',        'route' => 'services.index'],
+        ['label' => 'Collaborations',  'route' => 'collaborations.index'],
+        ['label' => 'Our Process',     'route' => 'process'],
+        ['label' => 'FAQs',            'route' => 'faqs'],
     ],
+
+    // Verified completed-work figures supplied by the client (shown once, in the "Who We Are" track record).
+    // Reviews are intentionally NOT shown until the client confirms exact numbers.
+    'track_record_updated' => 'October 2026',
+    'track_record' => [
+        ['key' => 'fiverr', 'label' => 'Fiverr',         'count' => 1200, 'suffix' => '+', 'display' => '1,200+', 'unit' => 'completed projects',
+         'text' => 'Where Architive began in 2017, growing through repeat projects and long-term working relationships.'],
+        ['key' => 'upwork', 'label' => 'Upwork',         'count' => 130,  'suffix' => '+', 'display' => '130+',   'unit' => 'completed projects',
+         'text' => 'Completed projects for architecture and design clients, delivered with the same one-brief, one-team approach.'],
+        ['key' => 'direct', 'label' => 'Direct clients', 'count' => null, 'suffix' => '',  'display' => '4–5',    'unit' => 'active direct clients today',
+         'text' => 'Studios and teams working with Architive directly, outside the marketplaces.'],
+    ],
+
+    // Hourly option shown on the production-support pages (client decision: "starting from $16 per hour")
+    'hourly_from' => 16,
 
     'standards' => [
         'AutoCAD Scaled DWG',

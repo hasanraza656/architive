@@ -12,6 +12,9 @@ I am a:     {{ $audience }}
 @if ($service)
 Needs help: {{ $service }}
 @endif
+@if (! empty($e['topic']))
+Situation:  {{ $e['topic'] }}
+@endif
 @if (! empty($e['deadline']))
 Deadline:   {{ \Illuminate\Support\Carbon::parse($e['deadline'])->format('j F Y') }}
 @endif

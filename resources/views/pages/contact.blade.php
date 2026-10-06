@@ -9,35 +9,20 @@
     $audiences = ['firm' => 'Architecture firm', 'interior' => 'Interior design studio', 'developer' => 'Developer / contractor', 'homeowner' => 'Homeowner'];
 @endphp
 
-@include('partials.page-hero', [
-    'eyebrow' => 'Contact',
-    'title' => 'Your Next Deadline Does Not Need <em>Another Rushed Hire.</em>',
-    'lead' => 'Share the files, deadline and outcome you need. We will review the information and recommend a practical scope during a free consultation.',
-    'image' => 'assets/img/photos/contact-glass', 'imgPos' => '50% 40%',
-])
+<section class="contact-top">
+    <div class="wrap">
+        @include('partials.breadcrumbs')
+        <div class="contact-intro">
+            <p class="eyebrow" data-reveal>Contact</p>
+            <h1 class="display-h" data-split>Your Next Deadline Does Not Need <em>Another Rushed Hire.</em></h1>
+            <p class="lead-p mb-0" data-reveal style="--d:.15s">Share the files, deadline and outcome you need. We will review the information and recommend a practical scope during a free consultation.</p>
+        </div>
+    </div>
+</section>
 
-<section class="section" aria-label="Start your project">
+<section class="section section--tight-top" aria-label="Start your project">
     <div class="wrap">
         <div class="row g-5">
-            <div class="col-lg-5">
-                <div class="contact-aside">
-                    <h2 class="eyebrow" data-reveal>What happens next</h2>
-                    <ol class="next-steps">
-                        @foreach ([['Send the details', 'Tell us about the project, deadline and the outcome you need.'], ['We review and reply', 'We review the information and recommend a practical scope.'], ['Free consultation or paid pilot', 'No commitment until you approve the written scope.']] as [$t, $d])
-                            <li data-reveal style="--d: {{ $loop->index * .1 }}s"><span>{{ $loop->iteration }}</span><div><h3>{{ $t }}</h3><p>{{ $d }}</p></div></li>
-                        @endforeach
-                    </ol>
-
-                    <ul class="contact-list" data-reveal>
-                        <li><x-icon name="mail" /><div><small>Email</small><a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a></div></li>
-                        @foreach (config('site.address') as $a)
-                            <li><x-icon name="map-pin" /><div><small>{{ $a['label'] }}</small><span>{{ $a['value'] }}</span></div></li>
-                        @endforeach
-                        <li><x-icon name="lock" /><div><small>Confidentiality</small><span>Mutual NDA available before detailed files are shared</span></div></li>
-                    </ul>
-                </div>
-            </div>
-
             <div class="col-lg-7">
                 <div class="enquiry-card" id="enquiry" data-reveal="zoom">
                     @if (session('sent'))
@@ -126,14 +111,26 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-5">
+                <div class="contact-aside">
+                    <h2 class="eyebrow" data-reveal>What happens next</h2>
+                    <ol class="next-steps">
+                        @foreach ([['Send the details', 'Tell us about the project, deadline and the outcome you need.'], ['We review and reply', 'We review the information and recommend a practical scope.'], ['Free consultation or paid pilot', 'No commitment until you approve the written scope.']] as [$t, $d])
+                            <li data-reveal style="--d: {{ $loop->index * .1 }}s"><span>{{ $loop->iteration }}</span><div><h3>{{ $t }}</h3><p>{{ $d }}</p></div></li>
+                        @endforeach
+                    </ol>
+
+                    <ul class="contact-list" data-reveal>
+                        <li><x-icon name="mail" /><div><small>Email</small><a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a></div></li>
+                        @foreach (config('site.address') as $a)
+                            <li><x-icon name="map-pin" /><div><small>{{ $a['label'] }}</small><span>{{ $a['value'] }}</span></div></li>
+                        @endforeach
+                        <li><x-icon name="lock" /><div><small>Confidentiality</small><span>Mutual NDA available before detailed files are shared</span></div></li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </section>
 @endsection
-
-@if ($captchaKey ?? config('services.recaptcha.site_key'))
-    @push('scripts')
-        {{-- Google reCAPTCHA v2 (checkbox). Loaded on this page only; the render callback lives in interactive.js --}}
-        <script src="https://www.google.com/recaptcha/api.js?onload=architiveCaptcha&amp;render=explicit" async defer></script>
-    @endpush
-@endif

@@ -55,6 +55,58 @@ class Content
         ];
     }
 
+    /** The three core services (production support is an engagement model, shown separately). */
+    public static function coreServices(): array
+    {
+        $all = self::services();
+        $gal = [
+            'visualization' => [
+                ['viz/bandon-dusk-lawn', 'Timber-and-stone residence at dusk, an architectural exterior visualization', false],
+                ['viz/kitchen-dining', 'Kitchen and dining interior visualization', false],
+                ['viz/floorplan-3d-top', 'Top-down 3D floor plan with furniture layout', false],
+                ['viz/bedroom', 'Bedroom interior visualization with timber flooring', false],
+            ],
+            'bim' => [
+                ['scan/house-1-cloud', 'Point cloud of a historic brick house captured by a surveyor', false],
+                ['scan/house-1-model', 'Revit existing-conditions model built from that point cloud', false],
+                ['sets/pa/01-level-1-floor-plan', 'Level 1 floor plan sheet from a Revit existing-conditions set', true],
+                ['cases/manuel-house-3d', 'Revit 3D view of a double-storey house', true],
+            ],
+            'cad' => [
+                ['sets/ny/01-main-level-plan', 'Main level plan from a residential addition permit set', true],
+                ['sets/caa/01-main-floor-plan', 'Floor plan with schedules from a residential addition permit set', true],
+                ['sets/car/01-proposed-main-level-plan', 'Proposed main level plan from a residential remodel permit set', true],
+                ['sets/ny/03-elevations-front-back', 'Front and back exterior elevations from a permit set', true],
+            ],
+        ];
+        $out = [];
+        foreach (['visualization', 'bim', 'cad'] as $k) {
+            $svc = $all[$k];
+            $svc['key'] = $k;
+            $svc['gallery'] = array_map(fn ($g) => Portfolio::img($g[0]) + ['alt' => $g[1], 'sheet' => $g[2]], $gal[$k]);
+            $out[$k] = $svc;
+        }
+
+        return $out;
+    }
+
+    public static function productionSupport(): array
+    {
+        return self::services()['outsourcing'];
+    }
+
+    /** Engagement options (production support is how clients work with us, not a fourth service). */
+    public static function engagements(): array
+    {
+        return [
+            ['key' => 'pilot',    'title' => 'Paid pilot',       'text' => 'Test communication, standards and output on one defined task.', 'best' => 'Testing communication, standards and output quality', 'scope' => 1, 'commit' => 1, 'ic' => 'target'],
+            ['key' => 'project',  'title' => 'Defined project',  'text' => 'Fixed scope, milestones and deliverables.', 'best' => 'A clearly bounded set of drawings, models or visuals', 'scope' => 3, 'commit' => 2, 'ic' => 'file-text'],
+            ['key' => 'hourly',   'title' => 'Hourly support',   'text' => 'Flexible hours whenever you need an extra pair of hands. Rates start from $16 per hour.', 'best' => 'Short tasks, overflow work and ad-hoc production help', 'scope' => 2, 'commit' => 1, 'ic' => 'clock', 'badge' => 'From $16 / hour'],
+            ['key' => 'ongoing',  'title' => 'Ongoing support',  'text' => 'Recurring CAD, BIM or visualization capacity.', 'best' => 'Steady production capacity alongside your own team', 'scope' => 4, 'commit' => 4, 'ic' => 'refresh'],
+            ['key' => 'priority', 'title' => 'Priority support', 'text' => 'Planned assistance during deadline peaks, subject to availability.', 'best' => 'Workload peaks you can see coming', 'scope' => 2, 'commit' => 3, 'ic' => 'zap'],
+        ];
+    }
+
     public static function process(): array
     {
         return [
@@ -84,7 +136,7 @@ class Content
             2 => ['cat' => 'General & Locations',    'q' => 'Can we begin with a small assignment?',       'a' => 'Yes. A defined paid pilot is often the best way to test communication, standards and output quality before a larger engagement.'],
             3 => ['cat' => 'Services Scope',         'q' => 'Do you provide architectural design?',        'a' => "Architive's core role is architectural production support. We turn approved designs, project information and client direction into drawings, models and visuals. Any design responsibility is agreed explicitly in writing."],
             4 => ['cat' => 'Services Scope',         'q' => 'Do you provide permit drawings?',             'a' => 'We prepare permit-support drawing packages using the information and local requirements provided. Where law requires a local license, signature or seal, the client appoints the appropriate professional.'],
-            5 => ['cat' => 'Pricing & NDAs',         'q' => 'How are projects priced?',                    'a' => 'Pricing depends on the source information, deliverables, level of detail, schedule and revision structure. You receive a written quotation before work begins.'],
+            5 => ['cat' => 'Pricing & NDAs',         'q' => 'How are projects priced?',                    'a' => 'Pricing depends on the source information, deliverables, level of detail, schedule and revision structure. You receive a written quotation before work begins. Hourly support is also available, with rates starting from $16 per hour.'],
             6 => ['cat' => 'Workflow & Standards',   'q' => 'How are revisions handled?',                  'a' => 'The quotation states the included review stages and revision rounds. Corrections to missed agreed instructions are completed at no charge; new scope is quoted before proceeding.'],
             7 => ['cat' => 'Pricing & NDAs',         'q' => 'Can you sign an NDA?',                        'a' => 'Yes. We can review and sign an NDA before detailed project information is shared.'],
             8 => ['cat' => 'Workflow & Standards',   'q' => 'What files can you deliver?',                 'a' => 'Typical formats include DWG and PDF for CAD, RVT and PDF for BIM, and JPG, PNG or video for visualization. The exact deliverables are listed in the quotation.'],
@@ -162,30 +214,6 @@ class Content
                 'service_route' => 'services.bim',
                 'service_label' => 'BIM and Revit',
                 'description' => 'How Architive provided structured architectural Revit production support for residential development company Manuel Development.',
-            ],
-        ];
-    }
-
-    public static function slides(): array
-    {
-        return [
-            [
-                'quote'  => 'Architive integrated seamlessly into our studio drafting pipeline. Their attention to our layer templates and turnaround speed allowed us to deliver commercial sets on schedule without adding permanent staff.',
-                'name'   => 'David Sterling, AIA',
-                'role'   => 'Managing Principal · Sterling & Associates Architecture (New York, USA)',
-                'tag'    => 'BIM & Revit support · Verified client',
-            ],
-            [
-                'quote'  => 'We clarify before we assume. Missing dimensions and conflicting information are raised early, so the set you receive is built on agreed information.',
-                'name'   => 'How we work',
-                'role'   => 'Architive working principle',
-                'tag'    => 'Clarify · Confirm · Deliver',
-            ],
-            [
-                'quote'  => 'If we miss an agreed instruction, we correct it without charging for our oversight.',
-                'name'   => 'Our commitment',
-                'role'   => 'Architive working principle',
-                'tag'    => 'We take responsibility',
             ],
         ];
     }

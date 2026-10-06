@@ -24,6 +24,7 @@
                                     'Email'    => '<a href="mailto:' . e($e['email']) . '" style="color:#141414;">' . e($e['email']) . '</a>',
                                     'I am a'   => $audience ? e($audience) : null,
                                     'Needs help with' => $service ? e($service) : null,
+                                    'Situation selected' => ! empty($e['topic']) ? e($e['topic']) : null,
                                     'Target deadline' => ! empty($e['deadline']) ? e(\Illuminate\Support\Carbon::parse($e['deadline'])->format('j F Y')) : null,
                                     'Mutual NDA requested' => ! empty($e['nda']) ? 'Yes, please send an NDA before sharing files' : null,
                                 ];

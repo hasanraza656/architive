@@ -20,7 +20,7 @@ return [
             'sitemap'     => [1.0, 'weekly'],
         ],
         'about' => [
-            'title'       => 'About Architive | Architectural Production Studio',
+            'title'       => 'Who We Are | About Architive, Architectural Production Studio',
             'description' => 'Meet Architive, an established architectural production studio providing visualization, BIM and Revit, and CAD drafting worldwide.',
             'image'       => 'assets/img/og/blueprint-tools.jpg',
             'sitemap'     => [0.8, 'monthly'],
@@ -69,7 +69,7 @@ return [
             'title'       => 'The Architive Team | CAD, Revit and Visualization Specialists',
             'description' => 'Meet the studio structure behind Architive: CAD, Revit and visualization specialists working as one team with a named point of contact.',
             'image'       => 'assets/img/og/developer-tower-frame.jpg',
-            'sitemap'     => [0.6, 'monthly'],
+            'robots'      => 'noindex,follow',   // team page is parked until the client supplies team portraits
         ],
         'faqs' => [
             'title'       => 'Architive FAQs | Pricing, Revisions, NDAs and Files',

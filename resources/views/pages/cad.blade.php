@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['overlay' => true])
 
 @section('content')
 @php

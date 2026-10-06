@@ -53,7 +53,7 @@ The floating chat bubble is Tawk.to (`resources/views/partials/tawk.blade.php`).
 
 ## Content to verify before launch (from the client copy deck)
 
-* "1,500+ projects", "1,000+ client reviews", "12+ specialists" – marked *[verify before publishing]* in the copy.
+* Old "1,500+ projects / 1,000+ client reviews" figures were replaced (Oct 2026) by the client's Fiverr / Upwork / direct-client numbers in `config/site.php` (`track_record`). Review counts are not shown until the client confirms them. "12+ Engineers" in the footer address still needs confirming.
 * The David Sterling, AIA quote (from the client dummy) – needs written permission / confirmation. The two other slides are Architive's own working principles, not testimonials.
 * Collaboration names (Bonderud Design, VESTI Events / FIFA 2026, Manuel Development) – permission for names/logos; FIFA wording kept as "through VESTI Events".
 * Pakistan studio / Delaware company wording; privacy policy and terms are drafts and need legal review.

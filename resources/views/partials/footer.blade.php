@@ -20,6 +20,7 @@
                     @foreach (config('site.nav')[2]['children'] as $child)
                         <li><a href="{{ pu($child['route']) }}">{{ $child['label'] }}</a></li>
                     @endforeach
+                    <li><a href="{{ pu('services.outsourcing') }}">Production Support</a></li>
                 </ul>
             </div>
             <div class="col-lg-3">

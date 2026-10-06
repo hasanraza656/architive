@@ -1,15 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.app', ['overlay' => true])
 
 @section('content')
 @php
     use App\Support\Content;
-    $engagements = [
-        ['key' => 'pilot', 'title' => 'Paid pilot', 'text' => 'Test communication, standards and output on one defined task.', 'best' => 'Testing communication, standards and output quality', 'scope' => 1, 'commit' => 1, 'ic' => 'target'],
-        ['key' => 'project', 'title' => 'Defined project', 'text' => 'Fixed scope, milestones and deliverables.', 'best' => 'A clearly bounded set of drawings, models or visuals', 'scope' => 3, 'commit' => 2, 'ic' => 'file-text'],
-        ['key' => 'ongoing', 'title' => 'Ongoing support', 'text' => 'Recurring CAD, BIM or visualization capacity.', 'best' => 'Steady production capacity alongside your own team', 'scope' => 4, 'commit' => 4, 'ic' => 'refresh'],
-        ['key' => 'priority', 'title' => 'Priority support', 'text' => 'Planned assistance during deadline peaks, subject to availability.', 'best' => 'Workload peaks you can see coming', 'scope' => 2, 'commit' => 3, 'ic' => 'zap'],
-    ];
-    $svcItems = ['Paid pilot', 'Defined project', 'Ongoing support', 'Priority support'];
+    $engagements = Content::engagements();
+    $svcItems = collect($engagements)->pluck('title')->all();
 @endphp
 @include('partials.service-schema', ['svcName' => 'Architectural Production Support', 'svcType' => 'Architectural outsourcing and production support', 'svcDesc' => config('seo.pages')['services.outsourcing']['description'], 'svcItems' => $svcItems])
 
@@ -69,14 +64,14 @@
                 @foreach ($engagements as $e)
                     <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="eng-{{ $e['key'] }}" role="tabpanel" aria-labelledby="eng-tab-{{ $e['key'] }}" tabindex="0">
                         <span class="engage__ic"><x-icon :name="$e['ic']" /></span>
-                        <h3>{{ $e['title'] }}</h3>
+                        <h3>{{ $e['title'] }}@if (! empty($e['badge'])) <span class="engage__badge">{{ $e['badge'] }}</span>@endif</h3>
                         <p class="engage__lead">{{ $e['text'] }}</p>
                         <p class="mono-note">Suited to: {{ $e['best'] }}.</p>
                         <dl class="gauges">
                             <div><dt>Scope size</dt><dd class="gauge" data-v="{{ $e['scope'] }}" aria-label="{{ $e['scope'] }} of 4">@for ($i = 1; $i <= 4; $i++)<i class="{{ $i <= $e['scope'] ? 'on' : '' }}"></i>@endfor</dd></div>
                             <div><dt>Ongoing commitment</dt><dd class="gauge" data-v="{{ $e['commit'] }}" aria-label="{{ $e['commit'] }} of 4">@for ($i = 1; $i <= 4; $i++)<i class="{{ $i <= $e['commit'] ? 'on' : '' }}"></i>@endfor</dd></div>
                         </dl>
-                        <a class="link-arrow" href="{{ pu('contact', [], ['service' => 'outsourcing']) }}">Discuss this option <x-icon name="arrow-right" /></a>
+                        <a class="link-arrow" href="{{ pu('contact', [], ['service' => 'outsourcing']) }}" data-topic="{{ $e['title'] }}">Discuss this option <x-icon name="arrow-right" /></a>
                     </div>
                 @endforeach
             </div>

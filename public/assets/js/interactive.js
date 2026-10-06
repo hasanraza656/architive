@@ -52,18 +52,11 @@
     $('[data-layer-group="' + key + '"]').toggleClass('is-off', !on);
   });
 
-  /* ---- Services picker ------------------------------------------------------ */
-  $('[data-picker]').each(function () {
-    var $p = $(this), $res = $p.find('.picker__result');
-    $p.on('click', '.picker__opt', function () {
-      var $o = $(this);
-      $p.find('.picker__opt').attr('aria-pressed', false); $o.attr('aria-pressed', true);
-      $res.find('[data-pick-title]').text($o.data('title'));
-      $res.find('[data-pick-text]').text($o.data('text'));
-      $res.find('[data-pick-link]').attr('href', $o.data('url'));
-      $res.prop('hidden', false);
-      $res.css('animation', 'none'); void $res[0].offsetWidth; $res.css('animation', '');
-    });
+  /* ---- Services picker: choosing a situation opens the enquiry form with it pre-selected ---- */
+  $('[data-picker]').on('click', '.picker__opt', function () {
+    var $o = $(this);
+    $o.closest('[data-picker]').find('.picker__opt').attr('aria-pressed', false); $o.attr('aria-pressed', true);
+    if (window.architiveEnquiry) { window.architiveEnquiry.open({ service: $o.data('svc'), topic: $.trim($o.text()) }); }
   });
 
   /* ---- Collaboration filters ------------------------------------------------ */
@@ -118,10 +111,13 @@
     $region.add($slider).on('input change', render); render();
   });
 
-  /* ---- reCAPTCHA v2 widget (called by Google's script once it has loaded) ---- */
-  window.architiveCaptcha = function () {
+  /* ---- reCAPTCHA v2 widget: loaded lazily, rendered once visible --------------- */
+  window.architiveCaptcha = function () {       // Google calls this once its script is ready; we also call it when a form becomes visible
+    if (!window.grecaptcha || !grecaptcha.render) { return; }
     $('[data-captcha]').each(function () {
-      var el = this, w = $(el).parent().width();
+      var el = this;
+      if (el._wid !== undefined || !$(el).is(':visible')) { return; }
+      var w = $(el).parent().width();
       el._wid = grecaptcha.render(el, {
         sitekey: $(el).data('sitekey'),
         theme: document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light',
@@ -130,6 +126,16 @@
       });
     });
   };
+  window.architiveCaptchaLoad = function () {
+    if (!$('[data-captcha]').length) { return; }
+    if (window.grecaptcha && grecaptcha.render) { window.architiveCaptcha(); return; }
+    if (window._captchaLoading) { return; }
+    window._captchaLoading = true;
+    var s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?onload=architiveCaptcha&render=explicit'; s.async = true; s.defer = true;
+    document.head.appendChild(s);
+  };
+  $(function () { if ($('.enquiry-card [data-captcha]:visible').length) { window.architiveCaptchaLoad(); } });   // the full form on /contact/
 
   /* ---- Contact form --------------------------------------------------------- */
   $('[data-contact-form]').each(function () {
@@ -169,9 +175,10 @@
           $f.removeClass('is-loading');
           resetCaptcha();
           if (o.res.ok) {
-            var $s = $('[data-success]'); $s.find('[data-success-text]').text(o.data.message || '');
+            var $s = $f.closest('.enquiry-card').find('[data-success]'); $s.find('[data-success-text]').text(o.data.message || '');
+            form.reset();
             $f.prop('hidden', true); $s.prop('hidden', false).addClass('is-shown');
-            $s[0].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+            if (!$f.closest('.modal').length) { $s[0].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' }); }
           } else if (o.res.status === 422 && o.data.errors) {
             $.each(o.data.errors, function (k, msgs) { setErr(k === 'g-recaptcha-response' ? 'captcha' : k, msgs[0]); });
           } else {
@@ -184,6 +191,64 @@
           $err.text('We could not send your message. Please check your connection or email us directly.').prop('hidden', false);
         });
     });
+  });
+
+  /* ---- Service sliders: fade through real work, pause on hover/focus, idle when off-screen ---- */
+  $('[data-slider]').each(function (idx) {
+    var $s = $(this), $sl = $s.find('.slider__slide'), $dots = $s.find('.slider__dot'), n = $sl.length, cur = 0, timer = null, visible = false, held = false;
+    if (n < 2) { return; }
+    function go(k) {
+      cur = (k + n) % n;
+      $sl.removeClass('is-active').eq(cur).addClass('is-active');
+      $dots.removeClass('is-active').eq(cur).addClass('is-active');
+    }
+    function stop() { if (timer) { clearInterval(timer); timer = null; } }
+    function play() { stop(); if (reduceMotion || !visible || held) { return; } timer = setInterval(function () { go(cur + 1); }, 3400 + idx * 450); }
+    $dots.on('click', function () { go($dots.index(this)); play(); });
+    $s.closest('.svc-feature').on('mouseenter focusin', function () { held = true; stop(); }).on('mouseleave focusout', function () { held = false; play(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { visible = en[0].isIntersecting; play(); }, { threshold: .25 }).observe(this);
+    } else { visible = true; play(); }
+  });
+
+  /* ---- Track record tabs (Fiverr / Upwork / direct): one big number, counts up when shown ---- */
+  $('[data-track]').each(function () {
+    var $t = $(this), $tabs = $t.find('[role="tab"]'), $panels = $t.find('[role="tabpanel"]'), $meter = $t.find('.track__meter i'), seen = {};
+    function fmt(v) { return v.toLocaleString('en-US'); }
+    function count($panel) {
+      var $n = $panel.find('[data-to]'), id = $panel.attr('id');
+      if (!$n.length || seen[id]) { return; }
+      seen[id] = true;
+      var to = +$n.data('to'), suf = $n.data('suffix') || '';
+      if (reduceMotion) { return; }
+      var t0 = null;
+      function step(ts) {
+        if (t0 === null) { t0 = ts; }
+        var p = Math.min((ts - t0) / 1100, 1), e = 1 - Math.pow(1 - p, 3);
+        $n.text(fmt(Math.round(to * e)) + (p < 1 ? '' : suf));
+        if (p < 1) { requestAnimationFrame(step); }
+      }
+      $n.text('0'); requestAnimationFrame(step);
+    }
+    function select(k, focus) {
+      $tabs.attr({ 'aria-selected': 'false', tabindex: -1 }).eq(k).attr({ 'aria-selected': 'true', tabindex: 0 });
+      if (focus) { $tabs.eq(k).trigger('focus'); }
+      $panels.removeClass('is-active').eq(k).addClass('is-active');
+      $meter.removeClass('is-on').eq(k).addClass('is-on');
+      count($panels.eq(k));
+    }
+    $tabs.on('click', function () { select($tabs.index(this)); });
+    $tabs.on('keydown', function (e) {
+      var k = $tabs.index(this), n = $tabs.length;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); select((k + 1) % n, true); }
+      else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); select((k + n - 1) % n, true); }
+      else if (e.key === 'Home') { e.preventDefault(); select(0, true); }
+      else if (e.key === 'End') { e.preventDefault(); select(n - 1, true); }
+    });
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { count($panels.filter('.is-active')); io.disconnect(); } }, { threshold: .4 });
+      io.observe(this);
+    }
   });
 
 }(jQuery, window, document));

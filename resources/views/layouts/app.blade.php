@@ -63,11 +63,12 @@
     <link rel="stylesheet" href="{{ asset_v('assets/css/pages.css') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/widgets.css') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/portfolio.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('assets/css/home.css') }}">
 
     @include('partials.schema')
     @stack('head')
 </head>
-<body class="page-{{ str_replace('.', '-', Route::currentRouteName() ?? 'error') }}">
+<body class="page-{{ str_replace('.', '-', Route::currentRouteName() ?? 'error') }}{{ ($overlay ?? false) ? ' has-overlay' : '' }}">
     <a class="skip-link" href="#main">Skip to main content</a>
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
     <div class="curtain" aria-hidden="true"></div>
@@ -79,6 +80,9 @@
     </main>
 
     @include('partials.footer')
+    @unless (is_page('contact'))
+        @include('partials.enquiry-modal')
+    @endunless
     @include('partials.tawk')
 
     <button class="to-top" type="button" aria-label="Back to top"><x-icon name="arrow-up" /></button>

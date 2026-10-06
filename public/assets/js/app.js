@@ -161,16 +161,57 @@
     });
     $('[data-hero]').on('mousemove', function (e) {
       var r = this.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - 0.5, py = (e.clientY - r.top) / r.height - 0.5;
-      $(this).find('[data-tilt-layer]')[0].style.transform = 'translate(' + (px * -22).toFixed(1) + 'px,' + (py * -14).toFixed(1) + 'px)';
-    }).on('mouseleave', function () { $(this).find('[data-tilt-layer]')[0].style.transform = ''; });
+      var layer = $(this).find('[data-tilt-layer]')[0];
+      if (layer) { layer.style.transform = 'translate(' + (px * -22).toFixed(1) + 'px,' + (py * -14).toFixed(1) + 'px)'; }
+    }).on('mouseleave', function () { var layer = $(this).find('[data-tilt-layer]')[0]; if (layer) { layer.style.transform = ''; } });
   }
+
+  /* ---- Quick enquiry pop-up: any link to /contact/ opens the form straight away ---- */
+  var enquiryEl = document.getElementById('enquiryModal');
+  var enquiryModal = (enquiryEl && window.bootstrap) ? new bootstrap.Modal(enquiryEl) : null;
+  window.architiveEnquiry = {
+    open: function (o) {
+      o = o || {};
+      if (!enquiryModal) { window.location.href = '/contact/' + (o.service ? '?service=' + encodeURIComponent(o.service) : ''); return; }
+      var $m = $(enquiryEl), $f = $m.find('form'), $ok = $m.find('[data-success]');
+      if ($ok.length && !$ok.prop('hidden')) { $ok.prop('hidden', true); $f.prop('hidden', false); }     // fresh form after a previous success
+      if (o.service) { $m.find('input[name="service"][value="' + o.service + '"]').prop('checked', true); }
+      $m.find('input[name="audience"]').val(o.audience || '');
+      $m.find('input[name="topic"]').val(o.topic || '');
+      var $ctx = $m.find('[data-enquiry-context]');
+      if (o.topic) { $ctx.text('You selected: ' + o.topic).prop('hidden', false); } else { $ctx.text('').prop('hidden', true); }
+      enquiryModal.show();
+    }
+  };
+  if (enquiryEl) {
+    enquiryEl.addEventListener('shown.bs.modal', function () {
+      if (window.architiveCaptchaLoad) { window.architiveCaptchaLoad(); }
+      if (window.architiveTawk) { window.architiveTawk(false); }
+      if (canHover) { $(enquiryEl).find('input[name="name"]').trigger('focus'); }
+    });
+    enquiryEl.addEventListener('hidden.bs.modal', function () { if (window.architiveTawk) { window.architiveTawk(true); } });
+  }
+  $(document).on('click', 'a[href]', function (e) {
+    if (!enquiryModal || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.which > 1) { return; }
+    var a = this;
+    if (a.hostname !== window.location.hostname || a.pathname.replace(/\/+$/, '') !== '/contact') { return; }
+    if ($(a).closest('.main-nav__list, .footer-list, .mobile-menu__nav, .crumbs, .legal, .sitemap-list, [data-no-modal]').length || a.hasAttribute('data-no-modal')) { return; }
+    e.preventDefault();
+    var q = new URLSearchParams(a.search), opts = { service: q.get('service'), audience: q.get('audience'), topic: a.getAttribute('data-topic') };
+    var menu = document.getElementById('mobileMenu');
+    if (menu && menu.classList.contains('show') && window.bootstrap) {            // close the mobile menu first, then open the form
+      var inst = bootstrap.Offcanvas.getInstance(menu);
+      if (inst) { menu.addEventListener('hidden.bs.offcanvas', function once() { menu.removeEventListener('hidden.bs.offcanvas', once); window.architiveEnquiry.open(opts); }); inst.hide(); return; }
+    }
+    window.architiveEnquiry.open(opts);
+  });
 
   /* ---- Page transitions (curtain) ---------------------------------------- */
   safe(function () { sessionStorage.removeItem('ay-nav'); });
   setTimeout(function () { root.classList.remove('is-entering'); }, 1200);
   $(document).on('click', 'a[href]', function (e) {
     var a = this, href = a.getAttribute('href');
-    if (e.defaultPrevented || reduceMotion || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.which > 1) { return; }
+    if (e.isDefaultPrevented() || reduceMotion || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.which > 1) { return; }
     if (a.target && a.target !== '_self' || a.hasAttribute('download') || !href || href.charAt(0) === '#' || /^(mailto:|tel:|sms:|javascript:)/i.test(href)) { return; }
     if (a.hostname !== window.location.hostname || a.hasAttribute('data-bs-toggle') || a.hasAttribute('data-lightbox')) { return; }
     if (/\.(webp|jpe?g|png|gif|svg|mp4|webm|pdf|zip|xml|txt)(\?|$)/i.test(a.pathname + a.search)) { return; }   // files/media: normal browser handling

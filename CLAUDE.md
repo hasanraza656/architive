@@ -8,7 +8,7 @@ Marketing website for **Architive** – an architectural production studio (arch
 Stack: **Laravel 10 · PHP 8.1 · Blade · Bootstrap 5.3 · jQuery 3.7**. No build step (no Vite/npm needed at runtime).
 Repo: https://github.com/hasanraza656/architive (branch `main`). Local path: `F:\bhai log\Architive designs\code`.
 
-**Status:** Frontend phase is **complete and QA'd** (18 pages, mobile, dark mode, interactions, SEO audit all passing).
+**Status:** Frontend phase is **complete and QA'd** (mobile, dark mode, interactions, SEO audit all passing). **Phase 3 (client feedback, Oct 2026) is implemented:** overlay header on hero pages, enquiry pop-up, new home flow, hourly option, real track-record figures, Team page parked. Contact-form email + reCAPTCHA v2 + Tawk.to chat are live.
 **2026-10-05 update:** client's second data batch (visualization renders, permit sets, Revit/BIM sets, case-study boards + video) is integrated as a portfolio system – see §12. Local commit only unless the user asks to push (assets include redacted client sheets; confirm the GitHub repo is private first).
 **Next phases (not started):** contact-form backend (store + email), content updates after client confirms items in §9, deployment.
 
@@ -30,6 +30,16 @@ Repo: https://github.com/hasanraza656/architive (branch `main`). Local path: `F:
 - Fonts (self-hosted WOFF2 in `public/assets/fonts`): **Playfair Display** (headings, italic emphasis `<em>`), **Plus Jakarta Sans** (body), **JetBrains Mono** (labels, uppercase, wide tracking).
 - Look: rounded cards, mono uppercase labels with a short yellow line (`.eyebrow`), yellow pill buttons (`.btn-ay`), yellow italic emphasis on dark sections.
 - Tokens live in `public/assets/css/base.css` (`:root` / `[data-theme="dark"]`).
+
+## 4b. Phase 3 structure (client feedback, Oct 2026)
+- **Home order:** hero ("One brief. One team.", button opens form) → software ticker → 3 core services (cards with auto-fading galleries of real work, "Explore more" + "Start a project") → production-support **horizontal strip** (`partials/support-strip`) → collaborations → "Who We Are and What We Do" (story + audiences + track record) → FAQ → CTA band.
+- **Enquiry pop-up:** `partials/enquiry-modal` (not rendered on /contact/). `app.js` intercepts every link to `/contact/` (except nav/footer/breadcrumb/legal/`data-no-modal`) and opens it; `?service=` / `?audience=` pre-fill, `data-topic="…"` on the link is sent as "Situation selected" in the admin email. `window.architiveEnquiry.open({service,audience,topic})`. Without JS the links still go to /contact/. reCAPTCHA is lazy-loaded (`architiveCaptchaLoad`) when the pop-up opens or the contact page loads.
+- **Overlay header:** pass `['overlay' => true]` as 2nd arg of `@extends('layouts.app', …)` on pages that start with a hero → body class `has-overlay`, header is fixed + transparent until scrolled (CSS in `home.css`). Contact/legal/sitemap pages keep the normal sticky header.
+- **Track record** (Fiverr 1,200+, Upwork 130+, direct clients 4–5) lives in `config/site.php` (`track_record`) and is shown ONCE (home "Who We Are"). Review counts are intentionally not shown until the client confirms them. Don't re-add 1,500+/1,000+.
+- **Hourly option:** "from $16 per hour" (`config('site.hourly_from')`, `Content::engagements()`), shown in the production-support strip, outsourcing page tabs, schema and FAQ 5.
+- **Team page** is parked: still routed but `noindex,follow`, not in nav/footer/sitemap. Re-enable when the client supplies real portraits.
+- Services page picker ("Where are you right now?") opens the pop-up with the service pre-selected.
+- Gotcha: jQuery events don't expose `e.defaultPrevented` → use `e.isDefaultPrevented()` (the page-transition handler relies on this).
 
 ## 5. URL structure (one permanent lowercase **trailing-slash** URL per page)
 `/` · `/about-us/` · `/team/` · `/services/` · `/architectural-visualization-rendering/` · `/bim-revit-scan-to-bim/` · `/cad-drafting-services/` · `/architectural-outsourcing/` · `/collaborations/` · `/collaborations/{slug}/` (bonderud-design-visualization, fifa-2026-circulation-plan-drafting, manuel-development-revit-support) · `/how-it-works/` · `/faqs/` · `/contact/` · `/privacy-policy/` · `/terms-of-service/` · `/sitemap/` · `/sitemap.xml` · `/robots.txt`.
@@ -85,12 +95,15 @@ Images: `public/assets/img/` (hero from client PDF, `og/` 1200×630 share crops,
 Run server: `php artisan serve --host=127.0.0.1 --port=8000`.
 
 ## 9. Open items – verify before launch (client's own checklist)
-- Stats flagged *[verify before publishing]*: **1,500+ projects, 1,000+ reviews**; "12+ specialists" comes from the dummy.
+- Stats: the old unverified 1,500+ projects / 1,000+ reviews were **removed**; the site now shows the client's figures (Fiverr 1,200+, Upwork 130+, direct 4–5). **Ask the client for review counts** and a "last updated" date to maintain. "12+ Engineers" still appears in the footer address (from the dummy) – confirm.
+- Hourly rate: site says "from $16 per hour" per client instruction (their Upwork/agency rate is $26) – confirm they want that public.
 - **David Sterling, AIA** testimonial is from the dummy – needs permission/confirmation. Other 2 quote slides are Architive's own principles (not testimonials).
 - Permission to name Bonderud Design, VESTI Events/FIFA (keep wording "through VESTI Events", not contracted by FIFA), Manuel Development; confirm real project images/outcomes.
 - Confirm Pakistan studio (Multan, Punjab) and Delaware (Newark) company wording.
 - Privacy Policy and Terms are **drafts** → legal review.
-- Team page has no real portraits/bios (copy deck says avoid stock people) → add real ones; team/about use a founder monogram "MA".
+- Team page is **parked** (noindex, unlinked) until real portraits/bios exist (copy deck says avoid stock people); about uses a founder monogram "MA".
+- Service-card galleries (home + services page) use real work picked by us (`Content::coreServices()`); client may want to choose different pieces.
+- Tawk chat avatar / "We are here" greeting is configured in the Tawk dashboard, not in code.
 - Add real social URLs to `config/site.php` (`social`) to emit `sameAs`.
 - No phone number or analytics exist yet (privacy policy says no analytics – update it if added).
 - Confirm the client allows publishing the redacted permit/BIM sample sheets and the case-study visuals/video (clients: Bonderud Design, VESTI Events/FIFA 2026, Manuel Development and the homeowners/contractors behind the permit and scan sets). Repo should stay private until confirmed.

@@ -29,6 +29,7 @@ class ContactController extends Controller
             'service'  => ['nullable', 'in:visualization,bim,cad,outsourcing,unsure'],
             'deadline' => ['nullable', 'date'],
             'links'    => ['nullable', 'string', 'max:1000'],
+            'topic'    => ['nullable', 'string', 'max:160'],
             'message'  => ['required', 'string', 'min:10', 'max:4000'],
             'nda'      => ['nullable'],
             'consent'  => ['accepted'],
