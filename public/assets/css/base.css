@@ -43,6 +43,7 @@
   --ease-io: cubic-bezier(.65, 0, .35, 1);
   --header-h: 76px;
   --gutter: clamp(1.15rem, 4vw, 2.5rem);
+  --edge: clamp(1.15rem, 4.5vw, 4.5rem); /* full-width header + hero side padding */
   color-scheme: light;
 }
 

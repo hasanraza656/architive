@@ -63,7 +63,7 @@ class Content
             'visualization' => [
                 ['viz/bandon-dusk-lawn', 'Timber-and-stone residence at dusk, an architectural exterior visualization', false],
                 ['viz/kitchen-dining', 'Kitchen and dining interior visualization', false],
-                ['viz/floorplan-3d-top', 'Top-down 3D floor plan with furniture layout', false],
+                ['viz/floorplan-3d-top', 'Top-down 3D floor plan with furniture layout', true],
                 ['viz/bedroom', 'Bedroom interior visualization with timber flooring', false],
             ],
             'bim' => [
@@ -99,7 +99,7 @@ class Content
     public static function engagements(): array
     {
         return [
-            ['key' => 'pilot',    'title' => 'Paid pilot',       'text' => 'Test communication, standards and output on one defined task.', 'best' => 'Testing communication, standards and output quality', 'scope' => 1, 'commit' => 1, 'ic' => 'target'],
+            ['key' => 'pilot',    'title' => 'Paid pilot',       'badge' => 'Free start', 'text' => 'Test communication, standards and output on one defined task. Free start.', 'best' => 'Testing communication, standards and output quality', 'scope' => 1, 'commit' => 1, 'ic' => 'target'],
             ['key' => 'project',  'title' => 'Defined project',  'text' => 'Fixed scope, milestones and deliverables.', 'best' => 'A clearly bounded set of drawings, models or visuals', 'scope' => 3, 'commit' => 2, 'ic' => 'file-text'],
             ['key' => 'hourly',   'title' => 'Hourly support',   'text' => 'Flexible hours whenever you need an extra pair of hands. Rates start from $16 per hour.', 'best' => 'Short tasks, overflow work and ad-hoc production help', 'scope' => 2, 'commit' => 1, 'ic' => 'clock', 'badge' => 'From $16 / hour'],
             ['key' => 'ongoing',  'title' => 'Ongoing support',  'text' => 'Recurring CAD, BIM or visualization capacity.', 'best' => 'Steady production capacity alongside your own team', 'scope' => 4, 'commit' => 4, 'ic' => 'refresh'],

@@ -51,7 +51,7 @@
                 <x-icon name="moon" class="ic theme-toggle__moon" />
                 <x-icon name="sun" class="ic theme-toggle__sun" />
             </button>
-            <a class="btn-ay btn-ay--sm d-none d-sm-inline-flex" href="{{ pu('contact') }}">Let's talk <x-icon name="arrow-right" /></a>
+            <a class="btn-ay btn-ay--sm d-none d-sm-inline-flex" href="{{ pu('contact') }}">Free consultation <x-icon name="arrow-right" /></a>
             <button class="menu-toggle d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Open menu">
                 <span></span><span></span><span></span>
             </button>

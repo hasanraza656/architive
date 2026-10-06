@@ -36,7 +36,8 @@
               linear-gradient(90deg, rgba(8, 8, 8, .82) 0%, rgba(8, 8, 8, .55) 38%, rgba(8, 8, 8, .08) 68%, rgba(8, 8, 8, 0) 100%),
               linear-gradient(0deg, rgba(8, 8, 8, .6) 0%, rgba(8, 8, 8, 0) 40%);
 }
-.hero--home .hero__content { max-width: 1200px; margin-inline: auto; padding: calc(var(--header-h) + 3.2rem) var(--gutter) clamp(3.2rem, 7vw, 5.5rem); }
+.hero--home .hero__content { max-width: none; width: 100%; margin-inline: 0; padding: calc(var(--header-h) + 3.2rem) var(--edge) clamp(3.2rem, 7vw, 5.5rem); }
+.site-header .wrap--wide { max-width: none; padding-inline: var(--edge); }
 .hero--home .hero__content > * { max-width: 720px; }
 .hero--home .hero__content > .hero__title { max-width: 900px; }
 .hero--home .hero__kicker { margin: 0 0 1.4rem; font: 500 .72rem/1.4 var(--f-mono); letter-spacing: .2em; text-transform: uppercase; color: rgba(255, 255, 255, .8); display: inline-flex; align-items: center; gap: .8rem; }
@@ -115,8 +116,24 @@
 .support-strip__chips li { display: inline-flex; align-items: center; gap: .5rem; padding: .55rem .85rem; border-radius: 999px; border: 1px solid var(--on-dark-line); background: rgba(255, 255, 255, .04); font: 500 .68rem/1 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--on-dark); transition: .4s var(--ease); }
 .support-strip__chips li:hover { border-color: rgba(255, 214, 10, .6); background: rgba(255, 214, 10, .08); transform: translateY(-2px); }
 .support-strip__chips .ic { color: var(--accent); font-size: .95rem; }
-.support-strip__chips .is-hourly { border-color: var(--accent); background: rgba(255, 214, 10, .12); }
+.support-strip__chips .is-hourly { border-color: var(--accent); background: rgba(255, 214, 10, .16); padding: .75rem 1.1rem; font-size: .8rem; box-shadow: 0 0 0 4px rgba(255, 214, 10, .12); }
+.support-strip__chips .is-hourly b { padding: .3rem .55rem; font-size: .8rem; }
+.support-strip__chips .is-free { border-color: rgba(255, 214, 10, .6); }
 .support-strip__chips b { padding: .2rem .4rem; border-radius: 5px; background: var(--accent); color: #141414; font-weight: 700; letter-spacing: .04em; }
+.support-band { padding-block: clamp(1.4rem, 3vw, 2.2rem) 0; }
+.support-band .support-strip { margin-top: 0; }
+
+/* ---- Client round 4: minimal hero, serif "One team.", bigger section labels ---- */
+.hero--home .hero__title { font-size: clamp(2.3rem, 5.6vw, 4.4rem); font-weight: 600; }
+.hero--home .hero__title .line--serif { font-family: var(--f-display); font-weight: 400; font-style: italic; text-transform: none; font-size: 1.22em; letter-spacing: -.01em; line-height: 1.02; color: var(--accent); }
+.hero--home .hero__title .line--serif em { font-style: italic; }
+.hero--home .hero__lead { color: #fff; text-shadow: 0 1px 18px rgba(0, 0, 0, .45); }
+.hero--home .hero__note { display: inline-block; padding: .55rem .9rem; border-radius: 10px; background: rgba(8, 8, 8, .5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-size: .82rem; color: rgba(255, 255, 255, .92); }
+@media (max-width: 575.98px) { .hero--home .hero__title { font-size: clamp(2.1rem, 10.5vw, 2.8rem); } }
+.eyebrow--lg { font-size: .95rem; letter-spacing: .18em; }
+.eyebrow--lg::before { width: 38px; }
+.display-h--md { font-size: clamp(1.6rem, 3vw, 2.5rem); }
+.slider { aspect-ratio: 16 / 10; }
 @media (max-width: 1099.98px) { .support-strip { grid-template-columns: 1fr; } .support-strip .btn-ay { justify-self: start; } }
 
 /* ---- Who we are and what we do ---------------------------------------------- */

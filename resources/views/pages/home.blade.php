@@ -27,15 +27,14 @@
             <p class="hero__kicker">Architectural production studio</p>
             <h1 class="hero__title">
                 <span class="line"><span>One brief.</span></span>
-                <span class="line"><span>One team.</span></span>
-                <span class="line line--sm"><span>More project capacity, without another full-time hire.</span></span>
+                <span class="line line--serif"><span><em>One team.</em></span></span>
             </h1>
-            <p class="hero__lead">One coordinated team for CAD drafting, BIM and Revit, and architectural visualization, ready when your project needs more production capacity.</p>
+            <p class="hero__lead">One coordinated team for CAD drafting, BIM and Revit, and architectural visualization.</p>
             <div class="hero__actions">
                 <a class="btn-ay btn-ay--lg" href="{{ pu('contact') }}" data-magnetic>Start your project <i class="btn-ay__dot"></i></a>
                 <a class="link-arrow link-arrow--light" href="#services">See our services <x-icon name="arrow-down" /></a>
             </div>
-            <p class="hero__note">Start with a free consultation or a small paid pilot. No commitment until you approve the scope.</p>
+            <p class="hero__note">Free start with a consultation or a free pilot task. No commitment until you approve the scope.</p>
         </div>
     </div>
 </section>
@@ -56,13 +55,20 @@
     </div>
 </div>
 
+{{-- Production support banner sits right after the software ticker --}}
+<div class="support-band">
+    <div class="wrap wrap--wide">
+        @include('partials.support-strip')
+    </div>
+</div>
+
 {{-- ===================== THE THREE CORE SERVICES ===================== --}}
 <section class="section" id="services" aria-labelledby="services-title">
     <div class="wrap">
         <div class="section-head">
             <div>
-                <p class="eyebrow" data-reveal>Services</p>
-                <h2 class="display-h mb-0" id="services-title" data-split>Brief One Team. <em>Keep Every Deliverable Connected.</em></h2>
+                <p class="eyebrow eyebrow--lg" data-reveal>Services</p>
+                <h2 class="display-h display-h--md mb-0" id="services-title" data-split>Brief One Team. <em>Keep Every Deliverable Connected.</em></h2>
             </div>
             <a class="btn-ay" href="{{ pu('services.index') }}" data-reveal>View all services <x-icon name="arrow-right" /></a>
         </div>
@@ -91,9 +97,6 @@
             @endforeach
         </div>
         <p class="mono-note text-center mt-4" data-reveal>{{ $core['cad']['note'] }}</p>
-
-        {{-- Production support is how we work with you, so it sits below the three services as one horizontal strip --}}
-        @include('partials.support-strip')
     </div>
 </section>
 

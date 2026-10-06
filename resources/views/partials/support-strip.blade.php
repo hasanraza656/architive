@@ -8,7 +8,7 @@
     </div>
     <ul class="support-strip__chips" aria-label="Ways to work with Architive">
         @foreach (\App\Support\Content::engagements() as $e)
-            <li class="{{ ! empty($e['badge']) ? 'is-hourly' : '' }}"><x-icon :name="$e['ic']" />{{ $e['title'] }} @if (! empty($e['badge']))<b>{{ $e['badge'] }}</b>@endif</li>
+            <li class="{{ $e['key'] === 'hourly' ? 'is-hourly' : ($e['key'] === 'pilot' ? 'is-free' : '') }}"><x-icon :name="$e['ic']" />{{ $e['title'] }} @if (! empty($e['badge']))<b>{{ $e['badge'] }}</b>@endif</li>
         @endforeach
     </ul>
     <a class="btn-ay btn-ay--sm" href="{{ pu($support['route']) }}">Explore production support <x-icon name="arrow-right" /></a>
