@@ -29,7 +29,7 @@
                 <span class="line"><span>One brief.</span></span>
                 <span class="line line--serif"><span><em>One team.</em></span></span>
             </h1>
-            <p class="hero__lead">One coordinated team for CAD drafting, BIM and Revit, and architectural visualization.</p>
+            <p class="hero__lead">Coordinated team for <span class="hero__lead-mark">CAD Drafting</span>, <span class="hero__lead-mark">BIM and Revit</span>, and <span class="hero__lead-mark">Architectural Visualization</span>.</p>
             <div class="hero__actions">
                 <a class="btn-ay btn-ay--lg" href="{{ pu('contact') }}" data-magnetic>Start your project <i class="btn-ay__dot"></i></a>
                 <a class="link-arrow link-arrow--light" href="#services">See our services <x-icon name="arrow-down" /></a>
