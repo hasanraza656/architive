@@ -129,7 +129,6 @@
 .hero--home .hero__title .line--serif { font-family: var(--f-display); font-weight: 400; font-style: italic; text-transform: none; font-size: 1.22em; letter-spacing: -.01em; line-height: 1.02; color: var(--accent); }
 .hero--home .hero__title .line--serif em { font-style: italic; }
 .hero--home .hero__lead { color: #fff; text-shadow: 0 1px 18px rgba(0, 0, 0, .45); }
-.hero--home .hero__lead-mark { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .hero--home .hero__note { display: inline-block; padding: .55rem .9rem; border-radius: 10px; background: rgba(8, 8, 8, .5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); font-size: .82rem; color: rgba(255, 255, 255, .92); }
 @media (max-width: 575.98px) { .hero--home .hero__title { font-size: clamp(1.8rem, 8.2vw, 2.3rem); } }
 .eyebrow--lg { font-size: .95rem; letter-spacing: .18em; }

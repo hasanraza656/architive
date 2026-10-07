@@ -280,6 +280,24 @@
 .quotes__dots button { width: 8px; height: 8px; border-radius: 99px; border: 0; padding: 0; background: var(--line-2); cursor: pointer; transition: .45s var(--ease); }
 .quotes__dots button.is-active { width: 24px; background: var(--accent); }
 
+/* ---- Client reviews (real Fiverr/Upwork testimonials, shown on a dark band, 3 per slide) --- */
+.testimonials__row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; align-items: stretch; }
+.testimonial { display: flex; flex-direction: column; padding: clamp(1.4rem, 2.4vw, 1.8rem); border-radius: var(--r-lg); background: rgba(255, 255, 255, .04); border: 1px solid var(--on-dark-line); }
+.testimonial__head { display: flex; align-items: flex-start; flex-wrap: wrap; gap: .8rem; margin-bottom: 1.1rem; }
+.testimonial__avatar { flex: none; width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; background: var(--accent); color: #141414; font: italic 400 1.1rem/1 var(--f-display); }
+.testimonial__name { display: block; font-size: .92rem; font-weight: 700; color: #fff; }
+.testimonial__source { display: block; margin-top: .1rem; font: 400 .62rem/1.4 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--on-dark-2); }
+.testimonial__stars { margin-left: auto; display: flex; gap: .12rem; color: var(--accent); }
+.testimonial__stars .ic { width: .82em; height: .82em; fill: currentColor; stroke: none; }
+.quotes.testimonials blockquote { margin: 0; }
+.quotes.testimonials blockquote p { font: 400 clamp(.92rem, 1.1vw, .98rem)/1.65 var(--f-display); color: var(--on-dark-2); text-wrap: balance; margin: 0; }
+.quotes.testimonials .quotes__ctrl > button { background: rgba(255, 255, 255, .06); border-color: var(--on-dark-line); color: #fff; }
+.quotes.testimonials .quotes__ctrl > button:hover { background: var(--accent); border-color: var(--accent); color: #141414; }
+.quotes.testimonials .quotes__dots button { background: var(--on-dark-line); }
+.quotes.testimonials .quotes__dots button.is-active { background: var(--accent); }
+@media (max-width: 991.98px) { .testimonials__row { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 575.98px) { .testimonials__row { grid-template-columns: 1fr; } .testimonial__stars { margin-left: 0; flex: 0 0 100%; } }
+
 /* ---- FAQ ------------------------------------------------------------------ */
 .faq-tools { margin-bottom: 1.8rem; }
 .faq-search { display: flex; align-items: center; gap: .8rem; padding: .95rem 1.2rem; border: 1px solid var(--line-2); border-radius: 16px; background: var(--surface); transition: border-color .3s, box-shadow .3s; }

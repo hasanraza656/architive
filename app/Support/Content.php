@@ -217,4 +217,29 @@ class Content
             ],
         ];
     }
+
+    /** Real client reviews from Fiverr and Upwork (screenshots in public/assets/reviews), shown as an accessible slider. */
+    public static function testimonials(): array
+    {
+        return [
+            ['initial' => 'D', 'name' => 'designbyapa',    'source' => 'Fiverr · United States', 'stars' => 5,
+             'quote' => 'I am in awe of Madiha. I had sent her so many small pictures of my blueprints which were from 20 years ago. She was able to figure out everything and delivered a really impressive floor plan. I will definitely refer her to other friends who are planning to sell their houses.'],
+            ['initial' => 'F', 'name' => 'flose1007',      'source' => 'Fiverr · Germany', 'stars' => 5,
+             'quote' => 'Great work with Madiha. Kept me updated and fulfilled my wishes. Results are great.'],
+            ['initial' => 'M', 'name' => 'markwint284',    'source' => 'Fiverr · United Kingdom', 'stars' => 5,
+             'quote' => 'Excellent delivery as always.'],
+            ['initial' => 'J', 'name' => 'jackcronin878',  'source' => 'Fiverr · United States', 'stars' => 5,
+             'quote' => 'Repeat customer, just as satisfied as the first time!'],
+            ['initial' => 'J', 'name' => 'jurgentabaku',   'source' => 'Fiverr · United States', 'stars' => 5,
+             'quote' => 'Second time working with Madiha and I continue to be impressed by her work and attention to detail. It has been a very collaborative process and I look forward to working with her again in the future. Would definitely recommend.'],
+            ['initial' => 'T', 'name' => 'teunrietdijk',   'source' => 'Fiverr · Netherlands', 'stars' => 5,
+             'quote' => "Once again absolutely perfect. Delivering the 3D floor plan and the 3D renders with such precision and creativity is truly impressive. You always capture exactly what's needed and elevate it beyond expectations. Every detail—structure, angles, lighting, flow—lands perfectly."],
+            ['initial' => 'U', 'name' => 'Upwork client',  'source' => 'Upwork · 3D Designs for Digital Events', 'stars' => 5,
+             'quote' => 'Always good to know I can rely on Madiha when I have a new event. Thank you.'],
+            ['initial' => 'U', 'name' => 'Upwork client',  'source' => 'Upwork · Redo Plans in PDF and CAD', 'stars' => 5,
+             'quote' => 'Madiha does wonderful work, on time and with great communication!'],
+            ['initial' => 'U', 'name' => 'Upwork client',  'source' => 'Upwork · Draftsman/Designer, Commercial Test-Fits', 'stars' => 5,
+             'quote' => 'Madiha did an excellent job creating our preliminary industrial layout drawings. She understood the project requirements quickly, communicated clearly throughout the process, and delivered accurate, well-organized plans on time. Highly recommended for any drafting or layout projects!'],
+        ];
+    }
 }

@@ -258,7 +258,7 @@
       $s.removeClass('is-active').attr('aria-hidden', true).eq(i).addClass('is-active').removeAttr('aria-hidden');
       $d.removeClass('is-active').eq(i).addClass('is-active');
     }
-    function play() { if (reduceMotion || n < 2) { return; } stop(); timer = setInterval(function () { go(i + 1); }, 7500); }
+    function play() { if (reduceMotion || n < 2) { return; } stop(); timer = setInterval(function () { go(i + 1); }, 2000); }
     function stop() { clearInterval(timer); }
     $q.find('[data-q-next]').on('click', function () { go(i + 1); play(); });
     $q.find('[data-q-prev]').on('click', function () { go(i - 1); play(); });

@@ -29,7 +29,7 @@
                 <span class="line"><span>One brief.</span></span>
                 <span class="line line--serif"><span><em>One team.</em></span></span>
             </h2>
-            <p class="hero__lead">Coordinated team for <span class="hero__lead-mark">CAD Drafting</span>, <span class="hero__lead-mark">BIM and Revit</span>, and <span class="hero__lead-mark">Architectural Visualization</span>.</p>
+            <p class="hero__lead">Coordinated team for CAD Drafting, BIM and Revit, and Architectural Visualization.</p>
             <div class="hero__actions">
                 <a class="btn-ay btn-ay--lg" href="{{ pu('contact') }}" data-magnetic>Start your project <i class="btn-ay__dot"></i></a>
                 <a class="link-arrow link-arrow--light" href="#services">See our services <x-icon name="arrow-down" /></a>
@@ -153,6 +153,18 @@
                 @include('partials.track-record', ['track' => $track])
             </div>
         </div>
+    </div>
+</section>
+
+{{-- ===================== CLIENT REVIEWS ===================== --}}
+<section class="section section--dark" aria-labelledby="reviews-title">
+    <div class="process__glow" aria-hidden="true"></div>
+    <div class="wrap">
+        <div class="text-center mb-5">
+            <p class="eyebrow eyebrow--center eyebrow--light" data-reveal>Client reviews</p>
+            <h2 class="display-h display-h--light" id="reviews-title" data-split>What Clients <em>Say About Working With Us.</em></h2>
+        </div>
+        @include('partials.testimonials', ['items' => Content::testimonials()])
     </div>
 </section>
 
