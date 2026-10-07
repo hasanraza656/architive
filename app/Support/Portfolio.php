@@ -25,8 +25,8 @@ class Portfolio
 
         return [
             'key'   => $key,
-            'src'   => asset("assets/img/work/{$key}.webp"),
-            'thumb' => asset("assets/img/work/{$key}-800.webp"),
+            'src'   => asset_v("assets/img/work/{$key}.webp"),
+            'thumb' => asset_v("assets/img/work/{$key}-800.webp"),
             'base'  => "assets/img/work/{$key}",           // for partials that expect "<base>.webp" / "<base>-800.webp"
             'w'     => $m['w'], 'h' => $m['h'], 'tw' => $m['tw'], 'th' => $m['th'],
         ];
@@ -57,6 +57,9 @@ class Portfolio
             ['viz/floorplan-3d-retail',  'floorplans', '3D floor plan, axonometric',        'Axonometric 3D floor plan of a large open space with furniture, fixtures and timber flooring', '50% 50%'],
             ['viz/floorplan-3d-top',     'floorplans', '3D floor plan, top view',           'Top-down 3D floor plan with herringbone flooring, blue rugs and furniture layout', '50% 50%'],
             ['viz/floorplan-iso',        'floorplans', '3D floor plan, isometric',          'Isometric cutaway 3D floor plan of an irregular-shaped commercial space', '50% 50%'],
+            ['viz/storage-unit-iso',           'floorplans', 'Self-storage unit, isometric',   'Isometric cutaway view of a furnished self-storage unit interior with boxes, furniture and luggage', '50% 50%'],
+            ['viz/storage-container-top',      'floorplans', '3D floor plan, storage container', 'Top-down cutaway view of a storage container interior with furniture, boxes and bags', '50% 50%'],
+            ['viz/storage-container-angle',    'floorplans', 'Storage container, angled view', 'Angled cutaway view of the same storage container interior with furniture and boxes', '50% 50%'],
             ['viz/site-aerial',          'concept',    'Aerial site visualization',         'Aerial view of a row of houses with landscaping on a green site beside a road', '50% 50%'],
             ['viz/booth-concept',        'concept',    'Exhibition booth concept',          'Exhibition booth concept with a pink-striped container, canopy and an illuminated brand tower (brand placeholder)', '50% 40%'],
         ];
@@ -156,7 +159,7 @@ class Portfolio
         ];
 
         return [
-            $mk('house-1', '730 / 414', 'View 1: site', 'Coloured point cloud of a historic brick house and its grounds', 'Revit existing-conditions model of the same house and grounds'),
+            $mk('house-1', '1600 / 1000', 'View 1: site', 'Coloured point cloud of a historic brick house and its grounds', 'Revit existing-conditions model of the same house and grounds'),
             $mk('house-2', '730 / 330', 'View 2: detail', 'Point cloud close-up of the house front, chimneys and entrance', 'Revit model close-up of the same house front, chimneys and entrance'),
         ];
     }
