@@ -14,39 +14,13 @@
     'lead' => 'Send the sketches, PDFs, surveys or markups. Receive organized, editable AutoCAD drawings set up around your title block, layers, conventions and next project stage.',
     'cta' => 'Start a CAD project', 'ctaUrl' => pu('contact', [], ['service' => 'cad']),
     'secondary' => ['Explore the layers', '#layers'],
-    'image' => 'assets/img/photos/cad-drafting-desk', 'imgPos' => '50% 40%',
+    'showcase' => 'cad',
     'chips' => ['Plans, elevations and sections', 'PDF, sketch and scan to DWG', 'Permit-support drawing packages'],
 ])
 
-<section class="section" aria-labelledby="cad-problem">
-    <div class="wrap">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <p class="eyebrow" data-reveal>Buyer problem</p>
-                <h2 class="display-h" id="cad-problem" data-split>Drawings That Drop into the Set—<em>not Back onto Your Correction List.</em></h2>
-            </div>
-            <div class="col-lg-6">
-                <p class="lead-p" data-reveal>Redlines are piling up, the set needs to move and your senior team should not be checking basic layer, dimension and plotting issues.</p>
-                <p class="lead-p" data-reveal style="--d:.1s">We convert the information you provide into clear drawings, raise missing or conflicting details early and check the set against the agreed standards before delivery.</p>
-            </div>
-        </div>
-    </div>
-</section>
+@include('partials.service-showcase', ['category' => 'cad', 'jump' => '#samples'])
 
-<section class="section section--alt" aria-labelledby="cad-deliver">
-    <div class="wrap">
-        <p class="eyebrow" data-reveal>Deliverables</p>
-        <h2 class="display-h" id="cad-deliver" data-split>CAD <em>Drafting Services</em></h2>
-        <p class="lead-p" data-reveal>Architectural drafting and CAD conversion, from floor plan drafting and elevations to as-built and redline updates, drawn to your conventions.</p>
-        <ul class="tile-grid tile-grid--4 mt-4">
-            @foreach ($items as $it)
-                <li class="tile tile--col" data-reveal style="--d: {{ $loop->index * .06 }}s"><span class="tile__ic"><x-icon :name="$icons[$loop->index]" /></span><span>{{ $it }}</span></li>
-            @endforeach
-        </ul>
-    </div>
-</section>
-
-{{-- INTERACTIVE LAYERS --}}
+{{-- INTERACTIVE LAYERS — the hero's secondary button goes straight here --}}
 <section class="section" id="layers" aria-labelledby="cad-standards">
     <div class="wrap">
         <div class="row g-5 align-items-start">
@@ -134,8 +108,39 @@
     </div>
 </section>
 
+{{-- BUYER PROBLEM + DELIVERABLES (merged) --}}
+<section class="section" aria-labelledby="cad-problem">
+    <div class="wrap">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <p class="eyebrow" data-reveal>Buyer problem</p>
+                <h2 class="display-h" id="cad-problem" data-split>Drawings That Drop into the Set—<em>not Back onto Your Correction List.</em></h2>
+            </div>
+            <div class="col-lg-6">
+                <p class="lead-p" data-reveal>Redlines are piling up, the set needs to move and your senior team should not be checking basic layer, dimension and plotting issues.</p>
+                <p class="lead-p" data-reveal style="--d:.1s">We convert the information you provide into clear drawings, raise missing or conflicting details early and check the set against the agreed standards before delivery.</p>
+            </div>
+        </div>
+
+        <div class="row g-5 mt-5 pt-5" style="border-top: 1px solid var(--line)">
+            <div class="col-lg-12">
+                <p class="eyebrow" data-reveal>Deliverables</p>
+                <h2 class="display-h" id="cad-deliver" data-split>CAD <em>Drafting Services</em></h2>
+                <p class="lead-p" data-reveal>Architectural drafting and CAD conversion, from floor plan drafting and elevations to as-built and redline updates, drawn to your conventions.</p>
+            </div>
+            <div class="col-lg-12">
+                <ul class="tile-grid tile-grid--4 mt-4">
+                    @foreach ($items as $it)
+                        <li class="tile tile--col" data-reveal style="--d: {{ $loop->index * .06 }}s"><span class="tile__ic"><x-icon :name="$icons[$loop->index]" /></span><span>{{ $it }}</span></li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
 {{-- PERMIT + RENOVATIONS --}}
-<section class="section" aria-labelledby="cad-permit">
+<section class="section section--flush-top" aria-labelledby="cad-permit">
     <div class="wrap">
         <div class="row g-4">
             <div class="col-lg-6" data-reveal>

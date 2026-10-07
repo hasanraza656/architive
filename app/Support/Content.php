@@ -99,7 +99,7 @@ class Content
     public static function engagements(): array
     {
         return [
-            ['key' => 'pilot',    'title' => 'Paid pilot',       'badge' => 'Free start', 'text' => 'Test communication, standards and output on one defined task. Free start.', 'best' => 'Testing communication, standards and output quality', 'scope' => 1, 'commit' => 1, 'ic' => 'target'],
+            ['key' => 'pilot',    'title' => 'Pilot',            'badge' => 'Free start', 'text' => 'Test communication, standards and output on one defined task. Free start.', 'best' => 'Testing communication, standards and output quality', 'scope' => 1, 'commit' => 1, 'ic' => 'target'],
             ['key' => 'project',  'title' => 'Defined project',  'text' => 'Fixed scope, milestones and deliverables.', 'best' => 'A clearly bounded set of drawings, models or visuals', 'scope' => 3, 'commit' => 2, 'ic' => 'file-text'],
             ['key' => 'hourly',   'title' => 'Hourly support',   'text' => 'Flexible hours whenever you need an extra pair of hands. Rates start from $16 per hour.', 'best' => 'Short tasks, overflow work and ad-hoc production help', 'scope' => 2, 'commit' => 1, 'ic' => 'clock', 'badge' => 'From $16 / hour'],
             ['key' => 'ongoing',  'title' => 'Ongoing support',  'text' => 'Recurring CAD, BIM or visualization capacity.', 'best' => 'Steady production capacity alongside your own team', 'scope' => 4, 'commit' => 4, 'ic' => 'refresh'],

@@ -15,7 +15,7 @@ return [
     'founded'     => 2017,
     'founder'     => 'Madiha Altaf',
     'founder_role' => 'Founder and Architectural Engineer',
-    'email'       => 'architive.net@gmail.com',
+    'email'       => 'info@architive.net',
 
     // Internal: where form notifications are delivered (ADMIN_EMAIL in .env)
     'admin_email' => env('ADMIN_EMAIL', env('MAIL_FROM_ADDRESS')),
@@ -24,7 +24,7 @@ return [
 
     'address' => [
         'corporate' => ['label' => 'US Corporate Entity', 'value' => 'Architive LLC · Newark, Delaware, USA'],
-        'studio'    => ['label' => 'Production Studio',   'value' => 'Multan, Punjab, Pakistan · 12+ Engineers'],
+        'studio'    => ['label' => 'Production Studio',   'value' => 'Multan, Punjab, Pakistan'],
     ],
 
     // Social profiles: add real URLs here and they are emitted into schema sameAs + footer.
@@ -65,7 +65,7 @@ return [
          'text' => 'Where Architive began in 2017, growing through repeat projects and long-term working relationships.'],
         ['key' => 'upwork', 'label' => 'Upwork',         'count' => 130,  'suffix' => '+', 'display' => '130+',   'unit' => 'completed projects',
          'text' => 'Completed projects for architecture and design clients, delivered with the same one-brief, one-team approach.'],
-        ['key' => 'direct', 'label' => 'Direct clients', 'count' => null, 'suffix' => '',  'display' => '4–5',    'unit' => 'active direct clients today',
+        ['key' => 'direct', 'label' => 'Direct clients', 'count' => null, 'suffix' => '',  'display' => '15–20',    'unit' => 'active direct clients today',
          'text' => 'Studios and teams working with Architive directly, outside the marketplaces.'],
     ],
 
@@ -74,7 +74,6 @@ return [
 
     'standards' => [
         'AutoCAD Scaled DWG',
-        'Revit LOD 300-350',
         '3ds Max & V-Ray',
         'Mutual NDA Protected',
     ],

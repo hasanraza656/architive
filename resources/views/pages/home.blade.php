@@ -24,17 +24,17 @@
         <div class="hero__shade" aria-hidden="true"></div>
 
         <div class="hero__content">
-            <p class="hero__kicker">Architectural production studio</p>
-            <h1 class="hero__title">
+            <h1 class="hero__kicker">Architectural production studio: CAD, BIM and 3D visualization</h1>
+            <h2 class="hero__title">
                 <span class="line"><span>One brief.</span></span>
                 <span class="line line--serif"><span><em>One team.</em></span></span>
-            </h1>
+            </h2>
             <p class="hero__lead">Coordinated team for <span class="hero__lead-mark">CAD Drafting</span>, <span class="hero__lead-mark">BIM and Revit</span>, and <span class="hero__lead-mark">Architectural Visualization</span>.</p>
             <div class="hero__actions">
                 <a class="btn-ay btn-ay--lg" href="{{ pu('contact') }}" data-magnetic>Start your project <i class="btn-ay__dot"></i></a>
                 <a class="link-arrow link-arrow--light" href="#services">See our services <x-icon name="arrow-down" /></a>
             </div>
-            <p class="hero__note">Free start with a consultation or a free pilot task. No commitment until you approve the scope.</p>
+            <p class="hero__note">Start with a free consultation or a small paid pilot. Review the scope risk-free before proceeding.</p>
         </div>
     </div>
 </section>
@@ -106,7 +106,7 @@
         <div class="section-head">
             <div>
                 <p class="eyebrow" data-reveal>Collaborations</p>
-                <h2 class="display-h mb-2" id="collab-title" data-split>Proof in the Work—<em>not in the Promises.</em></h2>
+                <h2 class="display-h mb-2" id="collab-title" data-split>Proof in the Work<em>not in the Promises.</em></h2>
                 <p class="lead-p mb-0" data-reveal style="--d:.15s">See what the client needed, the responsibility Architive handled and how the deliverables supported the wider project.</p>
             </div>
             <a class="btn-ay" href="{{ pu('collaborations.index') }}" data-reveal>View collaborations <x-icon name="arrow-right" /></a>

@@ -71,7 +71,7 @@
 <body class="page-{{ str_replace('.', '-', Route::currentRouteName() ?? 'error') }}{{ ($overlay ?? false) ? ' has-overlay' : '' }}">
     <a class="skip-link" href="#main">Skip to main content</a>
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
-    <div class="curtain" aria-hidden="true"></div>
+    <div class="curtain" aria-hidden="true"><span class="curtain__logo"><x-logo :light="true" /></span></div>
 
     @include('partials.header')
 

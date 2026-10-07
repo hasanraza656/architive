@@ -64,6 +64,28 @@ class Portfolio
         return array_map(fn ($i) => self::img($i[0]) + ['cat' => $i[1], 'title' => $i[2], 'alt' => $i[3], 'pos' => $i[4]], $items);
     }
 
+    /**
+     * Flat image list + category labels for a service page's showcase carousel.
+     * group: visualization (renders) | bim | cad (sample-set sheets).
+     */
+    public static function showcase(string $category): array
+    {
+        if ($category === 'visualization') {
+            return ['images' => self::viz(), 'cats' => self::vizCategories()];
+        }
+
+        $images = [];
+        $cats = [];
+        foreach (self::sets($category) as $id => $s) {
+            $cats[$id] = $s['place'];
+            foreach ($s['sheets'] as $sh) {
+                $images[] = $sh + ['cat' => $id];
+            }
+        }
+
+        return ['images' => $images, 'cats' => $cats];
+    }
+
     /* ------------------------------------------------------------------ Drawing / model sample sets */
 
     /**

@@ -27,39 +27,13 @@
     'lead' => 'Structured architectural models and documentation built around your Revit version, project purpose, naming conventions and delivery standards—not ours.',
     'cta' => 'Start a BIM project', 'ctaUrl' => pu('contact', [], ['service' => 'bim']),
     'secondary' => ['CAD to BIM and scan to BIM', '#convert'],
-    'image' => 'assets/img/photos/bim-house-model', 'imgPos' => '50% 40%',
+    'showcase' => 'bim',
     'chips' => ['Architectural Revit modeling', 'CAD to BIM and scan to BIM', 'Plans, sections, elevations and schedules'],
 ])
 
-<section class="section" aria-labelledby="bim-problem">
-    <div class="wrap">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <p class="eyebrow" data-reveal>Buyer problem</p>
-                <h2 class="display-h" id="bim-problem" data-split>Outside BIM Support Should Reduce Checking—<em>not Create More of It.</em></h2>
-            </div>
-            <div class="col-lg-6">
-                <p class="lead-p" data-reveal>When internal teams are overloaded, outside BIM support should reduce pressure—not return a model that needs to be reorganized before anyone can use it.</p>
-                <p class="lead-p" data-reveal style="--d:.1s">We agree the model use, level of detail, version, views, naming and file structure first, then build and review the model around those requirements.</p>
-            </div>
-        </div>
-    </div>
-</section>
+@include('partials.service-showcase', ['category' => 'bim', 'jump' => '#samples'])
 
-<section class="section section--alt" aria-labelledby="bim-deliver">
-    <div class="wrap">
-        <p class="eyebrow" data-reveal>Deliverables</p>
-        <h2 class="display-h" id="bim-deliver" data-split>BIM and <em>Revit Services</em></h2>
-        <p class="lead-p" data-reveal>From architectural BIM modeling and Revit documentation to family creation and model cleanup, each service is scoped to your project purpose and standards.</p>
-        <ul class="tile-grid tile-grid--3 mt-4">
-            @foreach ($items as $it)
-                <li class="tile" data-reveal style="--d: {{ $loop->index * .07 }}s"><span class="tile__ic"><x-icon name="{{ ['box','file-text','scan','layers','pencil-ruler','refresh'][$loop->index] }}" /></span><span>{{ $it }}</span></li>
-            @endforeach
-        </ul>
-    </div>
-</section>
-
-{{-- CAD TO BIM / SCAN TO BIM (interactive) --}}
+{{-- CAD TO BIM / SCAN TO BIM (interactive) — the hero's secondary button goes straight here --}}
 <section class="section" id="convert" aria-labelledby="bim-convert">
     <div class="wrap">
         <div class="text-center mb-5">
@@ -163,7 +137,38 @@
     </div>
 </section>
 
-<section class="section" aria-labelledby="bim-standards">
+{{-- BUYER PROBLEM + DELIVERABLES (merged) --}}
+<section class="section" aria-labelledby="bim-problem">
+    <div class="wrap">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <p class="eyebrow" data-reveal>Buyer problem</p>
+                <h2 class="display-h" id="bim-problem" data-split>Outside BIM Support Should Reduce Checking—<em>not Create More of It.</em></h2>
+            </div>
+            <div class="col-lg-6">
+                <p class="lead-p" data-reveal>When internal teams are overloaded, outside BIM support should reduce pressure—not return a model that needs to be reorganized before anyone can use it.</p>
+                <p class="lead-p" data-reveal style="--d:.1s">We agree the model use, level of detail, version, views, naming and file structure first, then build and review the model around those requirements.</p>
+            </div>
+        </div>
+
+        <div class="row g-5 mt-5 pt-5" style="border-top: 1px solid var(--line)">
+            <div class="col-lg-12">
+                <p class="eyebrow" data-reveal>Deliverables</p>
+                <h2 class="display-h" id="bim-deliver" data-split>BIM and <em>Revit Services</em></h2>
+                <p class="lead-p" data-reveal>From architectural BIM modeling and Revit documentation to family creation and model cleanup, each service is scoped to your project purpose and standards.</p>
+            </div>
+            <div class="col-lg-12">
+                <ul class="tile-grid tile-grid--3 mt-4">
+                    @foreach ($items as $it)
+                        <li class="tile" data-reveal style="--d: {{ $loop->index * .07 }}s"><span class="tile__ic"><x-icon name="{{ ['box','file-text','scan','layers','pencil-ruler','refresh'][$loop->index] }}" /></span><span>{{ $it }}</span></li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section--flush-top" aria-labelledby="bim-standards">
     <div class="wrap">
         <div class="row g-5 align-items-center">
             <div class="col-lg-5">

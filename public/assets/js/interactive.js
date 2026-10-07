@@ -211,6 +211,12 @@
     } else { visible = true; play(); }
   });
 
+  /* ---- Service page showcase: category pill pre-filters the gallery further down, if that page has one ---- */
+  $(document).on('click', '[data-showcase-jump]', function () {
+    var $btn = $('[data-gfilter="' + $(this).data('showcase-jump') + '"]');
+    if ($btn.length) { $btn.trigger('click'); }
+  });
+
   /* ---- Track record tabs (Fiverr / Upwork / direct): one big number, counts up when shown ---- */
   $('[data-track]').each(function () {
     var $t = $(this), $tabs = $t.find('[role="tab"]'), $panels = $t.find('[role="tabpanel"]'), $meter = $t.find('.track__meter i'), seen = {};

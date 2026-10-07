@@ -1,10 +1,21 @@
 {{--
   Inner-page hero. Props: $eyebrow, $title (HTML ok), $lead, $cta (label), $ctaUrl, $image, $alt,
-  optional: $secondary [label,url], $chips [..], $visual (view name for an animated SVG), $imgPos
+  optional: $secondary [label,url], $chips [..], $visual (view name for an animated SVG), $imgPos,
+  $showcase (category key 'visualization'|'bim'|'cad' -> real-work carousel background instead of a single $image)
 --}}
 <section class="page-hero" data-parallax-root>
     <div class="page-hero__bg" aria-hidden="true">
-        @if (! empty($image))
+        @if (! empty($showcase))
+            @php $showImages = \App\Support\Content::coreServices()[$showcase]['gallery']; @endphp
+            <div class="page-hero__carousel" data-slider>
+                @foreach ($showImages as $img)
+                    <picture class="slider__slide {{ ! empty($img['sheet']) ? 'slider__slide--sheet' : '' }} {{ $loop->first ? 'is-active' : '' }}">
+                        <source type="image/webp" srcset="{{ $img['thumb'] }} {{ $img['tw'] }}w, {{ $img['src'] }} {{ $img['w'] }}w" sizes="100vw">
+                        <img src="{{ $img['src'] }}" alt="" width="{{ $img['w'] }}" height="{{ $img['h'] }}" decoding="async" data-parallax="0.12" @if ($loop->first) fetchpriority="high" @else loading="lazy" @endif>
+                    </picture>
+                @endforeach
+            </div>
+        @elseif (! empty($image))
             <picture>
                 <source type="image/webp" srcset="{{ asset($image . '-800.webp') }} 800w, {{ asset($image . '.webp') }} 1600w" sizes="100vw">
                 <img src="{{ asset($image . '.webp') }}" alt="" width="1600" height="1066" fetchpriority="high" decoding="async" data-parallax="0.12" style="object-position: {{ $imgPos ?? 'center' }}">

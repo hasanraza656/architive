@@ -13,12 +13,29 @@
     'lead' => 'Accurate, presentation-ready visuals for client decisions, design approvals, investor conversations and pre-construction marketing—developed from your drawings, models and references.',
     'cta' => 'Start a visualization project', 'ctaUrl' => pu('contact', [], ['service' => 'visualization']),
     'secondary' => ['See our work', '#work'],
-    'image' => 'assets/img/work/viz/bandon-dusk-wrap', 'imgPos' => '50% 55%',
-    'chips' => ['Interior and exterior renderings', '3D floor plans and axonometric views', 'Renovation and option visuals'],
+    'showcase' => 'visualization',
+    'chips' => ['Interior and exterior renderings', '3D floor plans and axonometric views', 'Renovation and option visuals', 'Self storage containers', 'Booth design'],
 ])
 
-{{-- BUYER PROBLEM + compare --}}
-<section class="section" aria-labelledby="viz-problem">
+@include('partials.service-showcase', ['category' => 'visualization', 'jump' => '#work'])
+
+{{-- SELECTED WORK (real renders) --}}
+<section class="section" id="work" aria-labelledby="viz-work">
+    <div class="wrap">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow" data-reveal>Selected work</p>
+                <h2 class="display-h mb-0" id="viz-work" data-split>Visuals <em>We Have Delivered</em></h2>
+            </div>
+            <p class="lead-p mb-0" data-reveal style="max-width: 44ch">Exteriors, interiors, 3D floor plans and concept visuals. Select any image to enlarge it.</p>
+        </div>
+        @include('partials.work-gallery')
+        <p class="note-line">Selected examples of Architive visualization work; some images carry the Architive studio mark.</p>
+    </div>
+</section>
+
+{{-- BUYER PROBLEM + DELIVERABLES (merged) --}}
+<section class="section section--flush-top" aria-labelledby="viz-problem">
     <div class="wrap">
         <div class="row g-5 align-items-center">
             <div class="col-lg-5">
@@ -36,13 +53,8 @@
                 <p class="mono-note mt-3">Drag to see how a grayscale geometry review becomes a finished image (the grayscale view is a simulation of the review stage).</p>
             </div>
         </div>
-    </div>
-</section>
 
-{{-- DELIVERABLES --}}
-<section class="section section--alt" aria-labelledby="viz-deliver">
-    <div class="wrap">
-        <div class="row g-5">
+        <div class="row g-5 mt-5 pt-5" style="border-top: 1px solid var(--line)">
             <div class="col-lg-5">
                 <p class="eyebrow" data-reveal>Deliverables</p>
                 <h2 class="display-h" id="viz-deliver" data-split>Visualization <em>Services</em></h2>
@@ -56,21 +68,6 @@
                 </ul>
             </div>
         </div>
-    </div>
-</section>
-
-{{-- SELECTED WORK (real renders) --}}
-<section class="section" id="work" aria-labelledby="viz-work">
-    <div class="wrap">
-        <div class="section-head">
-            <div>
-                <p class="eyebrow" data-reveal>Selected work</p>
-                <h2 class="display-h mb-0" id="viz-work" data-split>Visuals <em>We Have Delivered</em></h2>
-            </div>
-            <p class="lead-p mb-0" data-reveal style="max-width: 44ch">Exteriors, interiors, 3D floor plans and concept visuals. Select any image to enlarge it.</p>
-        </div>
-        @include('partials.work-gallery')
-        <p class="note-line">Selected examples of Architive visualization work; some images carry the Architive studio mark.</p>
     </div>
 </section>
 

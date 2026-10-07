@@ -173,6 +173,9 @@ main:focus { outline: none; }
 html.is-leaving .curtain { transform: translateY(0); transition: transform .5s var(--ease-io); pointer-events: all; }
 html.is-entering .curtain { transform: translateY(0); animation: curtain-out .8s var(--ease-io) .08s forwards; }
 @keyframes curtain-out { to { transform: translateY(101%); } }
+.curtain__logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(.92); opacity: 0; transition: opacity .4s var(--ease) .15s, transform .5s var(--ease) .15s; }
+.curtain .curtain__logo .brand__img { height: 46px; }
+html.is-leaving .curtain__logo, html.is-entering .curtain__logo { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 /* ---- Header --------------------------------------------------------------- */
 .site-header {

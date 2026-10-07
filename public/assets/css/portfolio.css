@@ -133,6 +133,12 @@ html.lb-open { overflow: hidden; }
 /* two default-background sections in a row: don't double the gap */
 .section--flush-top { padding-top: clamp(1rem, 3vw, 2rem); }
 
+/* ---- Service page hero carousel + category pills strip right below it ---- */
+.showcase-pills { padding-block: clamp(1.3rem, 2.6vw, 1.9rem); }
+.showcase__cats { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin: 0; }
+.showcase__cats a { display: inline-flex; align-items: center; padding: .6rem 1.05rem; border-radius: 999px; border: 1px solid var(--line-2); background: var(--surface); font: 700 .7rem/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; transition: .35s var(--ease); }
+.showcase__cats a:hover { border-color: var(--accent); background: rgba(255, 214, 10, .12); transform: translateY(-2px); }
+
 /* reCAPTCHA widget on the enquiry form */
 .captcha { margin-top: 1.6rem; min-height: 78px; }
 .captcha > div { max-width: 100%; }
