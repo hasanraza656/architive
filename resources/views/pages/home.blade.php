@@ -157,16 +157,19 @@
 </section>
 
 {{-- ===================== CLIENT REVIEWS ===================== --}}
-<section class="section section--dark" aria-labelledby="reviews-title">
+<section class="section section--dark reviews-sec" aria-labelledby="reviews-title">
     <div class="process__glow" aria-hidden="true"></div>
-    <div class="wrap">
+    <div class="wrap wrap--wide">
         <div class="text-center mb-5">
-            <p class="eyebrow eyebrow--center eyebrow--light" data-reveal>Client reviews</p>
-            <h2 class="display-h display-h--light" id="reviews-title" data-split>What Clients <em>Say About Working With Us.</em></h2>
+            <p class="eyebrow eyebrow--center" data-reveal>Client reviews</p>
+            <h2 class="display-h" id="reviews-title" data-split>What Clients <em>Say About Working With Us.</em></h2>
         </div>
         @include('partials.testimonials', ['items' => Content::testimonials()])
     </div>
 </section>
+
+{{-- ===================== BRAND / PARTNER LOGO MARQUEE ===================== --}}
+@include('partials.logo-marquee', ['logos' => Content::brandLogos()])
 
 {{-- ===================== FAQ ===================== --}}
 <section class="section section--alt" aria-labelledby="faq-title">

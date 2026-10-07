@@ -168,13 +168,13 @@ main:focus { outline: none; }
 .to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
 .to-top:hover { background: var(--accent); border-color: var(--accent); color: #141414; transform: translateY(-3px); }
 
-.curtain { position: fixed; inset: 0; z-index: 2500; pointer-events: none; background: var(--dark); transform: translateY(-101%); }
+.curtain { position: fixed; inset: 0; z-index: 2500; pointer-events: none; background: var(--dark); opacity: 0; visibility: hidden; }
 .curtain::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 6px; background: var(--accent); }
-html.is-leaving .curtain { transform: translateY(0); transition: transform .5s var(--ease-io); pointer-events: all; }
-html.is-entering .curtain { transform: translateY(0); animation: curtain-out .8s var(--ease-io) .08s forwards; }
-@keyframes curtain-out { to { transform: translateY(101%); } }
-.curtain__logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(.92); opacity: 0; transition: opacity .4s var(--ease) .15s, transform .5s var(--ease) .15s; }
-.curtain .curtain__logo .brand__img { height: 46px; }
+html.is-leaving .curtain { opacity: 1; visibility: visible; transition: opacity .42s var(--ease), visibility .42s; pointer-events: all; }
+html.is-entering .curtain { opacity: 1; visibility: visible; animation: curtain-fade-out .7s var(--ease) .18s forwards; }
+@keyframes curtain-fade-out { to { opacity: 0; visibility: hidden; } }
+.curtain__logo { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(.82); opacity: 0; transition: opacity .4s var(--ease) .1s, transform .55s var(--ease) .1s; }
+.curtain .curtain__logo .brand__img { height: 52px; }
 html.is-leaving .curtain__logo, html.is-entering .curtain__logo { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 /* ---- Header --------------------------------------------------------------- */

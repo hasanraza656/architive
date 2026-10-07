@@ -8,6 +8,25 @@ namespace App\Support;
  */
 class Content
 {
+    /** Brand/partner logos for the homepage marquee. Files live in public/assets/logos/. */
+    public static function brandLogos(): array
+    {
+        return [
+            ['file' => 'lululemon-logo.png',                   'alt' => 'Lululemon'],
+            ['file' => 'university-of-sheffield-logo.png',     'alt' => 'University of Sheffield'],
+            ['file' => 'pfizer-logo.png',                      'alt' => 'Pfizer'],
+            ['file' => 'gsk-logo.png',                         'alt' => 'GSK'],
+            ['file' => 'keele-university-logo.png',            'alt' => 'Keele University'],
+            ['file' => '1001-south-state-logo.png',            'alt' => '1001 South State'],
+            ['file' => 'the-bryn-logo.png',                    'alt' => 'The Bryn'],
+            ['file' => 'university-of-staffordshire-logo.png', 'alt' => 'University of Staffordshire'],
+            ['file' => 'calvin-klein-logo.png',                'alt' => 'Calvin Klein'],
+            ['file' => 'maserati-logo.png',                    'alt' => 'Maserati'],
+            ['file' => 'tommy-hilfiger-logo.jpg',               'alt' => 'Tommy Hilfiger'],
+            ['file' => 'jewel-design-studio-logo.png',         'alt' => 'Jewel Design Studio'],
+        ];
+    }
+
     public static function services(): array
     {
         return [
