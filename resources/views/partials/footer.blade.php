@@ -19,9 +19,7 @@
                 <ul class="footer-list">
                     @foreach (config('site.nav')[2]['children'] as $child)
                         <li><a href="{{ pu($child['route']) }}">{{ $child['label'] }}</a></li>
-                    @endforeach
-                    <li><a href="{{ pu('services.outsourcing') }}">Production Support</a></li>
-                </ul>
+                    @endforeach                </ul>
             </div>
             <div class="col-lg-3">
                 <h2 class="footer-h">Contact us</h2>

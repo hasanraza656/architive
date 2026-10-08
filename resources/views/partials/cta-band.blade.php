@@ -13,7 +13,7 @@
         </div>
         <div class="cta-band__foot" data-reveal style="--d:.4s">
             <ul>
-                <li><x-icon name="check" /> Free Consultation or Paid Pilot</li>
+                <li><x-icon name="check" /> Free Consultation and Free Start</li>
                 <li><x-icon name="check" /> Mutual NDA Available</li>
                 <li><x-icon name="check" /> No Commitment Until Scope Approved</li>
             </ul>

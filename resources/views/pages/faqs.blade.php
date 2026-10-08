@@ -6,7 +6,7 @@
 @include('partials.page-hero', [
     'eyebrow' => 'Frequently asked questions',
     'title' => 'Questions Buyers Ask <em>Before Starting.</em>',
-    'lead' => 'Clear answers regarding office standards, small trial pilots, architectural design boundaries, permit packages, pricing and revisions.',
+    'lead' => 'Clear answers regarding office standards, free starts, architectural design boundaries, permit packages, pricing and revisions.',
     'image' => 'assets/img/photos/bim-grid-facade', 'imgPos' => '50% 50%',
 ])
 

@@ -24,7 +24,7 @@ return [
 
     'address' => [
         'corporate' => ['label' => 'US Corporate Entity', 'value' => 'Architive LLC · Newark, Delaware, USA'],
-        'studio'    => ['label' => 'Production Studio',   'value' => 'Multan, Punjab, Pakistan'],
+        'studio'    => ['label' => 'Production Studio',   'value' => 'Pakistan'],
     ],
 
     // Social profiles: add real URLs here and they are emitted into schema sameAs + footer.
@@ -39,11 +39,8 @@ return [
             ['label' => 'Architectural Visualization', 'route' => 'services.visualization', 'icon' => 'eye',       'text' => 'Interiors, exteriors, 3D floor plans'],
             ['label' => 'BIM and Revit',               'route' => 'services.bim',           'icon' => 'box',       'text' => 'CAD to BIM, scan to BIM, families'],
             ['label' => 'CAD Drafting',                'route' => 'services.cad',           'icon' => 'file-text', 'text' => 'Plans, sections, PDF to DWG'],
-        ], 'more' => [
-            ['label' => 'Production support', 'route' => 'services.outsourcing', 'text' => 'How we extend your studio'],
-            ['label' => 'View all services',  'route' => 'services.index',       'text' => ''],
         ]],
-        ['label' => 'Projects', 'route' => 'collaborations.index'],
+        ['label' => 'Collaborations', 'route' => 'collaborations.index'],
         ['label' => 'Process',  'route' => 'process'],
         ['label' => 'Contact',  'route' => 'contact'],
     ],
@@ -65,8 +62,6 @@ return [
          'text' => 'Where Architive began in 2017, growing through repeat projects and long-term working relationships.'],
         ['key' => 'upwork', 'label' => 'Upwork',         'count' => 130,  'suffix' => '+', 'display' => '130+',   'unit' => 'completed projects',
          'text' => 'Completed projects for architecture and design clients, delivered with the same one-brief, one-team approach.'],
-        ['key' => 'direct', 'label' => 'Direct clients', 'count' => null, 'suffix' => '',  'display' => '15–20',    'unit' => 'active direct clients today',
-         'text' => 'Studios and teams working with Architive directly, outside the marketplaces.'],
     ],
 
     // Hourly option shown on the production-support pages (client decision: "starting from $16 per hour")
@@ -76,6 +71,25 @@ return [
         'AutoCAD Scaled DWG',
         '3ds Max & V-Ray',
         'Mutual NDA Protected',
+    ],
+
+    // "Where we work" map on the home page. Keys must exist in resources/views/partials/world-map.blade.php ($paths / $pins).
+    // To highlight more countries, regenerate the partial's shapes (see CLAUDE.md "World map").
+    'map' => [
+        'title'   => 'Supporting Teams <em>Globally.</em>',
+        'lead'    => 'Our production studio supports architecture and design teams in different time zones, so work keeps moving while your office is closed.',
+        'studio'  => 'Pakistan production studio',
+        // pos = where the pin label sits (top | bottom | left | right) so close neighbours do not overlap
+        'regions' => [
+            ['key' => 'usa',       'name' => 'USA'],
+            ['key' => 'canada',    'name' => 'Canada'],
+            ['key' => 'australia', 'name' => 'Australia'],
+            ['key' => 'germany',   'name' => 'Germany',                 'pos' => 'top'],
+            ['key' => 'italy',     'name' => 'Italy',                   'pos' => 'bottom'],
+            ['key' => 'ksa',       'name' => 'Saudi Arabia (KSA)',      'label' => 'KSA',   'pos' => 'left'],
+            ['key' => 'uae',       'name' => 'United Arab Emirates (Dubai)', 'label' => 'Dubai', 'pos' => 'right'],
+            ['key' => 'qatar',     'name' => 'Qatar',                   'pos' => 'bottom'],
+        ],
     ],
 
     'software' => ['AutoCAD', 'Revit', '3ds Max', 'SketchUp', 'V-Ray', 'Corona', 'Blender'],

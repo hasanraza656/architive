@@ -12,7 +12,8 @@ class PageController extends Controller
     public function visualization() { return view('pages.visualization'); }
     public function bim()           { return view('pages.bim'); }
     public function cad()           { return view('pages.cad'); }
-    public function outsourcing()   { return view('pages.outsourcing'); }
+    /** Production support is no longer a separate page; the old URL permanently redirects to Services. */
+    public function outsourcing()   { return redirect()->away(pu('services.index'), 301); }
     public function process()       { return view('pages.process'); }
     public function team()          { return view('pages.team'); }
     public function faqs()          { return view('pages.faqs'); }

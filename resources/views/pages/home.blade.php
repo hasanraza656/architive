@@ -24,17 +24,17 @@
         <div class="hero__shade" aria-hidden="true"></div>
 
         <div class="hero__content">
-            <h1 class="hero__kicker">Architectural production studio: CAD, BIM and 3D visualization</h1>
+            <h1 class="hero__kicker">Architectural Production Studio</h1>
             <h2 class="hero__title">
                 <span class="line"><span>One brief.</span></span>
                 <span class="line line--serif"><span><em>One team.</em></span></span>
             </h2>
-            <p class="hero__lead">Coordinated team for CAD Drafting, BIM and Revit, and Architectural Visualization.</p>
+            <p class="hero__lead">Coordinated team for Architectural Visualization, BIM and Revit, and CAD Drafting.</p>
             <div class="hero__actions">
                 <a class="btn-ay btn-ay--lg" href="{{ pu('contact') }}" data-magnetic>Start your project <i class="btn-ay__dot"></i></a>
                 <a class="link-arrow link-arrow--light" href="#services">See our services <x-icon name="arrow-down" /></a>
             </div>
-            <p class="hero__note">Start with a free consultation or a small paid pilot. Review the scope risk-free before proceeding.</p>
+            <p class="hero__note">No overhead, no hiring, no delays.</p>
         </div>
     </div>
 </section>
@@ -62,41 +62,23 @@
     </div>
 </div>
 
-{{-- ===================== THE THREE CORE SERVICES ===================== --}}
+{{-- ===================== TRACK RECORD (Fiverr + Upwork) ===================== --}}
+@include('partials.track-band', ['track' => $track])
+
+{{-- ===================== THE THREE CORE SERVICES: big visuals, one under another ===================== --}}
 <section class="section" id="services" aria-labelledby="services-title">
-    <div class="wrap">
+    <div class="wrap wrap--wide">
         <div class="section-head">
             <div>
                 <p class="eyebrow eyebrow--lg" data-reveal>Services</p>
-                <h2 class="display-h display-h--md mb-0" id="services-title" data-split>Brief One Team. <em>Keep Every Deliverable Connected.</em></h2>
+                <h2 class="display-h display-h--md mb-0" id="services-title" data-split>One Brief. One Team. <em>Every Deliverable Connected.</em></h2>
             </div>
-            <a class="btn-ay" href="{{ pu('services.index') }}" data-reveal>View all services <x-icon name="arrow-right" /></a>
         </div>
-
-        <div class="row g-4 svc-feature-grid">
-            @foreach ($core as $key => $s)
-                <div class="col-md-6 col-lg-4" data-reveal style="--d: {{ $loop->index * .1 }}s">
-                    <article class="svc-feature">
-                        @include('partials.service-slider', ['s' => $s, 'n' => $loop->iteration])
-                        <div class="svc-feature__body">
-                            <div class="svc-feature__head">
-                                <span class="svc-feature__icon"><x-icon :name="$s['icon']" /></span>
-                                <h3 class="svc-feature__title">{{ $s['title'] }}</h3>
-                            </div>
-                            <p class="svc-feature__text">{{ $s['short'] }}</p>
-                            <ul class="svc-feature__list">
-                                @foreach ($s['items'] as $it)<li>{{ $it }}</li>@endforeach
-                            </ul>
-                            <div class="svc-feature__actions">
-                                <a class="svc-feature__more" href="{{ pu($s['route']) }}">Explore more <x-icon name="arrow-right" /></a>
-                                <a class="svc-feature__quote" href="{{ pu('contact', [], ['service' => $key]) }}">Start a project</a>
-                            </div>
-                        </div>
-                    </article>
-                </div>
-            @endforeach
-        </div>
-        <p class="mono-note text-center mt-4" data-reveal>{{ $core['cad']['note'] }}</p>
+    </div>
+    <div class="svc-show-list">
+        @foreach ($core as $key => $s)
+            @include('partials.service-show', ['s' => $s, 'key' => $key, 'n' => $loop->iteration])
+        @endforeach
     </div>
 </section>
 
@@ -121,40 +103,19 @@
     </div>
 </section>
 
-{{-- ===================== WHO WE ARE AND WHAT WE DO ===================== --}}
+{{-- ===================== WHO WE ARE (short) ===================== --}}
 <section class="section" id="who-we-are" aria-labelledby="who-title">
-    <div class="wrap">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <p class="eyebrow" data-reveal>Who we are</p>
-                <h2 class="display-h" id="who-title" data-split>Who We Are <em>and What We Do.</em></h2>
-                <p class="lead-p" data-reveal style="--d:.1s">I started Architive in {{ config('site.founded') }} as a freelance architectural engineer on Fiverr and Upwork. What began with helping clients turn ideas into drawings and 3D visuals grew through repeat projects and long-term working relationships into a multidisciplinary architectural production studio.</p>
-                <p class="lead-p" data-reveal style="--d:.18s">Today we provide architectural visualization, BIM and Revit, and CAD drafting under one roof. You lead the design and the client relationship; we turn approved information into accurate drawings, structured models and presentation-ready visuals, in your formats and to your standards.</p>
-
-                <ul class="who__does" data-reveal style="--d:.24s">
-                    <li><x-icon name="users" /><div><strong>One brief, one accountable contact</strong><span>A named person who knows your project, your standards and your deadline.</span></div></li>
-                    <li><x-icon name="layers" /><div><strong>Your templates and standards</strong><span>Title blocks, layers, Revit structure and naming, applied from day one.</span></div></li>
-                </ul>
-
-                <ul class="who__audiences" aria-label="Who we work with" data-reveal style="--d:.3s">
-                    <li><x-icon name="building" /> Architecture firms</li>
-                    <li><x-icon name="layers" /> Interior design studios</li>
-                    <li><x-icon name="ruler" /> Developers and contractors</li>
-                    <li><x-icon name="home" /> Homeowners</li>
-                </ul>
-
-                <div class="who__sig" data-reveal style="--d:.36s">
-                    <div><span class="signature__name">{{ config('site.founder') }}</span><span class="signature__role">{{ config('site.founder') }} · {{ config('site.founder_role') }}</span></div>
-                    <a class="link-arrow" href="{{ pu('about') }}">Read our story <x-icon name="arrow-right" /></a>
-                </div>
-            </div>
-
-            <div class="col-lg-6" data-reveal="zoom">
-                @include('partials.track-record', ['track' => $track])
-            </div>
-        </div>
+    <div class="wrap wrap--narrow text-center">
+        <p class="eyebrow eyebrow--center" data-reveal>Who we are</p>
+        <h2 class="display-h" id="who-title" data-split>Who We Are <em>and What We Do.</em></h2>
+        <p class="lead-p" data-reveal style="--d:.1s">I started Architive in {{ config('site.founded') }} as a freelance architectural engineer on Fiverr and Upwork. What began with helping clients turn ideas into drawings and 3D visuals grew through repeat projects and long-term working relationships into a multidisciplinary architectural production studio.</p>
+        <p class="lead-p" data-reveal style="--d:.18s">Today we provide architectural visualization, BIM and Revit, and CAD drafting under one roof. You lead the design and the client relationship; we turn approved information into accurate drawings, structured models and presentation-ready visuals, in your formats and to your standards.</p>
+        <p class="who__sig who__sig--center" data-reveal style="--d:.26s"><span class="signature__name">{{ config('site.founder') }}</span><span class="signature__role">{{ config('site.founder_role') }}</span><a class="link-arrow" href="{{ pu('about') }}">Read our story <x-icon name="arrow-right" /></a></p>
     </div>
 </section>
+
+{{-- ===================== WHERE WE WORK (map) ===================== --}}
+@include('partials.world-map')
 
 {{-- ===================== CLIENT REVIEWS ===================== --}}
 <section class="section section--dark reviews-sec" aria-labelledby="reviews-title">
@@ -177,7 +138,7 @@
         <div class="text-center mb-5">
             <p class="eyebrow eyebrow--center" data-reveal>Frequently asked questions</p>
             <h2 class="display-h" id="faq-title" data-split>Questions Buyers Ask <em>Before Starting.</em></h2>
-            <p class="lead-p mx-auto" data-reveal>Clear answers regarding office standards, small trial pilots, architectural design boundaries, permit packages, pricing and revisions.</p>
+            <p class="lead-p mx-auto" data-reveal>Clear answers regarding office standards, free starts, architectural design boundaries, permit packages, pricing and revisions.</p>
         </div>
         @include('partials.faq-toolbar')
         @include('partials.faq-list', ['items' => Content::faqs(), 'uid' => 'homefaq'])

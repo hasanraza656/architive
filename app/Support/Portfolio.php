@@ -36,7 +36,7 @@ class Portfolio
 
     public static function vizCategories(): array
     {
-        return ['exteriors' => 'Exteriors', 'interiors' => 'Interiors', 'floorplans' => '3D floor plans', 'concept' => 'Site and concept'];
+        return ['interiors' => 'Interiors', 'exteriors' => 'Exteriors', 'floorplans' => '3D floor plans', 'booth' => 'Booth design', 'storage' => 'Self-storage containers'];
     }
 
     public static function viz(): array
@@ -57,11 +57,11 @@ class Portfolio
             ['viz/floorplan-3d-retail',  'floorplans', '3D floor plan, axonometric',        'Axonometric 3D floor plan of a large open space with furniture, fixtures and timber flooring', '50% 50%'],
             ['viz/floorplan-3d-top',     'floorplans', '3D floor plan, top view',           'Top-down 3D floor plan with herringbone flooring, blue rugs and furniture layout', '50% 50%'],
             ['viz/floorplan-iso',        'floorplans', '3D floor plan, isometric',          'Isometric cutaway 3D floor plan of an irregular-shaped commercial space', '50% 50%'],
-            ['viz/storage-unit-iso',           'floorplans', 'Self-storage unit, isometric',   'Isometric cutaway view of a furnished self-storage unit interior with boxes, furniture and luggage', '50% 50%'],
-            ['viz/storage-container-top',      'floorplans', '3D floor plan, storage container', 'Top-down cutaway view of a storage container interior with furniture, boxes and bags', '50% 50%'],
-            ['viz/storage-container-angle',    'floorplans', 'Storage container, angled view', 'Angled cutaway view of the same storage container interior with furniture and boxes', '50% 50%'],
-            ['viz/site-aerial',          'concept',    'Aerial site visualization',         'Aerial view of a row of houses with landscaping on a green site beside a road', '50% 50%'],
-            ['viz/booth-concept',        'concept',    'Exhibition booth concept',          'Exhibition booth concept with a pink-striped container, canopy and an illuminated brand tower (brand placeholder)', '50% 40%'],
+            ['viz/storage-unit-iso',           'storage', 'Self-storage unit, isometric',   'Isometric cutaway view of a furnished self-storage unit interior with boxes, furniture and luggage', '50% 50%'],
+            ['viz/storage-container-top',      'storage', '3D floor plan, storage container', 'Top-down cutaway view of a storage container interior with furniture, boxes and bags', '50% 50%'],
+            ['viz/storage-container-angle',    'storage', 'Storage container, angled view', 'Angled cutaway view of the same storage container interior with furniture and boxes', '50% 50%'],
+            ['viz/site-aerial',          'exteriors',    'Aerial site visualization',         'Aerial view of a row of houses with landscaping on a green site beside a road', '50% 50%'],
+            ['viz/booth-concept',        'booth',    'Exhibition booth concept',          'Exhibition booth concept with a pink-striped container, canopy and an illuminated brand tower (brand placeholder)', '50% 40%'],
         ];
 
         return array_map(fn ($i) => self::img($i[0]) + ['cat' => $i[1], 'title' => $i[2], 'alt' => $i[3], 'pos' => $i[4]], $items);
@@ -87,6 +87,67 @@ class Portfolio
         }
 
         return ['images' => $images, 'cats' => $cats];
+    }
+
+    /**
+     * Curated, clear samples for the auto-running reels (home + service pages).
+     * Every entry: src, thumb, w, h, tw, th, alt, title, sheet (true = drawing sheet / white-background view).
+     */
+    public static function reel(string $category, int $limit = 12): array
+    {
+        $out = [];
+
+        if ($category === 'visualization') {
+            // round-robin across the categories so every kind of work (interior, exterior, 3D plans, booth, storage) shows early
+            $byCat = [];
+            foreach (self::viz() as $i) {
+                $byCat[$i['cat']][] = $i;
+            }
+            while (count($out) < $limit && array_filter($byCat)) {
+                foreach ($byCat as $c => $list) {
+                    if ($list && count($out) < $limit) {
+                        $out[] = array_shift($byCat[$c]) + ['sheet' => false];
+                    }
+                }
+            }
+
+            return $out;
+        }
+
+        if ($category === 'bim') {
+            $picks = [
+                ['scan/house-1-model', 'Revit existing-conditions model built from a surveyor point cloud', 'Revit model from point cloud', false],
+                ['scan/house-1-cloud', 'Point cloud of a historic brick house captured by a surveyor', 'Surveyor point cloud', false],
+                ['cases/manuel-house-3d', 'Revit 3D view of a double-storey house', 'Revit 3D view', true],
+                ['scan/house-2-model', 'Revit model close-up of a house front, chimneys and entrance', 'Revit model detail', false],
+                ['scan/facade-model', 'Revit model of a street facade with carved entrance details modeled', 'Revit facade model', false],
+            ];
+            foreach ($picks as [$key, $alt, $title, $sheet]) {
+                $out[] = self::img($key) + ['alt' => $alt, 'title' => $title, 'sheet' => $sheet];
+            }
+            foreach (self::sets('bim') as $s) {
+                foreach (array_slice($s['sheets'], 0, 2) as $sh) {
+                    $out[] = $sh + ['sheet' => true];
+                }
+            }
+
+            return array_slice($out, 0, $limit);
+        }
+
+        // drawing sets: round-robin so every set (NY, CA, VA ...) is represented early
+        $bySet = [];
+        foreach (self::sets($category) as $id => $s) {
+            $bySet[$id] = $s['sheets'];
+        }
+        while (count($out) < $limit && array_filter($bySet)) {
+            foreach ($bySet as $id => $list) {
+                if ($list && count($out) < $limit) {
+                    $out[] = array_shift($bySet[$id]) + ['sheet' => true];
+                }
+            }
+        }
+
+        return $out;
     }
 
     /* ------------------------------------------------------------------ Drawing / model sample sets */

@@ -39,7 +39,7 @@
                             <a class="link-arrow link-arrow--light" href="{{ $secondary[1] }}">{{ $secondary[0] }} <x-icon name="arrow-right" /></a>
                         @endif
                     </div>
-                    <p class="mono-note mono-note--light" data-reveal style="--d:.4s">Start with a free consultation or a small paid pilot. No commitment until you approve the scope.</p>
+                    <p class="mono-note mono-note--light" data-reveal style="--d:.4s">Free consultation and free start. No commitment until you approve the scope.</p>
                 @endif
             </div>
             @if (! empty($chips))

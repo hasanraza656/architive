@@ -1,28 +1,11 @@
-@extends('layouts.app', ['overlay' => true])
+@extends('layouts.app')
 
 @section('content')
-@php use App\Support\Content; @endphp
-
-@include('partials.page-hero', [
+@include('partials.svc-head', [
     'eyebrow' => 'Who we are',
     'title' => 'Built from the Same Production Problem <em>Our Clients Still Face.</em>',
     'lead' => 'Architive began because good design teams were losing time coordinating separate people for drawings, BIM and visualization.',
-    'image' => 'assets/img/photos/blueprint-tools', 'imgPos' => '50% 45%',
 ])
-
-<section class="section" aria-labelledby="about-open">
-    <div class="wrap">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <p class="eyebrow" data-reveal>Our opening</p>
-                <h2 class="display-h" id="about-open" data-split>One Coordinated Studio, <em>Without Taking Over the Design.</em></h2>
-            </div>
-            <div class="col-lg-6">
-                <p class="lead-p" data-reveal>We built one coordinated production studio to carry approved design information through the next stage—without taking over the design or the client relationship.</p>
-            </div>
-        </div>
-    </div>
-</section>
 
 {{-- FOUNDER STORY --}}
 <section class="section section--alt" aria-labelledby="about-story">
@@ -35,7 +18,7 @@
                     <p>{{ config('site.founder_role') }}</p>
                     <ul>
                         <li><x-icon name="calendar" /> Founded Architive in {{ config('site.founded') }}</li>
-                        <li><x-icon name="map-pin" /> Studio in Multan, Pakistan</li>
+                        <li><x-icon name="map-pin" /> Production studio in Pakistan</li>
                         <li><x-icon name="building" /> Architive LLC, Delaware, USA</li>
                     </ul>
                 </div>
@@ -50,52 +33,8 @@
                 <p class="signature-line" data-reveal>— Madiha Altaf, Founder and Architectural Engineer</p>
             </div>
         </div>
-
-        <ol class="journey" aria-label="How the studio grew">
-            @foreach ([['2017', 'Freelance beginnings', 'Working directly with architects, interior designers and homeowners across time zones.'], ['Repeat work', 'Clients kept returning', 'A rendering request became a visual package; a drafting task became ongoing CAD or Revit support.'], ['Growth', 'A team built around one approach', 'Understand the information, ask when it is unclear, deliver work ready for the next stage.'], ['Today', 'One studio, three disciplines', 'Visualization, BIM and Revit, and CAD drafting under one roof.']] as [$k, $t, $d])
-                <li data-reveal style="--d: {{ $loop->index * .12 }}s"><span class="journey__k">{{ $k }}</span><h3>{{ $t }}</h3><p>{{ $d }}</p></li>
-            @endforeach
-        </ol>
     </div>
 </section>
 
-{{-- PRINCIPLES --}}
-<section class="section" aria-labelledby="about-how">
-    <div class="wrap">
-        <p class="eyebrow" data-reveal>Principles</p>
-        <h2 class="display-h" id="about-how" data-split>How <em>We Work</em></h2>
-        <div class="row g-4 mt-2">
-            @foreach ([['We clarify before we assume.', 'Missing dimensions and conflicting information are raised early.', 'help'], ['Accuracy comes before polish.', 'A drawing, model or image must reflect the agreed design information.', 'ruler'], ['Your standards guide the work.', 'We confirm templates, versions, file structure and review points before production.', 'layers'], ['We take responsibility.', 'If we miss an agreed instruction, we correct it without charging for our oversight.', 'shield']] as [$t, $d, $ic])
-                <div class="col-md-6 col-xl-3" data-reveal style="--d: {{ $loop->index * .1 }}s">
-                    <div class="principle" data-spotlight><span class="principle__n">0{{ $loop->iteration }}</span><h3>{{ $t }}</h3><p>{{ $d }}</p></div>
-                </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-{{-- WHAT WE DO --}}
-<section class="section section--dark" aria-labelledby="about-do">
-    <div class="process__glow" aria-hidden="true"></div>
-    <div class="wrap">
-        <div class="row g-5 align-items-center">
-            <div class="col-lg-6">
-                <p class="eyebrow eyebrow--light" data-reveal>What we do</p>
-                <h2 class="display-h display-h--light" id="about-do" data-split>One Studio, <em>Three Disciplines.</em></h2>
-                <p class="lead-p" data-reveal>Our CAD, Revit and visualization specialists work within one production structure, with a named point of contact and an architectural review appropriate to the scope. You lead the design; we keep the production moving.</p>
-                <a class="btn-ay mt-2" href="{{ pu('contact') }}" data-reveal>Start your project <x-icon name="arrow-right" /></a>
-                <p class="mono-note mono-note--light" data-reveal>Start with a free consultation or a small paid pilot. No commitment until you approve the scope.</p>
-            </div>
-            <div class="col-lg-6" data-reveal="zoom">
-                <ul class="do-list">
-                    @foreach (Content::coreServices() as $svc)
-                        <li><a href="{{ pu($svc['route']) }}"><span class="do-list__ic"><x-icon :name="$svc['icon']" /></span><span><strong>{{ $svc['title'] }}</strong><small>{{ $svc['items'][0] }} · {{ $svc['items'][1] }}</small></span><x-icon name="arrow-right" /></a></li>
-                    @endforeach
-                    <li><a href="{{ pu('services.outsourcing') }}"><span class="do-list__ic"><x-icon name="users" /></span><span><strong>Architectural production support</strong><small>Pilot, project, hourly from ${{ config('site.hourly_from') }} or ongoing</small></span><x-icon name="arrow-right" /></a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
-
+@include('partials.cta-band', ['title' => 'One Brief. <em>One Team.</em>', 'cta' => 'Start your project', 'ctaUrl' => pu('contact')])
 @endsection

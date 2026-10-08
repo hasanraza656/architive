@@ -118,7 +118,7 @@ class Content
     public static function engagements(): array
     {
         return [
-            ['key' => 'pilot',    'title' => 'Pilot',            'badge' => 'Free start', 'text' => 'Test communication, standards and output on one defined task. Free start.', 'best' => 'Testing communication, standards and output quality', 'scope' => 1, 'commit' => 1, 'ic' => 'target'],
+            ['key' => 'pilot',    'title' => 'Free start',       'text' => 'Test communication, standards and output on one defined task at no cost.', 'best' => 'Testing communication, standards and output quality', 'scope' => 1, 'commit' => 1, 'ic' => 'target'],
             ['key' => 'project',  'title' => 'Defined project',  'text' => 'Fixed scope, milestones and deliverables.', 'best' => 'A clearly bounded set of drawings, models or visuals', 'scope' => 3, 'commit' => 2, 'ic' => 'file-text'],
             ['key' => 'hourly',   'title' => 'Hourly support',   'text' => 'Flexible hours whenever you need an extra pair of hands. Rates start from $16 per hour.', 'best' => 'Short tasks, overflow work and ad-hoc production help', 'scope' => 2, 'commit' => 1, 'ic' => 'clock', 'badge' => 'From $16 / hour'],
             ['key' => 'ongoing',  'title' => 'Ongoing support',  'text' => 'Recurring CAD, BIM or visualization capacity.', 'best' => 'Steady production capacity alongside your own team', 'scope' => 4, 'commit' => 4, 'ic' => 'refresh'],
@@ -140,7 +140,7 @@ class Content
     public static function audiences(): array
     {
         return [
-            ['icon' => 'building', 'title' => 'Architecture Firms', 'text' => 'CAD drafting, Revit production and visualization capacity for live projects, deadlines and workload peaks.'],
+            ['icon' => 'building', 'title' => 'Architecture Firms', 'text' => 'Visualization, Revit production and CAD drafting capacity for live projects, deadlines and workload peaks.'],
             ['icon' => 'layers', 'title' => 'Interior Design Studios', 'text' => 'Floor plans, elevations, working drawings and client-ready visuals that carry an approved concept into clear project information.'],
             ['icon' => 'ruler', 'title' => 'Developers and Contractors', 'text' => 'Coordinated drawings, models and presentation visuals for approvals, procurement, investor communication and pre-construction marketing.'],
             ['icon' => 'home', 'title' => 'Homeowners', 'text' => 'Drawings and realistic visuals for renovations, additions and new homes, so key decisions are clearer before construction begins.'],
@@ -152,7 +152,7 @@ class Content
     {
         return [
             1 => ['cat' => 'General & Locations',    'q' => 'Can Architive follow our office standards?', 'a' => 'Yes. Share your templates, title blocks, sample sheets, layer conventions, Revit structure and naming standards. We confirm what applies before production begins.'],
-            2 => ['cat' => 'General & Locations',    'q' => 'Can we begin with a small assignment?',       'a' => 'Yes. A defined paid pilot is often the best way to test communication, standards and output quality before a larger engagement.'],
+            2 => ['cat' => 'General & Locations',    'q' => 'Can we begin with a small assignment?',       'a' => 'Yes. A free start on one defined task is often the best way to test communication, standards and output quality before a larger engagement.'],
             3 => ['cat' => 'Services Scope',         'q' => 'Do you provide architectural design?',        'a' => "Architive's core role is architectural production support. We turn approved designs, project information and client direction into drawings, models and visuals. Any design responsibility is agreed explicitly in writing."],
             4 => ['cat' => 'Services Scope',         'q' => 'Do you provide permit drawings?',             'a' => 'We prepare permit-support drawing packages using the information and local requirements provided. Where law requires a local license, signature or seal, the client appoints the appropriate professional.'],
             5 => ['cat' => 'Pricing & NDAs',         'q' => 'How are projects priced?',                    'a' => 'Pricing depends on the source information, deliverables, level of detail, schedule and revision structure. You receive a written quotation before work begins. Hourly support is also available, with rates starting from $16 per hour.'],

@@ -17,7 +17,7 @@ class ContactEnquiry extends Mailable
         'visualization' => 'Architectural visualization',
         'bim'           => 'BIM and Revit',
         'cad'           => 'CAD drafting',
-        'outsourcing'   => 'Production support',
+        'outsourcing'   => 'Ongoing production support',
         'unsure'        => 'Not sure yet',
     ];
 

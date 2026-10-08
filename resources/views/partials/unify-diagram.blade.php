@@ -6,7 +6,7 @@
     </div>
     <svg class="unify__svg" viewBox="0 0 520 380" role="img" aria-labelledby="unifyT unifyD" focusable="false">
         <title id="unifyT">Comparison of split freelancers versus one coordinated team</title>
-        <desc id="unifyD">With separate freelancers, you coordinate CAD, BIM and visualization yourself. With Architive, one brief goes to one team with one point of contact.</desc>
+        <desc id="unifyD">With separate freelancers, you coordinate visualization, BIM and CAD yourself. With Architive, one brief goes to one team with one point of contact.</desc>
 
         {{-- tangled links (split state) --}}
         <g class="u-split" fill="none" stroke-linecap="round">

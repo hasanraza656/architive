@@ -23,6 +23,7 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
     Route::get('architectural-visualization-rendering/', [PageController::class, 'visualization'])->name('services.visualization');
     Route::get('bim-revit-scan-to-bim/', [PageController::class, 'bim'])->name('services.bim');
     Route::get('cad-drafting-services/', [PageController::class, 'cad'])->name('services.cad');
+    // Production support is no longer a separate page: keep the old URL alive with a permanent redirect to Services.
     Route::get('architectural-outsourcing/', [PageController::class, 'outsourcing'])->name('services.outsourcing');
 
     Route::get('collaborations/', [PageController::class, 'collaborations'])->name('collaborations.index');

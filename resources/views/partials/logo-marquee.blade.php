@@ -1,6 +1,7 @@
 {{-- Continuous right-to-left logo marquee. $logos from Content::brandLogos(). Duplicated once for a seamless loop. --}}
 <div class="logo-marquee">
     <div class="wrap">
+        <p class="logo-marquee__caption">Brands represented in projects supported through our collaborators</p>
         <div class="logo-marquee__viewport">
             <ul class="logo-marquee__track">
                 @foreach (array_merge($logos, $logos) as $i => $l)

@@ -205,7 +205,7 @@
     function stop() { if (timer) { clearInterval(timer); timer = null; } }
     function play() { stop(); if (reduceMotion || !visible || held) { return; } timer = setInterval(function () { go(cur + 1); }, 3400 + idx * 450); }
     $dots.on('click', function () { go($dots.index(this)); play(); });
-    $s.closest('.svc-feature').on('mouseenter focusin', function () { held = true; stop(); }).on('mouseleave focusout', function () { held = false; play(); });
+    $s.closest('.svc-feature, .svc-big').on('mouseenter focusin', function () { held = true; stop(); }).on('mouseleave focusout', function () { held = false; play(); });
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (en) { visible = en[0].isIntersecting; play(); }, { threshold: .25 }).observe(this);
     } else { visible = true; play(); }

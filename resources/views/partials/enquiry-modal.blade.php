@@ -2,7 +2,7 @@
      Without JavaScript those links still go to /contact/. Not rendered on the contact page, which already has the full form. --}}
 @php
     $captchaKey = config('services.recaptcha.site_key');
-    $svcOptions = ['visualization' => ['Visualization', 'eye'], 'bim' => ['BIM and Revit', 'box'], 'cad' => ['CAD drafting', 'file-text'], 'outsourcing' => ['Production support', 'users'], 'unsure' => ['Not sure yet', 'message']];
+    $svcOptions = ['visualization' => ['Visualization', 'eye'], 'bim' => ['BIM and Revit', 'box'], 'cad' => ['CAD drafting', 'file-text'], 'outsourcing' => ['Ongoing production support', 'users'], 'unsure' => ['Not sure yet', 'message']];
 @endphp
 <div class="modal fade enquiry-modal" id="enquiryModal" tabindex="-1" aria-labelledby="enquiryModalTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -16,7 +16,7 @@
                     <input type="hidden" name="audience" value="">
 
                     <h2 class="display-h display-h--sm" id="enquiryModalTitle">Start your project</h2>
-                    <p class="mono-note mt-0">Free consultation or a small paid pilot. No commitment until you approve the scope.</p>
+                    <p class="mono-note mt-0">Free consultation and free start. No commitment until you approve the scope.</p>
                     <p class="enquiry-context" data-enquiry-context hidden></p>
 
                     <fieldset class="f-group f-group--tight">

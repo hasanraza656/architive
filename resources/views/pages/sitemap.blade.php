@@ -28,7 +28,6 @@
                     <li><a href="{{ pu('services.visualization') }}">Architectural Visualization and Rendering</a></li>
                     <li><a href="{{ pu('services.bim') }}">BIM and Revit, Scan to BIM</a></li>
                     <li><a href="{{ pu('services.cad') }}">CAD Drafting and Permit Support</a></li>
-                    <li><a href="{{ pu('services.outsourcing') }}">Architectural Production Support</a></li>
                 </ul>
             </div>
             <div class="col-md-6">

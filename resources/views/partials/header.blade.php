@@ -30,11 +30,13 @@
                                         </a>
                                     @endforeach
                                 </div>
-                                <div class="mega__more">
-                                    @foreach ($item['more'] ?? [] as $more)
-                                        <a href="{{ pu($more['route']) }}">{{ $more['label'] }} <x-icon name="arrow-right" /></a>
-                                    @endforeach
-                                </div>
+                                @if (! empty($item['more']))
+                                    <div class="mega__more">
+                                        @foreach ($item['more'] as $more)
+                                            <a href="{{ pu($more['route']) }}">{{ $more['label'] }} <x-icon name="arrow-right" /></a>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
                         </li>
                     @else
@@ -88,6 +90,6 @@
     <div class="mobile-menu__foot">
         <a class="btn-ay btn-ay--block" href="{{ pu('contact') }}">Start your project <x-icon name="arrow-right" /></a>
         <a class="mobile-menu__mail" href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a>
-        <p class="mono-note">Free consultation or a small paid pilot. No commitment until you approve the scope.</p>
+        <p class="mono-note">Free consultation and free start. No commitment until you approve the scope.</p>
     </div>
 </div>

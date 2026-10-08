@@ -41,6 +41,27 @@ Repo: https://github.com/hasanraza656/architive (branch `main`). Local path: `F:
 - Services page picker ("Where are you right now?") opens the pop-up with the service pre-selected.
 - Gotcha: jQuery events don't expose `e.defaultPrevented` → use `e.isDefaultPrevented()` (the page-transition handler relies on this).
 
+## 4c. Round 4 client changes (2026-10-08)
+- Nav = Home, Who We Are, Services (dropdown with the 3 services only), **Collaborations** (was Projects), Process, Contact. Production support is no longer a page: `/architectural-outsourcing/` 301-redirects to `/services/`, removed from nav, footer, sitemap(s), about, services page. Content/view files kept but unused.
+- Hero: kicker "Architectural Production Studio", lead "Coordinated team for Architectural Visualization, BIM and Revit, and CAD Drafting.", note "No overhead, no hiring, no delays." The old "free consultation or small paid pilot" line is gone everywhere; wording is now "free start" (no "pilot").
+- Home strip (`partials/support-strip`) is simplified: Free start / Defined project / Hourly from $16 + "Contact us" (opens enquiry form). Ongoing/priority options removed from it.
+- **World map** (`partials/world-map`, config `site.map`): land + USA/Canada/Australia shapes are inlined SVG (Natural Earth 110m, projection NaturalEarth1 1000x500, generated with d3-geo + world-atlas). Pins are % positions. To highlight more countries regenerate the shapes (add ISO id to the generator, add `$paths`/`$pins` entries and a `regions` row in config).
+
+## 4d. Round 5 client changes (2026-10-08)
+- **Home order:** hero (flat bottom edge, no rounded corners) → software ticker → "Flexible ways to start" strip (Free start + Hourly from $16 + Contact us; spotlight/shimmer effects) → **track band** (Fiverr 1,200+, Upwork 130+; "direct clients" removed) → 3 **big stacked service cards** (`partials/service-big`: image gallery, title, "Explore more" + "Start a project" only) → collaborations → short "Who we are" → world map → reviews → logo marquee → FAQ.
+- Service order everywhere: **Architectural Visualization → BIM and Revit → CAD Drafting**.
+- `/services/` = compact heading (`partials/svc-head`) + the same 3 big cards + map. No hero screen, no picker.
+- Service pages (`visualization`, `bim`, `cad`) are compact: `svc-head` (H1, short text, deliverable chips, "Start a project" form button) → auto-running **sample reel** (`partials/sample-reel`, CSS marquee, pauses on hover, lightbox on click) → samples only (viz gallery / scan-to-BIM slider + Revit sets / permit sets) → CTA band. They use the normal sticky header (no `overlay`). Removed: buyer-problem, deliverables, process, FAQ, audience, scope, layers widget sections.
+- About page trimmed to heading + founder story + CTA.
+- **Page loading logo:** the curtain no longer blocks navigation; `app.js` adds `is-leaving` (logo curtain) only if a page takes more than 1.2 s to open.
+
+## 4e. Round 6 client changes (2026-10-08)
+- Home/services page services = `partials/service-show`: title + "Explore more" + "Start a project", then a large auto-running strip (`partials/sample-reel` with `big`) of that service's clearest samples from `Portfolio::reel($key)` (round-robin across categories/sets). Tiles keep their own proportions (no cropping). `service-big` was removed.
+- Service pages: `svc-head` takes `image` (Portfolio key) and shows it on the left of the description; viz gallery tabs are now Interiors / Exteriors / 3D floor plans / Booth design / Self-storage containers (`Portfolio::vizCategories()`).
+- Loader: `.curtain` is now a small loading screen (logo + window cycling `public/assets/img/loader/l1-4.webp` + progress bar). `app.js` shows it only if the first load takes >450 ms (`is-loading`, min ~1 s) or a clicked page is slow >500 ms (`is-leaving`). Disabled for reduced motion.
+- Copy: services heading "One Brief. One Team. Every Deliverable Connected."; map heading "Supporting Teams Globally."; logo strip caption "Brands represented in projects supported through our collaborators"; "Figures supplied..." line removed; form option "Ongoing production support"; Multan removed (address = Pakistan).
+- Pending from client: founder photo, AI FAQ question + answer, USA/Pakistan phone numbers (Waqas).
+
 ## 5. URL structure (one permanent lowercase **trailing-slash** URL per page)
 `/` · `/about-us/` · `/team/` · `/services/` · `/architectural-visualization-rendering/` · `/bim-revit-scan-to-bim/` · `/cad-drafting-services/` · `/architectural-outsourcing/` · `/collaborations/` · `/collaborations/{slug}/` (bonderud-design-visualization, fifa-2026-circulation-plan-drafting, manuel-development-revit-support) · `/how-it-works/` · `/faqs/` · `/contact/` · `/privacy-policy/` · `/terms-of-service/` · `/sitemap/` · `/sitemap.xml` · `/robots.txt`.
 Route names: `home, about, team, services.index, services.visualization, services.bim, services.cad, services.outsourcing, collaborations.index, collaborations.show, process, faqs, contact, contact.send (POST /contact/send), privacy, terms, sitemap.html, sitemap.xml, robots`.

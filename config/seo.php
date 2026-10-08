@@ -50,30 +50,29 @@ return [
         ],
         'services.outsourcing' => [
             'title'       => 'Architectural Production Support for Design Firms | Architive',
-            'description' => 'Flexible CAD, Revit and visualization production support for architecture and interior design firms, delivered to your standards and schedule.',
+            'description' => 'Flexible visualization, Revit and CAD production support for architecture and interior design firms, delivered to your standards and schedule.',
             'image'       => 'assets/img/og/bim-steel-structure.jpg',
-            'sitemap'     => [0.9, 'monthly'],
         ],
         'collaborations.index' => [
             'title'       => 'Architectural Production Collaborations | Architive',
-            'description' => 'Selected Architive collaborations across visualization, CAD drafting and Revit production support for design and development teams.',
+            'description' => 'Selected Architive collaborations across visualization, Revit production support and CAD drafting for design and development teams.',
             'sitemap'     => [0.8, 'monthly'],
         ],
         'process' => [
             'title'       => 'How Architive Projects Work',
-            'description' => 'Share your files, receive a clear scope and quotation, review progress at agreed stages and receive final CAD, Revit or visualization deliverables.',
+            'description' => 'Share your files, receive a clear scope and quotation, review progress at agreed stages and receive final visualization, Revit or CAD deliverables.',
             'image'       => 'assets/img/og/cad-plan-pen.jpg',
             'sitemap'     => [0.8, 'monthly'],
         ],
         'team' => [
-            'title'       => 'The Architive Team | CAD, Revit and Visualization Specialists',
-            'description' => 'Meet the studio structure behind Architive: CAD, Revit and visualization specialists working as one team with a named point of contact.',
+            'title'       => 'The Architive Team | Visualization, Revit and CAD Specialists',
+            'description' => 'Meet the studio structure behind Architive: visualization, Revit and CAD specialists working as one team with a named point of contact.',
             'image'       => 'assets/img/og/developer-tower-frame.jpg',
             'robots'      => 'noindex,follow',   // team page is parked until the client supplies team portraits
         ],
         'faqs' => [
             'title'       => 'Architive FAQs | Pricing, Revisions, NDAs and Files',
-            'description' => 'Answers on office standards, small paid pilots, permit drawing support, pricing, revisions, NDAs and deliverable formats from Architive.',
+            'description' => 'Answers on office standards, free starts, permit drawing support, pricing, revisions, NDAs and deliverable formats from Architive.',
             'sitemap'     => [0.7, 'monthly'],
         ],
         'contact' => [

@@ -71,7 +71,17 @@
 <body class="page-{{ str_replace('.', '-', Route::currentRouteName() ?? 'error') }}{{ ($overlay ?? false) ? ' has-overlay' : '' }}">
     <a class="skip-link" href="#main">Skip to main content</a>
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
-    <div class="curtain" aria-hidden="true"><span class="curtain__logo"><x-logo :light="true" /></span></div>
+    <div class="curtain" aria-hidden="true">
+        <div class="loader">
+            <span class="curtain__logo"><x-logo :light="true" /></span>
+            <div class="loader__screen">
+                @foreach ([1, 2, 3, 4] as $i)
+                    <img class="loader__img" src="{{ asset('assets/img/loader/l' . $i . '.webp') }}" width="420" height="264" alt="" loading="lazy" decoding="async">
+                @endforeach
+            </div>
+            <span class="loader__bar"><i></i></span>
+        </div>
+    </div>
 
     @include('partials.header')
 

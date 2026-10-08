@@ -5,7 +5,7 @@
     $captchaKey = config('services.recaptcha.site_key');
     $selService  = old('service', request('service'));
     $selAudience = old('audience', request('audience'));
-    $services = ['visualization' => ['Visualization', 'eye'], 'bim' => ['BIM and Revit', 'box'], 'cad' => ['CAD drafting', 'file-text'], 'outsourcing' => ['Production support', 'users'], 'unsure' => ['Not sure yet', 'message']];
+    $services = ['visualization' => ['Visualization', 'eye'], 'bim' => ['BIM and Revit', 'box'], 'cad' => ['CAD drafting', 'file-text'], 'outsourcing' => ['Ongoing production support', 'users'], 'unsure' => ['Not sure yet', 'message']];
     $audiences = ['firm' => 'Architecture firm', 'interior' => 'Interior design studio', 'developer' => 'Developer / contractor', 'homeowner' => 'Homeowner'];
 @endphp
 
@@ -38,7 +38,7 @@
                         @csrf
                         <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
                         <h2 class="display-h display-h--sm">Start your project</h2>
-                        <p class="mono-note mt-0">Start with a free consultation or a small paid pilot. No commitment until you approve the scope.</p>
+                        <p class="mono-note mt-0">Free consultation and free start. No commitment until you approve the scope.</p>
 
                         <fieldset class="f-group">
                             <legend>I am a…</legend>
@@ -115,7 +115,7 @@
                 <div class="contact-aside">
                     <h2 class="eyebrow" data-reveal>What happens next</h2>
                     <ol class="next-steps">
-                        @foreach ([['Send the details', 'Tell us about the project, deadline and the outcome you need.'], ['We review and reply', 'We review the information and recommend a practical scope.'], ['Free consultation or paid pilot', 'No commitment until you approve the written scope.']] as [$t, $d])
+                        @foreach ([['Send the details', 'Tell us about the project, deadline and the outcome you need.'], ['We review and reply', 'We review the information and recommend a practical scope.'], ['Free consultation and free start', 'No commitment until you approve the written scope.']] as [$t, $d])
                             <li data-reveal style="--d: {{ $loop->index * .1 }}s"><span>{{ $loop->iteration }}</span><div><h3>{{ $t }}</h3><p>{{ $d }}</p></div></li>
                         @endforeach
                     </ol>
