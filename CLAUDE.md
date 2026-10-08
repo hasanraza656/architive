@@ -62,6 +62,12 @@ Repo: https://github.com/hasanraza656/architive (branch `main`). Local path: `F:
 - Copy: services heading "One Brief. One Team. Every Deliverable Connected."; map heading "Supporting Teams Globally."; logo strip caption "Brands represented in projects supported through our collaborators"; "Figures supplied..." line removed; form option "Ongoing production support"; Multan removed (address = Pakistan).
 - Pending from client: founder photo, AI FAQ question + answer, USA/Pakistan phone numbers (Waqas).
 
+## 4f. Home services = 3-column carousel cards (round 7, testing)
+- `partials/service-cards` (included from `home.blade.php`): 3 cards, each with an autoplay carousel (1 image per slide, arrows, dots, progress bar, swipe, keyboard, lightbox; JS `[data-carousel]` in `interactive.js`, CSS "Home services" block at the end of `home.css`). Photos use contain + blurred backdrop so nothing is cropped. The previous sliding-strip version (`partials/service-show`) is commented out in `home.blade.php` and still used by `/services/`.
+
+## 4g. Home services = expanding panels (FINAL, client choice, round 8)
+- `partials/service-panels` (+ `svc-slide`, `public/assets/css/svc-panels.css`, `public/assets/js/svc-panels.js`, pushed from the partial): three panels, hover/tap/arrow keys open one; each fades through that service's images from `Portfolio::reel()` (blurred backdrop, never cropped); on phones it is an accordion. The Revit house render (`cases/manuel-house-3d`) is excluded here on purpose (client request). Other 10 design options were deleted. `service-show` strips remain only on `/services/`; old `.svcard` CSS in home.css is unused.
+
 ## 5. URL structure (one permanent lowercase **trailing-slash** URL per page)
 `/` · `/about-us/` · `/team/` · `/services/` · `/architectural-visualization-rendering/` · `/bim-revit-scan-to-bim/` · `/cad-drafting-services/` · `/architectural-outsourcing/` · `/collaborations/` · `/collaborations/{slug}/` (bonderud-design-visualization, fifa-2026-circulation-plan-drafting, manuel-development-revit-support) · `/how-it-works/` · `/faqs/` · `/contact/` · `/privacy-policy/` · `/terms-of-service/` · `/sitemap/` · `/sitemap.xml` · `/robots.txt`.
 Route names: `home, about, team, services.index, services.visualization, services.bim, services.cad, services.outsourcing, collaborations.index, collaborations.show, process, faqs, contact, contact.send (POST /contact/send), privacy, terms, sitemap.html, sitemap.xml, robots`.

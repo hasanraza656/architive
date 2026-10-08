@@ -73,7 +73,7 @@
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
     <div class="curtain" aria-hidden="true">
         <div class="loader">
-            <span class="curtain__logo"><x-logo :light="true" /></span>
+            <span class="curtain__logo"><x-logo /></span>
             <div class="loader__screen">
                 @foreach ([1, 2, 3, 4] as $i)
                     <img class="loader__img" src="{{ asset('assets/img/loader/l' . $i . '.webp') }}" width="420" height="264" alt="" loading="lazy" decoding="async">

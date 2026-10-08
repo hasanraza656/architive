@@ -168,16 +168,16 @@ main:focus { outline: none; }
 .to-top.is-visible { opacity: 1; visibility: visible; transform: none; }
 .to-top:hover { background: var(--accent); border-color: var(--accent); color: #141414; transform: translateY(-3px); }
 
-.curtain { position: fixed; inset: 0; z-index: 2500; display: grid; place-items: center; background: var(--dark); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .45s var(--ease), visibility .45s; }
+.curtain { position: fixed; inset: 0; z-index: 2500; display: grid; place-items: center; background: var(--bg); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .45s var(--ease), visibility .45s; }
 html.is-leaving .curtain, html.is-loading .curtain { opacity: 1; visibility: visible; pointer-events: all; }
 /* small loading screen: logo, a little window cycling through real renders, and a progress bar */
 .loader { display: grid; justify-items: center; gap: 1.5rem; width: min(78vw, 300px); transform: translateY(10px) scale(.96); transition: transform .6s var(--ease); }
 html.is-leaving .loader, html.is-loading .loader { transform: none; }
 .curtain__logo .brand__img { height: 40px; transform: none; }
-.loader__screen { position: relative; width: 100%; aspect-ratio: 420 / 264; border-radius: 16px; overflow: hidden; background: #1d1d1b; box-shadow: 0 30px 60px -22px rgba(0, 0, 0, .75), 0 0 0 1px rgba(255, 255, 255, .12); }
+.loader__screen { position: relative; width: 100%; aspect-ratio: 420 / 264; border-radius: 16px; overflow: hidden; background: #1d1d1b; box-shadow: 0 28px 56px -24px rgba(20, 20, 20, .45), 0 0 0 1px var(--line-2); }
 .loader__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: loader-slide 6.4s infinite; }
 .loader__img:nth-child(2) { animation-delay: 1.6s; } .loader__img:nth-child(3) { animation-delay: 3.2s; } .loader__img:nth-child(4) { animation-delay: 4.8s; }
-.loader__bar { width: 100%; height: 3px; border-radius: 3px; overflow: hidden; background: rgba(255, 255, 255, .14); }
+.loader__bar { width: 100%; height: 3px; border-radius: 3px; overflow: hidden; background: var(--line-2); }
 .loader__bar i { display: block; width: 40%; height: 100%; border-radius: 3px; background: var(--accent); animation: loader-bar 1.3s var(--ease) infinite; }
 @keyframes loader-slide { 0% { opacity: 0; transform: translateX(8%) scale(1.06); } 6%, 25% { opacity: 1; transform: none; } 31%, 100% { opacity: 0; transform: translateX(-8%) scale(1.02); } }
 @keyframes loader-bar { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }

@@ -211,6 +211,45 @@
     } else { visible = true; play(); }
   });
 
+  /* ---- Service cards (home): autoplay carousel, arrows, dots, swipe, keyboard, progress bar ---- */
+  $('[data-carousel]').each(function (idx) {
+    var $c = $(this), $card = $c.closest('.svcard'), $slides = $c.find('.svcard__slide'), $dots = $card.find('[data-dot]'),
+        $cur = $c.find('[data-cur]'), $cap = $card.find('[data-cap]'), $prog = $c.find('.svcard__progress i'), n = $slides.length, cur = 0, down = null, moved = false;
+    if (!n) { return; }
+    $c[0].style.setProperty('--dur', (5 + idx * 0.6) + 's');
+    function pad(v) { return v < 10 ? '0' + v : '' + v; }
+    function go(k) {
+      cur = (k + n) % n;
+      $slides.removeClass('is-active').attr({ 'aria-hidden': 'true', tabindex: -1 }).eq(cur).addClass('is-active').removeAttr('aria-hidden').attr('tabindex', 0);
+      $dots.removeClass('is-active').eq(cur).addClass('is-active');
+      $cur.text(pad(cur + 1));
+      $cap.text($slides.eq(cur).data('caption') || '');
+      $c.removeClass('is-run'); void $c[0].offsetWidth; $c.addClass('is-run');        // restart the progress bar
+    }
+    $prog.on('animationend', function () { go(cur + 1); });                             // autoplay = progress bar finished
+    $c.find('[data-prev]').on('click', function () { go(cur - 1); });
+    $c.find('[data-next]').on('click', function () { go(cur + 1); });
+    $dots.on('click', function () { go($dots.index(this)); });
+    $c.on('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(cur - 1); } else if (e.key === 'ArrowRight') { e.preventDefault(); go(cur + 1); }
+    });
+    $c.on('mouseenter focusin', function () { $c.addClass('is-held'); }).on('mouseleave focusout', function () { $c.removeClass('is-held'); });
+    // swipe / drag
+    $c.on('pointerdown', function (e) { if ($(e.target).closest('button').length) { return; } down = e.clientX; moved = false; });
+    $c.on('pointermove', function (e) { if (down !== null && Math.abs(e.clientX - down) > 10) { moved = true; } });
+    $c.on('pointerup pointercancel', function (e) {
+      if (down === null) { return; }
+      var dx = e.clientX - down; down = null;
+      if (Math.abs(dx) > 40) { go(cur + (dx < 0 ? 1 : -1)); }
+    });
+    $c.on('click', '.svcard__slide', function (e) { if (moved) { e.preventDefault(); e.stopImmediatePropagation(); moved = false; } });
+    // only run while the card is on screen
+    $c.addClass('is-off');
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (en) { $c.toggleClass('is-off', !en[0].isIntersecting); if (en[0].isIntersecting && !$c.hasClass('is-run')) { $c.addClass('is-run'); } }, { threshold: .35 }).observe(this);
+    } else { $c.removeClass('is-off').addClass('is-run'); }
+  });
+
   /* ---- Service page showcase: category pill pre-filters the gallery further down, if that page has one ---- */
   $(document).on('click', '[data-showcase-jump]', function () {
     var $btn = $('[data-gfilter="' + $(this).data('showcase-jump') + '"]');

@@ -65,22 +65,8 @@
 {{-- ===================== TRACK RECORD (Fiverr + Upwork) ===================== --}}
 @include('partials.track-band', ['track' => $track])
 
-{{-- ===================== THE THREE CORE SERVICES: big visuals, one under another ===================== --}}
-<section class="section" id="services" aria-labelledby="services-title">
-    <div class="wrap wrap--wide">
-        <div class="section-head">
-            <div>
-                <p class="eyebrow eyebrow--lg" data-reveal>Services</p>
-                <h2 class="display-h display-h--md mb-0" id="services-title" data-split>One Brief. One Team. <em>Every Deliverable Connected.</em></h2>
-            </div>
-        </div>
-    </div>
-    <div class="svc-show-list">
-        @foreach ($core as $key => $s)
-            @include('partials.service-show', ['s' => $s, 'key' => $key, 'n' => $loop->iteration])
-        @endforeach
-    </div>
-</section>
+{{-- ===================== THE THREE CORE SERVICES: expanding panels ===================== --}}
+@include('partials.service-panels', ['core' => $core])
 
 {{-- ===================== COLLABORATIONS ===================== --}}
 <section class="section section--alt" aria-labelledby="collab-title">
