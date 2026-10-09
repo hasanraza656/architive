@@ -122,6 +122,7 @@
 
                     <ul class="contact-list" data-reveal>
                         <li><x-icon name="mail" /><div><small>Email</small><a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a></div></li>
+                        <li><x-icon name="message" /><div><small>Phone &amp; WhatsApp</small><a href="tel:{{ config('site.phone') }}">{{ config('site.phone_display') }}</a> · <a href="https://wa.me/{{ ltrim(config('site.phone'), '+') }}" target="_blank" rel="noopener">WhatsApp us</a></div></li>
                         @foreach (config('site.address') as $a)
                             <li><x-icon name="map-pin" /><div><small>{{ $a['label'] }}</small><span>{{ $a['value'] }}</span></div></li>
                         @endforeach

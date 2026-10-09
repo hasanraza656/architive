@@ -159,6 +159,7 @@ class Content
             6 => ['cat' => 'Workflow & Standards',   'q' => 'How are revisions handled?',                  'a' => 'The quotation states the included review stages and revision rounds. Corrections to missed agreed instructions are completed at no charge; new scope is quoted before proceeding.'],
             7 => ['cat' => 'Pricing & NDAs',         'q' => 'Can you sign an NDA?',                        'a' => 'Yes. We can review and sign an NDA before detailed project information is shared.'],
             8 => ['cat' => 'Workflow & Standards',   'q' => 'What files can you deliver?',                 'a' => 'Typical formats include DWG and PDF for CAD, RVT and PDF for BIM, and JPG, PNG or video for visualization. The exact deliverables are listed in the quotation.'],
+            9 => ['cat' => 'Workflow & Standards',   'q' => 'Do you use AI?',                              'a' => 'Yes, selectively and with human oversight. AI may support early exploration, research and repetitive tasks, but it does not replace accurate CAD drafting, Revit modelling or professional review. Final deliverables are checked against the source information and agreed project standards.'],
         ];
     }
 

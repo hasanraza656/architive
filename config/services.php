@@ -31,6 +31,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    // Stripe Checkout for invoices (keys live in .env only)
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+        'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
+    ],
+
     // Tawk.to live chat widget (public embed IDs; set TAWK_ENABLED=false to switch it off)
     'tawk' => [
         'enabled'     => env('TAWK_ENABLED', true),

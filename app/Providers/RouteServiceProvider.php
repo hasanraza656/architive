@@ -26,6 +26,9 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
+        // /admin/customers/{customer} must only ever resolve to a customer account
+        Route::bind('customer', fn ($value) => \App\Models\User::customers()->findOrFail($value));
+
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')
@@ -33,6 +36,10 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            // Admin + customer portal (kept in its own file; see routes/portal.php)
+            Route::middleware('web')
+                ->group(base_path('routes/portal.php'));
         });
     }
 

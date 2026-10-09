@@ -49,6 +49,7 @@
         </nav>
 
         <div class="header-actions">
+            <a class="client-link d-none d-sm-grid" href="{{ route('customer.login') }}" aria-label="Client login" title="Client login"><x-icon name="user" /></a>
             <button class="theme-toggle" type="button" aria-label="Switch to dark mode" data-theme-toggle>
                 <x-icon name="moon" class="ic theme-toggle__moon" />
                 <x-icon name="sun" class="ic theme-toggle__sun" />
@@ -90,6 +91,7 @@
     <div class="mobile-menu__foot">
         <a class="btn-ay btn-ay--block" href="{{ pu('contact') }}">Start your project <x-icon name="arrow-right" /></a>
         <a class="mobile-menu__mail" href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a>
+        <a class="mobile-menu__mail" href="{{ route('customer.login') }}">Client login</a>
         <p class="mono-note">Free consultation and free start. No commitment until you approve the scope.</p>
     </div>
 </div>

@@ -12,7 +12,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        // Quiet chat e-mails: bundle unread order messages into one digest (needs the Laravel scheduler cron on the server)
+        $schedule->command('portal:chat-digest')->everyFiveMinutes()->withoutOverlapping();
+        // Webhook-free payment safety net: records payments whose customer closed the tab before returning from Stripe
+        $schedule->command('portal:reconcile-payments')->everyFiveMinutes()->withoutOverlapping();
     }
 
     /**

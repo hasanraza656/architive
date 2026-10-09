@@ -17,6 +17,10 @@ return [
     'founder_role' => 'Founder and Architectural Engineer',
     'email'       => 'info@architive.net',
 
+    // One number for calls and WhatsApp (international format). Shown in the footer, contact page and structured data.
+    'phone'         => '+18157716318',
+    'phone_display' => '+1 (815) 771-6318',
+
     // Internal: where form notifications are delivered (ADMIN_EMAIL in .env)
     'admin_email' => env('ADMIN_EMAIL', env('MAIL_FROM_ADDRESS')),
     'locale'      => 'en_US',

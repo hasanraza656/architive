@@ -5,6 +5,10 @@
                 <a href="{{ pu('home') }}" class="footer-logo" aria-label="Architive – home"><x-logo :light="true" /></a>
                 <p class="footer-about">Architive is a dependable architectural production partner providing architectural visualization, BIM and Revit, and CAD drafting for architecture firms, interior designers, developers and homeowners worldwide.</p>
                 <a class="footer-mail" href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a>
+                <div class="footer-phone">
+                    <a class="footer-mail" href="tel:{{ config('site.phone') }}">{{ config('site.phone_display') }}</a>
+                    <a class="footer-wa" href="https://wa.me/{{ ltrim(config('site.phone'), '+') }}" target="_blank" rel="noopener" aria-label="Chat with Architive on WhatsApp">WhatsApp</a>
+                </div>
             </div>
             <div class="col-6 col-lg-2 offset-lg-1">
                 <h2 class="footer-h">Quick links</h2>
@@ -43,6 +47,7 @@
                 <a href="{{ pu('privacy') }}">Privacy</a>
                 <a href="{{ pu('terms') }}">Terms</a>
                 <a href="{{ pu('sitemap.html') }}">Sitemap</a>
+                <a href="{{ route('customer.login') }}" rel="nofollow">Client login</a>
                 <a href="#top" class="footer-top-link" data-to-top>Back to top <x-icon name="arrow-up" /></a>
             </nav>
         </div>

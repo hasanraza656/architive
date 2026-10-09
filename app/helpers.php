@@ -42,3 +42,11 @@ if (! function_exists('is_page')) {
         return Route::currentRouteName() !== null && Route::is(...$names);
     }
 }
+
+if (! function_exists('money')) {
+    /** money(125000) -> "$1,250.00" (amounts are stored in cents) */
+    function money(int|float|null $cents, ?string $currency = null): string
+    {
+        return \App\Support\Money::format($cents, $currency);
+    }
+}
