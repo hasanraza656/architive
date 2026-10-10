@@ -15,8 +15,22 @@
         <div class="phead__actions">
             <a class="pbtn pbtn--ghost" href="{{ route('admin.customers.edit', $customer) }}"><x-icon name="edit" /> Edit</a>
             <a class="pbtn pbtn--primary" href="{{ route('admin.orders.create', ['customer' => $customer->id]) }}"><x-icon name="plus" /> New order</a>
+            <button class="pbtn pbtn--danger" type="button" data-dialog-open="deleteCustomer"><x-icon name="trash" /> Delete</button>
         </div>
     </div>
+
+    <dialog class="pmodal" id="deleteCustomer" aria-labelledby="delCustTitle">
+        <form method="post" action="{{ route('admin.customers.destroy', $customer) }}" data-loading>
+            @csrf @method('DELETE')
+            <div class="pmodal__head">
+                <h3 id="delCustTitle">Delete {{ $customer->name ?: $customer->email }}?</h3>
+                <p>This permanently erases the customer account and all <b>{{ $customer->orders->count() }}</b> of their orders and requests, with every message and file. It cannot be undone.
+                    @if ($customer->orders->whereNotNull('paid_at')->count()) <b>Some orders are paid</b>; Stripe payments are not refunded. @endif
+                    To only stop them signing in, use Edit and switch the account off instead.</p>
+            </div>
+            <div class="pmodal__foot"><button class="pbtn pbtn--ghost" type="button" data-dialog-close>Keep customer</button><button class="pbtn pbtn--danger" type="submit"><x-icon name="trash" /> Delete everything</button></div>
+        </form>
+    </dialog>
 
     <div class="pgrid pgrid--main">
         <section class="pcard">

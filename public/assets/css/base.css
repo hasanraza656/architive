@@ -365,8 +365,34 @@ html { overflow-x: clip; }
 .has-overlay .site-header:not(.is-scrolled) .client-link { color: #fff; }
 .has-overlay .site-header:not(.is-scrolled) .client-link:hover { background: rgba(255, 255, 255, .14); }
 @media (max-width: 991.98px) { .client-link { width: 38px; height: 38px; } }
+/* number beside the logo + WhatsApp button beside the consultation button */
+.header-phone { align-items: center; gap: .5rem; margin-right: auto; padding: .5rem .85rem; border: 1px solid var(--line-2); border-radius: 99px; font: 600 .7rem/1 var(--f-mono); letter-spacing: .06em; white-space: nowrap; color: inherit; transition: background .3s, border-color .3s, transform .4s var(--ease); }
+.header-phone .ic, .header-phone svg { flex: none; color: var(--accent-2); }
+.header-phone:hover { background: var(--bg-alt); border-color: var(--ink); transform: translateY(-1px); }
+.has-overlay .site-header:not(.is-scrolled) .header-phone { color: #fff; border-color: rgba(255, 255, 255, .35); }
+.has-overlay .site-header:not(.is-scrolled) .header-phone:hover { background: rgba(255, 255, 255, .14); border-color: #fff; }
+.header-wa { position: relative; display: inline-grid; place-items: center; flex: none; width: 40px; height: 40px; border-radius: 50%; background: #25D366; box-shadow: 0 6px 16px -6px rgba(37, 211, 102, .8); transition: transform .35s var(--ease), box-shadow .35s; }
+.header-wa:hover { transform: translateY(-2px) scale(1.06); box-shadow: 0 10px 20px -6px rgba(37, 211, 102, .9); }
+.header-wa:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+@media (max-width: 575.98px) { .header-wa { width: 36px; height: 36px; } .header-wa svg { width: 20px; height: 20px; } }
+
 
 /* phone + WhatsApp in the footer */
 .footer-phone { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; margin-top: .6rem; }
 .footer-wa { display: inline-flex; align-items: center; padding: .35rem .8rem; border-radius: 999px; border: 1px solid rgba(255, 214, 10, .6); color: var(--accent); font: 600 .68rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; transition: background .3s, color .3s; }
 .footer-wa:hover { background: var(--accent); color: #141414; }
+
+/* header fit: the number stays beside the logo, everything else compacts as the screen narrows */
+@media (max-width: 1599.98px) {
+  .header-phone { border-color: transparent; padding: .4rem .3rem; font-size: .66rem; letter-spacing: .04em; }
+  .main-nav__link { padding: .6rem .5rem; letter-spacing: .07em; }
+  .main-nav__list { gap: .05rem; }
+  .site-header .client-link { display: none !important; }
+  .header-actions { gap: .55rem; }
+  .header-actions .btn-ay--sm { padding: .7rem 1rem; letter-spacing: .1em; }
+}
+@media (max-width: 1399.98px) {
+  .header-phone { width: 40px; height: 40px; padding: 0; justify-content: center; border-color: var(--line-2); }
+  .header-phone span { display: none; }
+}
+@media (max-width: 1279.98px) { .header-phone { display: none !important; } }

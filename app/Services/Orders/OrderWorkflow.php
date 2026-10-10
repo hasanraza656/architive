@@ -38,7 +38,7 @@ class OrderWorkflow
     /* ------------------------------------------------------------ Admin actions */
 
     /**
-     * Send (or re-send) the invoice e-mail and make the order payable.
+     * Send (or re-send) the invoice / custom offer e-mail and make the order payable.
      *
      * @return bool whether the e-mail was handed to the mail server
      */
@@ -52,8 +52,15 @@ class OrderWorkflow
         }
 
         $resend = $order->status === OrderStatus::Pending;
+        $offer = $order->isRequestOrigin();       // a request from the website/portal: the invoice is a "custom offer" inside the chat
         $order->update(['status' => OrderStatus::Pending, 'sent_at' => now()]);
-        $this->record($order, 'sent', ($resend ? 'Invoice re-sent to ' : 'Invoice sent to ') . $order->customer->email, $by);
+        $this->record($order, 'sent', ($offer ? ($resend ? 'Custom offer updated: ' : 'Custom offer sent: ') . money($order->total_cents, $order->currency)
+            : ($resend ? 'Invoice re-sent to ' : 'Invoice sent to ') . $order->customer->email), $by);
+
+        if ($offer) {
+            // the offer card in the conversation (no extra "new message" e-mail: the offer e-mail below covers it)
+            OrderMessage::create(['order_id' => $order->id, 'user_id' => $by->id, 'kind' => 'offer', 'body' => $resend ? 'Updated custom offer' : 'Custom offer']);
+        }
 
         return $this->mailer->send($order->customer->email, new InvoiceSent($order->fresh(['customer', 'items'])));
     }
@@ -95,7 +102,7 @@ class OrderWorkflow
         }
         $wasVisible = $order->isVisibleToCustomer();
         $order->update(['status' => OrderStatus::Cancelled, 'cancelled_at' => now(), 'cancel_reason' => $reason]);
-        $this->record($order, 'cancelled', 'Order cancelled' . ($reason ? ': ' . $reason : ''), $by);
+        $this->record($order, 'cancelled', ($order->paid_at || ! $order->isRequestOrigin() ? 'Order cancelled' : 'Request closed') . ($reason ? ': ' . $reason : ''), $by);
 
         if ($wasVisible) {
             $this->mailer->send($order->customer->email, new OrderCancelled($order->fresh(['customer'])));

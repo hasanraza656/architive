@@ -41,6 +41,7 @@ class EmailRenderTest extends PortalTestCase
                 new NewChatMessages($order, collect([$message->load('user', 'files')]), false),
                 new NewChatMessages($order, collect([$message->load('user', 'files')]), true),
                 new LoginCodeMail($customer, '123456', 10),
+                new \App\Mail\Portal\RequestReceived($order),
             ];
 
             foreach ($mails as $mail) {

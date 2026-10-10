@@ -7,10 +7,12 @@ use App\Models\LoginCode;
 use App\Models\User;
 use App\Services\Notifications\PortalMailer;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 /**
  * Passwordless sign-in for customers: a 6-digit code is e-mailed, valid for a few minutes, stored hashed,
- * and burned after too many wrong guesses. Unknown e-mails get the same answer as known ones (no account probing).
+ * and burned after too many wrong guesses. Anyone can sign in with their e-mail: a customer account is created
+ * the moment the code is confirmed (so new people never hit a dead end). Admin accounts can never use this flow.
  */
 class OtpService
 {
@@ -21,12 +23,12 @@ class OtpService
     public const SENT = 'sent';
     public const TOO_SOON = 'too_soon';
 
-    /** Sends a code if this e-mail belongs to an active customer. Returns SENT / TOO_SOON (always SENT for unknown e-mails). */
+    /** Sends a code to this e-mail (existing customer or newcomer). Returns SENT / TOO_SOON. Admin and disabled accounts silently get nothing. */
     public function send(string $email, ?string $ip = null): string
     {
         $email = mb_strtolower(trim($email));
-        $user = User::customers()->where('email', $email)->where('is_active', true)->first();
-        if (! $user) {
+        $user = User::where('email', $email)->first();
+        if ($user && (! $user->isCustomer() || ! $user->is_active)) {
             return self::SENT;
         }
 
@@ -51,7 +53,7 @@ class OtpService
         return self::SENT;
     }
 
-    /** Returns the customer when the code is right, otherwise null. */
+    /** Returns the customer when the code is right (creating the account for a newcomer), otherwise null. */
     public function verify(string $email, string $code): ?User
     {
         $email = mb_strtolower(trim($email));
@@ -73,7 +75,16 @@ class OtpService
 
         $record->update(['consumed_at' => now()]);
 
-        return User::customers()->where('email', $email)->where('is_active', true)->first();
+        $existing = User::where('email', $email)->first();
+        if ($existing) {
+            return $existing->isCustomer() && $existing->is_active ? $existing : null;
+        }
+
+        // newcomer: instant account, no password. The welcome step asks for their name.
+        return User::create([
+            'role' => User::ROLE_CUSTOMER, 'email' => $email, 'is_active' => true, 'email_verified_at' => now(),
+            'first_name' => Str::of(Str::before($email, '@'))->replaceMatches('/[^A-Za-z]+/', ' ')->trim()->title()->limit(40, '')->toString() ?: 'Customer',
+        ]);
     }
 
     /** How many tries are left for the current code (for the UI hint). */

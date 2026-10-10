@@ -29,7 +29,7 @@
     $webpageType = match (true) {
         is_page('about') => 'AboutPage',
         is_page('contact') => 'ContactPage',
-        is_page('collaborations.index', 'services.index', 'sitemap.html') => 'CollectionPage',
+        is_page('collaborations.index', 'services.index', 'sitemap.html', 'blog.index', 'blog.category', 'blog.tag') => 'CollectionPage',
         default => 'WebPage',
     };
 

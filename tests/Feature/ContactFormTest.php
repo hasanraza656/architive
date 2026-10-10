@@ -3,12 +3,15 @@
 namespace Tests\Feature;
 
 use App\Mail\ContactEnquiry;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 
 class ContactFormTest extends TestCase
 {
+    use RefreshDatabase;
+
     private function payload(array $over = []): array
     {
         return array_merge([
@@ -104,12 +107,23 @@ class ContactFormTest extends TestCase
         Mail::assertNothingSent();
     }
 
-    public function test_mail_failure_returns_a_friendly_error(): void
+    public function test_mail_failure_never_loses_the_lead(): void
     {
         Http::fake(['www.google.com/recaptcha/api/siteverify' => Http::response(['success' => true])]);
         Mail::shouldReceive('to')->andThrow(new \RuntimeException('SMTP down'));
 
-        $this->postJson('/contact/send', $this->payload())->assertStatus(500)->assertJson(['ok' => false]);
+        // the request is stored in the database first, so the visitor still gets a success answer
+        $this->postJson('/contact/send', $this->payload())->assertOk()->assertJson(['ok' => true]);
+        $this->assertDatabaseHas('orders', ['status' => 'request', 'source' => 'website']);
+    }
+
+    public function test_plain_email_failure_without_a_request_returns_a_friendly_error(): void
+    {
+        Http::fake(['www.google.com/recaptcha/api/siteverify' => Http::response(['success' => true])]);
+        \App\Models\User::create(['role' => 'admin', 'first_name' => 'Ada', 'email' => 'visitor@example.com', 'password' => bcrypt('x'), 'is_active' => true]);
+        Mail::shouldReceive('to')->andThrow(new \RuntimeException('SMTP down'));
+
+        $this->postJson('/contact/send', $this->payload())->assertStatus(500)->assertJson(['ok' => false]);   // an admin e-mail gets no ticket
     }
 
     public function test_missing_secret_key_fails_closed_outside_local_and_testing(): void

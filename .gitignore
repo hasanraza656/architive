@@ -19,3 +19,8 @@ yarn-error.log
 .phpunit.result.cache
 .zip
 zip
+
+# user uploads (orders, blog images, avatars) live in public/uploads and are not committed
+/public/uploads/*
+!/public/uploads/.gitkeep
+!/public/uploads/.htaccess

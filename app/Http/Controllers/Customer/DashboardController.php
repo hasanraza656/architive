@@ -22,12 +22,16 @@ class DashboardController extends Controller
             ->orderByRaw("CASE status WHEN 'pending' THEN 0 WHEN 'delivered' THEN 1 WHEN 'active' THEN 2 WHEN 'completed' THEN 3 ELSE 4 END")
             ->latest('id')->get();
 
+        $requests = $orders->filter(fn ($o) => $o->status->isLead())->values();
+        $orders = $orders->reject(fn ($o) => $o->status->isLead())->values();
+
         $stats = [
+            'requests' => $requests->count(),
             'awaiting' => $orders->where('status', OrderStatus::Pending)->count(),
             'running' => $orders->filter(fn ($o) => $o->status->isRunning())->count(),
             'completed' => $orders->where('status', OrderStatus::Completed)->count(),
         ];
 
-        return view('portal.customer.dashboard', compact('orders', 'stats'));
+        return view('portal.customer.dashboard', compact('orders', 'requests', 'stats'));
     }
 }

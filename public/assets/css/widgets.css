@@ -382,3 +382,47 @@
 .notfound__links { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; margin-top: 2rem; }
 
 .f-group + .row { margin-top: 2.2rem; }
+
+
+/* ==========================================================================
+   Enquiry forms: "I need help with" cards (balanced 3 + 2 grid) and file attachments
+   ========================================================================== */
+.f-group .opt-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .7rem; }
+.f-group .opt-grid .opt { grid-column: span 2; display: block; }
+.f-group .opt-grid .opt:nth-child(n+4) { grid-column: span 3; }
+.f-group .opt-grid .opt span { position: relative; flex-direction: row; justify-content: flex-start; align-items: center; gap: .75rem; min-height: 64px; padding: .8rem 2.6rem .8rem .8rem; gap: .6rem; border-radius: 16px; overflow-wrap: anywhere; text-align: left; font-size: .84rem; background: var(--surface); }
+.f-group .opt-grid .opt span .ic { flex: none; box-sizing: content-box; width: 1.25rem; height: 1.25rem; padding: .5rem; border-radius: 50%; background: var(--bg-alt); color: var(--ink-2); font-size: 1.25rem; }
+.f-group .opt-grid .opt span::after { content: ""; position: absolute; right: .85rem; top: 50%; width: 18px; height: 18px; margin-top: -9px; border-radius: 50%; border: 1.5px solid var(--line-2); background: transparent; transition: .3s var(--ease); }
+.f-group .opt-grid .opt:hover span { transform: translateY(-2px); }
+.f-group .opt-grid .opt input:checked + span { border-color: var(--ink); background: rgba(255, 214, 10, .16); box-shadow: 0 0 0 2px var(--accent); }
+.f-group .opt-grid .opt input:checked + span .ic { background: var(--accent); color: #141414; transform: none; }
+.f-group .opt-grid .opt input:checked + span::after { border-color: var(--ink); background: var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFD60A' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m5 12.5 4.5 4.5L19 7.5'/%3E%3C/svg%3E") center / 12px no-repeat; }
+/* compact pop-up: icon above the label so three cards fit a narrow dialog */
+.f-group .opt-grid--sm { gap: .5rem; }
+.f-group .opt-grid--sm .opt span { flex-direction: column; justify-content: center; gap: .4rem; min-height: 78px; padding: .7rem .5rem; text-align: center; font-size: .76rem; line-height: 1.25; }
+.f-group .opt-grid--sm .opt span::after { right: .5rem; top: .5rem; margin-top: 0; width: 14px; height: 14px; }
+.f-group .opt-grid--sm .opt span .ic { padding: .38rem; width: 1.05rem; height: 1.05rem; font-size: 1.05rem; }
+@media (max-width: 575.98px) {
+  .f-group .opt-grid, .f-group .opt-grid--sm { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .f-group .opt-grid .opt, .f-group .opt-grid .opt:nth-child(n+4) { grid-column: span 1; }
+  .f-group .opt-grid .opt:last-child { grid-column: 1 / -1; }
+  .f-group .opt-grid:not(.opt-grid--sm) .opt span { padding-right: 2.4rem; font-size: .8rem; }
+}
+
+/* file attachments */
+.f-drop { position: relative; display: grid; justify-items: center; gap: .3rem; padding: 1.3rem 1rem; border: 2px dashed var(--line-2); border-radius: 16px; background: var(--bg-alt); text-align: center; cursor: pointer; transition: border-color .25s, background .25s; margin: 0 !important; text-transform: none !important; letter-spacing: 0 !important; font: 500 .88rem/1.4 var(--f-body) !important; color: var(--ink) !important; }
+.f-drop:hover, .f-drop.is-over { border-color: var(--ink); background: rgba(255, 214, 10, .14); }
+.f-drop .ic { width: 1.5rem; height: 1.5rem; color: var(--ink-2); }
+.f-drop small { color: var(--ink-3); font: 400 .74rem/1.4 var(--f-mono); }
+.f-drop input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.f-filelist { display: grid; gap: .45rem; margin: .7rem 0 0; padding: 0; list-style: none; }
+.f-filelist:empty { display: none; }
+.f-filelist li { display: flex; align-items: center; gap: .6rem; padding: .5rem .7rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-size: .84rem; }
+.f-filelist li span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.f-filelist li small { color: var(--ink-3); font-family: var(--f-mono); font-size: .7rem; }
+.f-filelist li button { display: grid; place-items: center; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 50%; background: var(--bg-alt); color: var(--ink-2); cursor: pointer; }
+.f-filelist li button:hover { background: #fde7e7; color: #b91c1c; }
+.enquiry-success__ref { display: inline-block; margin: 0 auto 1.1rem; padding: .5rem 1rem; border-radius: 999px; background: var(--dark); color: var(--accent); font: 700 .8rem/1 var(--f-mono); letter-spacing: .14em; }
+.enquiry-success__next { max-width: 44ch; margin: 0 auto 1.4rem; padding: 1rem 1.2rem; border-radius: 14px; background: var(--bg-alt); border: 1px solid var(--line); text-align: left; font-size: .9rem; color: var(--ink-2); }
+.enquiry-success__next b { color: var(--ink); }
+.enquiry-success__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; }

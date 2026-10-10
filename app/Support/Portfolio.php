@@ -237,10 +237,17 @@ class Portfolio
     public static function caseMedia(string $slug): array
     {
         $media = [
-            'bonderud-design-visualization' => [
-                'cover'   => self::img('cases/bonderud-kitchen-plan-to-render'),
-                'alt'     => 'Presentation board taking a kitchen from plan and material samples to a finished interior render',
-                'caption' => 'Kitchen visualization from plan to render',
+            'uk-3d-floor-plans-smart-heating-cooling' => [
+                'cover'   => self::img('cases/uk-floorplan-ground'),
+                'alt'     => 'Top-down 3D floor plan of a commercial building showing walls, openings and internal layout',
+                'caption' => 'Commercial 3D floor plan',
+                'gallery_title' => '3D floor plans',
+                'gallery' => self::gallery([
+                    ['uk-floorplan-ground', 'Ground floor', 'Top-down 3D floor plan of a large commercial ground floor with offices, meeting rooms and a central courtyard'],
+                    ['uk-floorplan-b301-03', 'Courtyard block, typical floor', 'Top-down 3D floor plan of a courtyard-style accommodation block with furnished rooms and bathrooms'],
+                    ['uk-floorplan-b301-05', 'U-shaped block, upper floor', 'Top-down 3D floor plan of a U-shaped accommodation block with furnished rooms and corridors'],
+                    ['uk-floorplan-topdown', 'Mixed-use floor with terraces', 'Top-down 3D floor plan of a long mixed-use floor with rooms, shared spaces and green terraces'],
+                ]),
             ],
             'fifa-2026-circulation-plan-drafting' => [
                 'cover'   => self::img('cases/fifa-three-level-circulation'),
@@ -261,9 +268,28 @@ class Portfolio
                     ['01-front-elevation', 'A101', 'Front elevation'], ['02-basement-floor-plan', 'A105', 'Basement floor plan'], ['03-main-floor-plan', 'A106', 'Main floor plan'],
                     ['04-upper-floor-plan', 'A107', 'Upper floor plan'], ['05-building-section-a-a', 'A108', 'Building section A-A'], ['06-building-section-b-b', 'A109', 'Building section B-B']]),
             ],
+            'texas-ongoing-visualization-support' => [
+                'cover'   => self::img('cases/texas-hall-staircase'),
+                'alt'     => 'Photorealistic interior rendering of an entrance hall with a crystal chandelier, panelled walls and a marble floor',
+                'caption' => 'Interior rendering: entrance hall',
+                'gallery_title' => 'Renderings',
+                'gallery' => self::gallery([
+                    ['texas-hall-staircase', 'Entrance hall', 'Photorealistic rendering of an entrance hall with a staircase, chandelier and marble floor'],
+                    ['texas-living-blue', 'Living room', 'Photorealistic rendering of a living room with a blue velvet sofa, curtains and an arched floor lamp'],
+                    ['texas-bedroom', 'Bedroom', 'Photorealistic rendering of a bedroom with a textured feature wall, upholstered bed and framed artwork'],
+                    ['texas-fireplace-hall', 'Double-height lounge', 'Photorealistic rendering of a double-height lounge with two leather armchairs in front of a fireplace'],
+                    ['texas-kitchen', 'Kitchen detail', 'Photorealistic close-up rendering of a kitchen with a terrazzo worktop, tiled splashback and warm under-cabinet lighting'],
+                ]),
+            ],
         ];
 
         return $media[$slug] ?? [];
+    }
+
+    /** Gallery items for a case study: [file name, title, alt text]. Files live in assets/img/work/cases. */
+    private static function gallery(array $items): array
+    {
+        return array_map(fn ($i) => self::img('cases/' . $i[0]) + ['title' => $i[1], 'alt' => $i[2]], $items);
     }
 
     /** A handful of the strongest pieces for the homepage "Selected work" mosaic. */

@@ -10,7 +10,7 @@ use App\Models\User;
 /** Customer: the one-time sign-in code. */
 class LoginCodeMail extends Mailable
 {
-    public function __construct(public User $user, public string $code, public int $minutes)
+    public function __construct(public ?User $user, public string $code, public int $minutes)
     {
     }
 

@@ -25,9 +25,9 @@
     <meta property="og:description" content="{{ $seoMeta['description'] }}">
     <meta property="og:url" content="{{ $canonical }}">
     <meta property="og:image" content="{{ $ogImage }}">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="{{ $seoMeta['title'] }}">
+    <meta property="og:image:width" content="{{ $seoMeta['image_w'] ?? 1200 }}">
+    <meta property="og:image:height" content="{{ $seoMeta['image_h'] ?? 630 }}">
+    <meta property="og:image:alt" content="{{ $seoMeta['image_alt'] ?? $seoMeta['title'] }}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="{{ $seoMeta['title'] }}">
     <meta name="twitter:description" content="{{ $seoMeta['description'] }}">

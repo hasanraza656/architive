@@ -1,0 +1,98 @@
+{
+    "architectural-visualization-cost-guide": [
+        {
+            "photographer": "David Brown",
+            "url": "https://www.pexels.com/photo/evening-photo-of-a-modern-building-16808496/",
+            "alt": "Contemporary architecture glowing at twilight, showcasing sleek design and illuminated windows."
+        },
+        {
+            "photographer": "Beyza K\u0131l\u0131\u00e7dere",
+            "url": "https://www.pexels.com/photo/bright-modern-living-room-with-soft-white-interiors-29012619/",
+            "alt": "A minimalist living room with soft white sofas and large curtains, creating a cozy atmosphere."
+        }
+    ],
+    "scan-to-bim-explained": [
+        {
+            "photographer": "Tima Miroshnichenko",
+            "url": "https://www.pexels.com/photo/a-man-working-behind-his-desk-6614750/",
+            "alt": "Architect reviewing building models and designs at a work desk under soft lighting in a modern office setting."
+        },
+        {
+            "photographer": "Markus Winkler",
+            "url": "https://www.pexels.com/photo/construction-site-in-city-13758319/",
+            "alt": "A construction site with surrounding modern buildings in an urban setting."
+        }
+    ],
+    "cad-drafting-vs-bim": [
+        {
+            "photographer": "Ron Lach",
+            "url": "https://www.pexels.com/photo/adult-man-sitting-on-chair-by-deck-and-drawing-9617369/",
+            "alt": "Young architect at a desk working on blueprint designs under lamp light."
+        },
+        {
+            "photographer": "Grove Brands",
+            "url": "https://www.pexels.com/photo/men-sitting-at-a-table-and-looking-at-a-laptop-displaying-a-3d-project-of-a-house-15764095/",
+            "alt": "Two professionals discussing a 3D architectural design on a laptop in a modern office."
+        }
+    ],
+    "how-to-brief-a-rendering-team": [
+        {
+            "photographer": "Kindel Media",
+            "url": "https://www.pexels.com/photo/person-holding-miniature-wooden-bird-house-7579352/",
+            "alt": "Black and white photo of a hand holding a miniature wooden house by a string, symbolizing real estate."
+        },
+        {
+            "photographer": "Max Vakhtbovych",
+            "url": "https://www.pexels.com/photo/kitchen-counter-with-sink-and-red-faucet-7173661/",
+            "alt": "Interior of stylish kitchen with colorful tile and red faucet in modern apartment"
+        }
+    ],
+    "pdf-to-dwg-conversion-guide": [
+        {
+            "photographer": "Anete Lusina",
+            "url": "https://www.pexels.com/photo/architecture-plan-on-wooden-surface-4792483/",
+            "alt": "Architecture scheme of floor on paper placed on wooden surface near pen and ruler in room during renovation work in building"
+        },
+        {
+            "photographer": "Tima Miroshnichenko",
+            "url": "https://www.pexels.com/photo/person-in-white-long-sleeves-holding-silver-ruler-6615200/",
+            "alt": "Hands of a person drafting architectural designs with a ruler on paper, indoors."
+        }
+    ],
+    "revit-families-why-they-matter": [
+        {
+            "photographer": "Blackcurrant Great",
+            "url": "https://www.pexels.com/photo/modern-architectural-design-with-glass-facade-33410957/",
+            "alt": "Dynamic view of a modern architectural structure featuring glass and steel elements."
+        },
+        {
+            "photographer": "Karolina",
+            "url": "https://www.pexels.com/photo/modern-industrial-staircase-design-in-tokyo-38073198/",
+            "alt": "Crossing metal staircases on an industrial building facade in Tokyo, Japan."
+        }
+    ],
+    "outsourcing-architectural-production-guide": [
+        {
+            "photographer": "RDNE Stock project",
+            "url": "https://www.pexels.com/photo/architects-looking-at-plans-in-office-10375906/",
+            "alt": "A diverse team of professionals collaborating on architectural plans, promoting teamwork and creativity."
+        },
+        {
+            "photographer": "Thirdman",
+            "url": "https://www.pexels.com/photo/close-up-photo-of-female-architect-using-laptop-5582862/",
+            "alt": "A focused architect working on building designs using a laptop in a modern office setting."
+        }
+    ],
+    "permit-drawing-set-checklist": [
+        {
+            "photographer": "Alena Darmel",
+            "url": "https://www.pexels.com/photo/hands-holding-sketches-of-house-project-7641913/",
+            "alt": "Two people examining architectural blueprints, focusing on project details."
+        },
+        {
+            "photographer": "Nothing Ahead",
+            "url": "https://www.pexels.com/photo/home-renovation-4567374/",
+            "alt": "Front entrance of a house under renovation with tools and materials scattered around."
+        }
+    ]
+}

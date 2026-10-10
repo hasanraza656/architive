@@ -14,6 +14,20 @@
         </div>
     </div>
 
+    @if ($newRequests->count())
+        <section class="pcard" style="margin-bottom:1.2rem;border-color:#9FDCD5" aria-labelledby="req-h">
+            <div class="pcard__head"><h2 class="pcard__title" id="req-h"><x-icon name="message" /> New requests waiting for a reply ({{ $stats['requests'] }})</h2><a class="plink" href="{{ route('admin.orders.index', ['status' => 'request']) }}">All requests</a></div>
+            @foreach ($newRequests as $o)
+                <a class="list-row" href="{{ route('admin.orders.show', $o) }}">
+                    <span class="pavatar">{{ $o->customer->initials }}</span>
+                    <span class="list-row__main"><b>{{ $o->customer->name }} · {{ $o->serviceLabel() ?? 'New request' }}</b><small>{{ $o->number }} · {{ \Illuminate\Support\Str::limit($o->brief, 90) }}</small></span>
+                    <span class="chip">{{ ['website' => 'Website', 'portal' => 'Portal'][$o->source] ?? 'Admin' }}</span>
+                    <time class="muted" data-dt="short" datetime="{{ $o->created_at->toIso8601String() }}">{{ $o->created_at->format('M j, H:i') }}</time>
+                </a>
+            @endforeach
+        </section>
+    @endif
+
     <div class="stats">
         <a class="stat stat--accent" href="{{ route('admin.customers.index') }}">
             <span class="stat__ic"><x-icon name="users" /></span>

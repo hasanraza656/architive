@@ -55,6 +55,7 @@ return [
         ['label' => 'Services',        'route' => 'services.index'],
         ['label' => 'Collaborations',  'route' => 'collaborations.index'],
         ['label' => 'Our Process',     'route' => 'process'],
+        ['label' => 'Blog',            'route' => 'blog.index'],
         ['label' => 'FAQs',            'route' => 'faqs'],
     ],
 

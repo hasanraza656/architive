@@ -30,11 +30,19 @@
                             <span class="enquiry-success__ic"><x-icon name="check" /></span>
                             <h2 class="display-h display-h--sm">Message received.</h2>
                             <p>{{ session('sent') }}</p>
-                            <a class="btn-ay" href="{{ pu('home') }}">Back to home <x-icon name="arrow-right" /></a>
+                            @if (session('request'))
+                                <p class="enquiry-success__ref">{{ session('request')['number'] }}</p>
+                                <div class="enquiry-success__actions">
+                                    <a class="btn-ay" href="{{ session('request')['url'] }}">Follow my request <x-icon name="arrow-right" /></a>
+                                    <a class="btn-ay btn-ay--ghost" href="{{ pu('home') }}">Back to home</a>
+                                </div>
+                            @else
+                                <a class="btn-ay" href="{{ pu('home') }}">Back to home <x-icon name="arrow-right" /></a>
+                            @endif
                         </div>
                     @endif
 
-                    <form action="{{ route('contact.send') }}" method="post" novalidate data-contact-form @if(session('sent')) hidden @endif>
+                    <form action="{{ route('contact.send') }}" method="post" enctype="multipart/form-data" novalidate data-contact-form @if(session('sent')) hidden @endif>
                         @csrf
                         <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
                         <h2 class="display-h display-h--sm">Start your project</h2>
@@ -88,6 +96,18 @@
                             </div>
                         </div>
 
+                        <div class="f-field f-files">
+                        <label>Attach files <span class="opt-tag">optional</span></label>
+                        <label class="f-drop" data-files-drop>
+                            <x-icon name="upload" />
+                            <span><b>Drop files here</b> or browse</span>
+                            <small>Up to 5 files · 10 MB each · PDF, DWG, RVT, images, ZIP</small>
+                            <input type="file" name="files[]" multiple data-files-input>
+                        </label>
+                        <ul class="f-filelist" data-files-list></ul>
+                        <p class="f-err" data-err-for="files"></p>
+                        </div>
+
                         <label class="check"><input type="checkbox" name="nda" value="1" @checked(old('nda') || request('nda'))><span>Please send a mutual NDA before I share detailed files.</span></label>
                         <label class="check"><input type="checkbox" name="consent" value="1" required @checked(old('consent'))><span>I agree to be contacted about this enquiry. See our <a href="{{ pu('privacy') }}">Privacy Policy</a>. <b>*</b></span></label>
                         <p class="f-err" data-err-for="consent">@error('consent'){{ $message }}@enderror</p>
@@ -107,7 +127,14 @@
                         <span class="enquiry-success__ic"><x-icon name="check" /></span>
                         <h2 class="display-h display-h--sm">Message received.</h2>
                         <p data-success-text>Thank you—your enquiry is in. We will review the information and reply with a practical next step.</p>
-                        <a class="btn-ay" href="{{ pu('home') }}">Back to home <x-icon name="arrow-right" /></a>
+                        <p class="enquiry-success__ref" data-success-ref hidden></p>
+                        <div class="enquiry-success__next" data-success-next hidden>
+                            <b>What happens next:</b> we review your brief and reply in your client area, then send a custom offer. We have e-mailed you a link. No password needed, just your e-mail.
+                        </div>
+                        <div class="enquiry-success__actions">
+                            <a class="btn-ay" data-success-portal href="{{ route('customer.login') }}" hidden>Follow my request <x-icon name="arrow-right" /></a>
+                            <a class="btn-ay btn-ay--ghost" href="{{ pu('home') }}">Back to home</a>
+                        </div>
                     </div>
                 </div>
             </div>

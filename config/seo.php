@@ -19,6 +19,11 @@ return [
             'description' => 'Architectural visualization, BIM and Revit, and CAD drafting for architecture firms, interior designers, developers and homeowners worldwide.',
             'sitemap'     => [1.0, 'weekly'],
         ],
+        'blog.index' => [
+            'title'       => 'Architectural Visualization, BIM and CAD Insights | Architive Blog',
+            'description' => 'Practical guides on architectural visualization, BIM and Revit, and CAD drafting from the Architive studio: costs, workflows, file standards and how to brief a production team.',
+            'sitemap'     => [0.8, 'daily'],
+        ],
         'about' => [
             'title'       => 'Who We Are | About Architive, Architectural Production Studio',
             'description' => 'Meet Architive, an established architectural production studio providing visualization, BIM and Revit, and CAD drafting worldwide.',

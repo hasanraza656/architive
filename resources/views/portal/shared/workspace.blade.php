@@ -4,6 +4,7 @@
     use App\Enums\OrderStatus as S;
     $defaultTab = match (true) {
         $order->status === S::Pending || $order->status === S::Draft => 'invoice',
+        $order->status === S::Request => 'chat',
         ! $isAdmin && $order->status === S::Delivered => 'deliveries',
         default => 'chat',
     };
@@ -37,16 +38,23 @@
 
         <div class="tabs no-print" data-tabs data-default="{{ $defaultTab }}" role="tablist" aria-label="Order sections">
             <button class="tab" type="button" role="tab" data-tab="chat"><x-icon name="message" /> Conversation</button>
-            <button class="tab" type="button" role="tab" data-tab="deliveries"><x-icon name="package" /> Deliveries @if ($order->deliveries->count())<small>{{ $order->deliveries->count() }}</small>@endif</button>
-            <button class="tab" type="button" role="tab" data-tab="invoice"><x-icon name="receipt" /> Invoice</button>
+            @unless ($order->status->isLead())
+                <button class="tab" type="button" role="tab" data-tab="deliveries"><x-icon name="package" /> Deliveries @if ($order->deliveries->count())<small>{{ $order->deliveries->count() }}</small>@endif</button>
+                <button class="tab" type="button" role="tab" data-tab="invoice"><x-icon name="receipt" /> {{ $order->isRequestOrigin() && $order->status === S::Pending ? 'Offer' : 'Invoice' }}</button>
+            @endunless
         </div>
 
         <div class="tabpane" data-pane="chat">@include('portal.shared.chat')</div>
-        <div class="tabpane" data-pane="deliveries">@include('portal.shared.deliveries')</div>
-        <div class="tabpane" data-pane="invoice">
-            @include('portal.shared.invoice')
-            <p class="no-print" style="margin-top:.9rem;text-align:right"><button class="pbtn pbtn--ghost pbtn--sm" type="button" onclick="window.print()"><x-icon name="receipt" /> Print / save as PDF</button></p>
-        </div>
+        @unless ($order->status->isLead())
+            <div class="tabpane" data-pane="deliveries">@include('portal.shared.deliveries')</div>
+            <div class="tabpane" data-pane="invoice">
+                @include('portal.shared.invoice')
+                <p class="no-print" style="margin-top:.9rem;display:flex;justify-content:flex-end;gap:.5rem;flex-wrap:wrap">
+                    <a class="pbtn pbtn--primary pbtn--sm" href="{{ route('portal.orders.invoice', $order) }}"><x-icon name="download" /> Download PDF</a>
+                    <button class="pbtn pbtn--ghost pbtn--sm" type="button" onclick="window.print()"><x-icon name="receipt" /> Print</button>
+                </p>
+            </div>
+        @endunless
     </div>
 
     <aside style="display:grid;gap:1.1rem;min-width:0;align-content:start" class="no-print">

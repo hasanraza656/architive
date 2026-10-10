@@ -13,7 +13,7 @@
     <div class="paper__top">
         <div class="paper__brand">
             <img src="{{ asset('assets/img/logo.png') }}" alt="Architive" width="209" height="36">
-            <small>{{ config('site.address.corporate.value') }}<br>{{ config('site.email') }}</small>
+            <small>{{ config('site.address.corporate.value') }}<br>{{ config('site.email') }}<br>WhatsApp / phone: {{ config('site.phone_display') }}</small>
         </div>
         <div class="paper__ref"><h3>Invoice</h3><span>{{ $order->number }}</span></div>
     </div>

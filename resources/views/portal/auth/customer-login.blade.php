@@ -13,16 +13,16 @@
 
 @section('content')
     <div>
-        <h1>Client <em>sign in</em></h1>
+        <h1>Client <em>area</em></h1>
     </div>
-    <p>Enter the e-mail address your invoice was sent to. We will send you a 6-digit code.</p>
+    <p>Enter your e-mail address and we will send you a 6-digit code. <b>New here?</b> No problem: we create your account automatically, no password needed.</p>
 
     <form class="pform" method="post" action="{{ route('customer.login.send') }}" data-loading novalidate>
         @csrf
         <x-portal.field name="email" label="E-mail address">
             <input class="pinput" type="email" id="email" name="email" value="{{ $email }}" autocomplete="email" placeholder="you@company.com" autofocus required>
         </x-portal.field>
-        <button class="pbtn pbtn--primary pbtn--lg pbtn--block" type="submit">Send me a code <x-icon name="arrow-right" /></button>
+        <button class="pbtn pbtn--primary pbtn--lg pbtn--block" type="submit">Continue with e-mail <x-icon name="arrow-right" /></button>
     </form>
 @endsection
 

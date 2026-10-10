@@ -12,9 +12,18 @@ class Order extends Model
 {
     protected $guarded = ['id'];
 
+    /** Deleting an order also removes its uploaded files from the private disk (database rows go via cascade). */
+    protected static function booted(): void
+    {
+        static::deleting(function (Order $order) {
+            \Illuminate\Support\Facades\Storage::disk(config('portal.uploads.disk'))->deleteDirectory('orders/' . $order->id);
+        });
+    }
+
     protected $casts = [
         'status' => OrderStatus::class,
         'tax_rate' => 'decimal:2',
+        'requested_deadline' => 'date',
         'due_at' => 'datetime',
         'sent_at' => 'datetime',
         'paid_at' => 'datetime',
@@ -82,7 +91,7 @@ class Order extends Model
 
     public function isEditable(): bool
     {
-        return in_array($this->status, [OrderStatus::Draft, OrderStatus::Pending], true);
+        return in_array($this->status, [OrderStatus::Draft, OrderStatus::Request, OrderStatus::Pending], true);
     }
 
     /** Draft orders are invisible to customers; everything else can be opened by its customer. */
@@ -94,6 +103,22 @@ class Order extends Model
     public function isChatOpen(): bool
     {
         return ! in_array($this->status, [OrderStatus::Draft, OrderStatus::Cancelled], true);
+    }
+
+    /** Came from a visitor/customer request (website form or portal) rather than an admin-made invoice. */
+    public function isRequestOrigin(): bool
+    {
+        return $this->source !== 'admin';
+    }
+
+    public function serviceLabel(): ?string
+    {
+        return \App\Mail\ContactEnquiry::SERVICES[$this->service] ?? null;
+    }
+
+    public function audienceLabel(): ?string
+    {
+        return \App\Mail\ContactEnquiry::AUDIENCES[$this->audience] ?? null;
     }
 
     public function total(): int

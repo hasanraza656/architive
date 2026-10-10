@@ -36,7 +36,7 @@
                         <td data-label="Customer"><div class="who"><span class="pavatar pavatar--sm pavatar--soft">{{ $o->customer->initials }}</span><div><b>{{ $o->customer->name }}</b></div></div></td>
                         <td data-label="Status"><x-portal.badge :status="$o->status" /></td>
                         <td data-label="Due">@if ($o->due_at)<time data-dt="date" datetime="{{ $o->due_at->toIso8601String() }}">{{ $o->due_at->format('M j, Y') }}</time>@else<span class="muted">-</span>@endif</td>
-                        <td class="num strong" data-label="Total">{{ money($o->total_cents, $o->currency) }}</td>
+                        <td class="num strong" data-label="Total">{!! $o->status->isLead() ? '<span class="muted">No offer yet</span>' : e(money($o->total_cents, $o->currency)) !!}</td>
                     </tr>
                 @endforeach
                 </tbody>

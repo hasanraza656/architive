@@ -80,10 +80,11 @@ class OrderController extends Controller
 
     public function destroy(Order $order): RedirectResponse
     {
-        abort_unless($order->status === OrderStatus::Draft, 403, 'Only drafts can be deleted. Cancel the order instead.');
-        $order->delete();
+        $label = $order->status->isLead() ? 'Request' : 'Order';
+        $number = $order->number;
+        $order->delete();   // admin may delete any order or request: messages, files, deliveries and history go with it
 
-        return redirect()->route('admin.orders.index')->with('success', 'Draft deleted.');
+        return redirect()->route('admin.orders.index')->with('success', "$label $number deleted permanently.");
     }
 
     /* ------------------------------------------------------------ */

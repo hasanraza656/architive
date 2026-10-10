@@ -23,7 +23,7 @@ abstract class PortalTestCase extends TestCase
 
     protected function customer(string $email = 'client@example.test', array $attrs = []): User
     {
-        return User::create($attrs + ['role' => User::ROLE_CUSTOMER, 'first_name' => 'Cleo', 'last_name' => 'Client', 'email' => $email, 'is_active' => true]);
+        return User::create($attrs + ['role' => User::ROLE_CUSTOMER, 'first_name' => 'Cleo', 'last_name' => 'Client', 'email' => $email, 'is_active' => true, 'profile_completed_at' => now()]);
     }
 
     /** A draft order for $customer with two lines: 450.00 + 2.5 x 120.00 = 750.00, minus 50, plus 10% tax = 770.00 */

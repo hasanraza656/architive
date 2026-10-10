@@ -21,13 +21,14 @@ class User extends Authenticatable
 
     protected $fillable = [
         'role', 'first_name', 'last_name', 'email', 'phone', 'phone_country',
-        'password', 'is_active', 'last_login_at', 'last_seen_at',
+        'password', 'is_active', 'last_login_at', 'last_seen_at', 'email_verified_at', 'profile_completed_at', 'avatar', 'job_title', 'bio',
     ];
 
     protected $hidden = ['password', 'remember_token'];
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'profile_completed_at' => 'datetime',
         'last_login_at' => 'datetime',
         'last_seen_at' => 'datetime',
         'is_active' => 'boolean',
@@ -69,6 +70,12 @@ class User extends Authenticatable
         $i = mb_substr((string) $this->first_name, 0, 1) . mb_substr((string) $this->last_name, 0, 1);
 
         return mb_strtoupper($i ?: mb_substr((string) $this->email, 0, 1));
+    }
+
+    /** Public URL of the profile photo (null = show initials). */
+    public function avatarUrl(): ?string
+    {
+        return $this->avatar ? asset($this->avatar) : null;
     }
 
     /** Where this person lands after signing in. */

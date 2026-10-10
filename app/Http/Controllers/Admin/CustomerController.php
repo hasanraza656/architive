@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Customers. A customer account has no password: they sign in with an e-mailed code (OtpService).
@@ -55,6 +56,21 @@ class CustomerController extends Controller
         $customer->load(['orders' => fn ($q) => $q->latest('id')]);
 
         return view('portal.admin.customers.show', compact('customer'));
+    }
+
+    /** Removes the customer together with all of their orders, requests, messages and files. */
+    public function destroy(User $customer): RedirectResponse
+    {
+        abort_unless($customer->isCustomer(), 404);
+        $name = $customer->name ?: $customer->email;
+
+        DB::transaction(function () use ($customer) {
+            $customer->orders()->get()->each->delete();   // one by one so uploaded files are removed from disk too
+            \App\Models\LoginCode::where('email', $customer->email)->delete();
+            $customer->delete();
+        });
+
+        return redirect()->route('admin.customers.index')->with('success', "Customer $name and all of their orders were deleted.");
     }
 
     public function edit(User $customer)

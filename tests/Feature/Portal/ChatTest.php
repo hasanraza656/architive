@@ -56,11 +56,11 @@ class ChatTest extends PortalTestCase
     public function test_attachments_are_stored_privately_and_blocked_types_rejected(): void
     {
         [$order, $admin, $customer] = $this->paidOrder();
-        Storage::fake('local');
+        Storage::fake('uploads');
 
         $res = $this->actingAs($customer)->post("/portal/orders/{$order->number}/messages", ['files' => [UploadedFile::fake()->create('brief.pdf', 50)]], ['Accept' => 'application/json'])->assertCreated();
         $file = $order->files()->firstOrFail();
-        Storage::disk('local')->assertExists($file->path);
+        Storage::disk('uploads')->assertExists($file->path);
 
         $this->actingAs($admin)->get($res->json('files.0.url'))->assertOk();
         $this->actingAs($this->customer('other@example.test'))->get($res->json('files.0.url'))->assertForbidden();

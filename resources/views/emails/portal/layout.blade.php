@@ -33,7 +33,7 @@
                 <tr>
                     <td style="padding:18px 28px;background:#fafaf7;border-top:1px solid #e6e6e0;font-size:12px;line-height:1.6;color:#8a8a83;">
                         @yield('footnote')
-                        <div>{{ config('site.address.corporate.value') }}<br>
+                        <div>{{ config('site.address.corporate.value') }}<br>WhatsApp / phone: <a href="https://wa.me/{{ ltrim(config('site.phone'), '+') }}" style="color:#8a8a83;">{{ config('site.phone_display') }}</a><br>
                         <a href="mailto:{{ config('site.email') }}" style="color:#8a8a83;">{{ config('site.email') }}</a></div>
                     </td>
                 </tr>

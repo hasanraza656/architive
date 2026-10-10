@@ -16,7 +16,7 @@
 <section class="section" aria-label="Collaborations">
     <div class="wrap">
         <div class="filters" role="group" aria-label="Filter collaborations" data-reveal>
-            <button type="button" class="is-active" data-filter="all">All <b>3</b></button>
+            <button type="button" class="is-active" data-filter="all">All <b>{{ count($collabs) }}</b></button>
             <button type="button" data-filter="visualization">Visualization</button>
             <button type="button" data-filter="cad">CAD</button>
             <button type="button" data-filter="bim">BIM and Revit</button>
@@ -43,12 +43,21 @@
                         <div class="col-lg-7">
                             <p class="eyebrow">{{ $c['tag'] }} · {{ $c['place'] }}</p>
                             <h2 class="display-h display-h--sm"><a href="{{ pu('collaborations.show', ['slug' => $slug]) }}">{{ $c['title'] }}</a></h2>
+                            @if (isset($c['overview']))
+                                <p class="collab-row__card">{{ $c['card'] }}</p>
+                                <dl class="facts">
+                                    <div><dt>Location</dt><dd>{{ $c['location'] }}</dd></div>
+                                    <div><dt>Service</dt><dd>{{ $c['service'] }}</dd></div>
+                                    <div><dt>Status</dt><dd>{{ $c['status'] }}</dd></div>
+                                </dl>
+                            @else
                             <dl class="facts">
                                 <div><dt>Client</dt><dd>{{ $c['client'] }}</dd></div>
                                 <div><dt>Situation</dt><dd>{{ $c['situation'] }}</dd></div>
                                 <div><dt>Our role</dt><dd>{{ $c['role'] }}</dd></div>
                                 <div><dt>Deliverables</dt><dd>{{ implode(', ', $c['deliverables']) }}</dd></div>
                             </dl>
+                            @endif
                             @if ($c['note'])<p class="callout callout--sm"><x-icon name="info" /><span>{{ $c['note'] }}</span></p>@endif
                             <a class="link-arrow" href="{{ pu('collaborations.show', ['slug' => $slug]) }}">Read the collaboration <x-icon name="arrow-right" /></a>
                         </div>

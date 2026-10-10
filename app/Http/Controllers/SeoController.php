@@ -34,6 +34,21 @@ class SeoController extends Controller
             ];
         }
 
+        foreach (\App\Models\BlogCategory::all() as $cat) {
+            if ($cat->posts()->published()->exists()) {
+                $urls[] = ['loc' => $cat->absoluteUrl(), 'priority' => 0.5, 'changefreq' => 'weekly', 'lastmod' => $cat->posts()->published()->max('updated_at') ? date('c', strtotime($cat->posts()->published()->max('updated_at'))) : date('c'), 'images' => []];
+            }
+        }
+        foreach (\App\Models\BlogPost::published()->whereNot('noindex', true)->latest('published_at')->get() as $post) {
+            $urls[] = [
+                'loc' => $post->absoluteUrl(),
+                'priority' => 0.7,
+                'changefreq' => 'monthly',
+                'lastmod' => $post->updated_at->toAtomString(),
+                'images' => $post->featured_image ? [['loc' => $post->imageUrl(), 'title' => $post->title, 'caption' => $post->featured_image_alt ?: $post->title]] : [],
+            ];
+        }
+
         return response()->view('seo.sitemap', ['urls' => $urls])
             ->header('Content-Type', 'application/xml; charset=UTF-8');
     }

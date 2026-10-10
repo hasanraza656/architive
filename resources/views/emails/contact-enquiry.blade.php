@@ -12,7 +12,7 @@
             <table role="presentation" width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e6e6e0;">
                 <tr>
                     <td style="background:#141414;padding:22px 28px;">
-                        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#FFD60A;font-weight:bold;">New website enquiry</div>
+                        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#FFD60A;font-weight:bold;">@if (! empty($meta['order'])) New request {{ $meta['order']->number }} @else New website enquiry @endif</div>
                         <div style="font-size:22px;line-height:1.3;color:#ffffff;margin-top:6px;">{{ $e['name'] }}@if (! empty($e['company'])) <span style="color:#bdbdb5;">· {{ $e['company'] }}</span>@endif</div>
                     </td>
                 </tr>
@@ -54,8 +54,11 @@
                 </tr>
                 <tr>
                     <td style="padding:20px 28px 26px;">
+                        @if (! empty($meta['order']))
+                        <a href="{{ $meta['order']->adminUrl() }}" style="display:inline-block;background:#141414;color:#FFD60A;text-decoration:none;font-weight:bold;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:13px 22px;border-radius:999px;margin-right:8px;">Open request {{ $meta['order']->number }}</a>
+                        @endif
                         <a href="mailto:{{ $e['email'] }}?subject={{ rawurlencode('Re: your enquiry to ' . $siteName) }}" style="display:inline-block;background:#FFD60A;color:#141414;text-decoration:none;font-weight:bold;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:13px 22px;border-radius:999px;">Reply to {{ $e['name'] }}</a>
-                        <div style="font-size:12px;color:#8a8a83;margin-top:14px;">You can also simply press Reply: this email's Reply-To is set to the sender.</div>
+                        <div style="font-size:12px;color:#8a8a83;margin-top:14px;">@if (! empty($meta['order'])) A customer account and request were created automatically. Reply in the portal conversation, then send a custom offer from there. @endif @if (! empty($meta['files'])) {{ $meta['files'] }} attached {{ \Illuminate\Support\Str::plural('file', $meta['files']) }} (open the request to view). @endif You can also press Reply: this email's Reply-To is set to the sender.</div>
                     </td>
                 </tr>
                 <tr>

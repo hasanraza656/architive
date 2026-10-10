@@ -2,10 +2,11 @@
 
 namespace App\Enums;
 
-/** Life of an order: draft -> pending (invoice sent) -> active (paid) -> delivered -> completed, or cancelled at any open stage. */
+/** Life of an order: [request] -> draft -> pending (invoice / offer sent) -> active (paid) -> delivered -> completed, or cancelled at any open stage. */
 enum OrderStatus: string
 {
     case Draft = 'draft';
+    case Request = 'request';     // a lead: the customer's brief, waiting for our offer
     case Pending = 'pending';
     case Active = 'active';
     case Delivered = 'delivered';
@@ -16,6 +17,7 @@ enum OrderStatus: string
     {
         return match ($this) {
             self::Draft => 'Draft',
+            self::Request => 'Request',
             self::Pending => 'Awaiting payment',
             self::Active => 'In progress',
             self::Delivered => 'Delivered',
@@ -29,6 +31,7 @@ enum OrderStatus: string
     {
         return match ($this) {
             self::Draft => 'grey',
+            self::Request => 'teal',
             self::Pending => 'amber',
             self::Active => 'blue',
             self::Delivered => 'violet',
@@ -41,6 +44,12 @@ enum OrderStatus: string
     public function isRunning(): bool
     {
         return in_array($this, [self::Active, self::Delivered], true);
+    }
+
+    /** A request that has not become an offer/order yet. */
+    public function isLead(): bool
+    {
+        return $this === self::Request;
     }
 
     public function isClosed(): bool

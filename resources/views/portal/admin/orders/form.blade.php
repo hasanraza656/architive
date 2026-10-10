@@ -13,6 +13,7 @@
     }
     $dueIso = old('due_at', $order->due_at?->toIso8601String());
     $isPending = $editing && $order->status === \App\Enums\OrderStatus::Pending;
+    $isRequest = $editing && $order->status === \App\Enums\OrderStatus::Request;
 @endphp
 @section('title', $editing ? 'Edit ' . $order->number : 'New order')
 @section('heading', $editing ? $order->number : 'New order')
@@ -21,8 +22,8 @@
     <a class="crumb" href="{{ $editing ? route('admin.orders.show', $order) : route('admin.orders.index') }}"><x-icon name="arrow-left" /> {{ $editing ? 'Back to order' : 'All orders' }}</a>
     <div class="phead">
         <div>
-            <h1 class="phead__title">{{ $editing ? 'Edit' : 'New' }} <em>order</em></h1>
-            <p class="phead__sub">{{ $isPending ? 'This invoice was already sent. Changes are visible to the customer as soon as you save.' : 'Build the invoice, then send it. The customer pays online and the order starts.' }}</p>
+            <h1 class="phead__title">{{ $isRequest ? 'Create' : ($editing ? 'Edit' : 'New') }} <em>{{ $isRequest ? 'custom offer' : 'order' }}</em></h1>
+            <p class="phead__sub">{{ $isRequest ? 'Price what you agreed in the conversation. The customer receives it as an offer card in the chat and by e-mail, and can pay right away.' : ($isPending ? 'This invoice was already sent. Changes are visible to the customer as soon as you save.' : 'Build the invoice, then send it. The customer pays online and the order starts.') }}</p>
         </div>
     </div>
 
@@ -125,16 +126,16 @@
         <aside class="builder__side">
             <div class="savebar">
                 <div class="savebar__total"><span>Invoice total</span><b data-savetotal>{{ $sym }}0.00</b></div>
-                <button class="pbtn pbtn--primary pbtn--block" type="submit" name="action" value="send"><x-icon name="send" /> {{ $isPending ? 'Save & re-send invoice' : 'Save & send invoice' }}</button>
-                <button class="pbtn pbtn--ghost pbtn--block" type="submit" name="action" value="draft">{{ $isPending ? 'Save changes only' : 'Save as draft' }}</button>
-                <small>{{ $isPending ? 'Re-sending e-mails the customer again.' : 'Drafts are private. Nothing is e-mailed until you send.' }}</small>
+                <button class="pbtn pbtn--primary pbtn--block" type="submit" name="action" value="send"><x-icon name="send" /> {{ $isRequest ? 'Send custom offer' : ($isPending ? 'Save & re-send invoice' : 'Save & send invoice') }}</button>
+                <button class="pbtn pbtn--ghost pbtn--block" type="submit" name="action" value="draft">{{ $isRequest ? 'Save offer draft' : ($isPending ? 'Save changes only' : 'Save as draft') }}</button>
+                <small>{{ $isRequest ? 'A draft stays private: nothing is sent until you send the offer.' : ($isPending ? 'Re-sending e-mails the customer again.' : 'Drafts are private. Nothing is e-mailed until you send.') }}</small>
             </div>
 
             <div class="preview" aria-label="Invoice preview">
                 <div class="preview__label">Live preview</div>
                 <article class="paper">
                     <div class="paper__top">
-                        <div class="paper__brand"><img src="{{ asset('assets/img/logo.png') }}" alt="Architive" width="170" height="29"></div>
+                        <div class="paper__brand"><img src="{{ asset('assets/img/logo.png') }}" alt="Architive" width="170" height="29"><small>WhatsApp / phone: {{ config('site.phone_display') }}</small></div>
                         <div class="paper__ref"><h3>Invoice</h3><span>{{ $editing ? $order->number : 'Draft' }}</span></div>
                     </div>
                     <div class="paper__meta">

@@ -59,7 +59,7 @@ class ChatNotifier
             return false;                                           // they are on the page, no e-mail needed
         }
 
-        $query = $order->messages()->with(['user', 'files'])
+        $query = $order->messages()->with(['user', 'files'])->where('kind', 'text')      // offer cards are covered by the offer e-mail
             ->whereHas('user', fn ($q) => $q->where('role', $toAdmin ? User::ROLE_CUSTOMER : User::ROLE_ADMIN))
             ->where('id', '>', max($state['read'], $state['emailed_id']));
 

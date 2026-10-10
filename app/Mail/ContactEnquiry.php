@@ -35,10 +35,11 @@ class ContactEnquiry extends Mailable
     public function envelope(): Envelope
     {
         $service = self::SERVICES[$this->enquiry['service'] ?? ''] ?? 'General enquiry';
+        $ref = ! empty($this->meta['order']) ? ' ' . $this->meta['order']->number : '';
 
         return new Envelope(
             replyTo: [new Address($this->enquiry['email'], $this->enquiry['name'])],
-            subject: 'New project enquiry: ' . $service . ' · ' . $this->enquiry['name'],
+            subject: (($ref !== '') ? 'New project request' . $ref : 'New project enquiry') . ': ' . $service . ' · ' . $this->enquiry['name'],
         );
     }
 

@@ -16,6 +16,7 @@
                     @foreach (config('site.footer_links') as $link)
                         <li><a href="{{ pu($link['route']) }}">{{ $link['label'] }}</a></li>
                     @endforeach
+                    <li><a href="{{ route('customer.login') }}" rel="nofollow">Customer Portal</a></li>
                 </ul>
             </div>
             <div class="col-6 col-lg-2">

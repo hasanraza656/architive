@@ -36,6 +36,17 @@ return [
             'throw' => false,
         ],
 
+        // Everything users upload lives inside /public/uploads, so no `storage:link` is ever needed on the server.
+        //   uploads/orders/*  chat + delivery files (direct web access is blocked by an .htaccess; served through the authorised portal route)
+        //   uploads/blog/*    blog images        uploads/avatars/*  team photos
+        'uploads' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'),
+            'url' => rtrim((string) env('APP_URL'), '/').'/uploads',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

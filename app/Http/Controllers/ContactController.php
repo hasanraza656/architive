@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ContactEnquiry;
 use App\Rules\Recaptcha;
+use App\Services\Notifications\PortalMailer;
+use App\Services\Orders\RequestService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
+    public function __construct(private RequestService $requests, private PortalMailer $mailer)
+    {
+    }
+
     /**
-     * Project enquiry form: validates (incl. reCAPTCHA v2), logs the enquiry and
-     * emails the admin (ADMIN_EMAIL). The visitor's address is set as Reply-To.
+     * Project enquiry form (contact page + pop-up). Validates (incl. reCAPTCHA v2), then
+     *   1. creates / reuses the visitor's customer account (instant, no password),
+     *   2. opens an "order request" with their brief + attachments (a lead the team answers in the portal),
+     *   3. e-mails the admin (ADMIN_EMAIL) and sends the visitor a receipt with a link to follow it.
+     * A lead is never lost: once the request is stored, an e-mail problem is only logged.
      */
     public function store(Request $request)
     {
@@ -21,6 +28,7 @@ class ContactController extends Controller
             return $this->respond($request);
         }
 
+        $u = config('portal.uploads');
         $data = $request->validate([
             'name'     => ['required', 'string', 'max:120'],
             'email'    => ['required', 'email:rfc', 'max:160'],
@@ -33,46 +41,71 @@ class ContactController extends Controller
             'message'  => ['required', 'string', 'min:10', 'max:4000'],
             'nda'      => ['nullable'],
             'consent'  => ['accepted'],
-            'g-recaptcha-response' => ['required', new Recaptcha],
+            'files'    => ['nullable', 'array', 'max:5'],
+            'files.*'  => ['file', 'max:10240', function ($attr, $file, $fail) use ($u) {
+                if (in_array(strtolower($file->getClientOriginalExtension()), $u['blocked_extensions'], true)) {
+                    $fail('This file type is not allowed. Please send it as a .zip.');
+                }
+            }],
+            // without keys the check is skipped in local/testing only (see Recaptcha); elsewhere it is mandatory
+            'g-recaptcha-response' => [
+                (! config('services.recaptcha.secret_key') && app()->environment('local', 'testing')) ? 'nullable' : 'required',
+                new Recaptcha,
+            ],
         ], [
             'consent.accepted'              => 'Please confirm you agree to be contacted about this enquiry.',
             'g-recaptcha-response.required' => 'Please tick “I’m not a robot” to continue.',
+            'files.max'                     => 'You can attach up to 5 files.',
+            'files.*.max'                   => 'Each file can be up to 10 MB. For bigger files, share a link instead.',
+            'files.*.uploaded'              => 'A file could not be uploaded. It may be too large (limit 10 MB each).',
         ]);
 
-        $enquiry = collect($data)->except(['consent', 'g-recaptcha-response'])->all();
+        $enquiry = collect($data)->except(['consent', 'g-recaptcha-response', 'files'])->all();
         Log::info('Contact enquiry received', $enquiry);
 
-        $admin = config('site.admin_email');
-        if (! $admin) {
-            Log::error('ADMIN_EMAIL is not set; enquiry was only logged.');
+        $meta = ['ip' => $request->ip(), 'page' => url()->previous() ?: pu('contact', [], [], true), 'at' => now()->format('j M Y, H:i T')];
 
-            return $this->fail($request);
-        }
-
+        $order = null;
         try {
-            Mail::to($admin)->send(new ContactEnquiry($enquiry, [
-                'ip'   => $request->ip(),
-                'page' => url()->previous() ?: pu('contact', [], [], true),
-                'at'   => now()->format('j M Y, H:i T'),
-            ]));
+            $customer = $this->requests->customerFor($data['name'], $data['email']);
+            $order = $customer ? $this->requests->create($customer, $data, $request->file('files', []), 'website') : null;
         } catch (\Throwable $e) {
-            report($e);   // the enquiry is still in the log above
+            report($e);   // never block the enquiry: fall back to the plain e-mail below
+        }
 
+        // admin notification (with the portal link when a request was created)
+        if ($order) {
+            $adminOk = $this->requests->notifyAdmin($order, $enquiry, $meta);
+            $this->requests->notifyCustomer($order);
+        } else {
+            $adminOk = $this->mailer->toAdmin(new \App\Mail\ContactEnquiry($enquiry, $meta));
+            if (! config('site.admin_email')) {
+                Log::error('ADMIN_EMAIL is not set; enquiry was only logged.');
+            }
+        }
+
+        if (! $order && ! $adminOk) {
             return $this->fail($request);
         }
 
-        return $this->respond($request);
+        return $this->respond($request, $order);
     }
 
-    private function respond(Request $request)
+    private function respond(Request $request, $order = null)
     {
-        $message = 'Thank you—your enquiry is in. We will review the information and reply with a practical next step.';
+        $message = $order
+            ? 'Thank you! Your request ' . $order->number . ' is in. We will review it and reply with a practical next step, usually within one business day.'
+            : 'Thank you—your enquiry is in. We will review the information and reply with a practical next step.';
 
         if ($request->expectsJson()) {
-            return response()->json(['ok' => true, 'message' => $message]);
+            return response()->json(['ok' => true, 'message' => $message] + ($order ? [
+                'request' => $order->number,
+                'portal_url' => route('customer.login', ['email' => $order->customer->email]),
+            ] : []));
         }
 
-        return redirect()->to(pu('contact') . '#enquiry')->with('sent', $message);
+        return redirect()->to(pu('contact') . '#enquiry')->with('sent', $message)
+            ->with('request', $order ? ['number' => $order->number, 'url' => route('customer.login', ['email' => $order->customer->email])] : null);
     }
 
     private function fail(Request $request)

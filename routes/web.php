@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SeoController;
@@ -30,6 +31,11 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
     Route::get('collaborations/{slug}/', [PageController::class, 'collaboration'])
         ->where('slug', '[a-z0-9\-]+')->name('collaborations.show');
 
+    Route::get('blog/', [BlogController::class, 'index'])->name('blog.index');
+    Route::get('blog/category/{slug}/', [BlogController::class, 'category'])->where('slug', '[a-z0-9\-]+')->name('blog.category');
+    Route::get('blog/tag/{slug}/', [BlogController::class, 'tag'])->where('slug', '[a-z0-9\-]+')->name('blog.tag');
+    Route::get('blog/{slug}/', [BlogController::class, 'show'])->where('slug', '[a-z0-9\-]+')->name('blog.show');
+
     Route::get('how-it-works/', [PageController::class, 'process'])->name('process');
     Route::get('faqs/', [PageController::class, 'faqs'])->name('faqs');
     Route::get('contact/', [PageController::class, 'contact'])->name('contact');
@@ -41,5 +47,6 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
 
 Route::post('contact/send', [ContactController::class, 'store'])->middleware('throttle:6,1')->name('contact.send');
 
+Route::get('blog/feed.xml', [BlogController::class, 'feed'])->name('blog.feed');
 Route::get('sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap.xml');
 Route::get('robots.txt', [SeoController::class, 'robots'])->name('robots');

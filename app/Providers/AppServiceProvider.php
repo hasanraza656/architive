@@ -31,12 +31,12 @@ class AppServiceProvider extends ServiceProvider
             ], $page, $override);
 
             $view->with('seoMeta', $seo);
-            $view->with('crumbs', $this->breadcrumbs($name, $view->getData()['c'] ?? null));
+            $view->with('crumbs', $this->breadcrumbs($name, is_array($view->getData()['c'] ?? null) ? $view->getData()['c'] : null, $view->getData()));
         });
     }
 
     /** Visible + structured breadcrumb trail derived from the route name. */
-    private function breadcrumbs(?string $name, ?array $collab): array
+    private function breadcrumbs(?string $name, ?array $collab, array $data = []): array
     {
         if (! $name || $name === 'home') {
             return [];
@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
             'services.visualization' => 'Architectural Visualization', 'services.bim' => 'BIM and Revit',
             'services.cad' => 'CAD Drafting', 'services.outsourcing' => 'Production Support',
             'collaborations.index' => 'Collaborations', 'process' => 'How It Works', 'faqs' => 'FAQs',
-            'contact' => 'Contact', 'privacy' => 'Privacy Policy', 'terms' => 'Terms of Service', 'sitemap.html' => 'Sitemap',
+            'blog.index' => 'Blog', 'contact' => 'Contact', 'privacy' => 'Privacy Policy', 'terms' => 'Terms of Service', 'sitemap.html' => 'Sitemap',
         ];
 
         $trail = [['label' => 'Home', 'url' => abs_pu('home')]];
@@ -58,6 +58,21 @@ class AppServiceProvider extends ServiceProvider
         if ($name === 'collaborations.show' && $collab) {
             $trail[] = ['label' => 'Collaborations', 'url' => abs_pu('collaborations.index')];
             $trail[] = ['label' => $collab['name'], 'url' => abs_pu($name, ['slug' => request()->route('slug')])];
+
+            return $trail;
+        }
+        if (in_array($name, ['blog.category', 'blog.tag', 'blog.show'], true)) {
+            $trail[] = ['label' => 'Blog', 'url' => abs_pu('blog.index')];
+            if ($name === 'blog.category' && ! empty($data['category'])) {
+                $trail[] = ['label' => $data['category']->name, 'url' => $data['category']->absoluteUrl()];
+            } elseif ($name === 'blog.tag' && ! empty($data['tag'])) {
+                $trail[] = ['label' => $data['tag']->name, 'url' => $data['tag']->absoluteUrl()];
+            } elseif ($name === 'blog.show' && ! empty($data['post'])) {
+                if ($data['post']->category) {
+                    $trail[] = ['label' => $data['post']->category->name, 'url' => $data['post']->category->absoluteUrl()];
+                }
+                $trail[] = ['label' => $data['post']->title, 'url' => $data['post']->absoluteUrl()];
+            }
 
             return $trail;
         }

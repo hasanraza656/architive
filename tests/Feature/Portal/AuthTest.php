@@ -71,11 +71,29 @@ class AuthTest extends PortalTestCase
         $this->post('/account/login/verify', ['code' => $code])->assertSessionHasErrors('code');
     }
 
-    public function test_unknown_email_gets_the_same_answer_and_no_mail(): void
+    public function test_newcomers_get_an_account_after_confirming_their_email(): void
     {
         Mail::fake();
 
-        $this->post('/account/login', ['email' => 'ghost@example.test'])->assertRedirect(route('customer.login.verify'));
+        $this->post('/account/login', ['email' => 'new.person@example.test'])->assertRedirect(route('customer.login.verify'));
+        $code = null;
+        Mail::assertSent(LoginCodeMail::class, function ($m) use (&$code) { $code = $m->code; return $m->hasTo('new.person@example.test'); });
+        $this->assertDatabaseMissing('users', ['email' => 'new.person@example.test']);      // nothing is created until the code is confirmed
+
+        $this->post('/account/login/verify', ['code' => $code])->assertRedirect(route('customer.welcome'));
+        $this->assertDatabaseHas('users', ['email' => 'new.person@example.test', 'role' => 'customer']);
+
+        $this->get('/account')->assertRedirect(route('customer.welcome'));                  // must introduce themselves first
+        $this->post('/account/welcome', ['first_name' => 'New', 'last_name' => 'Person'])->assertRedirect(route('customer.requests.create'));
+        $this->get('/account')->assertOk()->assertSee('Start a new request');
+    }
+
+    public function test_admin_emails_never_get_a_customer_code(): void
+    {
+        Mail::fake();
+        $this->admin();
+
+        $this->post('/account/login', ['email' => 'admin@example.test'])->assertRedirect(route('customer.login.verify'));
         Mail::assertNothingSent();
     }
 

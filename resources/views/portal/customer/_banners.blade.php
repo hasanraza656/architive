@@ -1,5 +1,7 @@
 @php use App\Enums\OrderStatus as S; @endphp
-@if ($order->status === S::Pending)
+@if ($order->status === S::Request)
+    <div class="banner banner--teal" style="margin-bottom:1.1rem"><x-icon name="message" /> <span><b>We have your request.</b> We are reviewing it now and will reply right here, usually within one business day. You will get an e-mail as soon as we do. Your custom offer will appear in this conversation.</span></div>
+@elseif ($order->status === S::Pending)
     <div class="paybox" style="margin-bottom:1.1rem">
         <span class="mono" style="font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#B5B5AD">Invoice {{ $order->number }}</span>
         <div class="paybox__amt">{{ money($order->total_cents, $order->currency) }}</div>

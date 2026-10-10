@@ -89,7 +89,7 @@ class OrderFlowTest extends PortalTestCase
     public function test_delivery_acceptance_and_revision_cycle(): void
     {
         Mail::fake();
-        Storage::fake('local');
+        Storage::fake('uploads');
         $admin = $this->admin();
         $customer = $this->customer();
         $order = $this->order($customer, $admin);
@@ -125,9 +125,10 @@ class OrderFlowTest extends PortalTestCase
 
         $sent = $this->order($this->customer('b@example.test'), $admin);
         app(OrderWorkflow::class)->send($sent, $admin);
-        $this->actingAs($admin)->delete("/admin/orders/{$sent->number}")->assertForbidden();   // only drafts can be deleted
         $this->actingAs($admin)->post("/admin/orders/{$sent->number}/cancel", ['reason' => 'Changed plans'])->assertRedirect();
         $this->assertSame(OrderStatus::Cancelled, $sent->fresh()->status);
+        $this->actingAs($admin)->delete("/admin/orders/{$sent->number}")->assertRedirect();   // admin may delete any order
+        $this->assertNull(Order::find($sent->id));
     }
 
     public function test_orders_below_the_minimum_charge_cannot_be_sent(): void

@@ -28,7 +28,7 @@ return [
 
     // File uploads (also limited by php.ini upload_max_filesize / post_max_size)
     'uploads' => [
-        'disk' => 'local',
+        'disk' => 'uploads',   // = /public/uploads (see config/filesystems.php)
         'max_kb' => 51200,                     // 50 MB per file
         'max_files' => 8,
         'blocked_extensions' => ['php', 'phtml', 'phar', 'exe', 'bat', 'cmd', 'com', 'sh', 'js', 'vbs', 'msi', 'jar', 'dll', 'scr', 'html', 'htm'],

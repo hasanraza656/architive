@@ -146,7 +146,7 @@
     }
     function validate() {
       var ok = true, v = function (n) { return $.trim($f.find('[name="' + n + '"]').val() || ''); };
-      ['name', 'email', 'message', 'consent', 'captcha'].forEach(function (n) { setErr(n, ''); });
+      ['name', 'email', 'message', 'consent', 'captcha'].forEach(function (n) { setErr(n, ''); });   // (file errors are set when files are added)
       if (!v('name')) { setErr('name', 'Please tell us your name.'); ok = false; }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v('email'))) { setErr('email', 'Please enter a valid email address.'); ok = false; }
       if (v('message').length < 10) { setErr('message', 'A little more detail helps—at least 10 characters.'); ok = false; }
@@ -156,6 +156,39 @@
         setErr('captcha', 'Please tick “I’m not a robot” to continue.'); ok = false;
       }
       return ok;
+    }
+    /* ---- file attachments: up to 5 files, 10 MB each, no executables (the server checks again) ---- */
+    var $drop = $f.find('[data-files-drop]'), $fin = $f.find('[data-files-input]'), $flist = $f.find('[data-files-list]'),
+        dt = window.DataTransfer ? new DataTransfer() : null, MAXF = 5, MAXB = 10 * 1048576, BLOCK = /\.(php|phtml|phar|exe|bat|cmd|com|sh|js|vbs|msi|jar|dll|scr|html?)$/i;
+    function fmtSize(b) { return b >= 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; }
+    function renderFiles() {
+      $flist.empty();
+      if (!dt) { return; }
+      Array.prototype.forEach.call(dt.files, function (file, i) {
+        var $li = $('<li>').append($('<span>').text(file.name), $('<small>').text(fmtSize(file.size)),
+          $('<button type="button">').attr('aria-label', 'Remove ' + file.name).html('&times;').on('click', function () {
+            var n = new DataTransfer(); Array.prototype.forEach.call(dt.files, function (x, k) { if (k !== i) { n.items.add(x); } });
+            dt = n; $fin[0].files = dt.files; renderFiles(); setErr('files', '');
+          }));
+        $flist.append($li);
+      });
+    }
+    function addFiles(files) {
+      if (!dt) { return; }
+      var problem = '';
+      Array.prototype.forEach.call(files, function (file) {
+        if (dt.files.length >= MAXF) { problem = 'You can attach up to ' + MAXF + ' files.'; return; }
+        if (file.size > MAXB) { problem = '“' + file.name + '” is over 10 MB. Please share a link for larger files.'; return; }
+        if (BLOCK.test(file.name)) { problem = '“' + file.name + '” is not an allowed file type. Please send it as a .zip.'; return; }
+        dt.items.add(file);
+      });
+      $fin[0].files = dt.files; renderFiles(); setErr('files', problem);
+    }
+    if ($fin.length && dt) {
+      $fin.on('change', function () { addFiles(Array.prototype.slice.call($fin[0].files)); });
+      $drop.on('dragover', function (e) { e.preventDefault(); $drop.addClass('is-over'); }).on('dragleave drop', function () { $drop.removeClass('is-over'); })
+           .on('drop', function (e) { e.preventDefault(); addFiles(e.originalEvent.dataTransfer.files); });
+      $f.on('reset', function () { dt = new DataTransfer(); renderFiles(); });
     }
     function resetCaptcha() { var $c = $f.find('[data-captcha]'); if ($c.length && window.grecaptcha && $c[0]._wid !== undefined) { grecaptcha.reset($c[0]._wid); } }
     $f.on('input change', 'input, textarea', function () { if (this.name && $(this).attr('aria-invalid')) { setErr(this.name, ''); } });
@@ -176,11 +209,16 @@
           resetCaptcha();
           if (o.res.ok) {
             var $s = $f.closest('.enquiry-card').find('[data-success]'); $s.find('[data-success-text]').text(o.data.message || '');
+            if (o.data.request) {            // a request was opened: show its number and invite them to the client area
+              $s.find('[data-success-ref]').text(o.data.request).prop('hidden', false);
+              $s.find('[data-success-next]').prop('hidden', false);
+              $s.find('[data-success-portal]').attr('href', o.data.portal_url).prop('hidden', false);
+            }
             form.reset();
             $f.prop('hidden', true); $s.prop('hidden', false).addClass('is-shown');
             if (!$f.closest('.modal').length) { $s[0].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' }); }
           } else if (o.res.status === 422 && o.data.errors) {
-            $.each(o.data.errors, function (k, msgs) { setErr(k === 'g-recaptcha-response' ? 'captcha' : k, msgs[0]); });
+            $.each(o.data.errors, function (k, msgs) { setErr(k === 'g-recaptcha-response' ? 'captcha' : (k.indexOf('files') === 0 ? 'files' : k), msgs[0]); });
           } else {
             $err.text('Something went wrong—please try again, or email us directly.').prop('hidden', false);
           }

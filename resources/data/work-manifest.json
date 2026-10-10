@@ -1,404 +1,452 @@
 {
-    "sets/ny/01-main-level-plan": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/ny/02-roof-plan": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/ny/03-elevations-front-back": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/ny/04-elevations-right-left": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/ny/05-building-section": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/ny/06-architectural-details": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/ny/07-door-window-details": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/caa/01-main-floor-plan": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/caa/02-roof-plan": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/caa/03-elevations-left-right": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/caa/04-elevations-front-back": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/caa/05-electrical-plan": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/car/01-proposed-main-level-plan": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/car/02-roof-plan": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/car/03-elevations-left-front": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/car/04-elevations-right-back": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/car/05-kitchen-plan-elevation": {
-        "w": 2000,
-        "h": 1334,
-        "tw": 800,
-        "th": 533
-    },
-    "sets/va/01-main-level-plan": {
-        "w": 2000,
-        "h": 1528,
-        "tw": 800,
-        "th": 611
-    },
-    "sets/va/02-roof-plan": {
-        "w": 2000,
-        "h": 1528,
-        "tw": 800,
-        "th": 611
-    },
-    "sets/va/03-exterior-elevations": {
-        "w": 2000,
-        "h": 1528,
-        "tw": 800,
-        "th": 611
-    },
-    "sets/vt/01-level-1-floor-plan": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/vt/02-level-2-floor-plan": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/vt/03-exterior-elevations": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/vt/04-building-sections": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/pa/01-level-1-floor-plan": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/pa/02-basement-floor-plan": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/pa/03-level-2-floor-plan": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/pa/04-exterior-elevations": {
-        "w": 2000,
-        "h": 1752,
-        "tw": 800,
-        "th": 701
-    },
-    "sets/az/01-level-1-floor-plan": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/az/02-level-2-floor-plan": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/az/03-basement-floor-plan": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/az/04-building-sections": {
-        "w": 2000,
-        "h": 1651,
-        "tw": 800,
-        "th": 660
-    },
-    "sets/manuel/01-front-elevation": {
-        "w": 1900,
-        "h": 1376,
-        "tw": 800,
-        "th": 579
-    },
-    "sets/manuel/02-basement-floor-plan": {
-        "w": 1900,
-        "h": 1376,
-        "tw": 800,
-        "th": 579
-    },
-    "sets/manuel/03-main-floor-plan": {
-        "w": 1900,
-        "h": 1376,
-        "tw": 800,
-        "th": 579
-    },
-    "sets/manuel/04-upper-floor-plan": {
-        "w": 1900,
-        "h": 1376,
-        "tw": 800,
-        "th": 579
-    },
-    "sets/manuel/05-building-section-a-a": {
-        "w": 1900,
-        "h": 1376,
-        "tw": 800,
-        "th": 579
-    },
-    "sets/manuel/06-building-section-b-b": {
-        "w": 1900,
-        "h": 1376,
-        "tw": 800,
-        "th": 579
-    },
-    "cases/manuel-house-3d": {
-        "w": 1500,
-        "h": 1121,
-        "tw": 800,
-        "th": 598
-    },
-    "viz/bandon-dusk-lawn": {
-        "w": 1600,
-        "h": 1000,
-        "tw": 800,
-        "th": 500
-    },
-    "viz/bandon-dusk-wrap": {
-        "w": 1600,
-        "h": 768,
-        "tw": 800,
-        "th": 384
-    },
-    "viz/bandon-night-black": {
-        "w": 1600,
-        "h": 768,
-        "tw": 800,
-        "th": 384
-    },
-    "viz/brick-mixed-use": {
-        "w": 1600,
-        "h": 900,
-        "tw": 800,
-        "th": 450
-    },
-    "viz/commercial-options": {
-        "w": 1600,
-        "h": 900,
-        "tw": 800,
-        "th": 450
-    },
-    "viz/bungalow-front": {
-        "w": 1600,
-        "h": 900,
-        "tw": 800,
-        "th": 450
-    },
-    "viz/house-portrait": {
-        "w": 1325,
-        "h": 1600,
-        "tw": 800,
-        "th": 966
-    },
-    "viz/bedroom": {
-        "w": 1600,
-        "h": 1000,
-        "tw": 800,
-        "th": 500
-    },
-    "viz/dining-room": {
-        "w": 1600,
-        "h": 1333,
-        "tw": 800,
-        "th": 667
-    },
-    "viz/kitchen-dining": {
-        "w": 1600,
-        "h": 1000,
-        "tw": 800,
-        "th": 500
-    },
-    "viz/lounge": {
-        "w": 1600,
-        "h": 960,
-        "tw": 800,
-        "th": 480
-    },
-    "viz/kitchen-plan": {
-        "w": 1600,
-        "h": 1003,
-        "tw": 800,
-        "th": 501
-    },
-    "viz/floorplan-3d-retail": {
-        "w": 1600,
-        "h": 940,
-        "tw": 800,
-        "th": 470
-    },
-    "viz/floorplan-3d-top": {
-        "w": 1600,
-        "h": 1000,
-        "tw": 800,
-        "th": 500
-    },
-    "viz/floorplan-iso": {
-        "w": 1600,
-        "h": 1000,
-        "tw": 800,
-        "th": 500
-    },
-    "viz/site-aerial": {
-        "w": 1600,
-        "h": 900,
-        "tw": 800,
-        "th": 450
-    },
-    "viz/booth-concept": {
-        "w": 1372,
-        "h": 1147,
-        "tw": 800,
-        "th": 669
-    },
-    "cases/bonderud-kitchen-plan-to-render": {
-        "w": 1672,
-        "h": 941,
-        "tw": 800,
-        "th": 450
-    },
-    "cases/fifa-three-level-circulation": {
-        "w": 1672,
-        "h": 941,
-        "tw": 800,
-        "th": 450
-    },
-    "scan/house-1-cloud": {
-        "w": 1600,
-        "h": 1000,
-        "tw": 800,
-        "th": 500
-    },
-    "scan/house-1-model": {
-        "w": 1600,
-        "h": 1000,
-        "tw": 800,
-        "th": 500
-    },
-    "scan/house-2-cloud": {
-        "w": 730,
-        "h": 330,
-        "tw": 730,
-        "th": 330
-    },
-    "scan/house-2-model": {
-        "w": 726,
-        "h": 330,
-        "tw": 726,
-        "th": 330
-    },
-    "scan/facade-cloud": {
-        "w": 622,
-        "h": 353,
-        "tw": 622,
-        "th": 353
-    },
-    "scan/facade-model": {
-        "w": 676,
-        "h": 387,
-        "tw": 676,
-        "th": 387
-    },
-    "viz/storage-unit-iso": {
-        "w": 1600,
-        "h": 1010,
-        "tw": 800,
-        "th": 505
-    },
-    "viz/storage-container-top": {
-        "w": 1600,
-        "h": 1280,
-        "tw": 800,
-        "th": 640
-    },
-    "viz/storage-container-angle": {
-        "w": 1260,
-        "h": 1008,
-        "tw": 800,
-        "th": 640
-    }
+ "sets/ny/01-main-level-plan": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/ny/02-roof-plan": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/ny/03-elevations-front-back": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/ny/04-elevations-right-left": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/ny/05-building-section": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/ny/06-architectural-details": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/ny/07-door-window-details": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/caa/01-main-floor-plan": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/caa/02-roof-plan": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/caa/03-elevations-left-right": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/caa/04-elevations-front-back": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/caa/05-electrical-plan": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/car/01-proposed-main-level-plan": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/car/02-roof-plan": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/car/03-elevations-left-front": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/car/04-elevations-right-back": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/car/05-kitchen-plan-elevation": {
+  "w": 2000,
+  "h": 1334,
+  "tw": 800,
+  "th": 533
+ },
+ "sets/va/01-main-level-plan": {
+  "w": 2000,
+  "h": 1528,
+  "tw": 800,
+  "th": 611
+ },
+ "sets/va/02-roof-plan": {
+  "w": 2000,
+  "h": 1528,
+  "tw": 800,
+  "th": 611
+ },
+ "sets/va/03-exterior-elevations": {
+  "w": 2000,
+  "h": 1528,
+  "tw": 800,
+  "th": 611
+ },
+ "sets/vt/01-level-1-floor-plan": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/vt/02-level-2-floor-plan": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/vt/03-exterior-elevations": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/vt/04-building-sections": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/pa/01-level-1-floor-plan": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/pa/02-basement-floor-plan": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/pa/03-level-2-floor-plan": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/pa/04-exterior-elevations": {
+  "w": 2000,
+  "h": 1752,
+  "tw": 800,
+  "th": 701
+ },
+ "sets/az/01-level-1-floor-plan": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/az/02-level-2-floor-plan": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/az/03-basement-floor-plan": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/az/04-building-sections": {
+  "w": 2000,
+  "h": 1651,
+  "tw": 800,
+  "th": 660
+ },
+ "sets/manuel/01-front-elevation": {
+  "w": 1900,
+  "h": 1376,
+  "tw": 800,
+  "th": 579
+ },
+ "sets/manuel/02-basement-floor-plan": {
+  "w": 1900,
+  "h": 1376,
+  "tw": 800,
+  "th": 579
+ },
+ "sets/manuel/03-main-floor-plan": {
+  "w": 1900,
+  "h": 1376,
+  "tw": 800,
+  "th": 579
+ },
+ "sets/manuel/04-upper-floor-plan": {
+  "w": 1900,
+  "h": 1376,
+  "tw": 800,
+  "th": 579
+ },
+ "sets/manuel/05-building-section-a-a": {
+  "w": 1900,
+  "h": 1376,
+  "tw": 800,
+  "th": 579
+ },
+ "sets/manuel/06-building-section-b-b": {
+  "w": 1900,
+  "h": 1376,
+  "tw": 800,
+  "th": 579
+ },
+ "cases/manuel-house-3d": {
+  "w": 1500,
+  "h": 1121,
+  "tw": 800,
+  "th": 598
+ },
+ "viz/bandon-dusk-lawn": {
+  "w": 1600,
+  "h": 1000,
+  "tw": 800,
+  "th": 500
+ },
+ "viz/bandon-dusk-wrap": {
+  "w": 1600,
+  "h": 768,
+  "tw": 800,
+  "th": 384
+ },
+ "viz/bandon-night-black": {
+  "w": 1600,
+  "h": 768,
+  "tw": 800,
+  "th": 384
+ },
+ "viz/brick-mixed-use": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/commercial-options": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/bungalow-front": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/house-portrait": {
+  "w": 1325,
+  "h": 1600,
+  "tw": 800,
+  "th": 966
+ },
+ "viz/bedroom": {
+  "w": 1600,
+  "h": 1000,
+  "tw": 800,
+  "th": 500
+ },
+ "viz/dining-room": {
+  "w": 1600,
+  "h": 1333,
+  "tw": 800,
+  "th": 667
+ },
+ "viz/kitchen-dining": {
+  "w": 1600,
+  "h": 1000,
+  "tw": 800,
+  "th": 500
+ },
+ "viz/lounge": {
+  "w": 1600,
+  "h": 960,
+  "tw": 800,
+  "th": 480
+ },
+ "viz/kitchen-plan": {
+  "w": 1600,
+  "h": 1003,
+  "tw": 800,
+  "th": 501
+ },
+ "viz/floorplan-3d-retail": {
+  "w": 1600,
+  "h": 940,
+  "tw": 800,
+  "th": 470
+ },
+ "viz/floorplan-3d-top": {
+  "w": 1600,
+  "h": 1000,
+  "tw": 800,
+  "th": 500
+ },
+ "viz/floorplan-iso": {
+  "w": 1600,
+  "h": 1000,
+  "tw": 800,
+  "th": 500
+ },
+ "viz/site-aerial": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/booth-concept": {
+  "w": 1372,
+  "h": 1147,
+  "tw": 800,
+  "th": 669
+ },
+ "cases/fifa-three-level-circulation": {
+  "w": 1672,
+  "h": 941,
+  "tw": 800,
+  "th": 450
+ },
+ "scan/house-1-cloud": {
+  "w": 1600,
+  "h": 1000,
+  "tw": 800,
+  "th": 500
+ },
+ "scan/house-1-model": {
+  "w": 1600,
+  "h": 1000,
+  "tw": 800,
+  "th": 500
+ },
+ "scan/house-2-cloud": {
+  "w": 730,
+  "h": 330,
+  "tw": 730,
+  "th": 330
+ },
+ "scan/house-2-model": {
+  "w": 726,
+  "h": 330,
+  "tw": 726,
+  "th": 330
+ },
+ "scan/facade-cloud": {
+  "w": 622,
+  "h": 353,
+  "tw": 622,
+  "th": 353
+ },
+ "scan/facade-model": {
+  "w": 676,
+  "h": 387,
+  "tw": 676,
+  "th": 387
+ },
+ "viz/storage-unit-iso": {
+  "w": 1600,
+  "h": 1010,
+  "tw": 800,
+  "th": 505
+ },
+ "viz/storage-container-top": {
+  "w": 1600,
+  "h": 1280,
+  "tw": 800,
+  "th": 640
+ },
+ "viz/storage-container-angle": {
+  "w": 1260,
+  "h": 1008,
+  "tw": 800,
+  "th": 640
+ },
+ "cases/uk-floorplan-ground": {
+  "w": 1800,
+  "h": 1054,
+  "tw": 800,
+  "th": 468
+ },
+ "cases/uk-floorplan-b301-03": {
+  "w": 1800,
+  "h": 1055,
+  "tw": 800,
+  "th": 469
+ },
+ "cases/uk-floorplan-b301-05": {
+  "w": 1800,
+  "h": 1054,
+  "tw": 800,
+  "th": 468
+ },
+ "cases/uk-floorplan-topdown": {
+  "w": 1800,
+  "h": 1060,
+  "tw": 800,
+  "th": 471
+ },
+ "cases/texas-hall-staircase": {
+  "w": 1600,
+  "h": 1440,
+  "tw": 800,
+  "th": 720
+ },
+ "cases/texas-living-blue": {
+  "w": 1333,
+  "h": 1600,
+  "tw": 800,
+  "th": 960
+ },
+ "cases/texas-bedroom": {
+  "w": 1485,
+  "h": 1600,
+  "tw": 800,
+  "th": 862
+ },
+ "cases/texas-fireplace-hall": {
+  "w": 1600,
+  "h": 1532,
+  "tw": 800,
+  "th": 766
+ },
+ "cases/texas-kitchen": {
+  "w": 792,
+  "h": 444,
+  "tw": 792,
+  "th": 444
+ }
 }

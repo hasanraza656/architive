@@ -21,7 +21,7 @@
       orderStatus = root.getAttribute('data-status'),
       csrf = document.querySelector('meta[name=csrf-token]').content,
       maxFiles = parseInt(root.getAttribute('data-max-files'), 10) || 8,
-      lastId = 0, seenUpTo = 0, pending = new DataTransfer(), polling = false, lastDay = '', mineIds = [];
+      lastId = 0, seenUpTo = 0, offer = null, pending = new DataTransfer(), polling = false, lastDay = '', mineIds = [];
 
   function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
   function linkify(t) { return esc(t).replace(/(https?:\/\/[^\s<]+[^\s<.,;:!?)])/g, '<a href="$1" target="_blank" rel="noopener noreferrer nofollow">$1</a>'); }
@@ -37,8 +37,37 @@
     return '<svg class="ic" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + p + '</svg>';
   }
 
+  var TONE = { pending: 'amber', active: 'blue', delivered: 'violet', completed: 'green', cancelled: 'red' };
+
+  /* custom-offer card: drawn from the live order state (feed.offer) so it updates itself (Pay now -> Paid) */
+  function paintOffers() {
+    var cards = list.querySelectorAll('.offer-card');
+    cards.forEach(function (card, i) {
+      var latest = i === cards.length - 1;
+      if (!offer) { card.innerHTML = ''; return; }
+      var due = offer.due ? '<span>Delivery due ' + new Intl.DateTimeFormat(undefined, { dateStyle: 'medium' }).format(new Date(offer.due)) + '</span>' : '';
+      var html = '<div class="offer__top"><span class="offer__tag">' + (latest ? 'Custom offer' : 'Earlier version') + '</span><span class="pbadge pbadge--' + (TONE[offer.status] || 'grey') + '">' + esc(offer.status_label) + '</span></div>' +
+        '<h4 class="offer__title">' + esc(offer.title) + '</h4><div class="offer__price">' + esc(offer.total) + '</div>' +
+        '<p class="offer__meta"><span>' + offer.items + (offer.items === 1 ? ' item' : ' items') + '</span>' + due + '</p>';
+      if (latest) {
+        html += '<div class="offer__act">';
+        if (offer.can_pay) { html += '<form method="post" action="' + offer.pay_url + '"><input type="hidden" name="_token" value="' + csrf + '"><button class="pbtn pbtn--primary" type="submit">Pay ' + esc(offer.total) + ' &amp; start</button></form>'; }
+        html += '<a class="pbtn pbtn--ghost pbtn--sm" href="' + offer.view_url + '">View details</a><a class="pbtn pbtn--ghost pbtn--sm" href="' + offer.pdf_url + '">PDF</a></div>';
+        if (offer.status === 'pending' && !offer.can_pay) { html += '<p class="offer__note">Waiting for the customer to accept and pay.</p>'; }
+        if (offer.can_pay) { html += '<p class="offer__note">Secure payment by Stripe. Your project starts right after.</p>'; }
+        if (offer.status === 'active') { html += '<p class="offer__note is-ok">Paid. The order is in progress.</p>'; }
+      }
+      card.innerHTML = html;
+    });
+  }
+
   function messageEl(m) {
     var d = new Date(m.time), wrap = document.createElement('div');
+    if (m.kind === 'offer') {
+      wrap.className = 'msg msg--offer'; wrap.setAttribute('data-id', m.id);
+      wrap.innerHTML = '<div class="offer-card" role="group" aria-label="Custom offer"></div><div class="msg__foot"><span>' + esc(m.author) + ' · ' + new Intl.DateTimeFormat(undefined, { timeStyle: 'short' }).format(d) + '</span></div>';
+      return wrap;
+    }
     wrap.className = 'msg' + (m.mine ? ' msg--mine' : '') + (m.role === 'admin' ? ' msg--staff' : '');
     wrap.setAttribute('data-id', m.id);
     var html = '';
@@ -86,6 +115,8 @@
 
   function apply(feed, first) {
     append(feed.messages);
+    if (feed.offer !== undefined) { offer = feed.offer; }
+    paintOffers();
     seenUpTo = Math.max(seenUpTo, feed.seen_up_to || 0);
     paintSeen();
     if (feed.status && feed.status !== orderStatus && !first) { notice(); }
@@ -161,7 +192,26 @@
   var initial = document.getElementById('chatFeed');
   if (initial) { try { apply(JSON.parse(initial.textContent), true); } catch (e) {} }
   toBottom();
+
+  /* ?m=ID (from the admin inbox): open the conversation tab and scroll to that exact message, even in the middle of the thread */
+  var focusId = parseInt(new URLSearchParams(location.search).get('m'), 10) || 0;
+  function focusMessage() {
+    var el = focusId && list.querySelector('[data-id="' + focusId + '"]');
+    if (!el) { focusId = 0; return false; }
+    var box = list.getBoundingClientRect(), r = el.getBoundingClientRect();
+    list.scrollTop += (r.top - box.top) - (list.clientHeight / 2 - r.height / 2);
+    root.scrollIntoView({ block: 'nearest' });
+    el.classList.remove('msg--focus'); void el.offsetWidth; el.classList.add('msg--focus');
+    focusId = 0;
+    return true;
+  }
+  if (focusId) {
+    var chatTab = document.querySelector('[data-tab="chat"]');
+    if (chatTab && !chatTab.classList.contains('is-on')) { chatTab.click(); }
+    setTimeout(focusMessage, 80);
+  }
+
   setInterval(poll, pollMs);
   document.addEventListener('visibilitychange', function () { if (!document.hidden) { poll(); } });
-  document.addEventListener('portal:tab', function (e) { if (e.detail === 'chat') { setTimeout(toBottom, 30); } });
+  document.addEventListener('portal:tab', function (e) { if (e.detail === 'chat') { setTimeout(function () { if (!(focusId && focusMessage())) { toBottom(); } }, 30); } });
 }());

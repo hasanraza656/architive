@@ -391,7 +391,12 @@
 .worldmap__pin[data-pos="right"] .worldmap__label { bottom: auto; top: 50%; left: 12px; transform: translate(0, -50%); }
 .worldmap__pin--qatar .worldmap__dot, .worldmap__pin--uae .worldmap__dot, .worldmap__pin--ksa .worldmap__dot { width: 10px; height: 10px; left: -5px; top: -5px; border-width: 2px; }
 @media (max-width: 1099.98px) { .worldmap__label { font-size: .58rem; padding: .3rem .5rem; } }
-.worldmap__pin--qatar .worldmap__dot, .worldmap__pin--uae .worldmap__dot, .worldmap__pin--ksa .worldmap__dot, .worldmap__pin--germany .worldmap__dot, .worldmap__pin--italy .worldmap__dot { animation: none; }
+/* every location glows (client round 9); the small dots use a tighter ring and staggered timing so the Gulf and Europe stay tidy */
+.worldmap__pin--qatar .worldmap__dot, .worldmap__pin--uae .worldmap__dot, .worldmap__pin--ksa .worldmap__dot, .worldmap__pin--germany .worldmap__dot, .worldmap__pin--italy .worldmap__dot { animation: map-pulse-sm 2.6s ease-out infinite; }
+.worldmap__pin--uae .worldmap__dot { animation-delay: .5s; } .worldmap__pin--qatar .worldmap__dot { animation-delay: 1s; }
+.worldmap__pin--germany .worldmap__dot { animation-delay: .3s; } .worldmap__pin--italy .worldmap__dot { animation-delay: .8s; }
+.worldmap__pin--canada .worldmap__dot { animation-delay: .4s; } .worldmap__pin--australia .worldmap__dot { animation-delay: .9s; }
+@keyframes map-pulse-sm { 0% { box-shadow: 0 0 0 0 rgba(255, 214, 10, .7); } 70%, 100% { box-shadow: 0 0 0 10px rgba(255, 214, 10, 0); } }
 
 
 /* ==========================================================================
@@ -529,3 +534,11 @@
 
 /* spacing: breathing room under the track band, before the services section */
 .track-band { padding-bottom: clamp(2rem, 4.5vw, 3.4rem); }
+
+/* round 9b: the same animated glow on EVERY map icon, clearly visible (small dots get a bigger, brighter ring; studio pin gets a ground ring) */
+@keyframes map-pulse-sm { 0% { box-shadow: 0 0 0 0 rgba(255, 214, 10, .95), 0 0 8px 2px rgba(255, 214, 10, .55); } 70%, 100% { box-shadow: 0 0 0 15px rgba(255, 214, 10, 0), 0 0 8px 2px rgba(255, 214, 10, 0); } }
+@keyframes map-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 214, 10, .95), 0 0 10px 3px rgba(255, 214, 10, .55); } 70%, 100% { box-shadow: 0 0 0 22px rgba(255, 214, 10, 0), 0 0 10px 3px rgba(255, 214, 10, 0); } }
+.worldmap__pin--studio::before { content: ""; position: absolute; left: -9px; top: -9px; width: 18px; height: 18px; border-radius: 50%; background: rgba(255, 214, 10, .55); animation: map-ring 2.2s ease-out infinite; }
+@keyframes map-ring { 0% { transform: scale(.4); opacity: .95; } 80%, 100% { transform: scale(3.2); opacity: 0; } }
+@media (max-width: 767.98px) { .worldmap__pin--studio::before { left: -6px; top: -6px; width: 12px; height: 12px; } }
+@media (prefers-reduced-motion: reduce) { .worldmap__pin--studio::before { animation: none; display: none; } .worldmap__dot { animation: none !important; } }

@@ -90,6 +90,11 @@ class LoginController extends Controller
         $request->session()->regenerate();
         $user->forceFill(['last_login_at' => now(), 'email_verified_at' => $user->email_verified_at ?? now()])->save();
 
+        // brand-new account: ask for their name once, then straight to "New request"
+        if (! $user->profile_completed_at) {
+            return redirect()->route('customer.welcome');
+        }
+
         return redirect()->intended(route('customer.dashboard'));
     }
 

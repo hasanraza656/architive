@@ -25,6 +25,20 @@
         </form>
     </dialog>
 
+    {{-- delete (any order or request) --}}
+    <dialog class="pmodal" id="deleteDialog" aria-labelledby="deleteTitle">
+        <form method="post" action="{{ route('admin.orders.destroy', $order) }}" data-loading>
+            @csrf @method('DELETE')
+            <div class="pmodal__head">
+                <h3 id="deleteTitle">Delete {{ $order->status->isLead() ? 'this request' : 'order ' . $order->number }} permanently?</h3>
+                <p>The conversation, uploaded files, deliveries and history are erased and cannot be recovered.
+                    @if ($order->paid_at) <b>This order is already paid.</b> Deleting does not refund it: handle the payment in Stripe. @endif
+                    Use <b>{{ $order->status->isLead() ? 'Close request' : 'Cancel order' }}</b> instead if you want to keep a record.</p>
+            </div>
+            <div class="pmodal__foot"><button class="pbtn pbtn--ghost" type="button" data-dialog-close>Keep it</button><button class="pbtn pbtn--danger" type="submit"><x-icon name="trash" /> Delete permanently</button></div>
+        </form>
+    </dialog>
+
     {{-- cancel --}}
     <dialog class="pmodal" id="cancelDialog" aria-labelledby="cancelTitle">
         <form method="post" action="{{ route('admin.orders.cancel', $order) }}" data-loading>

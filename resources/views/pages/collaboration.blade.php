@@ -23,7 +23,7 @@
             <div class="col-lg-7">
                 <p class="eyebrow eyebrow--light" data-reveal>{{ $c['tag'] }} · {{ $c['place'] }}</p>
                 <h1 class="page-hero__title" data-split>{{ $c['title'] }}</h1>
-                <p class="page-hero__lead" data-reveal style="--d:.2s">{{ $c['situation'] }}</p>
+                <p class="page-hero__lead" data-reveal style="--d:.2s">{{ $c['lead'] ?? $c['situation'] }}</p>
             </div>
             <div class="col-lg-5" data-reveal="zoom">
                 @if ($media)
@@ -49,6 +49,31 @@
 <section class="section" aria-labelledby="collab-detail">
     <div class="wrap">
         <h2 class="visually-hidden" id="collab-detail">Collaboration details</h2>
+        @if (isset($c['overview']))
+            {{-- case-study layout: location / service / status, overview, our role, the result --}}
+            <div class="row g-4">
+                <div class="col-md-4" data-reveal><div class="info-card"><span class="info-card__k"><x-icon name="map-pin" /> Location</span><p>{{ $c['location'] }}</p></div></div>
+                <div class="col-md-4" data-reveal style="--d:.08s"><div class="info-card"><span class="info-card__k"><x-icon name="layers" /> Service</span><p>{{ $c['service'] }}</p></div></div>
+                <div class="col-md-4" data-reveal style="--d:.16s"><div class="info-card"><span class="info-card__k"><x-icon name="refresh" /> Status</span><p>{{ $c['status'] }}</p></div></div>
+                <div class="col-lg-6" data-reveal>
+                    <div class="info-card info-card--tall"><span class="info-card__k"><x-icon name="target" /> Overview</span>
+                        @foreach ($c['overview'] as $para)<p>{{ $para }}</p>@endforeach
+                    </div>
+                </div>
+                <div class="col-lg-6" data-reveal style="--d:.08s">
+                    <div class="info-card info-card--tall"><span class="info-card__k"><x-icon name="users" /> Our role</span>
+                        @if (! empty($c['role_items']))
+                            <ul class="check-list">@foreach ($c['role_items'] as $item)<li><x-icon name="check" /> {{ $item }}</li>@endforeach</ul>
+                        @else
+                            <p>{{ $c['role_text'] }}</p>
+                        @endif
+                    </div>
+                </div>
+                <div class="col-12" data-reveal>
+                    <div class="info-card info-card--result"><span class="info-card__k"><x-icon name="check-circle" /> The result</span><p>{{ $c['result'] }}</p></div>
+                </div>
+            </div>
+        @else
         <div class="row g-4">
             <div class="col-md-6" data-reveal><div class="info-card"><span class="info-card__k"><x-icon name="building" /> Client</span><p>{{ $c['client'] }}</p></div></div>
             <div class="col-md-6" data-reveal style="--d:.08s"><div class="info-card"><span class="info-card__k"><x-icon name="target" /> Situation</span><p>{{ $c['situation'] }}</p></div></div>
@@ -59,6 +84,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
         @if ($c['note'])
             <div class="callout callout--wide mt-4" data-reveal><x-icon name="info" /><span><b>Scope of our role:</b> {{ $c['note'] }}</span></div>
@@ -78,7 +104,19 @@
             <p class="eyebrow" data-reveal>Project visuals</p>
             <h2 class="display-h" id="case-visuals" data-split>The Work, <em>in Detail</em></h2>
 
-            @if (! empty($media['video']))
+            @if (! empty($media['gallery']))
+                <ul class="work-grid work-grid--cases mt-4" data-reveal>
+                    @foreach ($media['gallery'] as $g)
+                        <li class="work-item">
+                            <a href="{{ $g['src'] }}" data-lightbox="case-gallery" data-title="{{ $g['title'] }}" data-sub="{{ $c['title'] }}" data-alt="{{ $g['alt'] }}">
+                                <img src="{{ $g['thumb'] }}" width="{{ $g['tw'] }}" height="{{ $g['th'] }}" alt="{{ $g['alt'] }}" loading="lazy" decoding="async">
+                                <span class="work-item__cap"><span><small>{{ $media['gallery_title'] }}</small><strong>{{ $g['title'] }}</strong></span><i><x-icon name="search" /></i></span>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+                <p class="note-line">Click any image to enlarge.</p>
+            @elseif (! empty($media['video']))
                 <div class="row g-4 align-items-center mt-1">
                     <div class="col-lg-7" data-reveal="zoom">
                         <figure class="video-card">

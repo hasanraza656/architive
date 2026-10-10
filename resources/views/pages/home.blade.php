@@ -34,7 +34,7 @@
                 <a class="btn-ay btn-ay--lg" href="{{ pu('contact') }}" data-magnetic>Start your project <i class="btn-ay__dot"></i></a>
                 <a class="link-arrow link-arrow--light" href="#services">See our services <x-icon name="arrow-down" /></a>
             </div>
-            <p class="hero__note">No overhead, no hiring, no delays.</p>
+            <p class="hero__note">No overheads, no hiring, no delays.</p>
         </div>
     </div>
 </section>
@@ -81,7 +81,7 @@
         </div>
         <div class="row g-4">
             @foreach (Content::collaborations() as $slug => $c)
-                <div class="col-md-6 col-lg-4" data-reveal style="--d: {{ $loop->index * .1 }}s">
+                <div class="col-md-6 col-xl-3" data-reveal style="--d: {{ $loop->index * .1 }}s">
                     @include('partials.collab-card', ['slug' => $slug, 'c' => $c])
                 </div>
             @endforeach

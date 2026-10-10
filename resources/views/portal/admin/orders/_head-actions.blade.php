@@ -1,7 +1,9 @@
 {{-- Buttons in the order header (admin). Prop: $order --}}
 @php use App\Enums\OrderStatus as S; @endphp
-@if ($order->isEditable())
-    <a class="pbtn pbtn--ghost pbtn--sm" href="{{ route('admin.orders.edit', $order) }}"><x-icon name="edit" /> Edit</a>
+@if ($order->status === S::Request)
+    <a class="pbtn pbtn--primary pbtn--sm" href="{{ route('admin.orders.edit', $order) }}"><x-icon name="send" /> Create offer</a>
+@elseif ($order->isEditable())
+    <a class="pbtn pbtn--ghost pbtn--sm" href="{{ route('admin.orders.edit', $order) }}"><x-icon name="edit" /> {{ $order->status === S::Pending && $order->isRequestOrigin() ? 'Edit offer' : 'Edit' }}</a>
 @endif
 @if ($order->status === S::Draft || $order->status === S::Pending)
     <form method="post" action="{{ route('admin.orders.send', $order) }}" data-loading @if ($order->status === S::Pending) data-confirm="Send the invoice e-mail to {{ $order->customer->email }} again?" @endif>
@@ -21,10 +23,6 @@
     </form>
 @endif
 @unless ($order->status->isClosed())
-    <button class="pbtn pbtn--danger pbtn--sm" type="button" data-dialog-open="cancelDialog"><x-icon name="x" /> Cancel order</button>
+    <button class="pbtn pbtn--danger pbtn--sm" type="button" data-dialog-open="cancelDialog"><x-icon name="x" /> {{ $order->status === S::Request ? 'Close request' : 'Cancel order' }}</button>
 @endunless
-@if ($order->status === S::Draft)
-    <form method="post" action="{{ route('admin.orders.destroy', $order) }}" data-confirm="Delete this draft permanently?">@csrf @method('DELETE')
-        <button class="pbtn pbtn--ghost pbtn--sm" type="submit"><x-icon name="trash" /> Delete draft</button>
-    </form>
-@endif
+<button class="pbtn pbtn--ghost pbtn--sm" type="button" data-dialog-open="deleteDialog"><x-icon name="trash" /> Delete</button>

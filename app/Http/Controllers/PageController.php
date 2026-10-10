@@ -29,6 +29,11 @@ class PageController extends Controller
 
     public function collaboration(string $slug)
     {
+        // a client asked not to be named: the old address now forwards to the collaborations list
+        if ($slug === 'bonderud-design-visualization') {
+            return redirect()->away(abs_pu('collaborations.index'), 301);
+        }
+
         $all = Content::collaborations();
         abort_unless(isset($all[$slug]), 404);
 
@@ -38,7 +43,7 @@ class PageController extends Controller
             'seo'  => [
                 'title'       => $all[$slug]['title'] . ' | Architive',
                 'description' => $all[$slug]['description'],
-                'image'       => ['bonderud-design-visualization' => 'assets/img/og/case-bonderud.jpg', 'fifa-2026-circulation-plan-drafting' => 'assets/img/og/case-fifa.jpg', 'manuel-development-revit-support' => 'assets/img/og/case-manuel.jpg'][$slug] ?? config('seo.default_image'),
+                'image'       => ['uk-3d-floor-plans-smart-heating-cooling' => 'assets/img/og/case-uk-floorplans.jpg', 'texas-ongoing-visualization-support' => 'assets/img/og/case-texas.jpg', 'fifa-2026-circulation-plan-drafting' => 'assets/img/og/case-fifa.jpg', 'manuel-development-revit-support' => 'assets/img/og/case-manuel.jpg'][$slug] ?? config('seo.default_image'),
             ],
         ]);
     }

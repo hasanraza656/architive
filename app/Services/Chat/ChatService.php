@@ -79,6 +79,32 @@ class ChatService
             'seen_up_to' => $this->otherSideReadUpTo($order, $viewer),
             'open' => $order->isChatOpen(),
             'status' => $order->status->value,
+            'offer' => $this->offer($order, $viewer),
+        ];
+    }
+
+    /**
+     * The current state of this conversation's custom offer (request-origin orders only). Offer cards in the chat
+     * are drawn from this on every poll, so a card turns from "Pay now" into "Paid" without a reload.
+     */
+    public function offer(Order $order, User $viewer): ?array
+    {
+        if (! $order->isRequestOrigin() || $order->status->isLead() || $order->status === \App\Enums\OrderStatus::Draft) {
+            return null;
+        }
+
+        return [
+            'number' => $order->number,
+            'title' => $order->title,
+            'total' => money($order->total_cents, $order->currency),
+            'items' => $order->items()->count(),
+            'due' => $order->due_at?->toIso8601String(),
+            'status' => $order->status->value,
+            'status_label' => $order->status->label(),
+            'can_pay' => $viewer->isCustomer() && $order->isPayable(),
+            'pay_url' => route('customer.orders.pay', $order),
+            'view_url' => $viewer->isAdmin() ? $order->adminUrl() . '#invoice' : $order->customerUrl() . '#invoice',
+            'pdf_url' => route('portal.orders.invoice', $order),
         ];
     }
 
@@ -86,6 +112,7 @@ class ChatService
     {
         return [
             'id' => $m->id,
+            'kind' => $m->kind ?? 'text',
             'mine' => $m->user_id === $viewer->id,
             'author' => $m->user->name,
             'initials' => $m->user->initials,
