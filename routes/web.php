@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 | permanent, lowercase, trailing-slash URL; the slash-less variant 301s to it.
 */
 
+// Old WordPress-era addresses -> current pages (list in config/redirects.php).
+foreach (config('redirects', []) as $from => $to) {
+    Route::permanentRedirect($from, $to);
+}
+
 Route::middleware(EnsureTrailingSlash::class)->group(function () {
     Route::get('/', [PageController::class, 'home'])->name('home');
     Route::get('about-us/', [PageController::class, 'about'])->name('about');
