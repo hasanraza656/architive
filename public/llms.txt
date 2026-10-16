@@ -1,0 +1,35 @@
+# Architive
+
+> Architive is an architectural production studio. It provides architectural visualization, BIM and Revit, and CAD drafting for architecture firms, interior design studios, developers, contractors and homeowners worldwide, working from the client's drawings and information through one team and one brief.
+
+Architive LLC is a US company (Newark, Delaware) founded in 2017 by Madiha Altaf, with its production studio in Pakistan. Work can start with a free start, a defined project with a fixed scope, or hourly support from $16 per hour. Contact: info@architive.net, +1 (815) 771-6318.
+
+## Services
+
+- [Architectural visualization and rendering](https://architive.net/architectural-visualization-rendering/): interior and exterior renderings, 3D floor plans, renovation and option visuals, animations and 360-degree views by scope.
+- [BIM, Revit and scan to BIM](https://architive.net/bim-revit-scan-to-bim/): CAD to BIM, scan to BIM from point clouds, Revit families and models.
+- [CAD drafting services](https://architive.net/cad-drafting-services/): floor plans, elevations and sections, permit-support and construction drawing packages, PDF, sketch and scan to DWG, as-built and redline updates.
+- [All services](https://architive.net/services/)
+
+## About and process
+
+- [About Architive](https://architive.net/about-us/)
+- [How it works](https://architive.net/how-it-works/)
+- [Frequently asked questions](https://architive.net/faqs/)
+- [Collaborations and project examples](https://architive.net/collaborations/)
+
+## Guides
+
+- [Blog: guides on rendering, BIM and CAD](https://architive.net/blog/)
+- [How much does architectural visualization cost?](https://architive.net/blog/architectural-visualization-cost-guide/)
+- [How to brief a rendering team](https://architive.net/blog/how-to-brief-a-rendering-team/)
+- [Outsourcing architectural production: a guide](https://architive.net/blog/outsourcing-architectural-production-guide/)
+- [Scan to BIM explained](https://architive.net/blog/scan-to-bim-explained/)
+- [CAD drafting versus BIM](https://architive.net/blog/cad-drafting-vs-bim/)
+- [PDF to DWG conversion guide](https://architive.net/blog/pdf-to-dwg-conversion-guide/)
+- [Permit drawing set checklist](https://architive.net/blog/permit-drawing-set-checklist/)
+- [Revit families and why they matter](https://architive.net/blog/revit-families-why-they-matter/)
+
+## Contact
+
+- [Contact Architive and send a brief](https://architive.net/contact/)

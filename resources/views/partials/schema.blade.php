@@ -35,7 +35,8 @@
 
     $graph = [
         $org,
-        ['@type' => 'WebSite', '@id' => $siteId, 'url' => $root . '/', 'name' => config('site.name'), 'inLanguage' => 'en', 'publisher' => ['@id' => $orgId]],
+        ['@type' => 'WebSite', '@id' => $siteId, 'url' => $root . '/', 'name' => config('site.name'), 'inLanguage' => 'en', 'publisher' => ['@id' => $orgId],
+            'potentialAction' => ['@type' => 'SearchAction', 'target' => ['@type' => 'EntryPoint', 'urlTemplate' => $root . '/blog/?q={search_term_string}'], 'query-input' => 'required name=search_term_string']],
         [
             '@type' => $webpageType, '@id' => $pageId, 'url' => $canonical, 'name' => $seoMeta['title'],
             'description' => $seoMeta['description'], 'inLanguage' => 'en',
