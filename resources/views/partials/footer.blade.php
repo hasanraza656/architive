@@ -47,7 +47,7 @@
             <nav class="footer-legal" aria-label="Legal">
                 <a href="{{ pu('privacy') }}">Privacy</a>
                 @if (config('services.analytics.enabled') && config('services.analytics.ga4_id'))
-                    <button type="button" class="footer-cookie" data-cookie-settings>Cookie settings</button>
+                    <button type="button" class="footer-cookie" data-cookie-settings hidden>Cookie settings</button>
                 @endif
                 <a href="{{ pu('terms') }}">Terms</a>
                 <a href="{{ pu('sitemap.html') }}">Sitemap</a>
