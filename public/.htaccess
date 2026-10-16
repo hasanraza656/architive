@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # One address for the site: send www.architive.net to architive.net (permanent), so Google sees one copy.
+    RewriteCond %{HTTP_HOST} ^www\.architive\.net$ [NC]
+    RewriteRule ^(.*)$ https://architive.net/$1 [R=301,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
@@ -40,6 +44,8 @@
 </IfModule>
 
 <IfModule mod_headers.c>
+    # Do not tell visitors which PHP version runs the site
+    Header always unset X-Powered-By
     <FilesMatch "\.(webp|jpg|jpeg|png|svg|woff2|css|js)$">
         Header set Cache-Control "public, max-age=31536000, immutable"
     </FilesMatch>
