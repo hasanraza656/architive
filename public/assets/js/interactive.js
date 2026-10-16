@@ -214,6 +214,7 @@
               $s.find('[data-success-next]').prop('hidden', false);
               $s.find('[data-success-portal]').attr('href', o.data.portal_url).prop('hidden', false);
             }
+            if (window.architiveTrack) { window.architiveTrack('generate_lead', { form_name: 'enquiry', lead_source: 'website' }); }
             form.reset();
             $f.prop('hidden', true); $s.prop('hidden', false).addClass('is-shown');
             if (!$f.closest('.modal').length) { $s[0].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' }); }
