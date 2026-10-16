@@ -1,0 +1,26 @@
+/* Cookie and analytics notice. Uses the site tokens from base.css (light and dark). */
+.consent {
+  position: fixed; z-index: 1080; left: 1rem; bottom: 1rem; right: 1rem;
+  max-width: 34rem; display: flex; flex-wrap: wrap; align-items: center; gap: .9rem 1.2rem;
+  padding: 1.1rem 1.25rem; border: 1px solid var(--line-2); border-radius: var(--r-md);
+  background: var(--surface); color: var(--ink); box-shadow: var(--shadow-md);
+  font-family: var(--f-body);
+}
+.consent[hidden] { display: none; }
+.consent__text { flex: 1 1 16rem; }
+.consent__title { margin: 0 0 .25rem; font-weight: 700; font-size: .95rem; }
+.consent__body { margin: 0; font-size: .85rem; line-height: 1.5; color: var(--ink-2); }
+.consent__body a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+.consent__actions { display: flex; gap: .6rem; flex: 0 0 auto; }
+.consent__btn {
+  min-height: 48px; min-width: 48px; padding: .7rem 1.25rem; border-radius: 999px; cursor: pointer;
+  font: 700 .72rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase;
+  border: 1.5px solid var(--ink); background: transparent; color: var(--ink);
+  transition: transform .3s var(--ease), background .3s var(--ease);
+}
+.consent__btn--accept { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.consent__btn:hover { transform: translateY(-1px); }
+.consent__btn:focus-visible, .consent__body a:focus-visible, .footer-cookie:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.footer-cookie { background: none; border: 0; padding: 0; color: inherit; font: inherit; cursor: pointer; text-decoration: inherit; }
+@media (max-width: 575.98px) { .consent { left: .6rem; right: .6rem; bottom: .6rem; } .consent__actions { width: 100%; } .consent__btn { flex: 1 1 0; } }
+@media (prefers-reduced-motion: reduce) { .consent__btn { transition: none; } }

@@ -64,8 +64,10 @@
     <link rel="stylesheet" href="{{ asset_v('assets/css/widgets.css') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/portfolio.css') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('assets/css/consent.css') }}">
 
     @include('partials.schema')
+    @include('partials.analytics')
     @stack('head')
 </head>
 <body class="page-{{ str_replace('.', '-', Route::currentRouteName() ?? 'error') }}{{ ($overlay ?? false) ? ' has-overlay' : '' }}">
@@ -93,6 +95,7 @@
     @unless (is_page('contact'))
         @include('partials.enquiry-modal')
     @endunless
+    @include('partials.consent-banner')
     @include('partials.tawk')
 
     <button class="to-top" type="button" aria-label="Back to top"><x-icon name="arrow-up" /></button>
@@ -104,6 +107,7 @@
     <script src="{{ asset_v('assets/js/app.js') }}"></script>
     <script src="{{ asset_v('assets/js/interactive.js') }}"></script>
     <script src="{{ asset_v('assets/js/lightbox.js') }}"></script>
+    <script src="{{ asset_v('assets/js/consent.js') }}" defer></script>
     @stack('scripts')
 </body>
 </html>

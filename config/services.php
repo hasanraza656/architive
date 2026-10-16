@@ -45,6 +45,12 @@ return [
         'widget_id'   => env('TAWK_WIDGET_ID', '1ivl35vbb'),
     ],
 
+    // Google Analytics 4 (public Measurement ID, not a secret). Off outside production unless GA4_ENABLED=true.
+    'analytics' => [
+        'enabled' => env('GA4_ENABLED', env('APP_ENV', 'production') === 'production'),
+        'ga4_id'  => env('GA4_MEASUREMENT_ID', 'G-36RQKB0CMB'),
+    ],
+
     // Google reCAPTCHA v2 ("I'm not a robot" checkbox) for website forms
     'recaptcha' => [
         'site_key'   => env('RECAPTCHA_SITE_KEY'),

@@ -46,6 +46,9 @@
             <p>© {{ date('Y') }} {{ config('site.legal_name') }}. All Rights Reserved. Founded {{ config('site.founded') }} by {{ config('site.founder') }}.</p>
             <nav class="footer-legal" aria-label="Legal">
                 <a href="{{ pu('privacy') }}">Privacy</a>
+                @if (config('services.analytics.enabled') && config('services.analytics.ga4_id'))
+                    <button type="button" class="footer-cookie" data-cookie-settings>Cookie settings</button>
+                @endif
                 <a href="{{ pu('terms') }}">Terms</a>
                 <a href="{{ pu('sitemap.html') }}">Sitemap</a>
                 <a href="{{ route('customer.login') }}" rel="nofollow">Client login</a>
