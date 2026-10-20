@@ -29,7 +29,7 @@
             <p class="lead-p mb-0" data-reveal style="max-width: 44ch">Select any image to enlarge it.</p>
         </div>
         @include('partials.work-gallery')
-        <p class="note-line">Selected examples of Architive visualization work; some images carry the Architive studio mark.</p>
+        <p class="note-line">Selected examples of Architive visualization work; some images carry the Architive studio mark. Looking for exteriors only? See our <a href="{{ pu('services.exterior') }}">exterior rendering services</a>.</p>
     </div>
 </section>
 

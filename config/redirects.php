@@ -24,7 +24,10 @@ return [
     '3d-interior-design'          => '/architectural-visualization-rendering/',
     '3d-rendering-interior-design' => '/architectural-visualization-rendering/',
     'interior-design'             => '/architectural-visualization-rendering/',
-    'exterior-design'             => '/architectural-visualization-rendering/',
+    'exterior-design'             => '/exterior-rendering-services/',
+    // Old portfolio pages still shown in Google (Search Console, Jul-Oct 2026: 279 and 102+ impressions)
+    'exterior-visualizations'     => '/exterior-rendering-services/',
+    'interior-visualizations'     => '/architectural-visualization-rendering/',
     'home-designs'                => '/architectural-visualization-rendering/',
     '2d-floor-plans'              => '/cad-drafting-services/',
 

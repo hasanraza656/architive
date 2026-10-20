@@ -14,9 +14,9 @@ class OldUrlRedirectsTest extends TestCase
     {
         foreach (config('redirects') as $from => $to) {
             foreach (['/' . $from, '/' . $from . '/'] as $path) {
-                $this->get($path)
-                    ->assertStatus(301)
-                    ->assertRedirect($to);
+                $res = $this->get($path)->assertStatus(301);
+                // One hop: the target keeps its trailing slash
+                $this->assertStringEndsWith($to, $res->headers->get('Location'), $path);
             }
         }
     }

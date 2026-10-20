@@ -63,7 +63,7 @@ class SeoController extends Controller
     private function lastmod(string $name): string
     {
         $map = [
-            'services.index' => 'services', 'services.visualization' => 'visualization', 'services.bim' => 'bim',
+            'services.index' => 'services', 'services.visualization' => 'visualization', 'services.exterior' => 'exterior', 'services.bim' => 'bim',
             'services.cad' => 'cad', 'services.outsourcing' => 'outsourcing', 'collaborations.index' => 'collaborations',
             'sitemap.html' => 'sitemap',
         ];

@@ -41,6 +41,12 @@ return [
             'image'       => 'assets/img/og/viz-bandon.jpg',
             'sitemap'     => [0.9, 'monthly'],
         ],
+        'services.exterior' => [
+            'title'       => 'Exterior Rendering Services and 3D Visualization | Architive',
+            'description' => 'Photoreal exterior rendering services from your CAD or Revit files: hero, street, aerial and twilight views for approvals, planning and pre-sales.',
+            'image'       => 'assets/img/og/viz-bandon.jpg',
+            'sitemap'     => [0.9, 'monthly'],
+        ],
         'services.bim' => [
             'title'       => 'BIM Modeling and Revit Services | Architive',
             'description' => 'BIM and Revit services for architects and project teams, including CAD to BIM, scan to BIM, Revit families, model updates and documentation.',
