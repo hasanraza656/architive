@@ -29,7 +29,7 @@
             <p class="lead-p mb-0" data-reveal style="max-width: 44ch">Select any image to enlarge it.</p>
         </div>
         @include('partials.work-gallery')
-        <p class="note-line">Selected examples of Architive visualization work; some images carry the Architive studio mark.</p>
+        <p class="note-line">Selected examples of Architive visualization work; some images carry the Architive studio mark. Looking for one service? See <a href="{{ pu('services.exterior') }}">exterior rendering</a>, <a href="{{ pu('services.interior') }}">interior rendering</a> or <a href="{{ pu('services.floorplans') }}">3D floor plans</a>.</p>
     </div>
 </section>
 

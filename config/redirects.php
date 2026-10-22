@@ -20,11 +20,21 @@ return [
     'our-services' => '/services/',
 
     // Service pages
-    '3d-floor-plans'              => '/architectural-visualization-rendering/',
-    '3d-interior-design'          => '/architectural-visualization-rendering/',
-    '3d-rendering-interior-design' => '/architectural-visualization-rendering/',
-    'interior-design'             => '/architectural-visualization-rendering/',
-    'exterior-design'             => '/architectural-visualization-rendering/',
+    '3d-floor-plans'              => '/3d-floor-plan-rendering-services/',
+    '3d-interior-design'          => '/interior-rendering-services/',
+    '3d-rendering-interior-design' => '/interior-rendering-services/',
+    'interior-design'             => '/interior-rendering-services/',
+    'exterior-design'             => '/exterior-rendering-services/',
+    // Old portfolio pages still shown in Google (Search Console, Jul-Oct 2026: 279 and 102+ impressions)
+    'exterior-visualizations'     => '/exterior-rendering-services/',
+    'interior-visualizations'     => '/interior-rendering-services/',
+    // Old WordPress pages still in Google's index (Search Console, 22 Oct 2026)
+    'interior-design-visualization'        => '/interior-rendering-services/',
+    'sketchup-modeling-rendering'          => '/architectural-visualization-rendering/',
+    'renovation-remodeling-visualizations' => '/architectural-visualization-rendering/',
+    'projects'                             => '/collaborations/',
+    'team-details'                         => '/team/',
+    'home'                                 => '/',
     'home-designs'                => '/architectural-visualization-rendering/',
     '2d-floor-plans'              => '/cad-drafting-services/',
 

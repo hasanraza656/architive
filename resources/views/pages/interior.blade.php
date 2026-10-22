@@ -1,0 +1,68 @@
+@extends('layouts.app')
+
+@section('content')
+@include('partials.service-detail', ['d' => [
+    'key' => 'int', 'name' => 'Interior Rendering Services', 'type' => 'Interior architectural visualization',
+    'desc' => config('seo.pages')['services.interior']['description'],
+    'schemaItems' => ['Photoreal 3D interior renderings', 'Kitchen, bath and living space visuals', 'Material and finish option studies', 'Commercial, hospitality and retail interiors', 'Renderings matched to plans and elevations'],
+    'eyebrow' => 'Interior rendering services',
+    'title' => 'Interior Renderings Your Clients <em>Can Say Yes To.</em>',
+    'lead' => 'Photoreal 3D interior visualization built from your plans, elevations and finish schedule, so homeowners, buyers and project teams can approve the space before anything is ordered or built.',
+    'heroItems' => ['Kitchens, baths and living spaces', 'Bedrooms and hospitality suites', 'Offices, retail and restaurants', 'Material and colour options'],
+    'image' => ['key' => 'viz/kitchen-dining', 'alt' => 'Modern kitchen with timber and white cabinetry and a round dining table, an interior rendering by Architive'],
+    'cta' => 'Get an interior quote', 'topic' => 'Interior Rendering', 'service' => 'visualization',
+    'gallery' => 'interiors', 'galleryTitle' => 'Interiors <em>We Have Rendered</em>',
+    'galleryLead' => 'Kitchens, dining rooms, bedrooms and lounges, including a kitchen shown next to its own plan and elevations. Select any image to enlarge it.',
+    'cardsEyebrow' => 'What we render', 'cardsTitle' => 'Every Room Has <em>a Job to Do</em>',
+    'cardsLead' => 'An interior render is only useful if it answers the question your client is stuck on. These are the ones we are asked for most.',
+    'cards' => [
+        ['icon' => 'home', 'title' => 'Kitchens and baths', 'text' => 'Cabinet runs, worktops, tiles and fixtures shown exactly as specified, so the client signs off finishes before anything is ordered.'],
+        ['icon' => 'users', 'title' => 'Living and dining spaces', 'text' => 'Furniture layout, flow and light from real window positions. The view that helps a homeowner picture living there.'],
+        ['icon' => 'moon', 'title' => 'Bedrooms and suites', 'text' => 'Calm, believable rooms for residential projects, hotels and serviced apartments, with daylight or evening lighting.'],
+        ['icon' => 'building', 'title' => 'Offices and commercial', 'text' => 'Reception, workspace and meeting rooms for fit-outs, tenant pitches and leasing brochures.'],
+        ['icon' => 'layers', 'title' => 'Finish and colour options', 'text' => 'The same room from the same camera in two or three finish schemes, so the decision is a comparison, not a guess.'],
+        ['icon' => 'file-text', 'title' => 'Render next to the plan', 'text' => 'The image placed beside its plan and elevations, so contractors and clients see that the picture matches the drawings.'],
+    ],
+    'forTitle' => 'For the People <em>Choosing the Finishes</em>',
+    'forItems' => [
+        ['Interior designers', 'use our renders to get finishes approved in one meeting instead of three, and to present without spending nights in rendering software.'],
+        ['Architects', 'use them to show clients how the plan feels from the inside before the layout is frozen.'],
+        ['Developers and sales teams', 'use them in brochures and listings to sell units off plan.'],
+        ['Kitchen, joinery and fit-out firms', 'use them to close homeowners who cannot read a cabinet drawing.'],
+    ],
+    'sendTitle' => 'Your Starting <em>Pack</em>',
+    'send' => [
+        'Floor plan and interior elevations (DWG or PDF), or your Revit or SketchUp model',
+        'Ceiling plan or lighting layout, if you have one',
+        'Finish schedule: flooring, wall finishes, worktops, tiles and paint codes, with photos or product links',
+        'Furniture and fixture references, even links to the exact products',
+        'Two or three mood images and the camera angles you want',
+        'Where the images will be used and your deadline',
+    ],
+    'sendNote' => 'Missing something? Send what you have. We will list exactly what else we need before we quote.',
+    'stepsTitle' => 'Approve in the Right Order. <em>Avoid Paying Twice.</em>',
+    'stepsLead' => 'Most extra cost in interior rendering comes from changing the layout after the finishes and lighting are done. Our steps keep each decision in its place.',
+    'steps' => [
+        ['n' => '01', 'icon' => 'upload', 'title' => 'Send the drawings', 'text' => 'We check your plans and finish schedule, list anything missing and confirm views, revision rounds, delivery date and price in a written quote.'],
+        ['n' => '02', 'icon' => 'box', 'title' => 'Layout and camera', 'text' => 'We model the room and send simple grey draft views so you approve the layout, furniture positions and camera angles first.'],
+        ['n' => '03', 'icon' => 'layers', 'title' => 'Materials and furniture', 'text' => 'Finishes, fixtures and furniture are applied and matched to your schedule. You review them in one round.'],
+        ['n' => '04', 'icon' => 'sun', 'title' => 'Light and final image', 'text' => 'Daylight or evening lighting and the final polish. With the layout and finishes approved, this round is about mood, not rework.'],
+        ['n' => '05', 'icon' => 'download', 'title' => 'Delivery', 'text' => 'High-resolution files sized for screen, print or presentation boards, as agreed. Need another view or finish option later? The model is ready.'],
+    ],
+    'priceTitle' => 'What Decides <em>the Price</em>',
+    'price' => [
+        'Interior renderings are quoted per view. The biggest factors are how much custom furniture and joinery must be modelled, how detailed the finishes are, the number of views of the same room and the revision rounds you want included.',
+        'Extra views of a room that is already modelled cost far less than the first. You get one written quote listing every view, review stage, revision round and delivery date. More on budgeting in <a href="' . pu('blog.show', ['slug' => 'architectural-visualization-cost-guide']) . '">what drives the cost of architectural visualization</a>.',
+    ],
+    'faqs' => [
+        1 => ['q' => 'How much do interior rendering services cost?', 'a' => 'Interior renderings are priced per view. Custom furniture and joinery, finish detail, the number of views and the revision rounds included move the price most. Extra views of a room that is already modelled cost much less. Send your plans and finish schedule for a written quote.'],
+        2 => ['q' => 'Can you match the exact products and finishes we specified?', 'a' => 'Yes. Send product links, photos or sample codes with your finish schedule. We match colours, textures and fixtures as closely as the references allow and flag anything we need confirmed.'],
+        3 => ['q' => 'Can you work from a SketchUp or Revit model?', 'a' => 'Yes. A clean SketchUp or Revit model saves modelling time. From DWG or PDF drawings, we build the model first and send grey draft views for approval.'],
+        4 => ['q' => 'How many revisions are included?', 'a' => 'Your quotation states the review stages and revision rounds included. If we miss an agreed instruction, we fix it at no charge. New layouts, changed drawings or extra views are quoted before extra work starts.'],
+        5 => ['q' => 'Can you show the same room with different finishes?', 'a' => 'Yes. Option studies show two or three finish or colour schemes from the same camera, which makes it easier for clients to decide.'],
+        6 => ['q' => 'Do you render commercial interiors as well as homes?', 'a' => 'Yes. We render residential interiors and commercial spaces such as offices, retail, restaurants and hospitality suites.'],
+    ],
+    'related' => 'Need the outside too? See our <a href="' . pu('services.exterior') . '">exterior rendering services</a>, <a href="' . pu('services.floorplans') . '">3D floor plans</a> and the full <a href="' . pu('services.visualization') . '">architectural visualization</a> service.',
+    'ctaTitle' => 'Send Your Plans. <em>Get a Clear Interior Quote.</em>',
+]])
+@endsection

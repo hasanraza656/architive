@@ -2,6 +2,10 @@
 @php
     $cats  = \App\Support\Portfolio::vizCategories();
     $items = \App\Support\Portfolio::viz();
+    // Optional $only = one category key: show just that category, without the filter buttons
+    if (! empty($only)) {
+        $items = array_values(array_filter($items, fn ($i) => $i['cat'] === $only));
+    }
 @endphp
 @push('head')
     <script type="application/ld+json">{!! json_encode([
@@ -15,12 +19,14 @@
 @endpush
 <div data-gallery>
     <div class="work-toolbar">
+        @empty($only)
         <div class="filters" role="group" aria-label="Filter visualization work">
             <button type="button" class="is-active" data-gfilter="all" aria-pressed="true">All</button>
             @foreach ($cats as $k => $label)
                 <button type="button" data-gfilter="{{ $k }}" aria-pressed="false">{{ $label }}</button>
             @endforeach
         </div>
+        @endempty
         <p class="work-count" aria-live="polite"><b data-gcount>{{ count($items) }}</b> visuals shown</p>
     </div>
     <ul class="work-grid">

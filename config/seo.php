@@ -41,6 +41,27 @@ return [
             'image'       => 'assets/img/og/viz-bandon.jpg',
             'sitemap'     => [0.9, 'monthly'],
         ],
+        'services.exterior' => [
+            'title'       => 'Exterior Rendering Services and 3D Visualization | Architive',
+            'description' => 'Photoreal exterior rendering services from your CAD or Revit files: hero, street, aerial and twilight views for approvals, planning and pre-sales.',
+            'image'       => 'assets/img/og/viz-bandon.jpg',
+            'sitemap'     => [0.9, 'monthly'],
+        ],
+        'services.interior' => [
+            'title'       => '3D Interior Rendering Services | Architive',
+            'description' => 'Photoreal 3D interior rendering services from your plans and finish schedule: kitchens, baths, living spaces and commercial interiors, with finish options.',
+            'sitemap'     => [0.9, 'monthly'],
+        ],
+        'services.floorplans' => [
+            'title'       => '3D Floor Plan Rendering Services | Architive',
+            'description' => 'Turn 2D floor plans into furnished 3D floor plans, top-down or isometric, for listings, brochures, leasing and client presentations.',
+            'sitemap'     => [0.9, 'monthly'],
+        ],
+        'services.rayon' => [
+            'title'       => 'Rayon CAD Drafting Services for Interior Designers | Architive',
+            'description' => 'Rayon drafting services: PDF, DWG and scan to Rayon drawings, template and block setup, furniture layouts, test fits and DWG exports for consultants.',
+            'sitemap'     => [0.8, 'monthly'],
+        ],
         'services.bim' => [
             'title'       => 'BIM Modeling and Revit Services | Architive',
             'description' => 'BIM and Revit services for architects and project teams, including CAD to BIM, scan to BIM, Revit families, model updates and documentation.',

@@ -38,5 +38,7 @@
     </div>
 </section>
 
+<section class="section pt-0"><div class="wrap"><p class="note-line text-center">Does your team draft in Rayon? See our <a href="{{ pu('services.rayon') }}">Rayon CAD drafting services</a>, or turn plans into <a href="{{ pu('services.floorplans') }}">3D floor plans</a>.</p></div></section>
+
 @include('partials.cta-band', ['title' => 'Send Your Drawings <em>or Markups.</em>', 'cta' => 'Start a project', 'ctaUrl' => pu('contact', [], ['service' => 'cad'])])
 @endsection
