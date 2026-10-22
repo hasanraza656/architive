@@ -1,0 +1,68 @@
+@extends('layouts.app')
+
+@section('content')
+@include('partials.service-detail', ['d' => [
+    'key' => 'fp', 'name' => '3D Floor Plan Rendering Services', 'type' => '3D floor plan rendering',
+    'desc' => config('seo.pages')['services.floorplans']['description'],
+    'schemaItems' => ['2D floor plan to 3D floor plan conversion', 'Top-down and isometric 3D floor plans', 'Furnished layouts for marketing and leasing', 'Commercial and retail space plans in 3D', 'Unit plans for brochures and listings'],
+    'eyebrow' => '3D floor plan rendering services',
+    'title' => 'Turn Flat Plans Into Layouts <em>Anyone Can Read.</em>',
+    'lead' => 'We convert your 2D floor plans into furnished 3D floor plans, top-down or isometric, so buyers, tenants and clients understand the space in seconds.',
+    'heroItems' => ['2D plan to 3D floor plan', 'Top-down and isometric views', 'Furnished unit plans', 'Commercial and retail layouts'],
+    'image' => ['key' => 'viz/floorplan-3d-top', 'alt' => 'Top-down 3D floor plan with herringbone flooring and furniture layout, rendered by Architive'],
+    'cta' => 'Get a floor plan quote', 'topic' => '3D Floor Plan', 'service' => 'visualization',
+    'gallery' => 'floorplans', 'galleryTitle' => '3D Floor Plans <em>We Have Made</em>',
+    'galleryLead' => 'Top-down, axonometric and isometric cutaway plans for homes and commercial spaces. Select any image to enlarge it.',
+    'cardsEyebrow' => 'What we make', 'cardsTitle' => 'One Plan, <em>Different Uses</em>',
+    'cardsLead' => 'The right 3D floor plan depends on who is reading it. These are the formats we are asked for most.',
+    'cards' => [
+        ['icon' => 'grid', 'title' => 'Top-down 3D plans', 'text' => 'A clean overhead view with walls, flooring and furniture. The format most listings and brochures use.'],
+        ['icon' => 'box', 'title' => 'Isometric and axonometric', 'text' => 'An angled cutaway that shows wall heights, openings and how rooms connect. Great for complex or irregular spaces.'],
+        ['icon' => 'home', 'title' => 'Furnished unit plans', 'text' => 'Every apartment type with realistic furniture, so buyers see what fits before they visit.'],
+        ['icon' => 'building', 'title' => 'Commercial and retail', 'text' => 'Fit-out and leasing plans for offices, shops and showrooms, with fixtures and circulation clear at a glance.'],
+        ['icon' => 'layers', 'title' => 'Layout options', 'text' => 'Two or three furniture or partition layouts for the same space, so the client compares options side by side.'],
+        ['icon' => 'pencil-ruler', 'title' => 'From sketch or scan', 'text' => 'No CAD file? We work from a PDF, a scanned plan or a measured sketch and redraw it accurately first.'],
+    ],
+    'forTitle' => 'For Anyone Who Has to <em>Explain a Layout</em>',
+    'forItems' => [
+        ['Developers and agents', 'use 3D floor plans to sell and let units faster, because buyers understand them without training.'],
+        ['Architects and interior designers', 'use them to show clients a layout option before rendering every room.'],
+        ['Commercial landlords and fit-out firms', 'use them to pitch spaces to tenants and to agree furniture layouts.'],
+        ['Builders and homeowners', 'use them to check that a renovation layout actually works before work starts.'],
+    ],
+    'sendTitle' => 'Your Starting <em>Pack</em>',
+    'send' => [
+        'The 2D floor plan (DWG, PDF, image or scan) with key dimensions',
+        'Wall heights and any level changes, if known',
+        'Flooring and finish preferences, or a mood reference',
+        'Furniture style or a sample layout you like',
+        'View type: top-down, isometric or both',
+        'Number of units or plan types, and your deadline',
+    ],
+    'sendNote' => 'Only have a sketch or a photo of a plan? Send it. We will tell you if we need anything else before we quote.',
+    'stepsTitle' => 'Simple Steps. <em>Plans That Match the Drawings.</em>',
+    'stepsLead' => 'A 3D floor plan is only useful if it is accurate. We check the drawing first, then build, then style.',
+    'steps' => [
+        ['n' => '01', 'icon' => 'upload', 'title' => 'Send the plan', 'text' => 'We check dimensions and missing information, then confirm views, revision rounds, delivery date and price in a written quote.'],
+        ['n' => '02', 'icon' => 'ruler', 'title' => 'Accurate base', 'text' => 'Walls, doors and windows are built to the drawing. You approve the layout before any styling starts.'],
+        ['n' => '03', 'icon' => 'layers', 'title' => 'Finishes and furniture', 'text' => 'Flooring, finishes and furniture are added in your chosen style, and you review them in one round.'],
+        ['n' => '04', 'icon' => 'image', 'title' => 'Final views', 'text' => 'Top-down, isometric or both, with labels or room names if you want them.'],
+        ['n' => '05', 'icon' => 'download', 'title' => 'Delivery', 'text' => 'High-resolution files for listings, brochures and presentations. More unit types later reuse the same style.'],
+    ],
+    'priceTitle' => 'What Decides <em>the Price</em>',
+    'price' => [
+        '3D floor plans are quoted per plan. The main factors are the size and number of rooms, how much furniture is needed, the view types and whether we start from CAD or redraw from a scan.',
+        'Multiple units with the same style cost less each, because the furniture and materials are set up once. You get one written quote listing every plan, view, revision round and delivery date.',
+    ],
+    'faqs' => [
+        1 => ['q' => 'How much does a 3D floor plan cost?', 'a' => '3D floor plans are priced per plan. Size, number of rooms, furniture, view type and whether we start from CAD or a scan move the price most. Several plans in the same style cost less each. Send your plans for a written quote.'],
+        2 => ['q' => 'Can you convert a 2D floor plan into a 3D floor plan?', 'a' => 'Yes. That is the core of this service. Send the 2D plan as DWG, PDF, an image or a scan, and we build an accurate 3D floor plan from it.'],
+        3 => ['q' => 'What is the difference between a top-down and an isometric 3D floor plan?', 'a' => 'A top-down plan is viewed from directly above and reads like a furnished map. An isometric plan is viewed at an angle, which shows wall heights and how rooms connect.'],
+        4 => ['q' => 'Can you add room names and dimensions?', 'a' => 'Yes. We can add room labels, areas or key dimensions, or leave the plan clean for marketing.'],
+        5 => ['q' => 'Can you work from a hand sketch?', 'a' => 'Yes, as long as it has dimensions. We redraw it accurately first and send it for your approval before styling.'],
+        6 => ['q' => 'How many revisions are included?', 'a' => 'Your quotation states the revision rounds included. If we miss an agreed instruction, we fix it at no charge. Changed layouts or extra plans are quoted first.'],
+    ],
+    'related' => 'Want to go further? See our <a href="' . pu('services.interior') . '">interior rendering</a> and <a href="' . pu('services.exterior') . '">exterior rendering</a> services, or <a href="' . pu('services.cad') . '">CAD drafting</a> if you need the 2D plans drawn first.',
+    'ctaTitle' => 'Send Your 2D Plan. <em>Get a Clear 3D Quote.</em>',
+]])
+@endsection

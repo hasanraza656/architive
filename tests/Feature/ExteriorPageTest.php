@@ -39,7 +39,7 @@ class ExteriorPageTest extends TestCase
         }
         $res = $this->fetch('/interior-visualizations/');
         $this->assertSame(301, $res->getStatusCode());
-        $this->assertStringEndsWith('/architectural-visualization-rendering/', $res->headers->get('Location'));
+        $this->assertStringEndsWith('/interior-rendering-services/', $res->headers->get('Location'));
     }
 
     public function test_exterior_page_is_in_the_sitemap_and_linked_from_visualization(): void

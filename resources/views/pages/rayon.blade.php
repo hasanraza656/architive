@@ -1,0 +1,68 @@
+@extends('layouts.app')
+
+@section('content')
+@include('partials.service-detail', ['d' => [
+    'key' => 'ray', 'name' => 'Rayon CAD Drafting Services', 'type' => 'Rayon CAD drafting and setup',
+    'desc' => config('seo.pages')['services.rayon']['description'],
+    'schemaItems' => ['PDF, DWG and scan to Rayon drawings', 'Rayon template and block library setup', 'Floor plans and furniture layouts in Rayon', 'Space planning and test-fit layouts', 'Drawing sets and DWG exports for consultants'],
+    'eyebrow' => 'Rayon CAD drafting services',
+    'title' => 'Your Plans in Rayon, <em>Clean and Ready to Use.</em>',
+    'lead' => 'Our team drafts in Rayon every day. We turn your PDFs, DWGs and scanned plans into tidy, editable Rayon drawings, set up your templates and blocks, and produce layouts your whole team can open in the browser.',
+    'heroItems' => ['PDF, DWG and scan to Rayon', 'Templates and block libraries', 'Floor plans and furniture layouts', 'Space planning and test fits'],
+    'image' => ['key' => 'viz/floorplan-3d-retail', 'alt' => 'Furnished commercial floor plan of the kind Architive drafts for interior designers'],
+    'cta' => 'Get a Rayon quote', 'topic' => 'Rayon Drafting', 'service' => 'cad',
+    'note' => 'Rayon is a browser-based CAD product made by Rayon SAS. Architive is an independent studio that works in Rayon for its clients; we are not affiliated with or endorsed by Rayon.',
+    'gallery' => null,
+    'cardsEyebrow' => 'What we do in Rayon', 'cardsTitle' => 'Less Setup. <em>More Designing.</em>',
+    'cardsLead' => 'Rayon makes drawing fast once a project is set up properly. That setup, and the drafting that follows, is where we come in.',
+    'cards' => [
+        ['icon' => 'upload', 'title' => 'Bring old drawings into Rayon', 'text' => 'PDFs, scans and DWGs converted into clean Rayon drawings with proper walls, openings and zones, not a traced picture you cannot edit.'],
+        ['icon' => 'grid', 'title' => 'Templates and block libraries', 'text' => 'Your title block, line styles, furniture and fixture blocks set up once, so every new project starts consistent.'],
+        ['icon' => 'home', 'title' => 'Floor plans and furniture layouts', 'text' => 'Measured plans and furnished layouts for residential and commercial interiors, drawn to your conventions.'],
+        ['icon' => 'layers', 'title' => 'Space planning and test fits', 'text' => 'Two or three layout options for the same space, quickly, so the client chooses before detailed design begins.'],
+        ['icon' => 'file-text', 'title' => 'Drawing sets', 'text' => 'Plans, schedules and annotated sheets laid out and ready to share by link or export as PDF.'],
+        ['icon' => 'external', 'title' => 'DWG for consultants', 'text' => 'Clean DWG exports for architects, engineers and contractors who work in AutoCAD, checked so nothing gets lost.'],
+    ],
+    'forTitle' => 'For Teams That Chose Rayon <em>and Need Hands</em>',
+    'forItems' => [
+        ['Interior designers and architects', 'who moved to Rayon and want their old projects, templates and blocks brought across without losing weeks.'],
+        ['Space planners and workplace teams', 'who need test-fit layouts turned around fast.'],
+        ['Furniture brands and showrooms', 'who want their products available as clean blocks for designers to use.'],
+        ['Small studios', 'who need overflow drafting capacity in the same tool their team already uses.'],
+    ],
+    'sendTitle' => 'Your Starting <em>Pack</em>',
+    'send' => [
+        'The drawings to bring in: PDF, DWG, scans or photos of plans',
+        'Your Rayon workspace invite, or we work in ours and share the project with you',
+        'Your title block, line and text standards, if you have them',
+        'Furniture and fixture blocks you use often, or links to the products',
+        'What you need at the end: layouts, a drawing set, a template, or DWG exports',
+        'Your deadline and who signs off',
+    ],
+    'sendNote' => 'Not sure what you need? Send one project and we will suggest the quickest way to set it up.',
+    'stepsTitle' => 'Set Up Once. <em>Draw Faster Every Time.</em>',
+    'stepsLead' => 'The first project sets the standard for every one after it, so we agree your conventions before we draw.',
+    'steps' => [
+        ['n' => '01', 'icon' => 'upload', 'title' => 'Share the drawings', 'text' => 'We review your files and standards, list anything missing and confirm the scope, delivery date and price in a written quote.'],
+        ['n' => '02', 'icon' => 'settings', 'title' => 'Agree the standards', 'text' => 'Title block, layers, line styles and blocks are set up first, so everything we draw matches your office.'],
+        ['n' => '03', 'icon' => 'pencil-ruler', 'title' => 'Draft in Rayon', 'text' => 'Plans and layouts are drawn in Rayon to scale and checked against the source drawings.'],
+        ['n' => '04', 'icon' => 'message', 'title' => 'Review together', 'text' => 'You comment directly on the drawing in Rayon. We apply one combined round of changes.'],
+        ['n' => '05', 'icon' => 'download', 'title' => 'Hand over', 'text' => 'The project stays in your workspace, with PDF sets and DWG exports if your consultants need them.'],
+    ],
+    'priceTitle' => 'What Decides <em>the Price</em>',
+    'price' => [
+        'Rayon work is quoted per drawing or per project. The biggest factors are the quality of the source files (a clean DWG is quicker than a blurry scan), the number of sheets, how many custom blocks are needed and how much annotation the set requires.',
+        'Template and block library setup is usually a one-off job that makes every later project cheaper. You get one written quote listing the scope, revision rounds and delivery date before we start.',
+    ],
+    'faqs' => [
+        1 => ['q' => 'What is Rayon?', 'a' => 'Rayon is a browser-based CAD tool for architects, interior designers and space planners. Teams draw floor plans and layouts together in the browser, import PDF, image and DWG plans, and export PDF sets and DWG files. It is made by Rayon SAS, a company based in Paris.'],
+        2 => ['q' => 'Can you convert our PDF or DWG drawings into Rayon?', 'a' => 'Yes. We bring PDFs, scans and DWG files into Rayon and redraw them as clean, editable drawings with proper walls, openings and zones, checked against the originals.'],
+        3 => ['q' => 'Can you set up our Rayon templates and blocks?', 'a' => 'Yes. We set up title blocks, styles and a library of furniture and fixture blocks so every new project in your workspace starts consistent.'],
+        4 => ['q' => 'Do you work in our Rayon workspace or yours?', 'a' => 'Either. Many clients invite us to their workspace so the drawings stay with them from day one. We can also draft in ours and share the finished project with you.'],
+        5 => ['q' => 'Can our consultants who use AutoCAD still get DWG files?', 'a' => 'Yes. We export DWG files from Rayon for consultants and contractors and check that layers and text come across cleanly.'],
+        6 => ['q' => 'Are you a Rayon partner?', 'a' => 'No. Architive is an independent drafting and visualization studio. Our team works in Rayon for clients, but we are not affiliated with or endorsed by Rayon SAS.'],
+    ],
+    'related' => 'Working in AutoCAD too? See our <a href="' . pu('services.cad') . '">CAD drafting services</a>, or turn your Rayon layouts into <a href="' . pu('services.floorplans') . '">3D floor plans</a>.',
+    'ctaTitle' => 'Send One Project. <em>See It in Rayon.</em>',
+]])
+@endsection

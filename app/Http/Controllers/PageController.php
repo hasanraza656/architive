@@ -11,6 +11,9 @@ class PageController extends Controller
     public function services()      { return view('pages.services'); }
     public function visualization() { return view('pages.visualization'); }
     public function exterior()      { return view('pages.exterior'); }
+    public function interior()      { return view('pages.interior'); }
+    public function floorplans()    { return view('pages.floorplans'); }
+    public function rayon()         { return view('pages.rayon'); }
     public function bim()           { return view('pages.bim'); }
     public function cad()           { return view('pages.cad'); }
     /** Production support is no longer a separate page; the old URL permanently redirects to Services. */
