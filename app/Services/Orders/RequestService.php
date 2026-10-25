@@ -54,7 +54,7 @@ class RequestService
         $order = DB::transaction(function () use ($customer, $data, $files, $source, $label) {
             $order = Order::create([
                 'customer_id' => $customer->id,
-                'title' => $label ? $label . ' request' : 'New project request',
+                'title' => (! empty($data['lp']) ? 'Free trial: ' : '') . ($label ? $label . ' request' : 'New project request'),   // lp = from an ad landing page (free 3-day trial offer)
                 'status' => OrderStatus::Request,
                 'source' => $source,
                 'service' => $data['service'] ?? null,

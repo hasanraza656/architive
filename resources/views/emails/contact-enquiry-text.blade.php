@@ -30,6 +30,13 @@ Links / files:
 Project details:
 {{ $e['message'] }}
 
+@if (! empty($meta['source']))
+Lead source:
+@foreach ($meta['source'] as $label => $line)
+{{ $label }}: {{ $line }}
+@endforeach
+
+@endif
 --
 Reply to this email to answer {{ $e['name'] }} directly (Reply-To is set to the sender).
 Submitted {{ $meta['at'] ?? now()->format('j M Y, H:i') }}@if (! empty($meta['page'])) from {{ $meta['page'] }}@endif @if (! empty($meta['ip'])) | IP {{ $meta['ip'] }}@endif

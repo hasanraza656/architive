@@ -41,6 +41,8 @@ class ContactController extends Controller
             'message'  => ['required', 'string', 'min:10', 'max:4000'],
             'nda'      => ['nullable'],
             'consent'  => ['accepted'],
+            'attribution' => ['nullable', 'string', 'max:3000'],   // set by attribution.js: first and latest campaign touch
+            'lp'       => ['nullable', 'string', 'max:60'],         // ad landing page the form was on
             'files'    => ['nullable', 'array', 'max:5'],
             'files.*'  => ['file', 'max:10240', function ($attr, $file, $fail) use ($u) {
                 if (in_array(strtolower($file->getClientOriginalExtension()), $u['blocked_extensions'], true)) {
@@ -60,10 +62,11 @@ class ContactController extends Controller
             'files.*.uploaded'              => 'A file could not be uploaded. It may be too large (limit 10 MB each).',
         ]);
 
-        $enquiry = collect($data)->except(['consent', 'g-recaptcha-response', 'files'])->all();
-        Log::info('Contact enquiry received', $enquiry);
+        $source = $this->source($data['attribution'] ?? null);
+        $enquiry = collect($data)->except(['consent', 'g-recaptcha-response', 'files', 'attribution', 'lp'])->all();
+        Log::info('Contact enquiry received', $enquiry + ['source' => $source]);
 
-        $meta = ['ip' => $request->ip(), 'page' => url()->previous() ?: pu('contact', [], [], true), 'at' => now()->format('j M Y, H:i T')];
+        $meta = ['ip' => $request->ip(), 'page' => url()->previous() ?: pu('contact', [], [], true), 'at' => now()->format('j M Y, H:i T'), 'source' => $source];
 
         $order = null;
         try {
@@ -104,8 +107,47 @@ class ContactController extends Controller
             ] : []));
         }
 
+        if ($request->filled('lp')) {   // ad landing page without JavaScript: same thank-you page as with it
+            return redirect()->to(pu('thanks', [], $order ? ['ref' => $order->number] : []));
+        }
+
         return redirect()->to(pu('contact') . '#enquiry')->with('sent', $message)
             ->with('request', $order ? ['number' => $order->number, 'url' => route('customer.login', ['email' => $order->customer->email])] : null);
+    }
+
+    /**
+     * Turn the attribution.js JSON into readable lines for the lead e-mail, e.g.
+     * ['Latest' => 'google / cpc · campaign us-3d-rendering · keyword "3d floor plan" · Google Ads click · landed on /lp/3d-rendering/', 'First' => ...].
+     * Anything unexpected is dropped, so a tampered value can only ever produce less text.
+     */
+    private function source(?string $json): array
+    {
+        $raw = json_decode((string) $json, true);
+        if (! is_array($raw)) {
+            return [];
+        }
+        $lines = [];
+        foreach (['last' => 'Latest', 'first' => 'First'] as $k => $label) {
+            $t = is_array($raw[$k] ?? null) ? array_map(fn ($v) => is_scalar($v) ? \Illuminate\Support\Str::limit(trim((string) $v), 150, '') : '', $raw[$k]) : [];
+            $bits = array_filter([
+                trim(($t['utm_source'] ?? '') . (! empty($t['utm_medium']) ? ' / ' . $t['utm_medium'] : '')),
+                ! empty($t['utm_campaign']) ? 'campaign ' . $t['utm_campaign'] : '',
+                ! empty($t['utm_term']) ? 'keyword "' . $t['utm_term'] . '"' : '',
+                ! empty($t['utm_content']) ? 'ad ' . $t['utm_content'] : '',
+                ! empty($t['gclid']) || ! empty($t['gbraid']) || ! empty($t['wbraid']) ? 'Google Ads click' : '',
+                empty($t['utm_source']) && ! empty($t['referrer']) ? 'from ' . (parse_url($t['referrer'], PHP_URL_HOST) ?: 'another site') : '',
+                ! empty($t['landing']) ? 'landed on ' . $t['landing'] : '',
+                ! empty($t['at']) ? $t['at'] : '',
+            ]);
+            if ($bits) {
+                $lines[$label] = implode(' · ', $bits);
+            }
+        }
+        if (isset($lines['Latest'], $lines['First']) && $lines['Latest'] === $lines['First']) {
+            unset($lines['First']);
+        }
+
+        return $lines;
     }
 
     private function fail(Request $request)

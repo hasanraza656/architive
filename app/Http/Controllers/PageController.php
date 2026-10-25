@@ -26,6 +26,24 @@ class PageController extends Controller
     public function terms()         { return view('pages.terms'); }
     public function sitemap()       { return view('pages.sitemap'); }
 
+    /** Google Ads landing page: one offer, proof, short form. Content in config/landing.php. */
+    public function landing(string $slug)
+    {
+        $p = config("landing.pages.{$slug}") ?? abort(404);
+
+        return view('pages.landing', ['slug' => $slug, 'p' => $p, 'trial' => config('landing.trial'), 'lp' => true,
+            'seo' => ['title' => $p['title'], 'description' => $p['description'], 'robots' => 'noindex,follow']]);
+    }
+
+    /** Where ad landing page forms finish (?ref = request number). */
+    public function thanks()
+    {
+        $ref = preg_match('/^[A-Z0-9\-]{3,30}$/', (string) request('ref')) ? request('ref') : null;
+
+        return view('pages.thanks', ['ref' => $ref, 'lp' => true,
+            'seo' => ['title' => 'Thank You | Architive', 'description' => 'Your enquiry is in.', 'robots' => 'noindex,nofollow']]);
+    }
+
     public function collaborations()
     {
         return view('pages.collaborations');

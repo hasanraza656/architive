@@ -53,6 +53,10 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
     Route::get('privacy-policy/', [PageController::class, 'privacy'])->name('privacy');
     Route::get('terms-of-service/', [PageController::class, 'terms'])->name('terms');
     Route::get('sitemap/', [PageController::class, 'sitemap'])->name('sitemap.html');
+
+    // Google Ads landing pages (config/landing.php) and the post-enquiry thank-you page: noindex, not in the sitemap
+    Route::get('lp/{slug}/', [PageController::class, 'landing'])->where('slug', '[a-z0-9\-]+')->name('lp');
+    Route::get('thank-you/', [PageController::class, 'thanks'])->name('thanks');
 });
 
 Route::post('contact/send', [ContactController::class, 'store'])->middleware('throttle:6,1')->name('contact.send');

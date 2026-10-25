@@ -61,6 +61,14 @@
                         <div style="font-size:12px;color:#8a8a83;margin-top:14px;">@if (! empty($meta['order'])) A customer account and request were created automatically. Reply in the portal conversation, then send a custom offer from there. @endif @if (! empty($meta['files'])) {{ $meta['files'] }} attached {{ \Illuminate\Support\Str::plural('file', $meta['files']) }} (open the request to view). @endif You can also press Reply: this email's Reply-To is set to the sender.</div>
                     </td>
                 </tr>
+                @if (! empty($meta['source']))
+                <tr>
+                    <td style="border-top:1px solid #eeeeea;padding:14px 28px;font-size:13px;line-height:1.6;color:#141414;">
+                        <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a8a83;font-weight:bold;margin-bottom:4px;">Lead source</div>
+                        @foreach ($meta['source'] as $label => $line)<div><b>{{ $label }}:</b> {{ $line }}</div>@endforeach
+                    </td>
+                </tr>
+                @endif
                 <tr>
                     <td style="background:#fafaf7;border-top:1px solid #eeeeea;padding:14px 28px;font-size:11px;line-height:1.6;color:#8a8a83;">
                         Submitted {{ $meta['at'] ?? now()->format('j M Y, H:i') }} @if (! empty($meta['page'])) from {{ $meta['page'] }}@endif @if (! empty($meta['ip'])) · IP {{ $meta['ip'] }}@endif<br>
