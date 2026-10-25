@@ -31,9 +31,12 @@ return [
         'studio'    => ['label' => 'Production Studio',   'value' => 'Pakistan'],
     ],
 
-    // Social profiles: add real URLs here and they are emitted into schema sameAs + footer.
+    // Social profiles: add real URLs here and they are emitted into schema sameAs.
     'social' => [
-        // 'linkedin' => 'https://www.linkedin.com/company/…',
+        'linkedin'  => 'https://www.linkedin.com/company/architive',
+        'instagram' => 'https://www.instagram.com/architive_pk',
+        'facebook'  => 'https://www.facebook.com/Architive.pk',
+        'upwork'    => 'https://www.upwork.com/agencies/1508046399388758016/',
     ],
 
     'nav' => [
