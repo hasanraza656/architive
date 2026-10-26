@@ -311,6 +311,57 @@ class Portfolio
             ],
         ];
 
+        $media += [
+            'vacation-cabin-3d-floor-plans' => [
+                'cover'   => self::img('cases/cabin-first-iso-04'),
+                'alt'     => 'Isometric 3D floor plan of a furnished timber vacation cabin with decks and a hot tub',
+                'caption' => 'Cabin first floor, isometric',
+                'gallery_title' => '3D floor plans',
+                'gallery' => self::gallery([
+                    ['cabin-first-iso-04', 'First floor, isometric', 'Isometric 3D floor plan of the cabin first floor with bedrooms, living area, decks and a hot tub'],
+                    ['cabin-first-top', 'First floor, top-down', 'Top-down 3D floor plan of the cabin first floor with a wraparound deck'],
+                    ['cabin-ground-iso', 'Ground floor, isometric', 'Isometric 3D floor plan of the cabin ground floor with a games room and a fire pit patio'],
+                    ['cabin-ground-top', 'Ground floor, top-down', 'Top-down 3D floor plan of the cabin ground floor with a pool table and a patio'],
+                    ['cabin-first-iso-01', 'Raised deck view', 'Isometric 3D view of a cabin on posts with a raised deck, hot tub and fire pit below'],
+                ]),
+            ],
+            'assisted-living-3d-floor-plan-texas' => [
+                'cover'   => self::img('cases/assisted-iso-01'),
+                'alt'     => 'Isometric 3D floor plan of an assisted living floor with furnished resident rooms and lounges',
+                'caption' => 'Assisted living floor, isometric',
+                'gallery_title' => '3D floor plans',
+                'gallery' => self::gallery([
+                    ['assisted-iso-01', 'Full floor, isometric', 'Isometric 3D floor plan of the whole assisted living floor'],
+                    ['assisted-iso-02', 'Full floor, second angle', 'Isometric 3D floor plan of the same floor from the opposite side'],
+                    ['assisted-twin', 'Twin resident room', 'Top-down 3D plan of a twin resident room with an accessible bathroom'],
+                    ['assisted-bedroom-01', 'Resident room', 'Top-down 3D plan of a furnished resident room with an en-suite bathroom'],
+                ]),
+            ],
+            'kitchen-cabinetry-visualization' => [
+                'cover'   => self::img('cases/cabinet-wide'),
+                'alt'     => 'Rendering of a white kitchen with built-in ovens, a black island and a large window',
+                'caption' => 'Kitchen, wide view',
+                'gallery_title' => 'Renderings',
+                'gallery' => self::gallery([
+                    ['cabinet-wide', 'White kitchen, wide view', 'Rendering of a white kitchen with built-in ovens, a black island and a large window'],
+                    ['cabinet-island', 'Marble island, walnut tall units', 'Rendering of a kitchen with a marble waterfall island, bar stools and walnut tall cabinets'],
+                    ['cabinet-front', 'Cabinet fronts', 'Rendering of white and black kitchen cabinet fronts with a glazed wall unit'],
+                    ['cabinet-detail', 'Walnut cabinetry detail', 'Rendering of walnut cabinetry with glass-fronted upper units and a stone worktop'],
+                ]),
+            ],
+            'german-home-renovation-exterior' => [
+                'cover'   => self::img('cases/german-front-01'),
+                'alt'     => 'Exterior rendering of a long two-storey residential building with a red tiled roof and new paint',
+                'caption' => 'Front elevation',
+                'gallery_title' => 'Renderings',
+                'gallery' => self::gallery([
+                    ['german-front-01', 'Front elevation', 'Exterior rendering of the renovated building front with a red tiled roof'],
+                    ['german-front-02', 'Front, from the driveway', 'Exterior rendering of the building front seen from the driveway with the new external staircase'],
+                    ['german-rear', 'Rear elevation', 'Exterior rendering of the rear of the renovated building across the lawn'],
+                ]),
+            ],
+        ];
+
         return $media[$slug] ?? [];
     }
 

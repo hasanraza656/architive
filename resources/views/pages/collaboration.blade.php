@@ -4,6 +4,7 @@
 @php
     $keys = array_keys(\App\Support\Content::collaborations());
     $i = array_search($slug, $keys);
+    if ($i === false) { $i = count($keys) - 1; }   // a draft (not in the public list): prev/next point at live case studies only
     $all = \App\Support\Content::collaborations();
     $prev = $all[$keys[($i + count($keys) - 1) % count($keys)]];
     $next = $all[$keys[($i + 1) % count($keys)]];
@@ -11,6 +12,12 @@
     $nextSlug = $keys[($i + 1) % count($keys)];
     $media = \App\Support\Portfolio::caseMedia($slug);
 @endphp
+
+@if (! empty($c['draft']))
+    <div role="note" style="position:fixed;left:0;right:0;bottom:0;z-index:1100;background:#FFD60A;color:#141414;padding:.8rem 1.2rem;text-align:center;font-weight:600;font-size:.92rem;">
+        Draft for client review. Not listed or indexed yet. Please replace every [CONFIRM: ...] note with your own wording.
+    </div>
+@endif
 
 <section class="page-hero page-hero--plain">
     <div class="page-hero__bg" aria-hidden="true">

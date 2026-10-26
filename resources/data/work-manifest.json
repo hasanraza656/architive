@@ -562,5 +562,101 @@
   "h": 1440,
   "tw": 800,
   "th": 720
+ },
+ "cases/cabin-first-iso-04": {
+  "w": 1600,
+  "h": 980,
+  "tw": 800,
+  "th": 490
+ },
+ "cases/cabin-first-iso-01": {
+  "w": 1600,
+  "h": 980,
+  "tw": 800,
+  "th": 490
+ },
+ "cases/cabin-first-top": {
+  "w": 1600,
+  "h": 978,
+  "tw": 800,
+  "th": 489
+ },
+ "cases/cabin-ground-iso": {
+  "w": 1600,
+  "h": 980,
+  "tw": 800,
+  "th": 490
+ },
+ "cases/cabin-ground-top": {
+  "w": 1600,
+  "h": 978,
+  "tw": 800,
+  "th": 489
+ },
+ "cases/assisted-iso-01": {
+  "w": 1600,
+  "h": 969,
+  "tw": 800,
+  "th": 484
+ },
+ "cases/assisted-iso-02": {
+  "w": 1600,
+  "h": 969,
+  "tw": 800,
+  "th": 484
+ },
+ "cases/assisted-bedroom-01": {
+  "w": 1600,
+  "h": 969,
+  "tw": 800,
+  "th": 484
+ },
+ "cases/assisted-twin": {
+  "w": 1600,
+  "h": 969,
+  "tw": 800,
+  "th": 484
+ },
+ "cases/cabinet-wide": {
+  "w": 1600,
+  "h": 1004,
+  "tw": 800,
+  "th": 502
+ },
+ "cases/cabinet-island": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "cases/cabinet-front": {
+  "w": 1600,
+  "h": 1004,
+  "tw": 800,
+  "th": 502
+ },
+ "cases/cabinet-detail": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "cases/german-front-01": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "cases/german-front-02": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "cases/german-rear": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
  }
 }
