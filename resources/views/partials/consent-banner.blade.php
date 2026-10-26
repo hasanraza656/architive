@@ -4,7 +4,7 @@
     <div class="consent" id="consent" role="region" aria-labelledby="consent-title" hidden>
         <div class="consent__text">
             <p class="consent__title" id="consent-title">Can we count your visit?</p>
-            <p class="consent__body">We use Google Analytics to see which pages people read, so we can improve the site. It sets cookies only if you accept. Read our <a href="{{ pu('privacy') }}">privacy policy</a>.</p>
+            <p class="consent__body">We use Google Analytics and Google Ads to see which pages people read and which of our ads are useful, so we can improve both. They set cookies only if you accept. Read our <a href="{{ pu('privacy') }}">privacy policy</a>.</p>
         </div>
         <div class="consent__actions">
             <button type="button" class="consent__btn consent__btn--accept" data-consent="accept">Accept</button>

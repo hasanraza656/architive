@@ -1,0 +1,88 @@
+/* Google Ads landing pages (/lp/{slug}/) and the thank-you page. Built on the base tokens; loaded only on those pages. */
+
+.lp-header {
+  position: sticky; top: 0; z-index: 1000; height: 68px;
+  background: color-mix(in srgb, var(--bg) 92%, transparent); -webkit-backdrop-filter: saturate(160%) blur(16px); backdrop-filter: saturate(160%) blur(16px);
+  border-bottom: 1px solid var(--line);
+}
+.lp-header__inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.lp-header .brand__img { height: 40px; }
+.lp-header__actions { display: flex; align-items: center; gap: 1.1rem; }
+.lp-header__phone { display: inline-flex; align-items: center; gap: .45rem; color: var(--ink); text-decoration: none; font-weight: 600; font-size: .92rem; }
+.lp-header__phone .ic { width: 1rem; height: 1rem; }
+.lp-header__cta { padding: .62rem 1.15rem; font-size: .86rem; }
+@media (max-width: 575.98px) {
+  .lp-header__phone span { display: none; }
+  .lp-header__cta { display: none; }
+}
+
+/* Hero: copy + image on the left, the trial form on the right (form first under the headline on phones) */
+.lp-hero { padding-block: clamp(1.8rem, 5vw, 4rem) clamp(3rem, 7vw, 5rem); }
+.lp-hero__grid { display: grid; gap: clamp(1.6rem, 4vw, 3.5rem); align-items: start; }
+@media (min-width: 992px) {
+  /* copy and image in the left column, the form spans both rows on the right; phones get copy, form, image */
+  .lp-hero__grid { grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr); grid-template-rows: auto 1fr; }
+  .lp-hero__form { grid-column: 2; grid-row: 1 / span 2; position: sticky; top: 88px; }
+  .lp-hero__copy, .lp-hero__visual { grid-column: 1; }
+}
+.lp-hero__h1 { font-size: clamp(2.1rem, 5.2vw, 3.9rem); line-height: 1.05; margin: .4rem 0 1rem; }
+.lp-hero__list { margin: 1.2rem 0 0; }
+.lp-hero__media { margin: 0; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-md); background: var(--surface-2); }
+.lp-hero__media img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+.lp-hero__trust { display: flex; align-items: center; gap: .5rem; margin: 1.1rem 0 0; font-size: .88rem; color: var(--ink-2); }
+.lp-hero__trust .ic { width: 1.1rem; height: 1.1rem; flex: none; }
+
+/* Trial form card */
+.lp-form { scroll-margin-top: 84px; padding: clamp(1.3rem, 3vw, 2rem); }
+.lp-form .display-h { margin: .5rem 0 .3rem; }
+.lp-form__badge { display: inline-flex; align-items: center; gap: .4rem; margin: 0; padding: .3rem .75rem; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font: 700 .72rem/1.2 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; }
+.lp-form__badge .ic { width: .9rem; height: .9rem; }
+.lp-form__sub { margin: 0 0 1.1rem; color: var(--ink-2); font-size: .92rem; }
+.lp-form .f-field { margin-bottom: .85rem; }
+.lp-form .f-field label { display: block; margin-bottom: .3rem; font-weight: 600; font-size: .86rem; }
+.lp-form input[type="text"], .lp-form input[type="email"], .lp-form textarea {
+  width: 100%; padding: .72rem .9rem; border: 1px solid var(--line-2); border-radius: 12px; background: var(--surface); color: var(--ink); font: inherit; font-size: 16px; /* 16px stops iOS zooming in */
+}
+.lp-form input:focus, .lp-form textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--ink); }
+.lp-form .f-drop--sm { padding: .8rem; }
+.lp-form .check { display: flex; gap: .55rem; align-items: flex-start; font-size: .84rem; margin: .4rem 0 .2rem; }
+.lp-form .captcha { margin: .6rem 0; }
+.lp-form [data-submit] { margin-top: .6rem; }
+.lp-form__fine { display: flex; align-items: center; justify-content: center; gap: .4rem; margin: .8rem 0 0; font-size: .8rem; color: var(--ink-3); }
+.lp-form__fine .ic { width: .9rem; height: .9rem; }
+
+.lp-step-n { margin: .6rem 0 .1rem; font: 700 .78rem/1 var(--f-mono); color: var(--ink-3); letter-spacing: .1em; }
+
+/* Closing call to action */
+.lp-final { padding-block: clamp(3.5rem, 8vw, 6rem); }
+.lp-final .lead-p { margin-bottom: 1.6rem; }
+
+/* Footer */
+.lp-footer { padding: 1.6rem 0 6rem; border-top: 1px solid var(--line); font-size: .84rem; color: var(--ink-3); }
+.lp-footer__inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem 1.5rem; }
+.lp-footer__links { display: flex; flex-wrap: wrap; gap: .4rem 1.1rem; align-items: center; }
+.lp-footer a, .lp-footer .footer-cookie { color: var(--ink-2); }
+@media (min-width: 768px) { .lp-footer { padding-bottom: 1.6rem; } }
+
+/* Sticky mobile bar: one tap to the form or WhatsApp */
+.lp-sticky { display: none; }
+@media (max-width: 767.98px) {
+  .lp-sticky {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 990; display: flex; gap: .6rem; align-items: center;
+    padding: .65rem 1rem calc(.65rem + env(safe-area-inset-bottom)); background: var(--surface); border-top: 1px solid var(--line);
+    box-shadow: 0 -10px 30px -18px rgba(0, 0, 0, .3); transition: transform .3s var(--ease);
+  }
+  .lp-sticky.is-hidden { transform: translateY(110%); }
+  .lp-sticky .btn-ay { flex: 1; }
+  .lp-sticky__wa { flex: none; padding: .75rem 1rem; border: 1px solid var(--line-2); border-radius: 999px; color: var(--ink); font-weight: 600; text-decoration: none; font-size: .9rem; }
+  .page-lp .to-top { display: none; }
+}
+
+/* Thank-you page */
+.lp-thanks { padding-block: clamp(3rem, 9vw, 6.5rem); }
+.lp-thanks__ic { display: inline-grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); margin-bottom: 1.2rem; }
+.lp-thanks__ic .ic { width: 1.8rem; height: 1.8rem; }
+.lp-thanks__ref { font: 500 .9rem/1.4 var(--f-mono); color: var(--ink-2); }
+.lp-thanks__steps { text-align: left; max-width: 56ch; margin: 1.4rem auto 2rem; padding-left: 1.2rem; display: grid; gap: .8rem; color: var(--ink-2); }
+.lp-thanks__steps b { color: var(--ink); }
+.lp-thanks__actions { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; }

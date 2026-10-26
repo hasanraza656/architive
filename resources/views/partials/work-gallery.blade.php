@@ -2,9 +2,12 @@
 @php
     $cats  = \App\Support\Portfolio::vizCategories();
     $items = \App\Support\Portfolio::viz();
-    // Optional $only = one category key: show just that category, without the filter buttons
+    if (! empty($withNew)) {   // ad landing pages: newest work first
+        $items = array_merge(\App\Support\Portfolio::vizNew(), $items);
+    }
+    // Optional $only = one category key (or a list of keys): show just those, without the filter buttons
     if (! empty($only)) {
-        $items = array_values(array_filter($items, fn ($i) => $i['cat'] === $only));
+        $items = array_values(array_filter($items, fn ($i) => in_array($i['cat'], (array) $only, true)));
     }
 @endphp
 @push('head')

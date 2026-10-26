@@ -85,14 +85,22 @@
         </div>
     </div>
 
-    @include('partials.header')
+    @if ($lp ?? false)
+        @include('partials.lp-header')   {{-- ad landing pages: no menu, so the visitor stays on the offer --}}
+    @else
+        @include('partials.header')
+    @endif
 
     <main id="main" tabindex="-1">
         @yield('content')
     </main>
 
-    @include('partials.footer')
-    @unless (is_page('contact'))
+    @if ($lp ?? false)
+        @include('partials.lp-footer')
+    @else
+        @include('partials.footer')
+    @endif
+    @unless (is_page('contact') || ($lp ?? false))
         @include('partials.enquiry-modal')
     @endunless
     @include('partials.consent-banner')
@@ -108,6 +116,7 @@
     <script src="{{ asset_v('assets/js/interactive.js') }}"></script>
     <script src="{{ asset_v('assets/js/lightbox.js') }}"></script>
     <script src="{{ asset_v('assets/js/consent.js') }}" defer></script>
+    <script src="{{ asset_v('assets/js/attribution.js') }}" defer></script>
     @stack('scripts')
 </body>
 </html>

@@ -214,7 +214,16 @@
               $s.find('[data-success-next]').prop('hidden', false);
               $s.find('[data-success-portal]').attr('href', o.data.portal_url).prop('hidden', false);
             }
-            if (window.architiveTrack) { window.architiveTrack('generate_lead', { form_name: 'enquiry', lead_source: 'website' }); }
+            if (window.architiveTrack) {
+              var em = $.trim($f.find('[name="email"]').val() || '');
+              if (em && window.gtag) { gtag('set', 'user_data', { email: em }); }   // Ads enhanced conversions: Google hashes it before sending
+              window.architiveTrack('generate_lead', { form_name: $f.data('formName') || 'enquiry', lead_source: 'website' });
+            }
+            var thanks = $f.data('thanks');   // ad landing pages continue to the thank-you page
+            if (thanks) {
+              setTimeout(function () { location.href = thanks + (o.data.request ? '?ref=' + encodeURIComponent(o.data.request) : ''); }, 600);
+              return;
+            }
             form.reset();
             $f.prop('hidden', true); $s.prop('hidden', false).addClass('is-shown');
             if (!$f.closest('.modal').length) { $s[0].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' }); }

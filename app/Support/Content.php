@@ -181,7 +181,19 @@ class Content
         return $out;
     }
 
-    public static function collaborations(): array
+    /**
+     * Case studies. Entries with 'draft' => true are waiting for the client to confirm the text: they are left out of
+     * every list, the sitemap and prev/next links, and their own URL is noindex with a review banner. Text in [CONFIRM: ...]
+     * must be replaced with the client's wording before 'draft' is removed.
+     */
+    public static function collaborations(bool $withDrafts = false): array
+    {
+        $all = self::allCollaborations();
+
+        return $withDrafts ? $all : array_filter($all, fn ($c) => empty($c['draft']));
+    }
+
+    private static function allCollaborations(): array
     {
         return [
             'uk-3d-floor-plans-smart-heating-cooling' => [
@@ -270,6 +282,127 @@ class Content
                 'service_route' => 'services.visualization',
                 'service_label' => 'Architectural visualization',
                 'description' => 'Ongoing interior and exterior architectural rendering support for a Texas-based firm through an Architive collaboration.',
+            ],
+            // ---- Drafts from the studio's own project write-ups (Oct 2026), waiting for Madiha's wording ----
+            'vacation-cabin-3d-floor-plans' => [
+                'draft'    => true,
+                'key'      => 'visualization',
+                'tag'      => 'Visualization',
+                'num'      => '005',
+                'name'     => 'Vacation Rental 3D Floor Plans',
+                'title'    => '3D Floor Plans for Vacation Cabin Rentals in Oklahoma and Georgia',
+                'place'    => 'Oklahoma and Georgia, USA',
+                'meta'     => 'Broken Bow, OK and Blue Ridge, GA · Ongoing collaboration',
+                'location' => 'Broken Bow, Oklahoma and Blue Ridge, Georgia, USA',
+                'service'  => '3D Floor Plan Rendering',
+                'status'   => 'Ongoing Collaboration',
+                'lead'     => 'Architive produces an ongoing series of 3D floor plans for full-cabin vacation rentals, so guests can see every bedroom, deck and hot tub before they book.',
+                'overview' => [
+                    'A US client lists forest cabins for short-term rental in Broken Bow, Oklahoma, Blue Ridge, Georgia and similar areas. Guests booking a whole cabin want to know who sleeps where, how the living spaces connect and what is outside.',
+                    'We turn each cabin\'s plans into furnished 3D floor plans, in both isometric and top-down views, using one consistent style across the portfolio. [CONFIRM: what does the client send you per cabin (sketches, photos, PDFs)? How many cabins so far?]',
+                ],
+                'role_items' => [
+                    'Building each floor in 3D from the supplied plans',
+                    'Furnishing bedrooms, living areas, decks and outdoor features',
+                    'Isometric and top-down views of every floor',
+                    'Keeping one visual style across all cabins',
+                    'Updating plans from client feedback',
+                ],
+                'result'   => 'The plans are used in the client\'s rental listings to help guests understand each cabin before booking. [CONFIRM: any result the client shared, e.g. fewer guest questions or better reviews? Only real feedback.]',
+                'card'     => 'Ongoing 3D floor plans for full-cabin vacation rentals in Oklahoma and Georgia, in one consistent style across the portfolio.',
+                'note'     => null,
+                'service_route' => 'services.floorplans',
+                'service_label' => '3D floor plan rendering',
+                'description' => 'How Architive produces consistent 3D floor plans for vacation cabin rentals in Broken Bow, Oklahoma and Blue Ridge, Georgia.',
+            ],
+            'assisted-living-3d-floor-plan-texas' => [
+                'draft'    => true,
+                'key'      => 'visualization',
+                'tag'      => 'Visualization',
+                'num'      => '006',
+                'name'     => 'Assisted Living 3D Floor Plan',
+                'title'    => 'A 3D Floor Plan for an Assisted Living Facility Listing in Texas',
+                'place'    => 'Texas, USA',
+                'meta'     => 'Texas, USA · 3D floor plan for an online listing',
+                'location' => 'Texas, USA',
+                'service'  => '3D Floor Plan Rendering',
+                'status'   => 'Completed',
+                'lead'     => 'Architive created a 3D floor plan of an assisted living facility for its online listing, so families could understand the layout before visiting.',
+                'overview' => [
+                    'Families choosing assisted living often compare several facilities online before they visit one. The client needed a clear picture of the whole floor for the property\'s online listing.',
+                    'We built the facility floor in 3D with furnished resident rooms, shared lounges and bathrooms, plus close-up views of individual rooms. [CONFIRM: what did the client supply, and was it for a sale or for resident marketing?]',
+                ],
+                'role_items' => [
+                    'Full-floor isometric 3D plan',
+                    'Furnished single and twin resident rooms',
+                    'Close-up views of individual rooms',
+                    'Images sized for an online property listing',
+                ],
+                'result'   => 'The listing shows the whole facility in one clear image, with room close-ups for detail. [CONFIRM: any feedback from the client?]',
+                'card'     => 'A furnished 3D floor plan of a Texas assisted living facility for its online listing, with close-ups of resident rooms.',
+                'note'     => null,
+                'service_route' => 'services.floorplans',
+                'service_label' => '3D floor plan rendering',
+                'description' => 'How Architive created a 3D floor plan of an assisted living facility in Texas for its online property listing.',
+            ],
+            'kitchen-cabinetry-visualization' => [
+                'draft'    => true,
+                'key'      => 'visualization',
+                'tag'      => 'Visualization',
+                'num'      => '007',
+                'name'     => 'Kitchen Cabinetry Visualization',
+                'title'    => 'Kitchen Cabinet Renderings That Help Buyers Choose Finishes',
+                'place'    => '[CONFIRM: client country]',
+                'meta'     => 'Ongoing collaboration · Kitchen and cabinetry renderings',
+                'location' => '[CONFIRM: client country]',
+                'service'  => 'Interior Rendering',
+                'status'   => 'Ongoing Collaboration',
+                'lead'     => 'Architive renders kitchen cabinetry in different materials and layouts, so the client and their customers can compare finishes before anything is made.',
+                'overview' => [
+                    'Choosing cabinet finishes from small samples is hard. The client wanted realistic views of complete kitchens to compare wood grains, paint colours, hardware and worktops side by side.',
+                    'We model each kitchen from the layout and render it in realistic light, with close-ups of cabinet fronts and details. [CONFIRM: is the client a cabinet maker, a designer or a homeowner? What do they send you?]',
+                ],
+                'role_items' => [
+                    'Kitchen models built from the client\'s layouts',
+                    'Material and finish options on the same layout',
+                    'Wide views, island views and cabinetry close-ups',
+                    'Realistic lighting so finishes read correctly',
+                ],
+                'result'   => 'The client uses the renderings to settle material and layout choices before production. [CONFIRM: real outcome or feedback.]',
+                'card'     => 'Ongoing kitchen cabinet renderings that compare materials, finishes and layouts before anything is built.',
+                'note'     => null,
+                'service_route' => 'services.interior',
+                'service_label' => 'Interior rendering',
+                'description' => 'How Architive renders kitchen cabinetry in different materials and finishes so clients can choose before production.',
+            ],
+            'german-home-renovation-exterior' => [
+                'draft'    => true,
+                'key'      => 'visualization',
+                'tag'      => 'Visualization',
+                'num'      => '008',
+                'name'     => 'Residential Renovation Exteriors',
+                'title'    => 'Exterior Renderings for a Residential Renovation in Germany',
+                'place'    => 'Germany',
+                'meta'     => 'Germany · Exterior renovation renderings',
+                'location' => 'Germany',
+                'service'  => 'Exterior Rendering',
+                'status'   => 'Completed',
+                'lead'     => 'Architive rendered a residential building in Germany with its proposed renovation, a new external staircase, a new roof and fresh paint, before work started.',
+                'overview' => [
+                    'The owners planned a new external staircase, a roof replacement and new exterior paint. They needed to show the result clearly to the people who had to approve it.',
+                    'We modelled the building and rendered the front and rear with the proposed changes, matching the real materials and colours. [CONFIRM: who approved it (owners, neighbours, the local authority)? What did the client send?]',
+                ],
+                'role_items' => [
+                    'Model of the existing building with the proposed changes',
+                    'Front and rear elevations in daylight',
+                    'New roof, staircase and paint finishes shown accurately',
+                ],
+                'result'   => 'The renderings gave everyone involved the same clear picture of the finished renovation. [CONFIRM: was it approved? Any feedback?]',
+                'card'     => 'Exterior renderings of a residential renovation in Germany: new staircase, roof and paint, shown before work started.',
+                'note'     => null,
+                'service_route' => 'services.exterior',
+                'service_label' => 'Exterior rendering',
+                'description' => 'How Architive rendered a residential renovation in Germany, showing the new staircase, roof and paint before approval.',
             ],
         ];
     }

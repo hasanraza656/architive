@@ -31,7 +31,10 @@
   }
   function save(analytics) {
     try { localStorage.setItem(KEY, JSON.stringify({ analytics: analytics, t: Date.now() })); } catch (e) {}
-    if (typeof window.gtag === 'function') { window.gtag('consent', 'update', { analytics_storage: analytics ? 'granted' : 'denied' }); }
+    if (typeof window.gtag === 'function') {
+      var v = analytics ? 'granted' : 'denied';
+      window.gtag('consent', 'update', { analytics_storage: v, ad_storage: v, ad_user_data: v, ad_personalization: v });
+    }
   }
   function show() { box.hidden = false; }
   function hide() { box.hidden = true; }

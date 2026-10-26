@@ -5,7 +5,7 @@
         /* Tawk.to embed. Loads once the page has finished loading (or on the visitor's first interaction),
            so the chat script can never delay rendering. */
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-        Tawk_API.customStyle = { visibility: { desktop: { position: 'br', xOffset: 20, yOffset: 20 }, mobile: { position: 'br', xOffset: 12, yOffset: 12 } } };
+        Tawk_API.customStyle = { visibility: { desktop: { position: 'br', xOffset: 20, yOffset: 20 }, mobile: { position: 'br', xOffset: 12, yOffset: {{ ($lp ?? false) ? 84 : 12 }} } } };   // landing pages: sit above the sticky trial bar
         (function () {
             var started = false, evs = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'mousemove'];
             function load() {

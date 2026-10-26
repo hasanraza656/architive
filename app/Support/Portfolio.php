@@ -67,6 +67,34 @@ class Portfolio
         return array_map(fn ($i) => self::img($i[0]) + ['cat' => $i[1], 'title' => $i[2], 'alt' => $i[3], 'pos' => $i[4]], $items);
     }
 
+    /** Newer work from the studio's library (Oct 2026), shown first on the Google Ads landing pages only (work-gallery $withNew). */
+    public static function vizNew(): array
+    {
+        $items = [
+            ['viz/ranch-house-rear',          'exteriors',  'Single-storey house, rear patio',   'Single-storey ranch house with a covered timber patio and a wide lawn, rendered in daylight', '50% 50%'],
+            ['viz/family-house-front',        'exteriors',  'Single-family house front',         'Front of a single-family house with a gabled entrance, garage and a car in the driveway', '50% 50%'],
+            ['viz/warehouse-before-after',    'exteriors',  'Warehouse makeover, before and after', 'Photo of an existing metal warehouse above a rendering of the same building after its redesign', '50% 50%'],
+            ['viz/brick-townhouses',          'exteriors',  'Brick townhouses',                  'Brick apartment buildings with balconies, palm trees and solar panels on the roof', '50% 50%'],
+            ['viz/apartment-aerial-solar',    'exteriors',  'Apartment scheme, aerial',          'Aerial view of modern apartment blocks with solar panels and green roofs in a landscaped site', '50% 50%'],
+            ['viz/house-cutaway',             'exteriors',  'House cutaway',                     'Exterior of a two-storey house with a cutaway section revealing the furnished rooms inside', '50% 50%'],
+            ['viz/luxury-home-cinema',        'interiors',  'Home cinema',                       'Home cinema with leather recliners, a carved marble feature wall and cove lighting', '50% 50%'],
+            ['viz/luxury-kitchen',            'interiors',  'Modern kitchen',                    'Modern kitchen with flat-panel cabinets, an island and LED strip lighting along the base', '50% 50%'],
+            ['viz/luxury-formal-lounge',      'interiors',  'Formal lounge',                     'Symmetrical formal lounge with marble panels, tall curtains and two seating groups', '50% 50%'],
+            ['viz/luxury-living-room',        'interiors',  'Bright living room',                'Bright living room with tall windows, sheer curtains and a curved armchair', '50% 50%'],
+            ['viz/luxury-bedroom-warm',       'interiors',  'Primary bedroom, warm neutrals',    'Primary bedroom in warm neutral tones with an upholstered bed and a striped rug', '50% 50%'],
+            ['viz/kitchen-cabinetry-wide',    'interiors',  'Kitchen cabinetry',                 'White kitchen cabinetry with built-in ovens, a black island and a large window', '50% 50%'],
+            ['viz/cabin-floorplan-iso',       'floorplans', 'Vacation cabin, isometric 3D plan', 'Isometric 3D floor plan of a timber vacation cabin with furnished rooms, decks and a hot tub', '50% 50%'],
+            ['viz/cabin-floorplan-top',       'floorplans', 'Vacation cabin, top-down 3D plan',  'Top-down 3D floor plan of the same cabin floor with a wraparound deck', '50% 50%'],
+            ['viz/cabin-floorplan-ground',    'floorplans', 'Cabin ground floor with fire pit',  'Isometric 3D floor plan of the cabin ground floor with a games room and a fire pit patio', '50% 50%'],
+            ['viz/assisted-living-floorplan', 'floorplans', 'Assisted living floor, 3D plan',    'Isometric 3D floor plan of an assisted living floor with furnished resident rooms and lounges', '50% 50%'],
+            ['viz/event-floorplan-iso',       'floorplans', 'Corporate event floor, 3D plan',    'Isometric 3D floor plan of a hotel event floor with banquet tables, a stage and lounges', '50% 50%'],
+            ['viz/event-floorplan-top',       'floorplans', 'Banquet hall, top-down plan',       'Top-down 3D plan of a banquet hall with round tables and a red carpet', '50% 50%'],
+            ['viz/unit-marketing-plan',       'floorplans', '2D marketing plan, 765 sq ft unit', 'Colour 2D marketing floor plan of a one-bedroom apartment, Unit 201, 765 square feet', '50% 50%'],
+        ];
+
+        return array_map(fn ($i) => self::img($i[0]) + ['cat' => $i[1], 'title' => $i[2], 'alt' => $i[3], 'pos' => $i[4]], $items);
+    }
+
     /**
      * Flat image list + category labels for a service page's showcase carousel.
      * group: visualization (renders) | bim | cad (sample-set sheets).
@@ -279,6 +307,57 @@ class Portfolio
                     ['texas-bedroom', 'Bedroom', 'Photorealistic rendering of a bedroom with a textured feature wall, upholstered bed and framed artwork'],
                     ['texas-fireplace-hall', 'Double-height lounge', 'Photorealistic rendering of a double-height lounge with two leather armchairs in front of a fireplace'],
                     ['texas-kitchen', 'Kitchen detail', 'Photorealistic close-up rendering of a kitchen with a terrazzo worktop, tiled splashback and warm under-cabinet lighting'],
+                ]),
+            ],
+        ];
+
+        $media += [
+            'vacation-cabin-3d-floor-plans' => [
+                'cover'   => self::img('cases/cabin-first-iso-04'),
+                'alt'     => 'Isometric 3D floor plan of a furnished timber vacation cabin with decks and a hot tub',
+                'caption' => 'Cabin first floor, isometric',
+                'gallery_title' => '3D floor plans',
+                'gallery' => self::gallery([
+                    ['cabin-first-iso-04', 'First floor, isometric', 'Isometric 3D floor plan of the cabin first floor with bedrooms, living area, decks and a hot tub'],
+                    ['cabin-first-top', 'First floor, top-down', 'Top-down 3D floor plan of the cabin first floor with a wraparound deck'],
+                    ['cabin-ground-iso', 'Ground floor, isometric', 'Isometric 3D floor plan of the cabin ground floor with a games room and a fire pit patio'],
+                    ['cabin-ground-top', 'Ground floor, top-down', 'Top-down 3D floor plan of the cabin ground floor with a pool table and a patio'],
+                    ['cabin-first-iso-01', 'Raised deck view', 'Isometric 3D view of a cabin on posts with a raised deck, hot tub and fire pit below'],
+                ]),
+            ],
+            'assisted-living-3d-floor-plan-texas' => [
+                'cover'   => self::img('cases/assisted-iso-01'),
+                'alt'     => 'Isometric 3D floor plan of an assisted living floor with furnished resident rooms and lounges',
+                'caption' => 'Assisted living floor, isometric',
+                'gallery_title' => '3D floor plans',
+                'gallery' => self::gallery([
+                    ['assisted-iso-01', 'Full floor, isometric', 'Isometric 3D floor plan of the whole assisted living floor'],
+                    ['assisted-iso-02', 'Full floor, second angle', 'Isometric 3D floor plan of the same floor from the opposite side'],
+                    ['assisted-twin', 'Twin resident room', 'Top-down 3D plan of a twin resident room with an accessible bathroom'],
+                    ['assisted-bedroom-01', 'Resident room', 'Top-down 3D plan of a furnished resident room with an en-suite bathroom'],
+                ]),
+            ],
+            'kitchen-cabinetry-visualization' => [
+                'cover'   => self::img('cases/cabinet-wide'),
+                'alt'     => 'Rendering of a white kitchen with built-in ovens, a black island and a large window',
+                'caption' => 'Kitchen, wide view',
+                'gallery_title' => 'Renderings',
+                'gallery' => self::gallery([
+                    ['cabinet-wide', 'White kitchen, wide view', 'Rendering of a white kitchen with built-in ovens, a black island and a large window'],
+                    ['cabinet-island', 'Marble island, walnut tall units', 'Rendering of a kitchen with a marble waterfall island, bar stools and walnut tall cabinets'],
+                    ['cabinet-front', 'Cabinet fronts', 'Rendering of white and black kitchen cabinet fronts with a glazed wall unit'],
+                    ['cabinet-detail', 'Walnut cabinetry detail', 'Rendering of walnut cabinetry with glass-fronted upper units and a stone worktop'],
+                ]),
+            ],
+            'german-home-renovation-exterior' => [
+                'cover'   => self::img('cases/german-front-01'),
+                'alt'     => 'Exterior rendering of a long two-storey residential building with a red tiled roof and new paint',
+                'caption' => 'Front elevation',
+                'gallery_title' => 'Renderings',
+                'gallery' => self::gallery([
+                    ['german-front-01', 'Front elevation', 'Exterior rendering of the renovated building front with a red tiled roof'],
+                    ['german-front-02', 'Front, from the driveway', 'Exterior rendering of the building front seen from the driveway with the new external staircase'],
+                    ['german-rear', 'Rear elevation', 'Exterior rendering of the rear of the renovated building across the lawn'],
                 ]),
             ],
         ];

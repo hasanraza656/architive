@@ -35,6 +35,13 @@ class SeoQuickWinsTest extends TestCase
         $this->assertStringContainsString('/blog/?q={search_term_string}', $html);
     }
 
+    public function test_organization_schema_lists_social_profiles_in_same_as(): void
+    {
+        $html = $this->app->handle(Request::create('/'))->getContent();
+        $this->assertStringContainsString('"sameAs":[', $html);
+        $this->assertStringContainsString('https://www.linkedin.com/company/architive', $html);
+    }
+
     public function test_client_login_links_are_nofollow(): void
     {
         $html = $this->app->handle(Request::create('/'))->getContent();
