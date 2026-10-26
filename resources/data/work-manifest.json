@@ -448,5 +448,119 @@
   "h": 444,
   "tw": 792,
   "th": 444
+ },
+ "viz/cabin-floorplan-iso": {
+  "w": 1600,
+  "h": 980,
+  "tw": 800,
+  "th": 490
+ },
+ "viz/cabin-floorplan-top": {
+  "w": 1600,
+  "h": 978,
+  "tw": 800,
+  "th": 489
+ },
+ "viz/cabin-floorplan-ground": {
+  "w": 1600,
+  "h": 980,
+  "tw": 800,
+  "th": 490
+ },
+ "viz/assisted-living-floorplan": {
+  "w": 1600,
+  "h": 969,
+  "tw": 800,
+  "th": 484
+ },
+ "viz/event-floorplan-iso": {
+  "w": 1600,
+  "h": 975,
+  "tw": 800,
+  "th": 487
+ },
+ "viz/event-floorplan-top": {
+  "w": 1600,
+  "h": 946,
+  "tw": 800,
+  "th": 473
+ },
+ "viz/unit-marketing-plan": {
+  "w": 1600,
+  "h": 1164,
+  "tw": 800,
+  "th": 582
+ },
+ "viz/luxury-formal-lounge": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/luxury-home-cinema": {
+  "w": 1600,
+  "h": 1440,
+  "tw": 800,
+  "th": 720
+ },
+ "viz/luxury-kitchen": {
+  "w": 1600,
+  "h": 1440,
+  "tw": 800,
+  "th": 720
+ },
+ "viz/luxury-living-room": {
+  "w": 1600,
+  "h": 1200,
+  "tw": 800,
+  "th": 600
+ },
+ "viz/luxury-bedroom-warm": {
+  "w": 1600,
+  "h": 1440,
+  "tw": 800,
+  "th": 720
+ },
+ "viz/kitchen-cabinetry-wide": {
+  "w": 1600,
+  "h": 1004,
+  "tw": 800,
+  "th": 502
+ },
+ "viz/ranch-house-rear": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/family-house-front": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/apartment-aerial-solar": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/brick-townhouses": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/house-cutaway": {
+  "w": 1600,
+  "h": 731,
+  "tw": 800,
+  "th": 366
+ },
+ "viz/warehouse-before-after": {
+  "w": 1600,
+  "h": 1440,
+  "tw": 800,
+  "th": 720
  }
 }

@@ -52,7 +52,7 @@
             </div>
             <p class="note-line mt-3">Title blocks and owner details are removed to protect client privacy. Where drawings must be signed or sealed, your locally licensed professional reviews and stamps them.</p>
         @else
-            @include('partials.work-gallery', ['only' => $p['gallery']])
+            @include('partials.work-gallery', ['only' => $p['gallery'], 'withNew' => true])
         @endif
     </div>
 </section>
