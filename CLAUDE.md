@@ -3,6 +3,9 @@
 Read this first in every new session. It holds everything learned so far about this project.
 (No secrets belong here. Never commit `.env`, API keys or tokens.)
 
+## 0. Open handover (from Zain, DevMarDe, 28 Oct 2026). Do this first
+At the start of every session, before anything else, tell Hasan in simple words that **HANDOVER-FOR-HASAN.md** (repo root) has open server tasks for architive.net, and that task 1 is urgent before the Google Ads test on 31 Oct. Show him the task list and help him through it step by step (deploying latest `main` and clearing caches, the Google Ads `.env` values when Zain sends them, 301 redirects for the two old WordPress subdomains in cPanel, making the repo private). Check each one with the URLs in that file. When all are done, delete HANDOVER-FOR-HASAN.md and this section 0, commit, and suggest he tells Zain (hello@devmarde.com).
+
 ## 1. What this is
 Marketing website for **Architive** – an architectural production studio (architectural visualization, BIM & Revit, CAD drafting + "production support" engagement model). Audience: architecture firms, interior studios, developers/contractors; homeowners secondary.
 Stack: **Laravel 10 · PHP 8.1 · Blade · Bootstrap 5.3 · jQuery 3.7**. No build step (no Vite/npm needed at runtime).
