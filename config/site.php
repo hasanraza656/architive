@@ -38,6 +38,7 @@ return [
         'facebook'  => 'https://www.facebook.com/Architive.pk',
         'upwork'    => 'https://www.upwork.com/agencies/1508046399388758016/',
         'fiverr'    => 'https://www.fiverr.com/s/zAAQ6E3',
+        'trustpilot' => 'https://www.trustpilot.com/review/architive.net',
     ],
 
     'nav' => [

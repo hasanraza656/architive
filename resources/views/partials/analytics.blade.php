@@ -1,5 +1,5 @@
 {{-- Google Analytics 4 + optional Google Ads tag, with Consent Mode v2. IDs and switches: config/services.php -> GA4_* / GOOGLE_ADS_* in .env.
-     Visitors in the EEA, UK and Switzerland start with everything DENIED until they accept the banner;
+     Visitors in the EU and the UK start with everything DENIED until they accept the banner;
      everywhere else analytics and ads measurement start granted and a visitor can decline.
      The tag loads after the page has finished loading so it never delays rendering.
      Events (window.architiveTrack): generate_lead (form sent, also the Ads lead conversion) and contact_click (WhatsApp / phone / email tap).
@@ -11,7 +11,7 @@
         function gtag() { dataLayer.push(arguments); }
         gtag('consent', 'default', {
             analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied',
-            region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','IS','LI','NO','GB','CH'],
+            region: ['AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU','IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE','GB'],
             wait_for_update: 500
         });
         gtag('consent', 'default', { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
