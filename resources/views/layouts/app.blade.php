@@ -48,7 +48,7 @@
                 var t = localStorage.getItem('architive-theme');
                 if (!t) { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
                 d.setAttribute('data-theme', t);
-                if (sessionStorage.getItem('ay-nav') === '1' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) { d.classList.add('is-entering'); }
+               
             } catch (e) {}
         })();
     </script>
@@ -73,17 +73,7 @@
 <body class="page-{{ str_replace('.', '-', Route::currentRouteName() ?? 'error') }}{{ ($overlay ?? false) ? ' has-overlay' : '' }}">
     <a class="skip-link" href="#main">Skip to main content</a>
     <div class="scroll-progress" aria-hidden="true"><span></span></div>
-    <div class="curtain" aria-hidden="true">
-        <div class="loader">
-            <span class="curtain__logo"><x-logo /></span>
-            <div class="loader__screen">
-                @foreach ([1, 2, 3, 4] as $i)
-                    <img class="loader__img" src="{{ asset('assets/img/loader/l' . $i . '.webp') }}" width="420" height="264" alt="" loading="lazy" decoding="async">
-                @endforeach
-            </div>
-            <span class="loader__bar"><i></i></span>
-        </div>
-    </div>
+    {{-- The page loading screen was removed on purpose: pages open straight away. (To bring it back, restore the .curtain block and the loader code in app.js.) --}}
 
     @if ($lp ?? false)
         @include('partials.lp-header')   {{-- ad landing pages: no menu, so the visitor stays on the offer --}}

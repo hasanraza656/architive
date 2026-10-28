@@ -16,6 +16,9 @@ class Kernel extends ConsoleKernel
         $schedule->command('portal:chat-digest')->everyFiveMinutes()->withoutOverlapping();
         // Webhook-free payment safety net: records payments whose customer closed the tab before returning from Stripe
         $schedule->command('portal:reconcile-payments')->everyFiveMinutes()->withoutOverlapping();
+        // Google Drive storage: copy new files to Drive every minute, and tidy up old local copies once a night (does nothing until an admin connects Drive)
+        $schedule->command('drive:sync')->everyMinute()->withoutOverlapping(10);
+        $schedule->command('drive:sync --prune')->dailyAt('03:30')->withoutOverlapping(30);
     }
 
     /**

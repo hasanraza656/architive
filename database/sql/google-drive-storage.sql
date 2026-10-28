@@ -1,0 +1,11 @@
+-- Google Drive storage tables and columns. Run once in phpMyAdmin (SQL tab), or use Admin > System > Update the database instead. Additive only. Back up first.
+
+create table `drive_connections` (`id` bigint unsigned not null auto_increment primary key, `account_email` varchar(190) not null, `account_name` varchar(190) null, `refresh_token` text not null, `root_folder_id` varchar(120) null, `folder_map` text null, `is_active` tinyint(1) not null default '0', `status` varchar(20) not null default 'connected', `moving_files` tinyint(1) not null default '0', `last_error` text null, `quota_used` bigint unsigned null, `quota_total` bigint unsigned null, `quota_checked_at` datetime null, `connected_by` bigint unsigned null, `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+alter table `drive_connections` add constraint `drive_connections_connected_by_foreign` foreign key (`connected_by`) references `users` (`id`) on delete set null;
+alter table `drive_connections` add unique `drive_connections_account_email_unique`(`account_email`);
+alter table `order_files` add `drive_connection_id` bigint unsigned null after `annotated_of`, add `drive_file_id` varchar(120) null after `drive_connection_id`, add `drive_synced_at` datetime null after `drive_file_id`, add `drive_attempts` tinyint unsigned not null default '0' after `drive_synced_at`, add `drive_next_attempt_at` datetime null after `drive_attempts`, add `drive_error` text null after `drive_next_attempt_at`, add `local_pruned_at` datetime null after `drive_error`, add `last_opened_at` datetime null after `local_pruned_at`;
+alter table `order_files` add index `order_files_drive_idx`(`drive_synced_at`, `drive_connection_id`);
+create table `drive_deletions` (`id` bigint unsigned not null auto_increment primary key, `drive_connection_id` bigint unsigned not null, `drive_file_id` varchar(120) not null, `attempts` tinyint unsigned not null default '0', `created_at` timestamp null, `updated_at` timestamp null) default character set utf8mb4 collate 'utf8mb4_unicode_ci';
+
+SET @b = (SELECT COALESCE(MAX(batch), 0) + 1 FROM migrations);
+INSERT INTO migrations (migration, batch) VALUES ('2026_10_28_000001_create_google_drive_storage', @b);

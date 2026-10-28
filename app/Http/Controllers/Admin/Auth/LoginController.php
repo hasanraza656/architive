@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
-/** Admin sign-in at /admin (e-mail + password). Customers can never sign in here. */
+/** Team sign-in at /admin (e-mail + password) for super admins and team members. Customers can never sign in here. */
 class LoginController extends Controller
 {
     public function show()
@@ -35,20 +35,20 @@ class LoginController extends Controller
         $ok = Auth::attempt([
             'email' => Str::lower($credentials['email']),
             'password' => $credentials['password'],
-            'role' => User::ROLE_ADMIN,
             'is_active' => true,
+            fn ($query) => $query->whereIn('role', [User::ROLE_ADMIN, User::ROLE_STAFF]),
         ], $request->boolean('remember'));
 
         if (! $ok) {
             RateLimiter::hit($key, 60);
-            throw ValidationException::withMessages(['email' => 'These details do not match an admin account.']);
+            throw ValidationException::withMessages(['email' => 'These details do not match a team account.']);
         }
 
         RateLimiter::clear($key);
         $request->session()->regenerate();
         $request->user()->forceFill(['last_login_at' => now()])->save();
 
-        return redirect()->intended(route('admin.dashboard'));
+        return redirect()->intended($request->user()->homeRoute());
     }
 
     public function logout(Request $request): RedirectResponse

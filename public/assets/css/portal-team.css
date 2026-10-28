@@ -1,0 +1,48 @@
+/* Team: members list, role cards and the permission grid. Uses the portal tokens from portal.css. */
+.rolechip { display: inline-flex; align-items: center; gap: .45rem; padding: .3rem .7rem; border-radius: 99px; background: color-mix(in srgb, var(--rc, #FFD60A) 14%, #fff); color: var(--ink); font: 700 .66rem/1.2 var(--f-mono); letter-spacing: .06em; text-transform: uppercase; border: 1px solid color-mix(in srgb, var(--rc, #FFD60A) 40%, #fff); }
+.rolechip::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rc, #FFD60A); }
+.bcheck { display: flex; align-items: flex-start; gap: .55rem; font-size: .9rem; color: var(--ink-2); cursor: pointer; line-height: 1.4; }
+.bcheck input { margin-top: .22rem; accent-color: #141414; flex: none; }
+.bcheck small { color: var(--ink-3); }
+.pinput--color { height: 48px; padding: .3rem; cursor: pointer; }
+
+/* role cards */
+.rolegrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.1rem; }
+.rolecard { display: flex; flex-direction: column; overflow: hidden; transition: transform .35s var(--ease), box-shadow .35s; }
+.rolecard:hover { transform: translateY(-3px); box-shadow: var(--shadow-md, 0 18px 40px -18px rgba(0,0,0,.25)); }
+.rolecard__bar { height: 6px; background: var(--rc, #FFD60A); }
+.rolecard__body { flex: 1; padding: 1.2rem 1.3rem; }
+.rolecard h2 { margin: 0 0 .25rem; font: 600 1.3rem/1.25 'Playfair Display', Georgia, serif; }
+.rolecard__desc { margin: 0 0 .9rem; color: var(--ink-3); font-size: .9rem; line-height: 1.5; min-height: 2.6em; }
+.rolecard__stats { display: flex; flex-wrap: wrap; gap: .5rem 1.1rem; margin-bottom: .9rem; font-size: .84rem; color: var(--ink-2); }
+.rolecard__stats span { display: inline-flex; align-items: center; gap: .4rem; }
+.rolecard__mods { display: flex; flex-wrap: wrap; gap: .35rem; }
+.rolecard__mods span { padding: .25rem .6rem; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); font-size: .74rem; font-weight: 600; }
+.rolecard__act { display: flex; justify-content: space-between; align-items: center; gap: .5rem; padding: .8rem 1.3rem; border-top: 1px solid var(--line); background: var(--surface-2); }
+
+/* permission editor */
+.permbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .7rem 1rem; margin: 0 0 .9rem; }
+.permbar b { margin-right: .6rem; }
+.permbar__count { padding: .25rem .65rem; border-radius: 99px; background: var(--accent); color: #141414; font: 700 .72rem/1.2 var(--f-mono); }
+.permbar__tools { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; }
+.permgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1rem; align-items: start; }
+.permmod__head { display: flex; align-items: center; gap: .8rem; padding: 1rem 1.2rem; border-bottom: 1px solid var(--line); }
+.permmod__head > div { flex: 1; min-width: 0; }
+.permmod__head h2 { margin: 0; font: 700 .95rem/1.2 var(--f-body, inherit); }
+.permmod__head p { margin: .15rem 0 0; font-size: .78rem; color: var(--ink-3); line-height: 1.4; }
+.permmod__ic { display: grid; place-items: center; flex: none; width: 38px; height: 38px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); }
+.permlist { list-style: none; margin: 0; padding: .6rem 1.2rem 1rem; display: grid; gap: .55rem; }
+.permswitch { position: relative; display: inline-block; flex: none; width: 42px; height: 24px; cursor: pointer; }
+.permswitch input { position: absolute; inset: 0; opacity: 0; cursor: pointer; margin: 0; }
+.permswitch span { position: absolute; inset: 0; border-radius: 99px; background: var(--line-2); transition: background .25s; }
+.permswitch span::after { content: ""; position: absolute; left: 3px; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.3); transition: transform .25s var(--ease); }
+.permswitch input:checked + span { background: #141414; }
+.permswitch input:checked + span::after { transform: translateX(18px); background: var(--accent); }
+.permswitch input:indeterminate + span { background: #8A8A83; }
+.permswitch input:indeterminate + span::after { transform: translateX(9px); }
+.permswitch input:focus-visible + span { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+@media (max-width: 520px) {
+  .permgrid { grid-template-columns: 1fr; }
+  .rolegrid { grid-template-columns: 1fr; }
+}

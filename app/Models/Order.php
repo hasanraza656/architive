@@ -16,12 +16,18 @@ class Order extends Model
     protected static function booted(): void
     {
         static::deleting(function (Order $order) {
+            try {
+                app(\App\Services\Drive\DriveSync::class)->queueOrderDeletion($order);      // the Google Drive copies are removed later by the background job
+            } catch (\Throwable $e) {
+                report($e);
+            }
             \Illuminate\Support\Facades\Storage::disk(config('portal.uploads.disk'))->deleteDirectory('orders/' . $order->id);
         });
     }
 
     protected $casts = [
         'status' => OrderStatus::class,
+        'customer_id' => 'integer',          // always a number, so ids compare correctly whatever the database driver returns
         'tax_rate' => 'decimal:2',
         'requested_deadline' => 'date',
         'due_at' => 'datetime',
@@ -68,6 +74,34 @@ class Order extends Model
     public function files(): HasMany
     {
         return $this->hasMany(OrderFile::class);
+    }
+
+    /** Team members added to this conversation (besides the customer). */
+    public function chatMembers(): HasMany
+    {
+        return $this->hasMany(OrderChatMember::class);
+    }
+
+    public function hasChatMember(User $user): bool
+    {
+        return $this->chatMembers()->where('user_id', $user->id)->exists();
+    }
+
+    /** Orders a person may open: everything for admins and wide-access staff, own orders for customers, joined chats for other staff. */
+    public function scopeVisibleTo($query, User $user)
+    {
+        if ($user->isAdmin() || ($user->isStaff() && $user->hasAnyPermission('orders.view', 'chat.access_all'))) {
+            return $query;
+        }
+        if ($user->isCustomer()) {
+            return $query->where('customer_id', $user->id)->where('status', '!=', OrderStatus::Draft->value);
+        }
+        if ($user->isStaff()) {
+            return $query->where('status', '!=', OrderStatus::Draft->value)
+                ->whereIn('id', OrderChatMember::where('user_id', $user->id)->select('order_id'));
+        }
+
+        return $query->whereRaw('1 = 0');
     }
 
     public function readStates(): HasMany

@@ -30,7 +30,7 @@ class RequestService
     public function customerFor(string $name, string $email): ?User
     {
         $email = mb_strtolower(trim($email));
-        $existing = User::where('email', $email)->first();
+        $existing = User::findByEmail($email);
         if ($existing) {
             return $existing->isCustomer() ? $existing : null;
         }

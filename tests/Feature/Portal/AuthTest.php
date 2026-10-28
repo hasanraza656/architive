@@ -3,6 +3,7 @@
 namespace Tests\Feature\Portal;
 
 use App\Mail\Portal\LoginCodeMail;
+use App\Models\User;
 use Illuminate\Support\Facades\Mail;
 
 class AuthTest extends PortalTestCase
@@ -126,5 +127,51 @@ class AuthTest extends PortalTestCase
         }
         $this->post('/account/login/verify', ['code' => $code])->assertSessionHasErrors('code');
         $this->assertGuest();
+    }
+
+    public function test_the_same_gmail_mailbox_written_differently_signs_into_the_same_account(): void
+    {
+        Mail::fake();
+        $customer = $this->customer('mubeen.noor@gmail.com');
+
+        $this->post('/account/login', ['email' => 'Mubeennoor+shop@Gmail.com'])->assertRedirect(route('customer.login.verify'));
+        $code = null;
+        Mail::assertSent(LoginCodeMail::class, function ($m) use (&$code) { $code = $m->code; return true; });
+        $this->post('/account/login/verify', ['code' => $code])->assertRedirect();
+
+        $this->assertAuthenticatedAs($customer);                                   // not a second, empty account
+        $this->assertSame(1, User::where('role', 'customer')->count());
+
+        // other providers are NOT treated as aliases
+        $this->post('/account/logout');
+        $other = $this->customer('a.b@example.test');
+        $this->assertNull(User::findByEmail('ab@example.test'));
+        $this->assertSame($other->id, User::findByEmail('A.B@Example.test')->id);
+    }
+
+    public function test_a_signed_in_customer_opening_someone_elses_order_gets_a_clear_page(): void
+    {
+        $admin = $this->admin();
+        $owner = $this->customer();
+        $order = $this->order($owner, $admin);
+        $order->update(['status' => 'pending']);
+        $stranger = $this->customer('stranger@example.test');
+
+        $this->actingAs($stranger)->get('/account/orders/' . $order->number)->assertStatus(403)->assertSee('not your order')->assertSee('stranger@example.test')->assertSee('Sign out and try again');
+        $this->actingAs($owner)->get('/account/orders/' . $order->number)->assertOk();
+    }
+
+    public function test_customers_can_open_their_own_order_even_when_the_database_returns_ids_as_text(): void
+    {
+        $admin = $this->admin();
+        $owner = $this->customer();
+        $order = $this->order($owner, $admin);
+        $order->update(['status' => 'pending']);
+
+        // some hosting setups hand every number back as a string ("9" instead of 9)
+        \Illuminate\Support\Facades\DB::connection()->getPdo()->setAttribute(\PDO::ATTR_STRINGIFY_FETCHES, true);
+
+        $this->actingAs($owner)->get('/account/orders/' . $order->number)->assertOk();
+        $this->actingAs($owner)->getJson('/portal/orders/' . $order->number . '/messages')->assertOk();
     }
 }

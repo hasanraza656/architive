@@ -27,7 +27,7 @@ class OtpService
     public function send(string $email, ?string $ip = null): string
     {
         $email = mb_strtolower(trim($email));
-        $user = User::where('email', $email)->first();
+        $user = User::findByEmail($email);          // also finds the same Gmail mailbox written with other dots / +tags
         if ($user && (! $user->isCustomer() || ! $user->is_active)) {
             return self::SENT;
         }
@@ -75,7 +75,7 @@ class OtpService
 
         $record->update(['consumed_at' => now()]);
 
-        $existing = User::where('email', $email)->first();
+        $existing = User::findByEmail($email);
         if ($existing) {
             return $existing->isCustomer() && $existing->is_active ? $existing : null;
         }

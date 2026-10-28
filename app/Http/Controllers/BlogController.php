@@ -72,7 +72,7 @@ class BlogController extends Controller
     public function show(Request $request, ContentProcessor $content, string $slug)
     {
         $post = BlogPost::with(['author', 'category', 'tags'])->where('slug', $slug)->firstOrFail();
-        $isAdmin = (bool) $request->user()?->isAdmin();
+        $isAdmin = (bool) $request->user()?->hasAnyPermission('blog.view', 'blog.edit', 'blog.create');
         $preview = ! $post->isLive();
         abort_if($preview && ! $isAdmin, 404);
 

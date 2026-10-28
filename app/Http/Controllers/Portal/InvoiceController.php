@@ -13,6 +13,9 @@ class InvoiceController extends Controller
     public function show(Order $order, InvoicePdf $pdf): Response
     {
         $this->authorize('view', $order);
+        if (auth()->user()->isTeam()) {
+            $this->authorize('billing', $order);
+        }
         abort_unless($order->items()->exists() && ! $order->status->isLead(), 404, 'There is no invoice for this order yet.');
 
         return response($pdf->render($order), 200, [

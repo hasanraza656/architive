@@ -49,13 +49,13 @@ class InboxAndDeleteTest extends PortalTestCase
         $this->actingAs($admin);
         $inbox = app(\App\Services\Chat\Inbox::class);
 
-        $this->assertSame(0, $inbox->unreadCount());                       // the reply read the whole thread
+        $this->assertSame(0, $inbox->unreadCount($admin));                       // the reply read the whole thread
         $this->postJson("/admin/inbox/messages/{$second->id}/unread")->assertOk()->assertJson(['unread' => 1]);
-        $this->assertSame(1, $inbox->unreadCount());
+        $this->assertSame(1, $inbox->unreadCount($admin));
         $this->postJson("/admin/inbox/messages/{$first->id}/unread")->assertOk()->assertJson(['unread' => 2]);
         $this->postJson("/admin/inbox/messages/{$first->id}/read")->assertOk()->assertJson(['unread' => 1]);
         $this->post('/admin/inbox/read-all')->assertRedirect();
-        $this->assertSame(0, $inbox->unreadCount());
+        $this->assertSame(0, $inbox->unreadCount($admin));
 
         $teamMessage = OrderMessage::where('user_id', $admin->id)->first();
         $this->postJson("/admin/inbox/messages/{$teamMessage->id}/unread")->assertStatus(422);

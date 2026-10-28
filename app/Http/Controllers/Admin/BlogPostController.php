@@ -55,7 +55,7 @@ class BlogPostController extends Controller
     public function store(SavePostRequest $request): RedirectResponse
     {
         try {
-            $post = $this->posts->save(new BlogPost, $request->validated(), $request->file('featured_image'), $request->user());
+            $post = $this->posts->save(new BlogPost, $this->data($request), $request->file('featured_image'), $request->user());
         } catch (\InvalidArgumentException $e) {
             return back()->withErrors(['featured_image' => $e->getMessage()])->withInput();
         }
@@ -71,7 +71,7 @@ class BlogPostController extends Controller
     public function update(SavePostRequest $request, BlogPost $post): RedirectResponse
     {
         try {
-            $post = $this->posts->save($post, $request->validated(), $request->file('featured_image'), $request->user());
+            $post = $this->posts->save($post, $this->data($request), $request->file('featured_image'), $request->user());
         } catch (\InvalidArgumentException $e) {
             return back()->withErrors(['featured_image' => $e->getMessage()])->withInput();
         }
@@ -89,6 +89,18 @@ class BlogPostController extends Controller
 
     /* ------------------------------------------------------------ */
 
+    /** Without the "publish" permission an article can only be saved as a draft (the editor sends "publish" for the main button). */
+    private function data(SavePostRequest $request): array
+    {
+        $data = $request->validated();
+        if (! $request->user()->can('blog.publish') && ($data['action'] ?? 'draft') === 'publish') {
+            $data['action'] = 'draft';
+            session()->flash('info', 'You do not have permission to publish, so the article was saved as a draft. An administrator can publish it.');
+        }
+
+        return $data;
+    }
+
     private function message(BlogPost $post, bool $created): string
     {
         return match ($post->stage()) {
@@ -103,7 +115,7 @@ class BlogPostController extends Controller
         return [
             'post' => $post,
             'categories' => BlogCategory::orderBy('name')->get(),
-            'authors' => User::where('role', User::ROLE_ADMIN)->orderBy('first_name')->get(),
+            'authors' => User::team()->where('is_active', true)->orderBy('first_name')->get(),
             'knownTags' => \App\Models\BlogTag::orderBy('name')->pluck('name'),
         ];
     }

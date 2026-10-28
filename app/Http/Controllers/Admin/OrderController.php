@@ -25,14 +25,14 @@ class OrderController extends Controller
         $status = $request->query('status');
         $q = trim((string) $request->query('q'));
 
-        $orders = Order::with('customer')
+        $orders = Order::visibleTo($request->user())->with('customer')
             ->when($status && OrderStatus::tryFrom($status), fn ($query) => $query->where('status', $status))
             ->when($q !== '', fn ($query) => $query->where(fn ($w) => $w
                 ->where('number', 'like', "%$q%")->orWhere('title', 'like', "%$q%")
                 ->orWhereHas('customer', fn ($c) => $c->where('first_name', 'like', "%$q%")->orWhere('last_name', 'like', "%$q%")->orWhere('email', 'like', "%$q%"))))
             ->latest('id')->paginate(15)->withQueryString();
 
-        $counts = Order::selectRaw('status, count(*) as c')->groupBy('status')->pluck('c', 'status');
+        $counts = Order::visibleTo($request->user())->selectRaw('status, count(*) as c')->groupBy('status')->pluck('c', 'status');
 
         return view('portal.admin.orders.index', compact('orders', 'status', 'q', 'counts'));
     }
@@ -51,6 +51,7 @@ class OrderController extends Controller
 
     public function show(Order $order, Request $request, \App\Services\Payments\StripeCheckout $stripe)
     {
+        $this->authorize('view', $order);
         $stripe->reconcile($order);
         $order->refresh();
         $order->load(['customer', 'items', 'events.user', 'deliveries.files', 'deliveries.user']);
@@ -59,12 +60,14 @@ class OrderController extends Controller
         return view('portal.admin.orders.show', [
             'order' => $order,
             'feed' => $this->chat->feed($order, $request->user()),
+            'canBilling' => $request->user()->can('billing', $order),
             'maxUploadMb' => min(config('portal.uploads.max_kb') / 1024, (int) ini_get('upload_max_filesize')),
         ]);
     }
 
     public function edit(Order $order)
     {
+        $this->authorize('view', $order);
         abort_unless($order->isEditable(), 403, 'Paid or closed orders cannot be edited.');
 
         return view('portal.admin.orders.form', $this->formData($order->load('items')));
@@ -72,6 +75,7 @@ class OrderController extends Controller
 
     public function update(SaveOrderRequest $request, Order $order): RedirectResponse
     {
+        $this->authorize('view', $order);
         abort_unless($order->isEditable(), 403, 'Paid or closed orders cannot be edited.');
         $order = $this->orders->update($order, $request->orderData(), $request->user());
 
@@ -80,6 +84,7 @@ class OrderController extends Controller
 
     public function destroy(Order $order): RedirectResponse
     {
+        $this->authorize('view', $order);
         $label = $order->status->isLead() ? 'Request' : 'Order';
         $number = $order->number;
         $order->delete();   // admin may delete any order or request: messages, files, deliveries and history go with it

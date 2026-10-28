@@ -206,31 +206,9 @@
     window.architiveEnquiry.open(opts);
   });
 
-  /* ---- Small loading screen (logo + a window of real renders): only if a page is slow, never on fast loads ---- */
+  /* ---- Page loading screen: removed (pages open straight away). Clean up any leftover state from older visits. ---- */
   safe(function () { sessionStorage.removeItem('ay-nav'); });
   root.classList.remove('is-entering', 'is-leaving', 'is-loading');
-  var slowTimer = null, loadTimer = null, shownAt = 0;
-  function showLoader(cls) { if (reduceMotion) { return; } shownAt = Date.now(); root.classList.add(cls); }
-  if (document.readyState !== 'complete' && !reduceMotion) {      // first visit / refresh that takes a moment
-    loadTimer = setTimeout(function () { showLoader('is-loading'); }, 450);
-    window.addEventListener('load', function () {
-      clearTimeout(loadTimer);
-      if (root.classList.contains('is-loading')) {
-        setTimeout(function () { root.classList.remove('is-loading'); }, Math.max(0, 900 - (Date.now() - shownAt)));   // never flash it for less than ~1s
-      }
-    });
-  }
-  $(document).on('click', 'a[href]', function (e) {                // moving to another page that is slow to open
-    var a = this, href = a.getAttribute('href');
-    if (e.isDefaultPrevented() || reduceMotion || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey || e.which > 1) { return; }
-    if (a.target && a.target !== '_self' || a.hasAttribute('download') || !href || href.charAt(0) === '#' || /^(mailto:|tel:|sms:|javascript:)/i.test(href)) { return; }
-    if (a.hostname !== window.location.hostname || a.hasAttribute('data-bs-toggle') || a.hasAttribute('data-lightbox')) { return; }
-    if (/\.(webp|jpe?g|png|gif|svg|mp4|webm|pdf|zip|xml|txt)(\?|$)/i.test(a.pathname + a.search)) { return; }   // files/media: normal browser handling
-    if (a.pathname === window.location.pathname && a.search === window.location.search) { return; }
-    clearTimeout(slowTimer);
-    slowTimer = setTimeout(function () { showLoader('is-leaving'); }, 500);   // the browser navigates immediately; this only appears if it is slow
-  });
-  window.addEventListener('pageshow', function (e) { if (e.persisted) { clearTimeout(slowTimer); root.classList.remove('is-leaving', 'is-entering', 'is-loading'); } });   // back/forward cache
 
   /* ---- Tawk.to live chat: hide its bubble while a full-screen overlay is open ---- */
   window.architiveTawk = function (show) {

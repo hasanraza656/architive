@@ -12,6 +12,8 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
+        'mcp',
+        'mcp/*',                // called by AI assistants with an access key, never from a browser session
         'webhooks/stripe',      // called by Stripe's servers; verified with the webhook signature instead
     ];
 }

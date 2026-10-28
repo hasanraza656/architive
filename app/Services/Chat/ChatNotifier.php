@@ -3,6 +3,7 @@
 namespace App\Services\Chat;
 
 use App\Enums\OrderStatus;
+use App\Mail\Portal\ChatMention;
 use App\Mail\Portal\NewChatMessages;
 use App\Models\Order;
 use App\Models\OrderMessage;
@@ -30,8 +31,42 @@ class ChatNotifier
         }
 
         $sender = $message->user;
-        $toAdmin = $sender->isCustomer();      // customer wrote -> admin team is notified, admin wrote -> the customer is
+        if ($message->kind === 'system') {
+            return;
+        }
+        $toAdmin = $sender->isCustomer();      // customer wrote -> the team is notified, a team member wrote -> the customer is
         $this->notifySide($order, $toAdmin, immediate: true);
+        $this->notifyMentions($message);
+    }
+
+    /** A team member was added to the conversation: tell them once. */
+    public function memberAdded(Order $order, User $member, User $by): void
+    {
+        if ($member->id === $by->id) {
+            return;
+        }
+        $this->mailer->send($member->email, new ChatMention($order, $member, $by, 'added', null, route('admin.orders.show', $order) . '#chat'));
+    }
+
+    /** People tagged with @ get their own e-mail unless they are on the page right now or were e-mailed a moment ago. */
+    private function notifyMentions(OrderMessage $message): void
+    {
+        $order = $message->order;
+        $ids = $message->mentions->where('type', 'user')->pluck('target_id')->map(fn ($i) => (int) $i)->reject(fn ($i) => $i === $message->user_id)->all();
+        if (! $ids) {
+            return;
+        }
+        foreach (User::whereIn('id', $ids)->where('is_active', true)->get() as $user) {
+            $state = OrderReadState::firstOrCreate(['order_id' => $order->id, 'user_id' => $user->id]);
+            $cool = $state->last_emailed_at && $state->last_emailed_at->gt(now()->subMinutes(config('portal.chat.email_cooldown_minutes')));
+            if ($state->isOnline() || $cool) {
+                continue;
+            }
+            $link = $user->isTeam() ? route('admin.orders.show', $order) . '?m=' . $message->id . '#chat' : $order->customerUrl();
+            if ($this->mailer->send($user->email, new ChatMention($order, $user, $message->user, 'mention', $message, $link))) {
+                $state->forceFill(['last_emailed_at' => now()])->save();
+            }
+        }
     }
 
     /** Scheduler entry point: mail every side that still has unread messages older than the digest delay. */
@@ -60,7 +95,7 @@ class ChatNotifier
         }
 
         $query = $order->messages()->with(['user', 'files'])->where('kind', 'text')      // offer cards are covered by the offer e-mail
-            ->whereHas('user', fn ($q) => $q->where('role', $toAdmin ? User::ROLE_CUSTOMER : User::ROLE_ADMIN))
+            ->whereHas('user', fn ($q) => $toAdmin ? $q->where('role', User::ROLE_CUSTOMER) : $q->whereIn('role', [User::ROLE_ADMIN, User::ROLE_STAFF]))
             ->where('id', '>', max($state['read'], $state['emailed_id']));
 
         if (! $immediate) {
@@ -96,7 +131,7 @@ class ChatNotifier
     private function state(Order $order, bool $admin): array
     {
         $rows = OrderReadState::where('order_id', $order->id)
-            ->whereHas('user', fn ($q) => $q->where('role', $admin ? User::ROLE_ADMIN : User::ROLE_CUSTOMER))
+            ->whereHas('user', fn ($q) => $admin ? $q->whereIn('role', [User::ROLE_ADMIN, User::ROLE_STAFF]) : $q->where('role', User::ROLE_CUSTOMER))
             ->get();
 
         return [

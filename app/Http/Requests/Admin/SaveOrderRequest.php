@@ -11,7 +11,7 @@ class SaveOrderRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return (bool) $this->user()?->isAdmin();
+        return (bool) $this->user()?->isTeam();
     }
 
     public function rules(): array

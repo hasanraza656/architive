@@ -1,0 +1,72 @@
+/* Picture + PDF viewer with annotations (loaded together with chat-viewer.js) */
+body.cv-open { overflow: hidden; }
+.cv { position: fixed; inset: 0; z-index: 1300; display: flex; flex-direction: column; background: rgb(14, 14, 14); color: #fff; outline: none; animation: cv-in .18s ease; }
+@keyframes cv-in { from { opacity: 0; } to { opacity: 1; } }
+.cv__bar { display: flex; align-items: center; gap: 12px; padding: 10px 14px; background: rgba(255, 255, 255, .06); flex: none; }
+.cv__title { min-width: 0; flex: 1; display: flex; flex-direction: column; line-height: 1.25; }
+.cv__title b { font-size: 14px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cv__title small { font: 11px/1.2 "JetBrains Mono", monospace; letter-spacing: .04em; opacity: .65; }
+.cv__tools { display: flex; align-items: center; gap: 6px; flex: none; }
+.cv__zoom { display: inline-flex; align-items: center; gap: 2px; font: 11px "JetBrains Mono", monospace; }
+.cv__zoom [data-zoomlabel] { min-width: 44px; text-align: center; opacity: .8; }
+.cv button, .cv a.cv__btn { color: inherit; }
+.cv__bar button, .cv__btn, .cv__annbar button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 38px; height: 38px; padding: 0 8px; border: 0; border-radius: 10px; background: transparent; cursor: pointer; text-decoration: none; transition: background .15s; }
+.cv__bar button:hover, .cv__btn:hover, .cv__annbar button:hover { background: rgba(255, 255, 255, .14); }
+.cv svg { width: 20px; height: 20px; flex: none; }
+.cv__annotate { background: rgba(255, 255, 255, .1) !important; padding: 0 14px !important; font: 600 13px "Plus Jakarta Sans", sans-serif; }
+.cv__annotate.is-on { background: #FFD60A !important; color: #141414; }
+.cv__annbar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 18px; padding: 8px 14px; background: rgba(255, 255, 255, .09); flex: none; }
+.cv__annbar[hidden], .cv__foot[hidden], .cv__busy[hidden], .cv__nav[hidden] { display: none !important; }
+.cv__group { display: inline-flex; align-items: center; gap: 4px; }
+.cv__annbar .is-on { background: rgba(255, 214, 10, .28); box-shadow: inset 0 0 0 2px #FFD60A; }
+.cv__annbar button:disabled { opacity: .35; cursor: default; }
+.cv__col { min-width: 28px !important; width: 28px; height: 28px !important; padding: 0 !important; border-radius: 50% !important; background: var(--c) !important; border: 2px solid rgba(255, 255, 255, .5) !important; }
+.cv__col.is-on { box-shadow: 0 0 0 2px #FFD60A !important; }
+.cv__size i { display: block; width: 22px; background: #fff; border-radius: 4px; }
+.cv__stage { position: relative; flex: 1; min-height: 0; overflow: hidden; touch-action: none; user-select: none; outline: none; }
+.cv__stage--pdf { overflow: hidden; touch-action: auto; user-select: auto; }
+.cv__stage.is-panning { cursor: grabbing; }
+.cv__imgwrap { position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.cv__img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; box-shadow: 0 8px 40px rgba(0, 0, 0, .5); }
+.cv__ann { position: absolute; left: 0; top: 0; pointer-events: none; }
+.is-annotating .cv__ann { pointer-events: auto; cursor: crosshair; touch-action: none; }
+.cv__pdf { height: 100%; overflow-y: auto; overflow-x: auto; padding: 14px 0 60px; display: flex; flex-direction: column; align-items: center; gap: 12px; -webkit-overflow-scrolling: touch; }
+.cv__pg { position: relative; flex: none; background: #fff; box-shadow: 0 4px 24px rgba(0, 0, 0, .45); }
+.cv__pgc { display: block; opacity: 0; transition: opacity .2s; }
+.cv__pg.is-ready .cv__pgc { opacity: 1; }
+.cv__nav { position: absolute; top: 50%; z-index: 3; width: 46px; height: 46px; margin-top: -23px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .16); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.cv__nav:hover { background: rgba(255, 255, 255, .3); }
+.cv__nav--prev { left: 12px; } .cv__nav--next { right: 12px; }
+.cv__foot { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 10px 14px; background: rgba(255, 255, 255, .09); flex: none; }
+.cv__mc { font: 11px "JetBrains Mono", monospace; opacity: .75; margin-right: auto; }
+.cv__scope { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; }
+.cv__note { flex: 1 1 200px; min-width: 0; height: 38px; padding: 0 12px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, .25); background: rgba(0, 0, 0, .35); color: #fff; font: 14px "Plus Jakarta Sans", sans-serif; }
+.cv__note::placeholder { color: rgba(255, 255, 255, .5); }
+.cv__text { position: fixed; z-index: 1400; min-width: 120px; max-width: 70vw; padding: 2px 4px; border: 1px dashed #FFD60A; background: rgba(0, 0, 0, .35); font-weight: 700; font-family: "Plus Jakarta Sans", sans-serif; resize: both; outline: none; }
+.cv__busy { position: absolute; inset: 0; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: rgba(12, 12, 12, .75); font-size: 14px; }
+.cv__busy i, .cv__spin i { width: 34px; height: 34px; border-radius: 50%; border: 3px solid rgba(255, 255, 255, .25); border-top-color: #FFD60A; animation: cv-spin .7s linear infinite; }
+.cv__spin { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+@keyframes cv-spin { to { transform: rotate(360deg); } }
+.cv__err { padding: 60px 20px; text-align: center; opacity: .8; }
+@media (max-width: 720px) {
+  .cv__bar { padding: 8px 8px; gap: 6px; }
+  .cv__zoom [data-zoomlabel], .cv__zoom [data-zoom="out"], .cv__zoom [data-zoom="in"] { display: none; }
+  .cv__annotate span { display: none; }
+  .cv__annotate { padding: 0 8px !important; }
+  .cv__annbar { padding: 6px 8px; gap: 4px 10px; overflow-x: auto; flex-wrap: nowrap; }
+  .cv__nav { width: 38px; height: 38px; margin-top: -19px; }
+  .cv__foot { padding: 8px; }
+  .cv__foot .pbtn { flex: 1; justify-content: center; }
+  .cv__note { flex-basis: 100%; order: -1; }
+}
+@media (prefers-reduced-motion: reduce) { .cv, .cv__busy i, .cv__spin i { animation: none; } }
+
+/* tool cursors: the pointer shows what you are drawing with */
+.is-annotating[data-tool="pen"] .cv__ann { cursor: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22%23ffffff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z%22/%3E%3Cpath d=%22m15 5 4 4%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%23141414%22 stroke-width=%221.8%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z%22/%3E%3Cpath d=%22m15 5 4 4%22/%3E%3C/g%3E%3C/svg%3E") 2 22, crosshair; }
+.is-annotating[data-tool="highlight"] .cv__ann { cursor: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22%3E%3Cg fill=%22none%22 stroke=%22%23ffffff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22m9 11-6 6v3h9l3-3%22/%3E%3Cpath d=%22m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%23141414%22 stroke-width=%221.8%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22m9 11-6 6v3h9l3-3%22/%3E%3Cpath d=%22m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4%22/%3E%3C/g%3E%3C/svg%3E") 3 21, crosshair; }
+.is-annotating[data-tool="arrow"] .cv__ann { cursor: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cg fill=%22none%22 stroke=%22%23ffffff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M16 5v8M16 19v8M5 16h8M19 16h8%22/%3E%3Cpath d=%22M21 28l7-7M28 21v0M23 21h5v5%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%23141414%22 stroke-width=%221.8%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M16 5v8M16 19v8M5 16h8M19 16h8%22/%3E%3Cpath d=%22M21 28l7-7M28 21v0M23 21h5v5%22/%3E%3C/g%3E%3C/svg%3E") 16 16, crosshair; }
+.is-annotating[data-tool="rect"] .cv__ann { cursor: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cg fill=%22none%22 stroke=%22%23ffffff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M16 5v8M16 19v8M5 16h8M19 16h8%22/%3E%3Crect x=%2221%22 y=%2221%22 width=%229%22 height=%228%22 rx=%221%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%23141414%22 stroke-width=%221.8%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M16 5v8M16 19v8M5 16h8M19 16h8%22/%3E%3Crect x=%2221%22 y=%2221%22 width=%229%22 height=%228%22 rx=%221%22/%3E%3C/g%3E%3C/svg%3E") 16 16, crosshair; }
+.is-annotating[data-tool="ellipse"] .cv__ann { cursor: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22%3E%3Cg fill=%22none%22 stroke=%22%23ffffff%22 stroke-width=%224.2%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M16 5v8M16 19v8M5 16h8M19 16h8%22/%3E%3Ccircle cx=%2225.5%22 cy=%2225.5%22 r=%224.5%22/%3E%3C/g%3E%3Cg fill=%22none%22 stroke=%22%23141414%22 stroke-width=%221.8%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22%3E%3Cpath d=%22M16 5v8M16 19v8M5 16h8M19 16h8%22/%3E%3Ccircle cx=%2225.5%22 cy=%2225.5%22 r=%224.5%22/%3E%3C/g%3E%3C/svg%3E") 16 16, crosshair; }
+.is-annotating[data-tool="text"] .cv__ann { cursor: text; }
+.fchip__ann { background: var(--accent) !important; color: #141414; } .fchip__ann .ic { width: 12px; height: 12px; }
+.fchip__ann:hover { filter: brightness(.95); }

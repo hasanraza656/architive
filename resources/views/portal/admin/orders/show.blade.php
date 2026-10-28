@@ -4,7 +4,7 @@
 
 @section('content')
     <a class="crumb" href="{{ route('admin.orders.index') }}"><x-icon name="arrow-left" /> All orders</a>
-    @include('portal.shared.workspace', ['isAdmin' => true])
+    @include('portal.shared.workspace', ['isAdmin' => true, 'canBilling' => $canBilling])
 
     {{-- deliver work --}}
     <dialog class="pmodal" id="deliverDialog" aria-labelledby="deliverTitle">

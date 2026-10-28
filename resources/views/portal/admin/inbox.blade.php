@@ -75,16 +75,17 @@
         @forelse ($messages as $m)
             @php
                 $order = $m->order;
-                $mine = $m->user?->isAdmin();
-                $who = $mine ? 'To ' . ($order->customer->name ?: $order->customer->email) : ($m->user?->name ?: 'Customer');
+                $mine = $m->user_id === auth()->id();             // written by the person looking at the inbox
+                $byTeam = (bool) $m->user?->isTeam();
+                $who = $byTeam ? ($mine ? 'You' : $m->user->name) . ' → ' . ($order->customer->name ?: $order->customer->email) : ($m->user?->name ?: 'Customer');
                 $unreadRow = ! $mine && (bool) $m->is_unread;
                 $snippet = $m->body ? \Illuminate\Support\Str::limit(preg_replace('/\s+/', ' ', $m->body), 150) : '';
                 $open = route('admin.orders.show', $order) . '?m=' . $m->id . '#chat';
             @endphp
-            <article class="mrow {{ $unreadRow ? 'is-unread' : '' }} {{ $mine ? 'is-team' : '' }}" data-row data-id="{{ $m->id }}" data-order="{{ $m->order_id }}" data-customer="{{ ! $mine ? '1' : '0' }}"
+            <article class="mrow {{ $unreadRow ? 'is-unread' : '' }} {{ $byTeam ? 'is-team' : '' }}" data-row data-id="{{ $m->id }}" data-order="{{ $m->order_id }}" data-customer="{{ ! $mine ? '1' : '0' }}"
                      data-read-url="{{ route('admin.inbox.read', $m) }}" data-unread-url="{{ route('admin.inbox.unread', $m) }}">
                 <span class="mrow__dot" title="Unread" aria-hidden="true"></span>
-                <span class="pavatar pavatar--sm {{ $mine ? '' : 'pavatar--soft' }}" aria-hidden="true">{{ $m->user?->initials ?? '?' }}</span>
+                <span class="pavatar pavatar--sm {{ $byTeam ? '' : 'pavatar--soft' }}" aria-hidden="true">{{ $m->user?->initials ?? '?' }}</span>
                 <a class="mrow__main" href="{{ $open }}" title="Open the conversation at this message">
                     <span class="mrow__top">
                         <b class="mrow__who">{{ $who }}</b>
@@ -108,10 +109,10 @@
 
                 <template data-qv>
                     <div class="qv__head">
-                        <span class="pavatar {{ $mine ? '' : 'pavatar--soft' }}" aria-hidden="true">{{ $m->user?->initials ?? '?' }}</span>
+                        <span class="pavatar {{ $byTeam ? '' : 'pavatar--soft' }}" aria-hidden="true">{{ $m->user?->initials ?? '?' }}</span>
                         <div>
-                            <b>{{ $m->user?->name ?: 'Customer' }}</b>{{ $mine ? ' (team)' : '' }}
-                            <small>{{ $mine ? 'To ' . ($order->customer->name ?: '') . ' · ' : '' }}{{ $order->customer->email }}</small>
+                            <b>{{ $m->user?->name ?: 'Customer' }}</b>{{ $byTeam ? ' (team)' : '' }}
+                            <small>{{ $byTeam ? 'In the chat with ' . ($order->customer->name ?: '') . ' · ' : '' }}{{ $order->customer->email }}</small>
                         </div>
                         <time data-dt="datetime" datetime="{{ $m->created_at->toIso8601String() }}">{{ $m->created_at->format('M j, Y H:i') }}</time>
                     </div>

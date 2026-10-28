@@ -13,9 +13,9 @@
 
 @section('content')
     <div>
-        <h1>Admin <em>sign in</em></h1>
+        <h1>Team <em>sign in</em></h1>
     </div>
-    <p>Use your administrator account to continue.</p>
+    <p>Use your team account to continue.</p>
 
     <form class="pform" method="post" action="{{ route('admin.login.submit') }}" data-loading novalidate>
         @csrf
@@ -26,6 +26,7 @@
             <input class="pinput" type="password" id="password" name="password" autocomplete="current-password" required>
         </x-portal.field>
         <label class="pcheck"><input type="checkbox" name="remember" value="1"> Keep me signed in on this device</label>
+        <p style="margin:0;font-size:.88rem"><a class="plink" href="{{ route('admin.password.request') }}">Forgot your password?</a></p>
         <button class="pbtn pbtn--primary pbtn--lg pbtn--block" type="submit">Sign in <x-icon name="arrow-right" /></button>
     </form>
 @endsection

@@ -66,6 +66,23 @@ class ImageStore
         return 'uploads/' . $base . '.webp';
     }
 
+    /** A small WebP copy (max $maxWidth px wide) of a picture given as bytes; null when GD cannot do it. Used for chat previews. */
+    public function thumbnail(string $binary, int $maxWidth = 640): ?string
+    {
+        if (! function_exists('imagecreatefromstring') || ! function_exists('imagewebp')) {
+            return null;
+        }
+        $img = @imagecreatefromstring($binary);
+        if (! $img) {
+            return null;
+        }
+        $img = $this->fit($img, $maxWidth);
+        $out = $this->encode($img);
+        imagedestroy($img);
+
+        return $out !== '' ? $out : null;
+    }
+
     /** Removes a picture and its -800 sibling. Only touches files inside uploads/. */
     public function delete(?string $path): void
     {

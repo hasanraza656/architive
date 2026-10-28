@@ -8,6 +8,7 @@
     <title>@yield('title', 'Portal') · Architive</title>
     <link rel="icon" href="{{ asset('assets/img/favicon-32.png') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/portal.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('assets/css/portal-drawer.css') }}">
     @stack('head')
 </head>
 <body class="portal">
@@ -35,6 +36,7 @@
 <div class="pscrim" aria-hidden="true"></div>
 
 <script src="{{ asset_v('assets/js/portal.js') }}"></script>
+<script src="{{ asset_v('assets/js/portal-drawer.js') }}"></script>
 @stack('scripts')
 </body>
 </html>

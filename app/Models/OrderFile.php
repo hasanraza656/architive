@@ -41,17 +41,43 @@ class OrderFile extends Model
         return max(1, (int) round($b / 1024)) . ' KB';
     }
 
+    protected $casts = [
+        'meta' => 'array',
+        'drive_synced_at' => 'datetime', 'drive_next_attempt_at' => 'datetime', 'local_pruned_at' => 'datetime', 'last_opened_at' => 'datetime',
+    ];
+
+    /** What this file is for the chat: image | voice | video | pdf | file (set when it is uploaded, old rows fall back to the extension). */
+    public function displayKind(): string
+    {
+        if (($this->kind ?? 'file') !== 'file') {
+            return $this->kind;
+        }
+
+        return $this->isImage() ? 'image' : ($this->extension() === 'pdf' ? 'pdf' : 'file');
+    }
+
     /** Compact array used by the chat JSON feed. */
     public function toChatArray(): array
     {
+        $kind = $this->displayKind();
+        $meta = $this->meta ?? [];
+
         return [
             'id' => $this->id,
             'name' => $this->original_name,
             'size' => $this->humanSize(),
             'ext' => $this->extension(),
-            'image' => $this->isImage(),
+            'kind' => $kind,
+            'image' => $kind === 'image',
             'url' => route('portal.files.show', $this),
-            'preview' => $this->isImage() ? route('portal.files.show', [$this, 'inline' => 1]) : null,
+            'preview' => $kind === 'image' ? route('portal.files.show', [$this, 'inline' => 1]) : null,
+            'thumb' => $this->thumb_path ? route('portal.files.show', [$this, 'thumb' => 1]) : ($kind === 'image' ? route('portal.files.show', [$this, 'inline' => 1]) : null),
+            'width' => $this->width,
+            'height' => $this->height,
+            'duration' => $this->duration,
+            'peaks' => $meta['peaks'] ?? null,
+            'pages' => $meta['pages'] ?? null,
+            'annotated_of' => $this->annotated_of,
         ];
     }
 }

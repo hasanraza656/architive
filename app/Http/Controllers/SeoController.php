@@ -55,7 +55,7 @@ class SeoController extends Controller
 
     public function robots()
     {
-        $body = "User-agent: *\nAllow: /\nDisallow: /contact/send\nDisallow: /admin\nDisallow: /account\nDisallow: /portal\nDisallow: /webhooks\n\nSitemap: " . url('sitemap.xml') . "\n";
+        $body = "User-agent: *\nAllow: /\nDisallow: /contact/send\nDisallow: /admin\nDisallow: /account\nDisallow: /portal\nDisallow: /webhooks\nDisallow: /mcp\n\nSitemap: " . url('sitemap.xml') . "\n";
 
         return response($body, 200, ['Content-Type' => 'text/plain; charset=UTF-8']);
     }

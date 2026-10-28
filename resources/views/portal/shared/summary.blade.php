@@ -44,12 +44,14 @@
     <div class="pcard__head"><h2 class="pcard__title"><x-icon name="receipt" /> Summary</h2></div>
     <div class="pcard__body">
         <div class="kv">
-            @if ($isAdmin)<div><span class="k">Customer</span><span class="v"><a class="plink" href="{{ route('admin.customers.show', $order->customer) }}">{{ $order->customer->name }}</a></span></div>@endif
+            @if ($isAdmin)<div><span class="k">Customer</span><span class="v">@can('customers.view')<a class="plink" href="{{ route('admin.customers.show', $order->customer) }}">{{ $order->customer->name }}</a>@else{{ $order->customer->name }}@endcan</span></div>@endif
             @unless ($order->status->isLead())<div><span class="k">Items</span><span class="v">{{ $order->items->count() }}</span></div>@endunless
             <div><span class="k">Created</span><span class="v"><time data-dt="date" datetime="{{ $order->created_at->toIso8601String() }}">{{ $order->created_at->format('M j, Y') }}</time></span></div>
             @if ($order->paid_at)<div><span class="k">Paid</span><span class="v"><time data-dt="date" datetime="{{ $order->paid_at->toIso8601String() }}">{{ $order->paid_at->format('M j, Y') }}</time></span></div>@endif
             @if ($order->delivered_at)<div><span class="k">Delivered</span><span class="v"><time data-dt="date" datetime="{{ $order->delivered_at->toIso8601String() }}">{{ $order->delivered_at->format('M j, Y') }}</time></span></div>@endif
-            @if ($order->status->isLead())
+            @if (($canBilling ?? true) === false)
+                {{-- prices are hidden for members who were only added to the chat --}}
+            @elseif ($order->status->isLead())
                 <div class="total"><span class="k">Offer</span><span class="v" style="font:600 .95rem var(--f-body)">{{ $isAdmin ? 'Not sent yet' : 'Coming soon' }}</span></div>
             @else
                 <div class="total"><span class="k">Total</span><span class="v">{{ money($order->total_cents, $order->currency) }}</span></div>

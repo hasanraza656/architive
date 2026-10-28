@@ -1,0 +1,60 @@
+/* Shared portal UI pieces used by several modules: side drawer, small avatars, chips, due dates, wide dialogs. */
+
+/* ---- small shared bits -------------------------------------------------------- */
+.pavatar--xs { width: 24px; height: 24px; font-size: .56rem; border: 2px solid var(--surface); }
+.pavatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.avs { display: inline-flex; align-items: center; }
+.avs .pavatar { margin-left: -7px; }
+.avs .pavatar:first-child { margin-left: 0; }
+.avs--lg .pavatar { margin-left: -9px; border: 2px solid var(--surface); }
+.due { display: inline-flex; align-items: center; gap: .3rem; padding: .18rem .5rem; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--line); color: var(--ink-2); font-size: .74rem; font-weight: 600; white-space: nowrap; }
+.due .ic { width: 13px; height: 13px; }
+.due.is-late { background: var(--red-bg); border-color: transparent; color: var(--red); }
+.due.is-today { background: var(--amber-bg); border-color: transparent; color: var(--amber); }
+.pselect--sm, .pinput--sm { padding: .5rem .7rem; border-radius: 10px; font-size: .88rem; min-height: 38px; }
+.pmodal--wide { width: min(680px, calc(100vw - 2rem)); }
+dialog.pmodal--wide { max-height: calc(100vh - 2rem); overflow: auto; }
+.bcheck { display: flex; align-items: flex-start; gap: .55rem; font-size: .9rem; color: var(--ink-2); cursor: pointer; line-height: 1.4; }
+.bcheck input { margin-top: .22rem; accent-color: #141414; flex: none; }
+.bcheck small { color: var(--ink-3); }
+.bcheck--pill { padding: .5rem .85rem; border: 1px solid var(--line-2); border-radius: 99px; background: var(--surface); align-items: center; }
+.bcheck--pill input { margin: 0; }
+.bmore { border: 1px solid var(--line); border-radius: 12px; padding: .7rem 1rem; }
+.bmore summary { cursor: pointer; font: 700 .68rem/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2); }
+.bmore[open] summary { margin-bottom: .9rem; }
+.bmore > .pfield + .bcheck { margin-top: .8rem; }
+
+/* ---- the side drawer ---------------------------------------------------------- */
+.pdrawer-scrim { position: fixed; inset: 0; z-index: 90; background: rgba(10, 10, 10, .45); opacity: 0; transition: opacity .25s; }
+.pdrawer-scrim.is-open { opacity: 1; }
+.pdrawer { position: fixed; top: 0; right: 0; bottom: 0; z-index: 95; display: flex; flex-direction: column; width: min(440px, 100vw); background: var(--surface); border-left: 1px solid var(--line); box-shadow: -24px 0 60px -30px rgba(0, 0, 0, .45); transform: translateX(100%); transition: transform .28s var(--ease); outline: 0; }
+.pdrawer.is-open { transform: none; }
+.pdrawer__head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .9rem 1.2rem; border-bottom: 1px solid var(--line); background: var(--surface); }
+.pdrawer__title { margin: 0; font: 700 .72rem/1.2 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+.pdrawer__x { display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 1px solid var(--line-2); border-radius: 50%; background: var(--surface); color: var(--ink); cursor: pointer; transition: .2s; }
+.pdrawer__x:hover { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.pdrawer__body { flex: 1; overflow: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.pdrawer__skel { display: grid; gap: .8rem; padding: 1.4rem; }
+.pdrawer__skel i { display: block; height: 18px; border-radius: 8px; background: linear-gradient(90deg, var(--surface-2), var(--line), var(--surface-2)); background-size: 200% 100%; animation: pskel 1.2s linear infinite; }
+.pdrawer__skel i:first-child { height: 28px; width: 70%; }
+.pdrawer__err { display: grid; gap: .8rem; justify-items: start; padding: 1.4rem; }
+@keyframes pskel { to { background-position: -200% 0; } }
+
+/* on wide screens the page makes room for the drawer instead of being covered */
+@media (min-width: 1200px) {
+  .pdrawer-scrim { display: none; }
+  body.drawer-open .pmain { margin-right: 440px; transition: margin-right .28s var(--ease); }
+  .pmain { transition: margin-right .28s var(--ease); }
+  .pdrawer { top: 0; }
+}
+@media (max-width: 599px) {
+  .pdrawer { width: 100vw; border-left: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .pdrawer, .pdrawer-scrim, .pmain { transition: none !important; } .pdrawer__skel i { animation: none; } }
+.pnav__count--soft { background: rgba(255, 255, 255, .14); color: #fff; }
+
+/* while the drawer is open next to a two-column page (the order page), give the main column the whole width */
+@media (min-width: 1200px) {
+  body.drawer-open .pgrid--main { grid-template-columns: minmax(0, 1fr); }
+  body.drawer-open .pgrid--main > aside { display: none; }
+}

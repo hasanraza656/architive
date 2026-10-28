@@ -11,7 +11,7 @@ class StoreCustomerRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return (bool) $this->user()?->isAdmin();
+        return (bool) $this->user()?->isTeam();
     }
 
     protected function prepareForValidation(): void
@@ -29,7 +29,12 @@ class StoreCustomerRequest extends FormRequest
         return [
             'first_name' => ['required', 'string', 'max:80'],
             'last_name' => ['required', 'string', 'max:80'],
-            'email' => ['required', 'email:rfc', 'max:190', Rule::unique('users', 'email')->ignore($ignore)],
+            'email' => ['required', 'email:rfc', 'max:190', Rule::unique('users', 'email')->ignore($ignore), function ($attr, $value, $fail) use ($ignore) {
+                $other = User::findByEmail((string) $value);          // the same Gmail mailbox with other dots / +tags counts as the same person
+                if ($other && (int) $other->id !== (int) $ignore) {
+                    $fail('A customer with this e-mail address already exists.');
+                }
+            }],
             'phone_country' => ['nullable', 'required_with:phone', Rule::in(array_keys(config('countries')))],
             'phone' => ['nullable', 'digits_between:4,14'],
             'is_active' => ['sometimes', 'boolean'],

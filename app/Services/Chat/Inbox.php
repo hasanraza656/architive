@@ -2,6 +2,7 @@
 
 namespace App\Services\Chat;
 
+use App\Models\Order;
 use App\Models\OrderMessage;
 use App\Models\OrderReadState;
 use App\Models\User;
@@ -9,70 +10,71 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Admin inbox: every chat message across all orders. A customer message counts as unread until ANY admin has read
- * past it in that order (same rule as the dashboard), so the team shares one inbox. Messages sent by the team are never "unread".
+ * Inbox: every chat message across the conversations a person may open. Unread is personal: a message written by
+ * someone else is unread for you until YOUR read marker in that conversation has passed it.
  */
 class Inbox
 {
-    /** SQL: highest message id an admin has read in this message's order. */
-    private const ADMIN_READ = '(SELECT COALESCE(MAX(s.last_read_message_id), 0) FROM order_read_states s JOIN users a ON a.id = s.user_id WHERE s.order_id = order_messages.order_id AND a.role = \'admin\')';
+    /** SQL snippet: this viewer's read marker for the message's order (0 = nothing read yet). */
+    private function marker(User $viewer): string
+    {
+        return '(SELECT COALESCE(MAX(s.last_read_message_id), 0) FROM order_read_states s WHERE s.order_id = order_messages.order_id AND s.user_id = ' . (int) $viewer->id . ')';
+    }
 
-    /** Text messages only (offer cards are system messages), newest first, with an `is_unread` flag. */
-    public function query(): Builder
+    /** Text messages (offer cards are system messages) in the viewer's conversations, with an `is_unread` flag. */
+    public function query(User $viewer): Builder
     {
         return OrderMessage::query()
             ->select('order_messages.*')
-            ->selectRaw('(order_messages.user_id IN (SELECT id FROM users WHERE role = \'customer\') AND order_messages.id > ' . self::ADMIN_READ . ') AS is_unread')
+            ->selectRaw('(order_messages.user_id != ? AND order_messages.id > ' . $this->marker($viewer) . ') AS is_unread', [$viewer->id])
             ->where('order_messages.kind', 'text')
+            ->whereIn('order_messages.order_id', Order::visibleTo($viewer)->select('orders.id'))
             ->with(['order.customer', 'user', 'files']);
     }
 
-    public function onlyUnread(Builder $q): Builder
+    public function onlyUnread(Builder $q, User $viewer): Builder
     {
-        return $q->whereRaw('order_messages.user_id IN (SELECT id FROM users WHERE role = \'customer\')')
-            ->whereRaw('order_messages.id > ' . self::ADMIN_READ);
+        return $q->where('order_messages.user_id', '!=', $viewer->id)->whereRaw('order_messages.id > ' . $this->marker($viewer));
     }
 
-    public function onlyRead(Builder $q): Builder
+    public function onlyRead(Builder $q, User $viewer): Builder
     {
-        return $q->where(function ($w) {
-            $w->whereRaw('order_messages.user_id NOT IN (SELECT id FROM users WHERE role = \'customer\')')
-                ->orWhereRaw('order_messages.id <= ' . self::ADMIN_READ);
-        });
+        return $q->where(fn ($w) => $w->where('order_messages.user_id', $viewer->id)->orWhereRaw('order_messages.id <= ' . $this->marker($viewer)));
     }
 
-    public function unreadCount(): int
+    public function unreadCount(User $viewer): int
     {
-        return $this->onlyUnread(OrderMessage::query()->where('order_messages.kind', 'text'))->count();
+        return $this->onlyUnread(OrderMessage::query()->where('order_messages.kind', 'text')
+            ->whereIn('order_messages.order_id', Order::visibleTo($viewer)->select('orders.id')), $viewer)->count();
     }
 
-    /** The admin has now read this message (and everything before it) in its order. */
-    public function markRead(OrderMessage $message, User $admin): void
+    /** This person has now read this message (and everything before it) in its order. */
+    public function markRead(OrderMessage $message, User $viewer): void
     {
-        $state = OrderReadState::firstOrCreate(['order_id' => $message->order_id, 'user_id' => $admin->id]);
+        $state = OrderReadState::firstOrCreate(['order_id' => $message->order_id, 'user_id' => $viewer->id]);
         if ((int) $state->last_read_message_id < $message->id) {
             $state->forceFill(['last_read_message_id' => $message->id])->save();
         }
     }
 
-    /** Make this message (and the ones after it) unread again, for every admin. */
-    public function markUnread(OrderMessage $message): void
+    /** Make this message (and the ones after it) unread again for this person. */
+    public function markUnread(OrderMessage $message, User $viewer): void
     {
-        OrderReadState::where('order_id', $message->order_id)
-            ->whereIn('user_id', User::where('role', User::ROLE_ADMIN)->select('id'))
+        OrderReadState::where('order_id', $message->order_id)->where('user_id', $viewer->id)
             ->where('last_read_message_id', '>=', $message->id)
-            ->update(['last_read_message_id' => $message->id - 1]);
+            ->update(['last_read_message_id' => max(0, $message->id - 1)]);
     }
 
-    /** Everything currently in the inbox counts as read. */
-    public function markAllRead(User $admin): int
+    /** Everything currently in this person's inbox counts as read. */
+    public function markAllRead(User $viewer): int
     {
-        $rows = $this->onlyUnread(OrderMessage::query()->where('order_messages.kind', 'text'))
+        $rows = $this->onlyUnread(OrderMessage::query()->where('order_messages.kind', 'text')
+            ->whereIn('order_messages.order_id', Order::visibleTo($viewer)->select('orders.id')), $viewer)
             ->select('order_messages.order_id', DB::raw('MAX(order_messages.id) AS last_id'))
             ->groupBy('order_messages.order_id')->get();
 
         foreach ($rows as $row) {
-            $state = OrderReadState::firstOrCreate(['order_id' => $row->order_id, 'user_id' => $admin->id]);
+            $state = OrderReadState::firstOrCreate(['order_id' => $row->order_id, 'user_id' => $viewer->id]);
             $state->forceFill(['last_read_message_id' => max((int) $state->last_read_message_id, (int) $row->last_id)])->save();
         }
 

@@ -38,6 +38,13 @@ return [
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
     ],
 
+    // Google Drive as long-term file storage (keys live in .env only). The redirect must match the one registered in Google Cloud.
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
     // Tawk.to live chat widget (public embed IDs; set TAWK_ENABLED=false to switch it off)
     'tawk' => [
         'enabled'     => env('TAWK_ENABLED', true),

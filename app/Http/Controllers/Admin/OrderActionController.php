@@ -59,6 +59,7 @@ class OrderActionController extends Controller
     /** Runs an action and turns a rule violation into a friendly message instead of an error page. */
     private function run(Order $order, \Closure $action): RedirectResponse
     {
+        $this->authorize('view', $order);
         try {
             [$type, $message] = $action();
         } catch (\DomainException $e) {

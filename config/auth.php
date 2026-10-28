@@ -91,6 +91,14 @@ return [
     */
 
     'passwords' => [
+        // team invitations and password resets: the link works for 7 days
+        'team' => [
+            'provider' => 'users',
+            'table' => 'password_reset_tokens',
+            'expire' => 10080,
+            'throttle' => 60,
+        ],
+
         'users' => [
             'provider' => 'users',
             'table' => 'password_reset_tokens',

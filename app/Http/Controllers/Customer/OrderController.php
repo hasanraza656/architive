@@ -18,7 +18,10 @@ class OrderController extends Controller
 
     public function show(Request $request, Order $order)
     {
-        $this->authorize('view', $order);
+        if (! $request->user()->can('view', $order)) {
+            // signed in, but as someone else than the person this order belongs to: explain instead of a bare 403
+            return response()->view('portal.customer.wrong-account', ['email' => $request->user()->email, 'number' => $order->number], 403);
+        }
         $this->stripe->reconcile($order);          // paid in Stripe but tab was closed? record it now
         $order->refresh()->load(['customer', 'items', 'events.user', 'deliveries.files', 'deliveries.user']);
         $this->chat->markRead($order, $request->user());
