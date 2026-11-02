@@ -6,6 +6,13 @@
            so the chat script can never delay rendering. */
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         Tawk_API.customStyle = { visibility: { desktop: { position: 'br', xOffset: 20, yOffset: 20 }, mobile: { position: 'br', xOffset: 12, yOffset: {{ ($lp ?? false) ? 84 : 12 }} } } };   // landing pages: sit above the sticky trial bar
+        // Live chat: a visitor who starts a chat or fills the pre-chat form counts as a contact (once per page)
+        (function () {
+            var sent = false;
+            function chat(m) { if (!sent && window.architiveTrack) { sent = true; window.architiveTrack('contact_click', { method: m, link_location: 'chat' }); } }
+            Tawk_API.onChatStarted = function () { chat('chat'); };
+            Tawk_API.onPrechatSubmit = function () { chat('chat'); };
+        })();
         (function () {
             var started = false, evs = ['scroll', 'pointerdown', 'keydown', 'touchstart', 'mousemove'];
             function load() {

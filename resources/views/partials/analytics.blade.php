@@ -39,7 +39,7 @@
         document.addEventListener('click', function (e) {
             var l = e.target.closest && e.target.closest('a[href]');
             if (!l) { return; }
-            var h = l.getAttribute('href') || '', m = /^tel:/i.test(h) ? 'phone' : (/^mailto:/i.test(h) ? 'email' : (/(wa\.me|api\.whatsapp\.com)\//i.test(h) ? 'whatsapp' : null));
+            var h = l.getAttribute('href') || '', m = /^tel:/i.test(h) ? 'phone' : (/^mailto:/i.test(h) ? 'email' : (/(wa\.me\/\d|api\.whatsapp\.com\/send\?phone=|whatsapp:\/\/send\?phone=)/i.test(h) ? 'whatsapp' : null));
             if (m) { window.architiveTrack('contact_click', { method: m, link_location: l.closest('header') ? 'header' : (l.closest('footer') ? 'footer' : 'page') }); }
         }, true);
         (function () {
