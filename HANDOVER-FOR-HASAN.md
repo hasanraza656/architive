@@ -6,7 +6,7 @@ Hi Hasan, these are the open server tasks for architive.net. The Google Ads test
 
 Google Analytics is already working, thank you. But the latest code is not on the server yet: https://architive.net/lp/3d-rendering/ and https://architive.net/thank-you/ still show "page not found".
 
-1. On the server, pull `main` (latest commit `467c250` "Ads ready ... (#7)" or newer).
+1. On the server, pull `main` (latest commit `a792363`, PR #8 "count live chat, ignore WhatsApp share links", or newer; it includes PR #7). The contact tracking lives in `partials/analytics.blade.php` and `partials/tawk.blade.php`; nothing extra to configure.
 2. Run:
    ```
    php artisan config:clear
