@@ -382,3 +382,6 @@
 .hero-chips span { color: var(--accent); font-weight: 700; }
 
 @media (max-width: 767.98px) { .page-hero { min-height: 560px; } .page-hero__shade { background: linear-gradient(0deg, rgba(8, 8, 8, .92), rgba(8, 8, 8, .5) 70%, rgba(8, 8, 8, .35)); } }
+
+/* highlighted text the client still has to confirm (case-study review) */
+.info-card mark,.eyebrow mark,.work-item mark{background:#FFE55C;color:#141414;padding:.05em .25em;border-radius:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone}

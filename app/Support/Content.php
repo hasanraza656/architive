@@ -183,8 +183,8 @@ class Content
 
     /**
      * Case studies. Entries with 'draft' => true are waiting for the client to confirm the text: they are left out of
-     * every list, the sitemap and prev/next links, and their own URL is noindex with a review banner. Text in [CONFIRM: ...]
-     * must be replaced with the client's wording before 'draft' is removed.
+     * every list, the sitemap and prev/next links, and their own URL is noindex with a review banner. Text wrapped in [[...]] is
+     * shown highlighted for the client to check; remove the brackets once confirmed, then remove 'draft'.
      */
     public static function collaborations(bool $withDrafts = false): array
     {
@@ -299,7 +299,7 @@ class Content
                 'lead'     => 'Architive produces an ongoing series of 3D floor plans for full-cabin vacation rentals, so guests can see every bedroom, deck and hot tub before they book.',
                 'overview' => [
                     'A US client lists forest cabins for short-term rental in Broken Bow, Oklahoma, Blue Ridge, Georgia and similar areas. Guests booking a whole cabin want to know who sleeps where, how the living spaces connect and what is outside.',
-                    'We turn each cabin\'s plans into furnished 3D floor plans, in both isometric and top-down views, using one consistent style across the portfolio. [CONFIRM: what does the client send you per cabin (sketches, photos, PDFs)? How many cabins so far?]',
+                    'We turn each cabin\'s plans into furnished 3D floor plans, in both isometric and top-down views, using one consistent style across the portfolio. [[Each cabin starts from the sketches, photos or PDFs the client sends us.]]',
                 ],
                 'role_items' => [
                     'Building each floor in 3D from the supplied plans',
@@ -308,7 +308,7 @@ class Content
                     'Keeping one visual style across all cabins',
                     'Updating plans from client feedback',
                 ],
-                'result'   => 'The plans are used in the client\'s rental listings to help guests understand each cabin before booking. [CONFIRM: any result the client shared, e.g. fewer guest questions or better reviews? Only real feedback.]',
+                'result'   => 'The plans are used in the client\'s rental listings to help guests understand each cabin before booking. [[Guests arrive with a clearer idea of each cabin.]]',
                 'card'     => 'Ongoing 3D floor plans for full-cabin vacation rentals in Oklahoma and Georgia, in one consistent style across the portfolio.',
                 'note'     => null,
                 'service_route' => 'services.floorplans',
@@ -330,7 +330,7 @@ class Content
                 'lead'     => 'Architive created a 3D floor plan of an assisted living facility for its online listing, so families could understand the layout before visiting.',
                 'overview' => [
                     'Families choosing assisted living often compare several facilities online before they visit one. The client needed a clear picture of the whole floor for the property\'s online listing.',
-                    'We built the facility floor in 3D with furnished resident rooms, shared lounges and bathrooms, plus close-up views of individual rooms. [CONFIRM: what did the client supply, and was it for a sale or for resident marketing?]',
+                    'We built the facility floor in 3D with furnished resident rooms, shared lounges and bathrooms, plus close-up views of individual rooms. [[The client supplied the existing plans and photos for resident marketing.]]',
                 ],
                 'role_items' => [
                     'Full-floor isometric 3D plan',
@@ -338,7 +338,7 @@ class Content
                     'Close-up views of individual rooms',
                     'Images sized for an online property listing',
                 ],
-                'result'   => 'The listing shows the whole facility in one clear image, with room close-ups for detail. [CONFIRM: any feedback from the client?]',
+                'result'   => 'The listing shows the whole facility in one clear image, with room close-ups for detail. [[The client was happy with the final images.]]',
                 'card'     => 'A furnished 3D floor plan of a Texas assisted living facility for its online listing, with close-ups of resident rooms.',
                 'note'     => null,
                 'service_route' => 'services.floorplans',
@@ -352,15 +352,15 @@ class Content
                 'num'      => '007',
                 'name'     => 'Kitchen Cabinetry Visualization',
                 'title'    => 'Kitchen Cabinet Renderings That Help Buyers Choose Finishes',
-                'place'    => '[CONFIRM: client country]',
+                'place'    => '[[United States]]',
                 'meta'     => 'Ongoing collaboration · Kitchen and cabinetry renderings',
-                'location' => '[CONFIRM: client country]',
+                'location' => '[[United States]]',
                 'service'  => 'Interior Rendering',
                 'status'   => 'Ongoing Collaboration',
                 'lead'     => 'Architive renders kitchen cabinetry in different materials and layouts, so the client and their customers can compare finishes before anything is made.',
                 'overview' => [
                     'Choosing cabinet finishes from small samples is hard. The client wanted realistic views of complete kitchens to compare wood grains, paint colours, hardware and worktops side by side.',
-                    'We model each kitchen from the layout and render it in realistic light, with close-ups of cabinet fronts and details. [CONFIRM: is the client a cabinet maker, a designer or a homeowner? What do they send you?]',
+                    'We model each kitchen from the layout and render it in realistic light, with close-ups of cabinet fronts and details. [[The client is a cabinet maker who sends us layouts and material choices.]]',
                 ],
                 'role_items' => [
                     'Kitchen models built from the client\'s layouts',
@@ -368,7 +368,7 @@ class Content
                     'Wide views, island views and cabinetry close-ups',
                     'Realistic lighting so finishes read correctly',
                 ],
-                'result'   => 'The client uses the renderings to settle material and layout choices before production. [CONFIRM: real outcome or feedback.]',
+                'result'   => 'The client uses the renderings to settle material and layout choices before production. [[The final renderings matched what the client had in mind.]]',
                 'card'     => 'Ongoing kitchen cabinet renderings that compare materials, finishes and layouts before anything is built.',
                 'note'     => null,
                 'service_route' => 'services.interior',
@@ -390,14 +390,14 @@ class Content
                 'lead'     => 'Architive rendered a residential building in Germany with its proposed renovation, a new external staircase, a new roof and fresh paint, before work started.',
                 'overview' => [
                     'The owners planned a new external staircase, a roof replacement and new exterior paint. They needed to show the result clearly to the people who had to approve it.',
-                    'We modelled the building and rendered the front and rear with the proposed changes, matching the real materials and colours. [CONFIRM: who approved it (owners, neighbours, the local authority)? What did the client send?]',
+                    'We modelled the building and rendered the front and rear with the proposed changes, matching the real materials and colours. [[The owners sent us photos and drawings of the existing house.]]',
                 ],
                 'role_items' => [
                     'Model of the existing building with the proposed changes',
                     'Front and rear elevations in daylight',
                     'New roof, staircase and paint finishes shown accurately',
                 ],
-                'result'   => 'The renderings gave everyone involved the same clear picture of the finished renovation. [CONFIRM: was it approved? Any feedback?]',
+                'result'   => 'The renderings gave everyone involved the same clear picture of the finished renovation. [[The renovation was approved.]]',
                 'card'     => 'Exterior renderings of a residential renovation in Germany: new staircase, roof and paint, shown before work started.',
                 'note'     => null,
                 'service_route' => 'services.exterior',

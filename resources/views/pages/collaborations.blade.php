@@ -41,12 +41,12 @@
                             </a>
                         </div>
                         <div class="col-lg-7">
-                            <p class="eyebrow">{{ $c['tag'] }} · {{ $c['place'] }}</p>
+                            <p class="eyebrow">{{ $c['tag'] }} · {{ hl($c['place']) }}</p>
                             <h2 class="display-h display-h--sm"><a href="{{ pu('collaborations.show', ['slug' => $slug]) }}">{{ $c['title'] }}</a></h2>
                             @if (isset($c['overview']))
                                 <p class="collab-row__card">{{ $c['card'] }}</p>
                                 <dl class="facts">
-                                    <div><dt>Location</dt><dd>{{ $c['location'] }}</dd></div>
+                                    <div><dt>Location</dt><dd>{{ hl($c['location']) }}</dd></div>
                                     <div><dt>Service</dt><dd>{{ $c['service'] }}</dd></div>
                                     <div><dt>Status</dt><dd>{{ $c['status'] }}</dd></div>
                                 </dl>

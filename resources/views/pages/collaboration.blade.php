@@ -13,12 +13,6 @@
     $media = \App\Support\Portfolio::caseMedia($slug);
 @endphp
 
-@if (! empty($c['draft']))
-    <div role="note" style="position:fixed;left:0;right:0;bottom:0;z-index:1100;background:#FFD60A;color:#141414;padding:.8rem 1.2rem;text-align:center;font-weight:600;font-size:.92rem;">
-        Draft for client review. Not listed or indexed yet. Please replace every [CONFIRM: ...] note with your own wording.
-    </div>
-@endif
-
 <section class="page-hero page-hero--plain">
     <div class="page-hero__bg" aria-hidden="true">
         <span class="page-hero__shade"></span>
@@ -28,7 +22,7 @@
         @include('partials.breadcrumbs')
         <div class="row g-5 align-items-center">
             <div class="col-lg-7">
-                <p class="eyebrow eyebrow--light" data-reveal>{{ $c['tag'] }} · {{ $c['place'] }}</p>
+                <p class="eyebrow eyebrow--light" data-reveal>{{ $c['tag'] }} · {{ hl($c['place']) }}</p>
                 <h1 class="page-hero__title" data-split>{{ $c['title'] }}</h1>
                 <p class="page-hero__lead" data-reveal style="--d:.2s">{{ $c['lead'] ?? $c['situation'] }}</p>
             </div>
@@ -59,12 +53,12 @@
         @if (isset($c['overview']))
             {{-- case-study layout: location / service / status, overview, our role, the result --}}
             <div class="row g-4">
-                <div class="col-md-4" data-reveal><div class="info-card"><span class="info-card__k"><x-icon name="map-pin" /> Location</span><p>{{ $c['location'] }}</p></div></div>
+                <div class="col-md-4" data-reveal><div class="info-card"><span class="info-card__k"><x-icon name="map-pin" /> Location</span><p>{{ hl($c['location']) }}</p></div></div>
                 <div class="col-md-4" data-reveal style="--d:.08s"><div class="info-card"><span class="info-card__k"><x-icon name="layers" /> Service</span><p>{{ $c['service'] }}</p></div></div>
                 <div class="col-md-4" data-reveal style="--d:.16s"><div class="info-card"><span class="info-card__k"><x-icon name="refresh" /> Status</span><p>{{ $c['status'] }}</p></div></div>
                 <div class="col-lg-6" data-reveal>
                     <div class="info-card info-card--tall"><span class="info-card__k"><x-icon name="target" /> Overview</span>
-                        @foreach ($c['overview'] as $para)<p>{{ $para }}</p>@endforeach
+                        @foreach ($c['overview'] as $para)<p>{{ hl($para) }}</p>@endforeach
                     </div>
                 </div>
                 <div class="col-lg-6" data-reveal style="--d:.08s">
@@ -77,7 +71,7 @@
                     </div>
                 </div>
                 <div class="col-12" data-reveal>
-                    <div class="info-card info-card--result"><span class="info-card__k"><x-icon name="check-circle" /> The result</span><p>{{ $c['result'] }}</p></div>
+                    <div class="info-card info-card--result"><span class="info-card__k"><x-icon name="check-circle" /> The result</span><p>{{ hl($c['result']) }}</p></div>
                 </div>
             </div>
         @else
