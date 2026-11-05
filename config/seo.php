@@ -74,6 +74,12 @@ return [
             'image'       => 'assets/img/og/cad-permit.jpg',
             'sitemap'     => [0.9, 'monthly'],
         ],
+        'permit-revisions' => [
+            'title'       => 'Permit Drawing Revisions: Fix City Comments | Architive',
+            'description' => 'Upload your drawings and city comment letter, answer a few questions and get an estimated cost before sending your enquiry. Permit revision drafting by Architive.',
+            'image'       => 'assets/img/og/cad-permit.jpg',
+            'sitemap'     => [0.8, 'monthly'],
+        ],
         'services.outsourcing' => [
             'title'       => 'Architectural Production Support for Design Firms | Architive',
             'description' => 'Flexible visualization, Revit and CAD production support for architecture and interior design firms, delivered to your standards and schedule.',

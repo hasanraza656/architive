@@ -21,6 +21,16 @@ class ContactEnquiry extends Mailable
         'unsure'        => 'Not sure yet',
     ];
 
+    /** Services that only exist as their own page/wizard (not offered in the general forms). */
+    public const EXTRA_SERVICES = [
+        'permit-revisions' => 'Permit revisions',
+    ];
+
+    public static function serviceLabel(?string $key): ?string
+    {
+        return self::SERVICES[$key ?? ''] ?? self::EXTRA_SERVICES[$key ?? ''] ?? null;
+    }
+
     public const AUDIENCES = [
         'firm'       => 'Architecture firm',
         'interior'   => 'Interior design studio',
@@ -34,12 +44,13 @@ class ContactEnquiry extends Mailable
 
     public function envelope(): Envelope
     {
-        $service = self::SERVICES[$this->enquiry['service'] ?? ''] ?? 'General enquiry';
+        $service = self::serviceLabel($this->enquiry['service'] ?? null) ?? 'General enquiry';
         $ref = ! empty($this->meta['order']) ? ' ' . $this->meta['order']->number : '';
 
         return new Envelope(
             replyTo: [new Address($this->enquiry['email'], $this->enquiry['name'])],
-            subject: (($ref !== '') ? 'New project request' . $ref : 'New project enquiry') . ': ' . $service . ' · ' . $this->enquiry['name'],
+            subject: (($ref !== '') ? 'New project request' . $ref : 'New project enquiry') . ': ' . $service . ' · ' . $this->enquiry['name']
+                . (! empty($this->enquiry['nda']) ? ' · NDA REQUESTED' : ''),      // no detailed files are shared until the NDA is signed
         );
     }
 
@@ -51,7 +62,7 @@ class ContactEnquiry extends Mailable
             with: [
                 'e'        => $this->enquiry,
                 'meta'     => $this->meta,
-                'service'  => self::SERVICES[$this->enquiry['service'] ?? ''] ?? null,
+                'service'  => self::serviceLabel($this->enquiry['service'] ?? null),
                 'audience' => self::AUDIENCES[$this->enquiry['audience'] ?? ''] ?? null,
                 'siteName' => config('site.name'),
             ],

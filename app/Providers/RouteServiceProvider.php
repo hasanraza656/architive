@@ -48,6 +48,9 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function configureRateLimiting(): void
     {
+        // Permit Revisions wizard: a few submissions a minute and a modest number per hour for each visitor address
+        RateLimiter::for('permit', fn (Request $request) => [Limit::perMinute(5)->by('permit-m:' . $request->ip()), Limit::perHour(25)->by('permit-h:' . $request->ip())]);
+
         RateLimiter::for('api', function (Request $request) {
             return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
         });

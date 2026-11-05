@@ -45,14 +45,14 @@ class AppServiceProvider extends ServiceProvider
         $labels = [
             'about' => 'Who We Are', 'team' => 'Team', 'services.index' => 'Services',
             'services.visualization' => 'Architectural Visualization', 'services.exterior' => 'Exterior Rendering', 'services.interior' => 'Interior Rendering', 'services.floorplans' => '3D Floor Plans', 'services.rayon' => 'Rayon CAD Drafting', 'services.bim' => 'BIM and Revit',
-            'services.cad' => 'CAD Drafting', 'services.outsourcing' => 'Production Support',
+            'services.cad' => 'CAD Drafting', 'permit-revisions' => 'Permit Revisions', 'services.outsourcing' => 'Production Support',
             'collaborations.index' => 'Collaborations', 'process' => 'How It Works', 'faqs' => 'FAQs',
             'blog.index' => 'Blog', 'contact' => 'Contact', 'privacy' => 'Privacy Policy', 'terms' => 'Terms of Service', 'sitemap.html' => 'Sitemap',
         ];
 
         $trail = [['label' => 'Home', 'url' => abs_pu('home')]];
 
-        if (str_starts_with($name, 'services.') && $name !== 'services.index') {
+        if ((str_starts_with($name, 'services.') && $name !== 'services.index') || $name === 'permit-revisions') {
             $trail[] = ['label' => 'Services', 'url' => abs_pu('services.index')];
         }
         if ($name === 'collaborations.show' && $collab) {

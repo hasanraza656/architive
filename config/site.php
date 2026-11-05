@@ -48,6 +48,7 @@ return [
             ['label' => 'Architectural Visualization', 'route' => 'services.visualization', 'icon' => 'eye',       'text' => 'Interiors, exteriors, 3D floor plans'],
             ['label' => 'BIM and Revit',               'route' => 'services.bim',           'icon' => 'box',       'text' => 'CAD to BIM, scan to BIM, families'],
             ['label' => 'CAD Drafting',                'route' => 'services.cad',           'icon' => 'file-text', 'text' => 'Plans, sections, PDF to DWG'],
+            ['label' => 'Permit Revisions',            'route' => 'permit-revisions',       'icon' => 'check',     'text' => 'Fix city comments, get an estimate'],
         ]],
         ['label' => 'Collaborations', 'route' => 'collaborations.index'],
         ['label' => 'Process',  'route' => 'process'],

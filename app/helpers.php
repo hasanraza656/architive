@@ -18,9 +18,9 @@ if (! function_exists('pu')) {
 
 if (! function_exists('hl')) {
     /** Escape text and turn [[...]] into a highlighted <mark> (case-study text the client still has to check). */
-    function hl(?string $text): IlluminateSupportHtmlString
+    function hl(?string $text): \Illuminate\Support\HtmlString
     {
-        return new IlluminateSupportHtmlString(preg_replace('/[[(.+?)]]/', '<mark>$1</mark>', e($text)));
+        return new \Illuminate\Support\HtmlString(preg_replace('/\[\[(.+?)\]\]/', '<mark>$1</mark>', e($text)));
     }
 }
 

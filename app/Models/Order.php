@@ -147,7 +147,7 @@ class Order extends Model
 
     public function serviceLabel(): ?string
     {
-        return \App\Mail\ContactEnquiry::SERVICES[$this->service] ?? null;
+        return \App\Mail\ContactEnquiry::serviceLabel($this->service);
     }
 
     public function audienceLabel(): ?string

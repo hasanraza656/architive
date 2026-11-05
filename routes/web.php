@@ -3,6 +3,7 @@
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PermitRevisionController;
 use App\Http\Controllers\SeoController;
 use App\Http\Middleware\EnsureTrailingSlash;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
     Route::get('rayon-cad-drafting-services/', [PageController::class, 'rayon'])->name('services.rayon');
     Route::get('bim-revit-scan-to-bim/', [PageController::class, 'bim'])->name('services.bim');
     Route::get('cad-drafting-services/', [PageController::class, 'cad'])->name('services.cad');
+    Route::get('permit-revisions/', [PermitRevisionController::class, 'show'])->name('permit-revisions');
     // Production support is no longer a separate page: keep the old URL alive with a permanent redirect to Services.
     Route::get('architectural-outsourcing/', [PageController::class, 'outsourcing'])->name('services.outsourcing');
 
@@ -60,6 +62,7 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
 });
 
 Route::post('contact/send', [ContactController::class, 'store'])->middleware('throttle:6,1')->name('contact.send');
+Route::post('permit-revisions/send', [PermitRevisionController::class, 'store'])->middleware('throttle:permit')->name('permit-revisions.send');
 
 Route::get('blog/feed.xml', [BlogController::class, 'feed'])->name('blog.feed');
 Route::get('sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap.xml');

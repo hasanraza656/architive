@@ -49,12 +49,13 @@ class RequestService
      */
     public function create(User $customer, array $data, array $files = [], string $source = 'website'): Order
     {
-        $label = ContactEnquiry::SERVICES[$data['service'] ?? ''] ?? null;
+        $label = ContactEnquiry::serviceLabel($data['service'] ?? null);
 
         $order = DB::transaction(function () use ($customer, $data, $files, $source, $label) {
             $order = Order::create([
                 'customer_id' => $customer->id,
-                'title' => (! empty($data['lp']) ? 'Free trial: ' : '') . ($label ? $label . ' request' : 'New project request'),   // lp = from an ad landing page (free 3-day trial offer)
+                'title' => (! empty($data['lp']) ? 'Free trial: ' : '') . ($label ? $label . ' request' : 'New project request')   // lp = from an ad landing page (free 3-day trial offer)
+                    . (($data['service'] ?? '') === 'permit-revisions' && ! empty($data['nda']) ? ' · NDA requested' : ''),             // visible in every list: do not use the files before the NDA is signed
                 'status' => OrderStatus::Request,
                 'source' => $source,
                 'service' => $data['service'] ?? null,
