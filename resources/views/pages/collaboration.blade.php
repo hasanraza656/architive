@@ -70,9 +70,31 @@
                         @endif
                     </div>
                 </div>
+                @if (! empty($c['challenge']))
+                    <div class="col-lg-6" data-reveal>
+                        <div class="info-card info-card--tall"><span class="info-card__k"><x-icon name="alert" /> The challenge</span><p>{{ hl($c['challenge']) }}</p></div>
+                    </div>
+                @endif
+                @if (! empty($c['process']))
+                    <div class="col-lg-6" data-reveal style="--d:.08s">
+                        <div class="info-card info-card--tall"><span class="info-card__k"><x-icon name="refresh" /> How we worked</span>
+                            <ol class="check-list">@foreach ($c['process'] as $step)<li><x-icon name="check" /> <b>{{ hl($step[0]) }}.</b> {{ hl($step[1]) }}</li>@endforeach</ol>
+                        </div>
+                    </div>
+                @endif
+                @if (! empty($c['facts']))
+                    @foreach ($c['facts'] as $k => $v)
+                        <div class="col-md-4" data-reveal style="--d:{{ $loop->index * .08 }}s"><div class="info-card"><span class="info-card__k"><x-icon name="file-text" /> {{ $k }}</span><p>{{ hl($v) }}</p></div></div>
+                    @endforeach
+                @endif
                 <div class="col-12" data-reveal>
                     <div class="info-card info-card--result"><span class="info-card__k"><x-icon name="check-circle" /> The result</span><p>{{ hl($c['result']) }}</p></div>
                 </div>
+                @if (! empty($c['quote']))
+                    <div class="col-12" data-reveal>
+                        <blockquote class="callout callout--wide"><x-icon name="info" /><span>“{{ hl($c['quote'][0]) }}”<br><b>{{ hl($c['quote'][1]) }}</b></span></blockquote>
+                    </div>
+                @endif
             </div>
         @else
         <div class="row g-4">
