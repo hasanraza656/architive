@@ -32,6 +32,7 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
     Route::get('exterior-rendering-services/', [PageController::class, 'exterior'])->name('services.exterior');
     Route::get('interior-rendering-services/', [PageController::class, 'interior'])->name('services.interior');
     Route::get('3d-floor-plan-rendering-services/', [PageController::class, 'floorplans'])->name('services.floorplans');
+    Route::get('architectural-animation-360-views/', [PageController::class, 'animation'])->name('services.animation');
     Route::get('rayon-cad-drafting-services/', [PageController::class, 'rayon'])->name('services.rayon');
     Route::get('bim-revit-scan-to-bim/', [PageController::class, 'bim'])->name('services.bim');
     Route::get('cad-drafting-services/', [PageController::class, 'cad'])->name('services.cad');

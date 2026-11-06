@@ -57,6 +57,11 @@ return [
             'description' => 'Turn 2D floor plans into furnished 3D floor plans, top-down or isometric, for listings, brochures, leasing and client presentations.',
             'sitemap'     => [0.9, 'monthly'],
         ],
+        'services.animation' => [
+            'title'       => 'Architectural Animation and 360 Views | Architive',
+            'description' => 'Architectural animation, walkthroughs and 360-degree views built from your drawings or model, so clients and buyers can explore a design before it is built.',
+            'sitemap'     => [0.8, 'monthly'],
+        ],
         'services.rayon' => [
             'title'       => 'Rayon CAD Drafting Services for Interior Designers | Architive',
             'description' => 'Rayon drafting services: PDF, DWG and scan to Rayon drawings, template and block setup, furniture layouts, test fits and DWG exports for consultants.',

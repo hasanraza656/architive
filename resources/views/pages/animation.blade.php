@@ -1,0 +1,66 @@
+@extends('layouts.app')
+
+@section('content')
+@include('partials.service-detail', ['d' => [
+    'key' => 'ani', 'name' => 'Architectural Animation and 360 Views', 'type' => 'Architectural animation and 360-degree views',
+    'desc' => config('seo.pages')['services.animation']['description'],
+    'schemaItems' => ['Walkthrough and flythrough animation', 'Exterior and interior animation', '360-degree panoramic views', 'Short marketing clips', 'Stills, animation and 360 views from one model'],
+    'eyebrow' => 'Architectural animation and 360 views',
+    'title' => 'Let Clients <em>Move Through</em> the Design Before It Is Built.',
+    'lead' => 'Architectural animation and 360-degree views built from your drawings or model. A still image shows one angle; motion and panoramas let clients, buyers and investors look around the space for themselves.',
+    'heroItems' => ['Walkthrough and flythrough animation', 'Interior and exterior sequences', '360-degree panoramic views', 'Short clips for listings and social'],
+    'image' => ['key' => 'viz/bandon-dusk-wrap', 'alt' => 'Two-storey timber residence with a wraparound porch at dusk, a render of the kind Architive turns into animation and 360 views'],
+    'cta' => 'Get an animation quote', 'topic' => 'Animation and 360 Views', 'service' => 'visualization',
+    'gallery' => null,
+    'cardsEyebrow' => 'What we make', 'cardsTitle' => 'Ways to <em>Show Movement</em>',
+    'cardsLead' => 'Which one fits depends on your project, your audience and your budget. We recommend the simplest option that does the job.',
+    'cards' => [
+        ['icon' => 'eye', 'title' => 'Walkthrough animation', 'text' => 'A camera path through the inside of a building, room by room, so the viewer understands how the spaces connect.'],
+        ['icon' => 'home', 'title' => 'Exterior flythrough', 'text' => 'A moving view around and toward a building or site, showing the approach, the massing and the surroundings.'],
+        ['icon' => 'layers', 'title' => '360-degree views', 'text' => 'Panoramic images the viewer can turn in any direction on a phone or in a browser. Lighter than animation, and good for rooms that need to be explored.'],
+        ['icon' => 'image', 'title' => 'Short marketing clips', 'text' => 'A few seconds of motion cut from the same scene for listings, websites and social media.'],
+        ['icon' => 'grid', 'title' => 'Stills from the same model', 'text' => 'Because the model already exists, we can also deliver still renders, so one build serves the brochure, the website and the video.'],
+        ['icon' => 'file-text', 'title' => 'Storyboard first', 'text' => 'You see the planned camera path and key frames before we render, so changes are made when they are cheap.'],
+    ],
+    'forTitle' => 'Who It <em>Suits</em>',
+    'forItems' => [
+        ['Developers and sales teams', 'who want buyers to explore a project before construction finishes.'],
+        ['Architects and designers', 'who need a clear way to present a design to a client or planning committee.'],
+        ['Homeowners and renovators', 'who want to see the finished space before approving the work.'],
+        ['Hospitality and commercial owners', 'who need motion for a website, a pitch or investor material.'],
+    ],
+    'sendTitle' => 'Your Starting <em>Pack</em>',
+    'send' => [
+        'Drawings, a CAD file or a Revit or SketchUp model',
+        'Material, finish and furniture references',
+        'Where the animation or 360 views will be used',
+        'The path or rooms you want to show, even as a rough sketch',
+        'Your deadline and who signs off',
+    ],
+    'sendNote' => 'Not sure whether you need animation, 360 views or stills? Send the project and we will suggest the simplest option.',
+    'stepsTitle' => 'From Drawings to <em>Motion</em>',
+    'stepsLead' => 'Animation costs more to change late than stills do, so we agree the plan before rendering.',
+    'steps' => [
+        ['n' => '01', 'icon' => 'upload', 'title' => 'Share the project', 'text' => 'We review your files, list anything missing and confirm the scope, delivery date and price in a written quote.'],
+        ['n' => '02', 'icon' => 'pencil-ruler', 'title' => 'Build the model', 'text' => 'The scene is modelled from your drawings, with materials and lighting set up.'],
+        ['n' => '03', 'icon' => 'file-text', 'title' => 'Approve the storyboard', 'text' => 'You approve the camera path and key frames before the full render starts.'],
+        ['n' => '04', 'icon' => 'message', 'title' => 'Review and refine', 'text' => 'We share a preview, collect one combined round of comments and apply them.'],
+        ['n' => '05', 'icon' => 'download', 'title' => 'Hand over', 'text' => 'You receive the final files in the formats you need for your website, presentation or social channels.'],
+    ],
+    'priceTitle' => 'What Decides <em>the Price</em>',
+    'price' => [
+        'Animation and 360 views are quoted by scope, not by a fixed rate. The main factors are how much needs to be modelled, the number of rooms or camera shots, the length of the clip, the level of detail and the delivery date.',
+        'If you only need to show a few rooms in a way people can explore, 360 views are usually the lighter option. You get one written quote listing the scope, revision rounds and delivery date before we start.',
+    ],
+    'faqs' => [
+        1 => ['q' => 'What is the difference between an animation and a 360 view?', 'a' => 'An animation is a video that follows a camera path chosen by us. A 360 view is a panoramic image that the viewer turns and explores themselves. Animation tells a story; 360 views let people look wherever they like.'],
+        2 => ['q' => 'What do you need to start?', 'a' => 'Drawings, a CAD file or a 3D model, plus material references and a note on where the result will be used. If you only have sketches, we can discuss what is possible before you commit.'],
+        3 => ['q' => 'How long does it take?', 'a' => 'It depends on scope. Your written quote includes a delivery date, and the storyboard step keeps late changes to a minimum.'],
+        4 => ['q' => 'Can I get stills as well?', 'a' => 'Yes. Stills can be produced from the same model, which is usually cheaper than building them separately later.'],
+        5 => ['q' => 'Do you charge per second of animation?', 'a' => 'We quote the whole project by scope. Length matters, but so do modelling, the number of shots and the detail level.'],
+        6 => ['q' => 'Can I change things after I see the preview?', 'a' => 'Yes. Each quote includes a set number of revision rounds. Because you approve the storyboard first, most changes are small.'],
+    ],
+    'related' => 'Need still images first? See our <a href="' . pu('services.exterior') . '">exterior rendering</a>, <a href="' . pu('services.interior') . '">interior rendering</a> and <a href="' . pu('services.floorplans') . '">3D floor plan</a> services.',
+    'ctaTitle' => 'Send a Project. <em>See It Move.</em>',
+]])
+@endsection
