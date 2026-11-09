@@ -152,3 +152,5 @@ html.lb-open { overflow: hidden; }
 .info-card--result { border-left: 4px solid var(--accent); background: linear-gradient(135deg, var(--surface), var(--bg-alt)); }
 .info-card--result p { font-size: 1.08rem; line-height: 1.7; margin: 0; }
 .collab-row__card { margin: 0 0 1.2rem; font-size: 1.05rem; line-height: 1.7; color: var(--ink-2); }
+/* Cover-only sample cards (client feedback 9 Nov 2026): her cover slides are 4:3 */
+.set-card--cover .set-card__media { aspect-ratio: 4 / 3; }

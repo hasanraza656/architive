@@ -12,7 +12,7 @@
     'title' => 'Revit Capacity That Fits <em>the Way Your Office Works.</em>',
     'lead' => 'Structured architectural models and documentation built around your Revit version, project purpose, naming conventions and delivery standards—not ours.',
     'items' => ['Architectural Revit modeling', 'CAD to BIM and scan to BIM', 'Plans, sections, elevations and schedules', 'Revit families and model updates'],
-    'image' => ['key' => 'scan/house-1-model', 'alt' => 'Revit existing-conditions model of a historic brick house built from a surveyor point cloud'],
+    'image' => ['key' => 'cover/drv-3d', 'alt' => 'Revit 3D model of a modular driver room', 'sheet' => true],
     'cta' => 'Start a project', 'ctaUrl' => pu('contact', [], ['service' => 'bim']), 'topic' => 'BIM and Revit',
 ])
 
@@ -62,14 +62,14 @@
                 <p class="eyebrow" data-reveal>Sample sets</p>
                 <h2 class="display-h mb-0" id="bim-samples" data-split>Revit and BIM <em>Samples</em></h2>
             </div>
-            <p class="lead-p mb-0" data-reveal style="max-width: 46ch">Revit drawing sets: existing-conditions documentation from scan data and measured information, plus modular shop drawings with a 3D model. Select a set to browse its sheets.</p>
+            <p class="lead-p mb-0" data-reveal style="max-width: 46ch">Cover thumbnails of our Revit and BIM drawing sets. Select a cover to enlarge it, or open the complete sheet.</p>
         </div>
-        <div class="set-grid">
+        <div class="set-grid set-grid--3">
             @foreach (\App\Support\Portfolio::sets('bim') as $set)
-                @include('partials.set-card', ['set' => $set])
+                @include('partials.cover-card', ['set' => $set])
             @endforeach
         </div>
-        <p class="callout callout--wide mt-4" data-reveal><x-icon name="info" /><span><b>Note:</b> Architive does not perform on-site scanning; these models were built from point-cloud data and information supplied by the client. Cover sheets and site plans are omitted, and title blocks (owner, address and client details) are removed to protect client privacy.</span></p>
+        <p class="callout callout--wide mt-4" data-reveal><x-icon name="info" /><span><b>Note:</b> Only the cover of each set is shown here. Owner, address and client details are removed from every sample to protect client privacy.</span></p>
     </div>
 </section>
 

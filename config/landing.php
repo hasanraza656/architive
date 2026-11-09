@@ -67,12 +67,12 @@ return [
 
         'cad-drafting' => [
             'title'       => 'CAD Drafting Services for US Permit Sets | Free 3-Day Trial',
-            'description' => 'Permit and construction drawing sets drafted from your sketches, markups or PDFs, to your standards. Samples include adaptive reuse, food service and ADU sets. Try us free for 3 days.',
+            'description' => 'Permit and construction drawing sets drafted from your sketches, markups or PDFs, to your standards. Samples include ADU plans and sketch-to-CAD drawings. Try us free for 3 days.',
             'eyebrow'     => 'CAD drafting for architects, designers and builders',
             'h1'          => 'Drawing Sets Done <em>While You Sleep.</em>',
             'lead'        => 'Floor plans, elevations, sections and details drafted from your sketches, markups or PDFs, to your templates and layer standards. Try us free on a real set first.',
-            'bullets'     => ['Permit and construction drawing sets', 'Your templates, title blocks and layers', 'PDF and scan to DWG conversion', 'Sample permit, ADU and food service sets'],
-            'image'       => ['key' => 'sets/adr/02-proposed-floor-plans', 'alt' => 'Proposed floor plans sheet from an adaptive reuse permit set drafted by Architive'],
+            'bullets'     => ['Permit and construction drawing sets', 'Your templates, title blocks and layers', 'PDF and scan to DWG conversion', 'Sample ADU, sketch-to-CAD and survey plans'],
+            'image'       => ['key' => 'cad/adu-both-after', 'alt' => 'Dimensioned AutoCAD plans of an ADU drafted by Architive from marked-up concept plans'],
             'service'     => 'cad', 'topic' => 'CAD Drafting',
             'formTitle'   => 'Start your free trial',
             'placeholder' => 'For example: redraw the attached marked-up PDF floor plan and elevations in AutoCAD using our title block, for a permit submission next week.',

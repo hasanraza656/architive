@@ -1,0 +1,38 @@
+/* Home: collaborations as a swipe / arrow carousel. The last visible card is cut off on purpose so people see there is more. */
+.ccar { position: relative; }
+.ccar__track {
+    display: flex; gap: clamp(1rem, 2vw, 1.5rem);
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-behavior: smooth; scroll-padding-inline: 0;
+    padding: .9rem 0 1.4rem; margin-top: -.9rem;
+    scrollbar-width: none; -ms-overflow-style: none; cursor: grab;
+    -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 70px), transparent);
+    mask-image: linear-gradient(90deg, #000 calc(100% - 70px), transparent);
+}
+.ccar.is-end .ccar__track { -webkit-mask-image: none; mask-image: none; }
+.ccar__track::-webkit-scrollbar { display: none; }
+.ccar__track:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 12px; }
+.ccar__track.is-drag { cursor: grabbing; scroll-snap-type: none; scroll-behavior: auto; user-select: none; }
+.ccar__track.is-drag a { pointer-events: none; }
+/* desktop: 3 cards and about half of the 4th */
+.ccar__item { flex: 0 0 calc((100% - 3 * clamp(1rem, 2vw, 1.5rem)) / 3.5); min-width: 0; scroll-snap-align: start; }
+@media (max-width: 1100px) { .ccar__item { flex-basis: calc((100% - 2 * clamp(1rem, 2vw, 1.5rem)) / 2.5); } }
+@media (max-width: 640px) { .ccar__item { flex-basis: 78%; } }
+
+.ccar__bar { display: flex; align-items: center; gap: 1rem; margin-top: .4rem; }
+.ccar__progress { flex: 1; height: 3px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.ccar__progress i { display: block; height: 100%; width: 30%; border-radius: 3px; background: var(--accent); transform-origin: left; transition: width .4s var(--ease), margin-left .4s var(--ease); }
+.ccar__count { font: 400 .72rem/1 var(--f-mono); letter-spacing: .12em; color: var(--ink-3); min-width: 4.6rem; text-align: right; }
+.ccar__nav { display: flex; gap: .55rem; }
+.ccar__btn {
+    width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+    background: var(--surface); color: var(--ink); border: 1px solid var(--line-2); font-size: 1.05rem;
+    transition: background .3s, transform .3s var(--ease), border-color .3s, opacity .3s, box-shadow .3s;
+}
+.ccar__btn:first-child svg { transform: scaleX(-1); }
+.ccar__btn:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: #141414; transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.ccar__btn:active:not(:disabled) { transform: scale(.94); }
+.ccar__btn:disabled { opacity: .35; cursor: default; }
+.ccar__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (max-width: 640px) { .ccar__btn { width: 44px; height: 44px; } .ccar__count { display: none; } }
+@media (prefers-reduced-motion: reduce) { .ccar__track { scroll-behavior: auto; } .ccar__progress i, .ccar__btn { transition: none; } }

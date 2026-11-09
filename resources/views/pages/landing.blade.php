@@ -45,12 +45,12 @@
             <p class="lead-p mb-0" style="max-width: 44ch">Real projects from our studio. Select any image to enlarge it.</p>
         </div>
         @if (! empty($p['sets']))
-            <div class="set-grid">
-                @foreach (Portfolio::sets($p['sets']) as $set)
-                    @include('partials.set-card', ['set' => $set])
+            <div class="cadpairs">
+                @foreach (Portfolio::cadPairs() as $pair)
+                    @include('partials.cad-pair', ['pair' => $pair])
                 @endforeach
             </div>
-            <p class="note-line mt-3">Title blocks and owner details are removed to protect client privacy. Where drawings must be signed or sealed, your locally licensed professional reviews and stamps them.</p>
+            <p class="note-line mt-3">Where drawings must be signed or sealed, your locally licensed professional reviews and stamps them.</p>
         @else
             @include('partials.work-gallery', ['only' => $p['gallery'], 'withNew' => true])
         @endif

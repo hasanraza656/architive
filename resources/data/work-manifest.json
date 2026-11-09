@@ -719,276 +719,6 @@
   "tw": 800,
   "th": 803
  },
- "sets/adr/01-existing-floor-plans": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/adr/02-proposed-floor-plans": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/adr/03-exterior-elevations": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/adr/04-building-section": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/adr/05-window-types-schedule": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/adr/06-wall-types": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/adr/07-interior-elevations": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/adr/08-wall-section-details": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/adr/09-stair-railing-details": {
-  "w": 2000,
-  "h": 1546,
-  "tw": 800,
-  "th": 618
- },
- "sets/food/01-equipment-plan": {
-  "w": 2000,
-  "h": 1446,
-  "tw": 800,
-  "th": 579
- },
- "sets/food/02-plumbing-plan": {
-  "w": 2000,
-  "h": 1446,
-  "tw": 800,
-  "th": 579
- },
- "sets/food/03-electrical-plan": {
-  "w": 2000,
-  "h": 1446,
-  "tw": 800,
-  "th": 579
- },
- "sets/food/04-slab-penetration-plan": {
-  "w": 2000,
-  "h": 1446,
-  "tw": 800,
-  "th": 579
- },
- "sets/food/05-equipment-elevations": {
-  "w": 2000,
-  "h": 1446,
-  "tw": 800,
-  "th": 579
- },
- "sets/food/06-exhaust-hood-details": {
-  "w": 2000,
-  "h": 1446,
-  "tw": 800,
-  "th": 579
- },
- "sets/drv/01-3d-model": {
-  "w": 1500,
-  "h": 933,
-  "tw": 800,
-  "th": 498
- },
- "sets/drv/02-floor-plan-schedules": {
-  "w": 2000,
-  "h": 1592,
-  "tw": 800,
-  "th": 637
- },
- "sets/drv/03-exterior-elevations": {
-  "w": 2000,
-  "h": 1592,
-  "tw": 800,
-  "th": 637
- },
- "sets/drv/04-sections": {
-  "w": 2000,
-  "h": 1592,
-  "tw": 800,
-  "th": 637
- },
- "sets/drv/05-mep-plan-schematic": {
-  "w": 2000,
-  "h": 1592,
-  "tw": 800,
-  "th": 637
- },
- "sets/drv/06-mep-3d-details": {
-  "w": 2000,
-  "h": 1592,
-  "tw": 800,
-  "th": 637
- },
- "sets/drv/07-roof-structural-plan": {
-  "w": 2000,
-  "h": 1592,
-  "tw": 800,
-  "th": 637
- },
- "sets/drv/08-structural-3d-details": {
-  "w": 2000,
-  "h": 1592,
-  "tw": 800,
-  "th": 637
- },
- "sets/res/01-front-elevation": {
-  "w": 2000,
-  "h": 1295,
-  "tw": 800,
-  "th": 518
- },
- "sets/res/02-rear-elevation": {
-  "w": 2000,
-  "h": 1295,
-  "tw": 800,
-  "th": 518
- },
- "sets/res/03-foundation-plan": {
-  "w": 2000,
-  "h": 1295,
-  "tw": 800,
-  "th": 518
- },
- "sets/res/04-main-level-plan-doors-windows": {
-  "w": 2000,
-  "h": 1295,
-  "tw": 800,
-  "th": 518
- },
- "sets/res/05-main-level-plan-interior-walls": {
-  "w": 2000,
-  "h": 1295,
-  "tw": 800,
-  "th": 518
- },
- "sets/res/06-building-section": {
-  "w": 2000,
-  "h": 1295,
-  "tw": 800,
-  "th": 518
- },
- "sets/res/07-exterior-doors-schedule": {
-  "w": 2000,
-  "h": 1295,
-  "tw": 800,
-  "th": 518
- },
- "sets/res/08-roof-plan": {
-  "w": 2000,
-  "h": 1295,
-  "tw": 800,
-  "th": 518
- },
- "sets/adu/01-floor-plans": {
-  "w": 2000,
-  "h": 1364,
-  "tw": 800,
-  "th": 546
- },
- "sets/adu/02-floor-plans-furnished": {
-  "w": 2000,
-  "h": 1364,
-  "tw": 800,
-  "th": 546
- },
- "sets/adu/03-roof-layout-and-section": {
-  "w": 2000,
-  "h": 1364,
-  "tw": 800,
-  "th": 546
- },
- "sets/adu/04-elevations-front-left": {
-  "w": 2000,
-  "h": 1364,
-  "tw": 800,
-  "th": 546
- },
- "sets/adu/05-elevations-right-rear": {
-  "w": 2000,
-  "h": 1364,
-  "tw": 800,
-  "th": 546
- },
- "sets/adu/06-electrical-hvac-plans": {
-  "w": 2000,
-  "h": 1364,
-  "tw": 800,
-  "th": 546
- },
- "sets/adu/07-plumbing-plans": {
-  "w": 2000,
-  "h": 1364,
-  "tw": 800,
-  "th": 546
- },
- "sets/adu/08-foundation-plan": {
-  "w": 2000,
-  "h": 1364,
-  "tw": 800,
-  "th": 546
- },
- "sets/com/01-basement-floor-plans": {
-  "w": 2000,
-  "h": 1500,
-  "tw": 800,
-  "th": 600
- },
- "sets/com/02-level-1-floor-plan": {
-  "w": 2000,
-  "h": 1500,
-  "tw": 800,
-  "th": 600
- },
- "sets/com/03-level-2-floor-plan": {
-  "w": 2000,
-  "h": 1500,
-  "tw": 800,
-  "th": 600
- },
- "sets/com/04-level-1-reflected-ceiling-plan": {
-  "w": 2000,
-  "h": 1500,
-  "tw": 800,
-  "th": 600
- },
- "sets/com/05-exterior-elevations": {
-  "w": 2000,
-  "h": 1500,
-  "tw": 800,
-  "th": 600
- },
- "sets/com/06-building-sections": {
-  "w": 2000,
-  "h": 1500,
-  "tw": 800,
-  "th": 600
- },
  "cases/cad-tenant-sketch": {
   "w": 1900,
   "h": 1238,
@@ -1054,5 +784,41 @@
   "h": 2215,
   "tw": 800,
   "th": 932
+ },
+ "cover/adr": {
+  "w": 1600,
+  "h": 1200,
+  "tw": 800,
+  "th": 600
+ },
+ "cover/com": {
+  "w": 1600,
+  "h": 1200,
+  "tw": 800,
+  "th": 600
+ },
+ "cover/drv": {
+  "w": 1600,
+  "h": 1200,
+  "tw": 800,
+  "th": 600
+ },
+ "cover/drv-3d": {
+  "w": 1500,
+  "h": 933,
+  "tw": 800,
+  "th": 498
+ },
+ "cover/food": {
+  "w": 1600,
+  "h": 1200,
+  "tw": 800,
+  "th": 600
+ },
+ "cover/res": {
+  "w": 1600,
+  "h": 1200,
+  "tw": 800,
+  "th": 600
  }
 }

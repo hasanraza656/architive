@@ -47,8 +47,8 @@ class Content
                 'short' => 'Structured Revit models and documentation built from CAD files, surveys and point clouds, with the model purpose, version, views and standards agreed before production.',
                 'items' => ['Architectural Revit modeling', 'CAD to BIM and scan to BIM', 'Plans, sections, elevations and schedules', 'Revit families and model updates'],
                 'link'  => 'Explore BIM and Revit',
-                'image' => 'assets/img/work/scan/house-1-model',
-                'alt'   => 'Revit existing-conditions model of a historic brick house built from a point cloud',
+                'image' => 'assets/img/work/cover/drv-3d',
+                'alt'   => 'Revit 3D model of a modular driver room',
             ],
             'cad' => [
                 'route' => 'services.cad',
@@ -58,8 +58,8 @@ class Content
                 'items' => ['Floor plans, elevations and sections', 'Permit-support and construction drawing packages', 'PDF, sketch and scan to DWG', 'As-built, renovation and redline updates'],
                 'link'  => 'Explore CAD drafting',
                 'note'  => 'Where local regulations require drawings to be signed or sealed, we prepare the package for review by your locally licensed professional.',
-                'image' => 'assets/img/work/sets/adr/02-proposed-floor-plans',
-                'alt'   => 'Proposed floor plans from an adaptive reuse permit set',
+                'image' => 'assets/img/work/cad/adu-both-after',
+                'alt'   => 'Dimensioned AutoCAD plans of an ADU drawn from marked-up concept plans',
             ],
             'outsourcing' => [
                 'route' => 'services.outsourcing',
@@ -86,16 +86,16 @@ class Content
                 ['viz/bedroom', 'Bedroom interior visualization with timber flooring', false],
             ],
             'bim' => [
-                ['scan/house-1-cloud', 'Point cloud of a historic brick house captured by a surveyor', false],
-                ['scan/house-1-model', 'Revit existing-conditions model built from that point cloud', false],
-                ['sets/pa/01-level-1-floor-plan', 'Level 1 floor plan sheet from a Revit existing-conditions set', true],
-                ['cases/manuel-house-3d', 'Revit 3D view of a double-storey house', true],
+                ['cover/drv-3d', 'Revit 3D model of a modular driver room', true],
+                ['cover/com', 'Cover of the Commercial Existing Conditions drawing set', true],
+                ['cover/adr', 'Cover of the Adaptive Reuse Permit Set', true],
+                ['cover/res', 'Cover of the Residential Drawing Set', true],
             ],
             'cad' => [
-                ['sets/adr/02-proposed-floor-plans', 'Proposed floor plans from an adaptive reuse permit set', true],
-                ['sets/adu/02-floor-plans-furnished', 'Furnished floor plans from an ADU plan set', true],
-                ['sets/food/01-equipment-plan', 'Equipment plan from a food service permit set', true],
-                ['sets/adr/03-exterior-elevations', 'Exterior elevations from an adaptive reuse permit set', true],
+                ['cad/adu-both-after', 'Dimensioned AutoCAD plans of an ADU', true],
+                ['cad/uk-survey-after', 'Scaled AutoCAD plan with an area schedule drawn from a hand-drawn survey', true],
+                ['cad/germany-after', 'Scaled 1:100 AutoCAD sheet drawn from hand sketches', true],
+                ['cad/uk-marked-after', 'Scaled AutoCAD plan of a house and annexe with an area schedule', true],
             ],
         ];
         $out = [];

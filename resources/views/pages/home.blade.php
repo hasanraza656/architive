@@ -79,12 +79,28 @@
             </div>
             <a class="btn-ay" href="{{ pu('collaborations.index') }}" data-reveal>View collaborations <x-icon name="arrow-right" /></a>
         </div>
-        <div class="row g-4 justify-content-center">
-            @foreach (Content::collaborations() as $slug => $c)
-                <div class="col-md-6 col-xl-3" data-reveal style="--d: {{ $loop->index * .1 }}s">
-                    @include('partials.collab-card', ['slug' => $slug, 'c' => $c])
+        @push('head')
+            <link rel="stylesheet" href="{{ asset_v('assets/css/collab-carousel.css') }}">
+        @endpush
+        @push('scripts')
+            <script src="{{ asset_v('assets/js/collab-carousel.js') }}"></script>
+        @endpush
+        <div class="ccar" data-ccar data-reveal role="region" aria-roledescription="carousel" aria-label="Collaborations">
+            <div class="ccar__track" data-ccar-track tabindex="0">
+                @foreach (Content::collaborations() as $slug => $c)
+                    <div class="ccar__item" aria-label="Project {{ $loop->iteration }} of {{ $loop->count }}">
+                        @include('partials.collab-card', ['slug' => $slug, 'c' => $c])
+                    </div>
+                @endforeach
+            </div>
+            <div class="ccar__bar">
+                <div class="ccar__progress" aria-hidden="true"><i data-ccar-fill></i></div>
+                <span class="ccar__count" data-ccar-count aria-live="polite">01 / {{ str_pad(count(Content::collaborations()), 2, '0', STR_PAD_LEFT) }}</span>
+                <div class="ccar__nav">
+                    <button type="button" class="ccar__btn" data-ccar-prev aria-label="Previous projects"><x-icon name="arrow-right" /></button>
+                    <button type="button" class="ccar__btn" data-ccar-next aria-label="Next projects"><x-icon name="arrow-right" /></button>
                 </div>
-            @endforeach
+            </div>
         </div>
     </div>
 </section>

@@ -1,4 +1,6 @@
 /**
+ * SUPERSEDED for the drawing sets (client feedback: cover thumbnails only, see tools/build-covers-nov9.mjs; running the sets part again would re-create full sheets that must NOT be published).
+ * Still used for the AutoCAD before/after pairs (cad/*).
  * ADDITIVE asset build for the client's 9 Nov 2026 update (permit sets, shop drawings, AutoCAD before/after).
  * Unlike build-work-assets.mjs it never deletes anything: it only writes the new folders and merges the new entries into
  * resources/data/work-manifest.json.
