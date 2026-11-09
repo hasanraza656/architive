@@ -187,26 +187,62 @@ class Portfolio
     public static function sets(string $group): array
     {
         $all = [
-            'ny' => ['group' => 'cad', 'title' => 'Residential Addition Permit Set', 'place' => 'New York, USA', 'total' => 9,
+            // ---- 9 Nov 2026 update (client's own cover slides: titles, sheet counts). Older sets below are kept in the data
+            // but moved to the *_legacy groups, so they no longer show on the service pages.
+            'adr' => ['group' => 'cad', 'title' => 'Adaptive Reuse Permit Set', 'place' => 'Mixed-use adaptive reuse', 'total' => 93,
+                'summary' => 'Permit set for adapting an existing two-storey building: existing and proposed plans, elevations, building section, schedules and construction details. The full set runs to 93 sheets across architectural, MEP and structural.',
+                'chips' => ['Existing and proposed plans', 'Elevations', 'Section', 'Schedules', 'Details'],
+                'sheets' => [['01-existing-floor-plans', 'A2.01', 'Existing floor plans'], ['02-proposed-floor-plans', 'A2.03', 'Proposed floor plans'], ['03-exterior-elevations', 'A3.02', 'Exterior elevations'],
+                    ['04-building-section', 'A6.01', 'Building section'], ['05-window-types-schedule', 'A0.07', 'Window types and schedule'], ['06-wall-types', 'A0.05', 'Wall types'],
+                    ['07-interior-elevations', 'A4.12', 'Interior elevations'], ['08-wall-section-details', 'A7.01', 'Wall section details'], ['09-stair-railing-details', 'A0.12', 'Stair and railing details']]],
+            'food' => ['group' => 'cad', 'title' => 'Food Service Permit Set', 'place' => 'Commercial kitchen fit-out', 'total' => 19,
+                'summary' => 'Equipment, plumbing, electrical and slab-penetration plans, equipment elevations and exhaust hood details for a commercial kitchen. The full set is 19 sheets.',
+                'chips' => ['Equipment plan', 'Plumbing', 'Electrical', 'Elevations', 'Hood details'],
+                'sheets' => [['01-equipment-plan', 'FS-2.1.1', 'Equipment plan and schedule'], ['02-plumbing-plan', 'FS-4.1.1', 'Plumbing plan'], ['03-electrical-plan', 'FS-3.1.1', 'Electrical plan'],
+                    ['04-slab-penetration-plan', 'FS-5.1.1', 'Slab penetration plan'], ['05-equipment-elevations', 'FS-8.2.1', 'Equipment elevations'], ['06-exhaust-hood-details', 'FS-9.1.1', 'Exhaust hood details']]],
+            'adu' => ['group' => 'cad', 'title' => 'ADU Architectural Plan Set', 'place' => 'Accessory dwelling unit', 'total' => 10,
+                'summary' => '800 sq ft ADU over a garage, drawn from the client\'s marked-up concept plans: floor plans, roof layout and section, elevations, electrical and HVAC, plumbing and foundation plans.',
+                'chips' => ['Floor plans', 'Elevations', 'Roof and section', 'Electrical / HVAC', 'Plumbing', 'Foundation'],
+                'sheets' => [['01-floor-plans', 'A-1', 'Floor plans'], ['02-floor-plans-furnished', 'A-1', 'Furnished floor plans'], ['03-roof-layout-and-section', 'A-2', 'Roof layout and building section'],
+                    ['04-elevations-front-left', 'A-3', 'Front and left elevations'], ['05-elevations-right-rear', 'A-4', 'Right and rear elevations'], ['06-electrical-hvac-plans', 'E-1', 'Electrical and HVAC plans'],
+                    ['07-plumbing-plans', 'P-1', 'Plumbing plans'], ['08-foundation-plan', 'A-2', 'Foundation plan']]],
+            'com' => ['group' => 'bim', 'title' => 'Commercial Existing Conditions', 'place' => 'Commercial building', 'total' => 18,
+                'summary' => 'Existing-conditions Revit drawing set: basement, level 1 and level 2 plans, reflected ceiling plan, exterior elevations and building sections. The full set is 18 sheets (plans, RCP, MEP, structural and sections).',
+                'chips' => ['Floor plans', 'Reflected ceiling plans', 'Elevations', 'Building sections'],
+                'sheets' => [['01-basement-floor-plans', 'A102', 'Basement floor plans'], ['02-level-1-floor-plan', 'A103', 'Level 1 floor plan'], ['03-level-2-floor-plan', 'A104', 'Level 2 floor plan'],
+                    ['04-level-1-reflected-ceiling-plan', 'A106', 'Level 1 reflected ceiling plan'], ['05-exterior-elevations', 'A115', 'Exterior elevations'], ['06-building-sections', 'A117', 'Building sections']]],
+            'drv' => ['group' => 'bim', 'title' => 'Modular Driver Room Shop Drawings', 'place' => 'Modular unit', 'total' => 27,
+                'summary' => 'Architectural, MEP and structural shop drawings for a prefabricated driver room, with the Revit 3D model, plans, elevations, sections and foundation details. The full set is 27 sheets.',
+                'chips' => ['3D model', 'Plans and elevations', 'Sections', 'MEP', 'Structural'],
+                'sheets' => [['01-3d-model', 'A100', '3D model view'], ['02-floor-plan-schedules', 'A101', 'Floor plan with schedules'], ['03-exterior-elevations', 'A107', 'Exterior elevations'],
+                    ['04-sections', 'A110', 'Transverse and longitudinal sections'], ['05-mep-plan-schematic', 'M-003', 'MEP plan colour schematic'], ['06-mep-3d-details', 'M-006', 'MEP 3D details'],
+                    ['07-roof-structural-plan', 'STR003', 'Roof structural plan'], ['08-structural-3d-details', 'STR005', 'Structural 3D details']]],
+            'res' => ['group' => 'cad', 'title' => 'Residential Drawing Set', 'place' => 'Single-storey home', 'total' => 16,
+                'summary' => 'Elevations, foundation plan, main level plans with door and window schedules, building section and roof plan for a single-storey residence. The full set is 16 sheets.',
+                'chips' => ['Elevations', 'Foundation', 'Floor plans', 'Schedules', 'Section'],
+                'sheets' => [['01-front-elevation', 'A101', 'Front elevation'], ['02-rear-elevation', 'A102', 'Rear elevation'], ['03-foundation-plan', 'A202', 'Foundation plan'],
+                    ['04-main-level-plan-doors-windows', 'A302', 'Main level plan: doors and windows'], ['05-main-level-plan-interior-walls', 'A303', 'Main level plan: interior walls'], ['06-building-section', 'A401', 'Building section'],
+                    ['07-exterior-doors-schedule', 'A403', 'Exterior doors schedule'], ['08-roof-plan', 'A405', 'Roof plan']]],
+            'ny' => ['group' => 'cad_legacy', 'title' => 'Residential Addition Permit Set', 'place' => 'New York, USA', 'total' => 9,
                 'summary' => 'Addition to an existing house: main level plan, roof plan, elevations, section and construction details.',
                 'chips' => ['Floor plan', 'Roof plan', 'Elevations', 'Section', 'Details'],
                 'sheets' => [['01-main-level-plan', 'A1.1', 'Main level plan'], ['02-roof-plan', 'A1.3', 'Roof plan'], ['03-elevations-front-back', 'A2.1', 'Exterior elevations: front and back'],
                     ['04-elevations-right-left', 'A2.2', 'Exterior elevations: right and left'], ['05-building-section', 'A2.3', 'Building section'], ['06-architectural-details', 'A5.1', 'Architectural details'], ['07-door-window-details', 'A6.2', 'Door and window details']]],
-            'caa' => ['group' => 'cad', 'title' => 'Residential Addition Permit Set', 'place' => 'California, USA', 'total' => 7,
+            'caa' => ['group' => 'cad_legacy', 'title' => 'Residential Addition Permit Set', 'place' => 'California, USA', 'total' => 7,
                 'summary' => 'Bedroom and bath addition: floor plan with schedules, roof plan, elevations and electrical plan.',
                 'chips' => ['Floor plan', 'Schedules', 'Elevations', 'Electrical'],
                 'sheets' => [['01-main-floor-plan', 'A1.1', 'Main floor plan with schedules'], ['02-roof-plan', 'A1.2', 'Roof plan'], ['03-elevations-left-right', 'A2.1', 'Elevations: left and right'],
                     ['04-elevations-front-back', 'A2.2', 'Elevations: front and back'], ['05-electrical-plan', 'E1.2', 'Main level electrical plan']]],
-            'car' => ['group' => 'cad', 'title' => 'Residential Remodel Permit Set', 'place' => 'California, USA', 'total' => 7,
+            'car' => ['group' => 'cad_legacy', 'title' => 'Residential Remodel Permit Set', 'place' => 'California, USA', 'total' => 7,
                 'summary' => 'Whole-house remodel: proposed main level plan with door and window schedules, roof plan, elevations and kitchen layout.',
                 'chips' => ['Proposed plan', 'Schedules', 'Elevations', 'Kitchen layout'],
                 'sheets' => [['01-proposed-main-level-plan', 'A2.2', 'Proposed main level plan'], ['02-roof-plan', 'A1.3', 'Roof plan'], ['03-elevations-left-front', 'A2.3', 'Elevations: left and front'],
                     ['04-elevations-right-back', 'A2.4', 'Elevations: right and back'], ['05-kitchen-plan-elevation', 'A2.5', 'Kitchen plan and interior elevation']]],
-            'va' => ['group' => 'cad', 'title' => 'Sunroom Addition Permit Drawings', 'place' => 'Virginia, USA', 'total' => 3,
+            'va' => ['group' => 'cad_legacy', 'title' => 'Sunroom Addition Permit Drawings', 'place' => 'Virginia, USA', 'total' => 3,
                 'summary' => 'Sunroom and paver-patio addition to an existing home: plan, roof plan and exterior elevations with schedules and notes.',
                 'chips' => ['Plan', 'Roof plan', 'Elevations', 'Schedules'],
                 'sheets' => [['01-main-level-plan', 'A1', 'Main level plan'], ['02-roof-plan', 'A2', 'Roof plan'], ['03-exterior-elevations', 'A3', 'Exterior elevations']]],
-            'vt' => ['group' => 'bim', 'title' => 'Commercial Scan-to-BIM Existing Conditions', 'place' => 'Vermont, USA', 'total' => 19,
+            'vt' => ['group' => 'bim_legacy', 'title' => 'Commercial Scan-to-BIM Existing Conditions', 'place' => 'Vermont, USA', 'total' => 19,
                 'summary' => 'Existing-conditions Revit drawing set from registered scan data: floor plans, exterior elevations and building sections.',
                 'chips' => ['Existing conditions drawings', 'Point cloud', 'MEP photo documentation'],
                 'sheets' => [['01-level-1-floor-plan', 'A103', 'Level 1 floor plan'], ['02-level-2-floor-plan', 'A104', 'Level 2 floor plan'], ['03-exterior-elevations', 'A115', 'Exterior elevations'], ['04-building-sections', 'A117', 'Building sections']]],
@@ -230,13 +266,37 @@ class Portfolio
                 return self::img("sets/{$id}/{$sh[0]}") + [
                     'no'    => $sh[1],
                     'title' => $sh[2],
-                    'alt'   => "Sheet {$sh[1]}: {$sh[2]} from a {$s['place']} " . strtolower($s['title']),
+                    'alt'   => "Sheet {$sh[1]}: {$sh[2]} from the {$s['title']} ({$s['place']})",
                 ];
             }, $s['sheets']);
             $out[$id] = $s;
         }
 
         return $out;
+    }
+
+    /* ------------------------------------------------------------------ AutoCAD before / after (client's slides, 9 Nov 2026) */
+
+    /** Sketch / markup to scaled AutoCAD pairs. Titles and captions are the client's own wording from the cover slides. */
+    public static function cadPairs(): array
+    {
+        $mk = fn ($id, $title, $meta, $capA, $capB, $altA, $altB) => [
+            'id' => $id, 'title' => $title, 'meta' => $meta, 'capA' => $capA, 'capB' => $capB, 'altA' => $altA, 'altB' => $altB,
+            'a' => self::img("cad/{$id}-before"), 'b' => self::img("cad/{$id}-after"),
+        ];
+
+        return [
+            $mk('adu-both', 'Client Markup to Delivered Architectural Plans', '800 sq ft ADU over garage', "Client's marked-up concept plans", 'Dimensioned CAD plans, revisions applied',
+                'Marked-up concept plans of an ADU over a garage, upper and lower level', 'Dimensioned AutoCAD plans of the same ADU with the revisions applied'),
+            $mk('germany', 'Hand Sketches to Sheet-Ready CAD Plan', "Built to the client's drawing standard · Germany", "Seller's hand-measured sketches", 'Scaled 1:100 sheet with room areas and title block',
+                'Hand-measured sketches of two rooms on squared paper', 'Scaled 1:100 AutoCAD sheet with room areas and a title block'),
+            $mk('uk-survey', 'Hand-Drawn Survey to Scaled CAD Plan', 'Ongoing CAD drafting · UK residential', "Client's hand-drawn survey sketch", 'Scaled AutoCAD plan with area schedule',
+                'Hand-drawn survey sketch of a small UK dwelling', 'Scaled AutoCAD plan of the same dwelling with an area schedule'),
+            $mk('uk-marked', 'Hand-Marked Plan to Scaled CAD Plan', 'Ongoing CAD drafting · UK residential', "Client's hand-marked plan", 'Scaled AutoCAD plan with area schedule',
+                'Hand-marked floor plan of a UK house and annexe with measurements', 'Scaled AutoCAD plan of the same house and annexe with an area schedule'),
+            $mk('adu-upper', 'ADU Plans: Client Markup to Final CAD', '800 sq ft ADU over garage · Upper level', "Client's marked-up concept plan", 'Dimensioned CAD plan, revisions applied',
+                'Marked-up concept plan of the upper level of an ADU', 'Dimensioned AutoCAD plan of the same upper level with the revisions applied'),
+        ];
     }
 
     /* ------------------------------------------------------------------ Scan-to-BIM before / after */
@@ -309,6 +369,25 @@ class Portfolio
                     ['texas-kitchen', 'Kitchen detail', 'Photorealistic close-up rendering of a kitchen with a terrazzo worktop, tiled splashback and warm under-cabinet lighting'],
                 ]),
             ],
+            'sketch-to-cad-commercial-plan-set' => [
+                'cover'   => self::img('cases/cad-tenant-overall-plan'),
+                'alt'     => 'Overall CAD plan of a commercial tenant space with floor space, security room, lobby, toilets, break room and reception',
+                'caption' => 'Overall plan',
+                'gallery_title' => 'CAD plans',
+                'gallery' => self::gallery([
+                    ['cad-tenant-sketch', 'Client sketch', 'Hand-marked sketch of a commercial tenant space with rough room outlines, handwritten notes and a few dimensions'],
+                    ['cad-tenant-overall-plan', 'Overall plan', 'Overall CAD plan of the tenant space with room names and dimensions'],
+                    ['cad-tenant-door-plan', 'Door plan', 'CAD door plan of the tenant space with door positions marked'],
+                    ['cad-tenant-glass-plan', 'Glass plan', 'CAD glass plan of the tenant space with glazing positions marked'],
+                    ['cad-tenant-camera-plan', 'Camera plan', 'CAD camera plan of the tenant space with camera positions marked'],
+                    ['cad-tenant-motion-plan', 'Motion plan', 'CAD motion sensor plan of the tenant space'],
+                    ['cad-tenant-light-plan', 'Light plan', 'CAD lighting plan of the tenant space with fixtures and circuits'],
+                    ['cad-tenant-hvac-plan', 'HVAC plan', 'CAD HVAC plan of the tenant space with diffusers and ductwork'],
+                    ['cad-tenant-smoke-plan', 'Smoke plan', 'CAD smoke detector plan of the tenant space'],
+                    ['cad-tenant-egress-ingress-plan', 'Egress / ingress plan', 'CAD egress and ingress plan of the tenant space'],
+                    ['cad-tenant-bathroom-layout', 'Bathroom layout', 'CAD bathroom layout 2.0 by 2.4 metres with bath, basin, toilet and shower'],
+                ]),
+            ],
         ];
 
         $media += [
@@ -379,7 +458,7 @@ class Portfolio
         return [
             ['img' => $viz['viz/bandon-dusk-wrap'], 'tag' => 'Visualization', 'title' => 'Exterior at dusk', 'url' => 'services.visualization', 'size' => 'lg'],
             ['img' => $viz['viz/kitchen-dining'],   'tag' => 'Visualization', 'title' => 'Kitchen interior', 'url' => 'services.visualization', 'size' => 'sm'],
-            ['img' => self::img('sets/ny/01-main-level-plan'), 'tag' => 'CAD and permit', 'title' => 'Permit set floor plan', 'url' => 'services.cad', 'size' => 'sm', 'alt' => 'Main level floor plan from a residential addition permit set'],
+            ['img' => self::img('sets/adr/02-proposed-floor-plans'), 'tag' => 'CAD and permit', 'title' => 'Permit set floor plans', 'url' => 'services.cad', 'size' => 'sm', 'alt' => 'Proposed floor plans from an adaptive reuse permit set'],
             ['img' => $viz['viz/floorplan-3d-top'], 'tag' => 'Visualization', 'title' => '3D floor plan', 'url' => 'services.visualization', 'size' => 'sm'],
             ['img' => self::img('scan/house-1-model'), 'tag' => 'BIM and Revit', 'title' => 'Scan to BIM model', 'url' => 'services.bim', 'size' => 'lg', 'alt' => 'Revit existing-conditions model of a historic brick house built from a point cloud'],
         ];

@@ -53,7 +53,7 @@
         @if (isset($c['overview']))
             {{-- case-study layout: location / service / status, overview, our role, the result --}}
             <div class="row g-4">
-                <div class="col-md-4" data-reveal><div class="info-card"><span class="info-card__k"><x-icon name="map-pin" /> Location</span><p>{{ hl($c['location']) }}</p></div></div>
+                <div class="col-md-4" data-reveal><div class="info-card"><span class="info-card__k"><x-icon name="map-pin" /> {{ $c['location_label'] ?? 'Location' }}</span><p>{{ hl($c['location']) }}</p></div></div>
                 <div class="col-md-4" data-reveal style="--d:.08s"><div class="info-card"><span class="info-card__k"><x-icon name="layers" /> Service</span><p>{{ $c['service'] }}</p></div></div>
                 <div class="col-md-4" data-reveal style="--d:.16s"><div class="info-card"><span class="info-card__k"><x-icon name="refresh" /> Status</span><p>{{ $c['status'] }}</p></div></div>
                 <div class="col-lg-6" data-reveal>

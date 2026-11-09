@@ -66,7 +66,7 @@ class PageController extends Controller
             'seo'  => [
                 'title'       => $all[$slug]['title'] . ' | Architive',
                 'description' => $all[$slug]['description'],
-                'image'       => ['uk-3d-floor-plans-smart-heating-cooling' => 'assets/img/og/case-uk-floorplans.jpg', 'texas-ongoing-visualization-support' => 'assets/img/og/case-texas.jpg', 'fifa-2026-circulation-plan-drafting' => 'assets/img/og/case-fifa.jpg', 'manuel-development-revit-support' => 'assets/img/og/case-manuel.jpg'][$slug] ?? config('seo.default_image'),
+                'image'       => ['uk-3d-floor-plans-smart-heating-cooling' => 'assets/img/og/case-uk-floorplans.jpg', 'texas-ongoing-visualization-support' => 'assets/img/og/case-texas.jpg', 'fifa-2026-circulation-plan-drafting' => 'assets/img/og/case-fifa.jpg', 'manuel-development-revit-support' => 'assets/img/og/case-manuel.jpg', 'sketch-to-cad-commercial-plan-set' => 'assets/img/og/case-sketch-cad.jpg'][$slug] ?? config('seo.default_image'),
             ] + (empty($all[$slug]['draft']) ? [] : ['robots' => 'noindex,nofollow']),
         ]);
     }

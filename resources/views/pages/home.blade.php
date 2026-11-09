@@ -79,7 +79,7 @@
             </div>
             <a class="btn-ay" href="{{ pu('collaborations.index') }}" data-reveal>View collaborations <x-icon name="arrow-right" /></a>
         </div>
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
             @foreach (Content::collaborations() as $slug => $c)
                 <div class="col-md-6 col-xl-3" data-reveal style="--d: {{ $loop->index * .1 }}s">
                     @include('partials.collab-card', ['slug' => $slug, 'c' => $c])

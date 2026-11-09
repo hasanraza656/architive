@@ -46,7 +46,7 @@
                             @if (isset($c['overview']))
                                 <p class="collab-row__card">{{ $c['card'] }}</p>
                                 <dl class="facts">
-                                    <div><dt>Location</dt><dd>{{ hl($c['location']) }}</dd></div>
+                                    <div><dt>{{ $c['location_label'] ?? 'Location' }}</dt><dd>{{ hl($c['location']) }}</dd></div>
                                     <div><dt>Service</dt><dd>{{ $c['service'] }}</dd></div>
                                     <div><dt>Status</dt><dd>{{ $c['status'] }}</dd></div>
                                 </dl>

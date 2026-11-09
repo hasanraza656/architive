@@ -62,9 +62,9 @@
                 <p class="eyebrow" data-reveal>Sample sets</p>
                 <h2 class="display-h mb-0" id="bim-samples" data-split>Revit and BIM <em>Samples</em></h2>
             </div>
-            <p class="lead-p mb-0" data-reveal style="max-width: 46ch">Existing-conditions drawing sets built in Revit from registered scan data and measured information. Select a set to browse its sheets.</p>
+            <p class="lead-p mb-0" data-reveal style="max-width: 46ch">Revit drawing sets: existing-conditions documentation from scan data and measured information, plus modular shop drawings with a 3D model. Select a set to browse its sheets.</p>
         </div>
-        <div class="set-grid set-grid--3">
+        <div class="set-grid">
             @foreach (\App\Support\Portfolio::sets('bim') as $set)
                 @include('partials.set-card', ['set' => $set])
             @endforeach
