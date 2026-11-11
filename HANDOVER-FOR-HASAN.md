@@ -22,13 +22,13 @@ Google Analytics is already working, thank you. But the latest code is not on th
    - https://architive.net/thank-you/
    - https://architive.net/assets/js/attribution.js
 
-## 2. Google Ads values (when Zain sends them)
+## 2. Google Ads values (Hasan sets these, copy as is)
 
-Add to the server `.env`, then run `php artisan config:clear`:
+Add to the server `.env`, then run `php artisan config:clear` and `php artisan view:clear`:
 ```
-GOOGLE_ADS_ID=AW-...
-GOOGLE_ADS_LEAD_LABEL=...
-GOOGLE_ADS_CONTACT_LABEL=...
+GOOGLE_ADS_ID=AW-11156317089
+GOOGLE_ADS_LEAD_LABEL=lCeWCKKdpbYdEKHH38cp
+GOOGLE_ADS_CONTACT_LABEL=LCPSCPvPrLYdEKHH38cp
 ```
 `GA4_ENABLED=true` is already set. Keep it.
 
