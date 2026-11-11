@@ -58,9 +58,9 @@ return [
         'ga4_id'  => env('GA4_MEASUREMENT_ID', 'G-36RQKB0CMB'),
         // Google Ads (public IDs, not secrets). Empty = no Ads tag. ads_id looks like AW-123456789; labels come from
         // Google Ads > Goals > Conversions > the conversion action > Tag setup ("send_to": "AW-123456789/AbC-dEfGh").
-        'ads_id'            => env('GOOGLE_ADS_ID'),
-        'ads_lead_label'    => env('GOOGLE_ADS_LEAD_LABEL'),     // form sent (primary conversion)
-        'ads_contact_label' => env('GOOGLE_ADS_CONTACT_LABEL'),  // WhatsApp / phone / email tap (secondary)
+        'ads_id'            => env('GOOGLE_ADS_ID', 'AW-11156317089'),
+        'ads_lead_label'    => env('GOOGLE_ADS_LEAD_LABEL', 'lCeWCKKdpbYdEKHH38cp'),     // form sent (primary conversion)
+        'ads_contact_label' => env('GOOGLE_ADS_CONTACT_LABEL', 'LCPSCPvPrLYdEKHH38cp'),  // WhatsApp / phone / email tap (secondary)
     ],
 
     // Google reCAPTCHA v2 ("I'm not a robot" checkbox) for website forms
