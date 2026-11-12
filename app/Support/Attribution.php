@@ -28,6 +28,16 @@ final class Attribution
                 $lines[$label] = implode(' · ', $bits);
             }
         }
+        // The raw Google click ID is what lets the agency report this lead back to Google Ads (offline conversion import: qualified, won).
+        foreach (['last', 'first'] as $k) {
+            $t = is_array($raw[$k] ?? null) ? $raw[$k] : [];
+            foreach (['gclid' => 'gclid', 'gbraid' => 'gbraid', 'wbraid' => 'wbraid'] as $key => $name) {
+                if (! empty($t[$key]) && is_scalar($t[$key]) && preg_match('/^[A-Za-z0-9_-]{10,200}$/', (string) $t[$key])) {
+                    $lines['Google click ID'] = $name . ' ' . $t[$key];
+                    break 2;
+                }
+            }
+        }
         if (isset($lines['Latest'], $lines['First']) && $lines['Latest'] === $lines['First']) {
             unset($lines['First']);
         }

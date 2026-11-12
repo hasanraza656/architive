@@ -57,3 +57,9 @@ Thank you! Questions: hello@devmarde.com
 - Please merge, deploy, then in GA4 mark nothing new as a key event.
 - Speed (separate): host is HTTP/1.1 only, TTFB about 1.2s, no CDN, session driver is database. Please enable HTTP/2 and 3, put Cloudflare free in front, and set SESSION_DRIVER=file or cookie.
 - Known: `DraftCaseStudiesTest` already fails on main (unrelated).
+
+## 13 Nov (later): lead quality and LP anchors (same branch lp-proof-band)
+- `app/Support/Attribution.php`: the lead email now has a "Google click ID" line (gclid, gbraid or wbraid). This is what we need to report qualified and won leads back to Google Ads (offline conversion import). Test: tests/Unit/AttributionClickIdTest.php.
+- LP pages get a pricing explainer ("How a floor plan / render is priced", wording taken from the service pages, no numbers) and a "Prefer to talk first?" card with Call and WhatsApp buttons (both fire contact_click).
+- Enhanced conversions for leads is switched on in Google Ads (Google tag method). The site already sends the hashed email via gtag user_data before generate_lead.
+- Please check: the Tawk chat greeting bubble covers the first form fields on phones. Suggest turning off the auto-greeting on /lp/ pages (Tawk dashboard, Widget Appearance, Chat greeting) or delaying it.

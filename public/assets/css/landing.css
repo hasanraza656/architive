@@ -97,3 +97,7 @@
 .lp-proof__card em { margin-top: .35rem; font-style: normal; font-weight: 600; font-size: .88rem; }
 .lp-proof__card:hover, .lp-proof__card:focus-visible { border-color: var(--ink); }
 @media (max-width: 767.98px) { .lp-proof__list { grid-template-columns: 1fr; } .lp-proof__card strong { font-size: 1.35rem; } }
+
+/* Pricing explainer and talk-first card */
+.lp-talk__links { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.lp-talk__links .btn-ay { min-height: 44px; }
