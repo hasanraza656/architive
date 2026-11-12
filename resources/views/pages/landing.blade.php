@@ -35,6 +35,29 @@
     </div>
 </section>
 
+@php($proof = collect(config('site.track_record'))->keyBy('key'))
+<section class="lp-proof" aria-label="Verified track record">
+    <div class="wrap">
+        <p class="lp-proof__lead"><x-icon name="shield" /> Check our track record yourself, on the platforms where clients leave reviews:</p>
+        <ul class="lp-proof__list">
+            @foreach (['upwork' => 'View our Upwork agency profile', 'fiverr' => 'Read our Fiverr reviews'] as $k => $cta)
+                @if (isset($proof[$k]) && config('site.social.'.$k))
+                    <li>
+                        <a class="lp-proof__card" href="{{ config('site.social.'.$k) }}" target="_blank" rel="noopener" data-proof="{{ $k }}">
+                            <strong>{{ $proof[$k]['display'] }}</strong>
+                            <span>{{ $proof[$k]['unit'] }} on {{ $proof[$k]['label'] }}</span>
+                            <em>{{ $cta }} &rarr;</em>
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+            @if (config('site.social.trustpilot'))
+                <li><a class="lp-proof__card" href="{{ config('site.social.trustpilot') }}" target="_blank" rel="noopener" data-proof="trustpilot"><strong>Trustpilot</strong><span>Independent review page</span><em>See what clients say &rarr;</em></a></li>
+            @endif
+        </ul>
+    </div>
+</section>
+
 <section class="section section--alt" aria-labelledby="lp-work">
     <div class="wrap">
         <div class="section-head">
@@ -114,6 +137,35 @@
         </div>
     </div>
 </section>
+
+@if (! empty($p['price']))
+<section class="section" aria-labelledby="lp-price">
+    <div class="wrap">
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-7">
+                <article class="feature-card h-100">
+                    <span class="feature-card__ic"><x-icon name="receipt" /></span>
+                    <p class="eyebrow">Pricing</p>
+                    <h2 class="display-h display-h--sm" id="lp-price">{!! $p['priceTitle'] ?? 'How it is <em>priced</em>' !!}</h2>
+                    @foreach ($p['price'] as $para)<p class="{{ $loop->last ? 'mb-0' : '' }}">{{ $para }}</p>@endforeach
+                </article>
+            </div>
+            <div class="col-lg-5">
+                <article class="feature-card h-100 lp-talk">
+                    <span class="feature-card__ic"><x-icon name="message" /></span>
+                    <p class="eyebrow">Prefer to talk first?</p>
+                    <h2 class="display-h display-h--sm">Ask us <em>anything</em></h2>
+                    <p>Call or message us and we reply the same working day. No form needed.</p>
+                    <p class="lp-talk__links mb-0">
+                        <a class="btn-ay btn-ay--ghost" href="tel:{{ config('site.phone') }}">Call {{ config('site.phone_display') }}</a>
+                        <a class="btn-ay btn-ay--ghost" href="https://wa.me/{{ ltrim(config('site.phone'), '+') }}" target="_blank" rel="noopener">WhatsApp us</a>
+                    </p>
+                </article>
+            </div>
+        </div>
+    </div>
+</section>
+@endif
 
 <section class="section section--alt" aria-labelledby="lp-faq">
     <div class="wrap wrap--narrow">

@@ -86,3 +86,18 @@
 .lp-thanks__steps { text-align: left; max-width: 56ch; margin: 1.4rem auto 2rem; padding-left: 1.2rem; display: grid; gap: .8rem; color: var(--ink-2); }
 .lp-thanks__steps b { color: var(--ink); }
 .lp-thanks__actions { display: flex; flex-wrap: wrap; gap: .8rem; justify-content: center; }
+
+/* Proof band under the hero: platform figures with tracked links */
+.lp-proof { padding: 1.3rem 0; border-bottom: 1px solid var(--line); background: var(--surface); }
+.lp-proof__lead { display: flex; align-items: center; gap: .5rem; margin: 0 0 .9rem; font-size: .92rem; color: var(--ink-2); }
+.lp-proof__list { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin: 0; padding: 0; list-style: none; }
+.lp-proof__card { display: flex; flex-direction: column; gap: .15rem; height: 100%; min-height: 44px; padding: .9rem 1.1rem; border: 1px solid var(--line-2); border-radius: 12px; text-decoration: none; color: var(--ink); }
+.lp-proof__card strong { font-size: 1.6rem; line-height: 1.1; }
+.lp-proof__card span { font-size: .88rem; color: var(--ink-2); }
+.lp-proof__card em { margin-top: .35rem; font-style: normal; font-weight: 600; font-size: .88rem; }
+.lp-proof__card:hover, .lp-proof__card:focus-visible { border-color: var(--ink); }
+@media (max-width: 767.98px) { .lp-proof__list { grid-template-columns: 1fr; } .lp-proof__card strong { font-size: 1.35rem; } }
+
+/* Pricing explainer and talk-first card */
+.lp-talk__links { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.lp-talk__links .btn-ay { min-height: 44px; }

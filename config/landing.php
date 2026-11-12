@@ -33,6 +33,8 @@ return [
             'formTitle'   => 'Start your free trial',
             'placeholder' => 'For example: two interior views of a kitchen and living room from the attached plans, modern warm style, needed for a client meeting on Friday.',
             'gallery'     => ['interiors', 'exteriors'], 'galleryTitle' => 'Recent <em>Renders</em>',
+            'priceTitle'  => 'How a render is <em>priced</em>',
+            'price'       => ['Renderings are quoted per view. The surroundings and the level of detail move the price more than the building itself, then come the number of views, day and dusk versions, and the revision rounds you want included.', 'Extra views of the same scene cost less, because the model already exists. You get one written quote listing every view, review stage, revision round and delivery date, and the free trial comes before any paid work.'],
             'faqs' => [
                 1 => ['q' => 'What does the free 3-day trial include?', 'a' => 'One real task from your project, worked on free for up to 3 working days. For most clients that is one interior or exterior view taken to a clear draft, so you can judge quality and communication. We confirm exactly what is included before we start.'],
                 2 => ['q' => 'How much do renderings cost after the trial?', 'a' => 'It depends on the number of views, how much custom furniture and context is needed, the revision rounds and the deadline. You get a written quote that lists every view, review stage and delivery date before any paid work starts.'],
@@ -55,6 +57,8 @@ return [
             'formTitle'   => 'Start your free trial',
             'placeholder' => 'For example: 3D floor plans for 4 apartment types from the attached PDFs, top-down view, light oak floors, for a sales brochure.',
             'gallery'     => ['floorplans'], 'galleryTitle' => '3D Floor Plans <em>We Have Made</em>',
+            'priceTitle'  => 'How a floor plan is <em>priced</em>',
+            'price'       => ['3D floor plans are quoted per plan. The main factors are the size and number of rooms, how much furniture is needed, the view types and whether we start from CAD or redraw from a scan.', 'Several plans in the same style cost less each, because the furniture and materials are set up once. You get one written quote listing every plan, view, revision round and delivery date, and the free trial comes before any paid work.'],
             'faqs' => [
                 1 => ['q' => 'What does the free 3-day trial include?', 'a' => 'One real task, worked on free for up to 3 working days. For floor plans that is usually your first plan, taken to a finished draft in the style you want, so you can check accuracy and style before ordering more.'],
                 2 => ['q' => 'Can you work from a PDF, scan or hand sketch?', 'a' => 'Yes, if the walls are clear and the key dimensions are readable. Clean DWG files are fastest. Mark anything unusual, such as steps, half-height walls or sloped ceilings.'],
