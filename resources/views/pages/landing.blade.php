@@ -35,6 +35,29 @@
     </div>
 </section>
 
+@php($proof = collect(config('site.track_record'))->keyBy('key'))
+<section class="lp-proof" aria-label="Verified track record">
+    <div class="wrap">
+        <p class="lp-proof__lead"><x-icon name="shield" /> Check our track record yourself, on the platforms where clients leave reviews:</p>
+        <ul class="lp-proof__list">
+            @foreach (['upwork' => 'View our Upwork agency profile', 'fiverr' => 'Read our Fiverr reviews'] as $k => $cta)
+                @if (isset($proof[$k]) && config('site.social.'.$k))
+                    <li>
+                        <a class="lp-proof__card" href="{{ config('site.social.'.$k) }}" target="_blank" rel="noopener" data-proof="{{ $k }}">
+                            <strong>{{ $proof[$k]['display'] }}</strong>
+                            <span>{{ $proof[$k]['unit'] }} on {{ $proof[$k]['label'] }}</span>
+                            <em>{{ $cta }} &rarr;</em>
+                        </a>
+                    </li>
+                @endif
+            @endforeach
+            @if (config('site.social.trustpilot'))
+                <li><a class="lp-proof__card" href="{{ config('site.social.trustpilot') }}" target="_blank" rel="noopener" data-proof="trustpilot"><strong>Trustpilot</strong><span>Independent review page</span><em>See what clients say &rarr;</em></a></li>
+            @endif
+        </ul>
+    </div>
+</section>
+
 <section class="section section--alt" aria-labelledby="lp-work">
     <div class="wrap">
         <div class="section-head">

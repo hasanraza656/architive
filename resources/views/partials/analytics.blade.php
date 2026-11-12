@@ -51,7 +51,7 @@
             var where = l.closest('header') ? 'header' : (l.closest('footer') ? 'footer' : 'page');
             if (/^(tel:|mailto:)/i.test(h) || /wa\.me|whatsapp/i.test(h)) { return; }
             if (/\.(pdf|docx?|xlsx?|zip|pptx?)(\?|$)/i.test(h)) { window.architiveTrack('file_download', { file_url: h, link_text: txt }); return; }
-            if (/^https?:\/\//i.test(h) && h.indexOf(location.host) === -1) { window.architiveTrack('outbound_click', { link_url: h, link_text: txt }); return; }
+            if (/^https?:\/\//i.test(h) && h.indexOf(location.host) === -1) { var pf = l.getAttribute('data-proof'); if (pf) { window.architiveTrack('proof_click', { platform: pf, link_url: h, page_path: location.pathname }); } window.architiveTrack('outbound_click', { link_url: h, link_text: txt }); return; }
             if (l.matches('.btn-ay, [data-enquiry], button[data-bs-target]') || /\/(contact|quote|request)/i.test(h)) {
                 window.architiveTrack('cta_click', { link_text: txt, link_url: h, link_location: where, page_path: location.pathname });
             } else if (/\/(portfolio|work|sample|case-stud)/i.test(h)) {
