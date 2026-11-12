@@ -50,3 +50,10 @@ GOOGLE_ADS_CONTACT_LABEL=LCPSCPvPrLYdEKHH38cp
 The repo is still **public**, and it holds client drawing sheets. On GitHub: Settings > General > Danger Zone > Change visibility > Private. Only you can do this, because you own the repo.
 
 Thank you! Questions: hello@devmarde.com
+
+## 13 Nov: LP proof band (branch `lp-proof-band`, commit 2fab831)
+- Adds a proof band under the hero on both landing pages: Fiverr 1,200+ and Upwork 130+ completed projects (from `config/site.php` track_record), links to the Upwork profile, Fiverr page and Trustpilot page. No rating or review count shown (client has not confirmed figures).
+- `analytics.blade.php`: links with `data-proof` fire a new GA4 event `proof_click` (param `platform`) plus the existing `outbound_click`. Not an Ads conversion.
+- Please merge, deploy, then in GA4 mark nothing new as a key event.
+- Speed (separate): host is HTTP/1.1 only, TTFB about 1.2s, no CDN, session driver is database. Please enable HTTP/2 and 3, put Cloudflare free in front, and set SESSION_DRIVER=file or cookie.
+- Known: `DraftCaseStudiesTest` already fails on main (unrelated).
