@@ -63,3 +63,6 @@ Thank you! Questions: hello@devmarde.com
 - LP pages get a pricing explainer ("How a floor plan / render is priced", wording taken from the service pages, no numbers) and a "Prefer to talk first?" card with Call and WhatsApp buttons (both fire contact_click).
 - Enhanced conversions for leads is switched on in Google Ads (Google tag method). The site already sends the hashed email via gtag user_data before generate_lead.
 - Please check: the Tawk chat greeting bubble covers the first form fields on phones. Suggest turning off the auto-greeting on /lp/ pages (Tawk dashboard, Widget Appearance, Chat greeting) or delaying it.
+
+## 13 Nov: merged to main (b04edfb)
+lp-proof-band is merged into main and tests pass (166 ok, 1 old failure: DraftCaseStudiesTest, also fails without these changes). To deploy: pull main, then `php artisan config:clear` and `php artisan view:clear`. No new .env values. Note: code.zip sits in the repo root (came with 13348b7), delete it if it is not meant to be there.
