@@ -1,7 +1,7 @@
 @extends('layouts.app', ['overlay' => true])
 
 @push('preload')
-    <link rel="preload" as="image" href="{{ asset('assets/img/hero.webp') }}" type="image/webp" fetchpriority="high" imagesrcset="{{ asset('assets/img/hero-800.webp') }} 800w, {{ asset('assets/img/hero.webp') }} 1279w" imagesizes="100vw">
+    <link rel="preload" as="image" href="{{ asset_v('assets/img/hero.webp') }}" type="image/webp" fetchpriority="high" imagesrcset="{{ asset_v('assets/img/hero-800.webp') }} 800w, {{ asset_v('assets/img/hero.webp') }} 1672w" imagesizes="100vw">
 @endpush
 
 @section('content')
@@ -16,8 +16,8 @@
     <div class="hero__card" data-hero>
         <div class="hero__media" data-parallax-wrap>
             <picture>
-                <source type="image/webp" srcset="{{ asset('assets/img/hero-800.webp') }} 800w, {{ asset('assets/img/hero.webp') }} 1279w" sizes="100vw">
-                <img src="{{ asset('assets/img/hero.webp') }}" width="1279" height="720" fetchpriority="high" decoding="async" data-parallax="0.08"
+                <source type="image/webp" srcset="{{ asset_v('assets/img/hero-800.webp') }} 800w, {{ asset_v('assets/img/hero.webp') }} 1672w" sizes="100vw">
+                <img src="{{ asset_v('assets/img/hero.webp') }}" width="1672" height="940" fetchpriority="high" decoding="async" data-parallax="0.08"
                      alt="Curved timber and steel garden pavilion at sunset surrounded by trees, an architectural visualization by Architive">
             </picture>
         </div>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ asset_v('assets/css/portal.css') }}">
 </head>
 <body class="portal portal-auth">
-<section class="auth__art" style="--bg-img: url('{{ asset('assets/img/hero.webp') }}')" aria-hidden="false">
+<section class="auth__art" style="--bg-img: url('{{ asset_v('assets/img/hero.webp') }}')" aria-hidden="false">
     <a href="{{ pu('home') }}" aria-label="Architive website"><img class="logo" src="{{ asset('assets/img/logo-light.png') }}" alt="Architive" width="220" height="38"></a>
     <div>
         @yield('art')
