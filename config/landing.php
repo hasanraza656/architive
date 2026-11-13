@@ -51,7 +51,7 @@ return [
             'eyebrow'     => '3D floor plans for agents, developers and designers',
             'h1'          => 'Floor Plans Buyers Understand <em>in Seconds.</em>',
             'lead'        => 'We turn your 2D plans, PDFs or scans into furnished 3D floor plans, top-down or isometric, in one consistent style whether you need one or one hundred. Try us free first.',
-            'bullets'     => ['From DWG, PDF, scan or sketch', 'Top-down and isometric views', 'One style across every plan', 'More than 500 plans made for one UK client'],
+            'bullets'     => ['From DWG, PDF, scan or sketch', 'Top-down and isometric views', 'One style across every plan', 'More than 500 plans made'],
             'image'       => ['key' => 'viz/cabin-floorplan-iso', 'alt' => 'Isometric 3D floor plan of a furnished timber vacation cabin with decks and a hot tub, by Architive'],
             'service'     => 'visualization', 'topic' => '3D Floor Plan',
             'formTitle'   => 'Start your free trial',

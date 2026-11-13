@@ -96,7 +96,7 @@
                             </div>
                         </div>
 
-                        <div class="f-field f-files">
+                        <div class="f-field f-files mt-4">
                         <label>Attach files <span class="opt-tag">optional</span></label>
                         <label class="f-drop" data-files-drop>
                             <x-icon name="upload" />
