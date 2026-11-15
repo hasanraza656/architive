@@ -820,5 +820,65 @@
   "h": 1200,
   "tw": 800,
   "th": 600
+ },
+ "viz/warehouse-floorplan-iso": {
+  "w": 1600,
+  "h": 1010,
+  "tw": 800,
+  "th": 505
+ },
+ "viz/apartment-floorplan-iso": {
+  "w": 1600,
+  "h": 1229,
+  "tw": 800,
+  "th": 615
+ },
+ "viz/cabin-floorplan-upper": {
+  "w": 1600,
+  "h": 1111,
+  "tw": 800,
+  "th": 555
+ },
+ "viz/penthouse-floorplan-top": {
+  "w": 1258,
+  "h": 815,
+  "tw": 800,
+  "th": 518
+ },
+ "viz/courtyard-floorplan-top": {
+  "w": 1600,
+  "h": 1866,
+  "tw": 800,
+  "th": 933
+ },
+ "viz/site-floorplan-plantation": {
+  "w": 1600,
+  "h": 549,
+  "tw": 800,
+  "th": 275
+ },
+ "viz/banquet-hall-floorplan-iso": {
+  "w": 1600,
+  "h": 1031,
+  "tw": 800,
+  "th": 515
+ },
+ "viz/commercial-unit-floorplan-iso": {
+  "w": 1600,
+  "h": 900,
+  "tw": 800,
+  "th": 450
+ },
+ "viz/hotel-floorplan-top": {
+  "w": 1600,
+  "h": 586,
+  "tw": 800,
+  "th": 293
+ },
+ "viz/apartment-floorplan-iso-2": {
+  "w": 1600,
+  "h": 981,
+  "tw": 800,
+  "th": 491
  }
 }

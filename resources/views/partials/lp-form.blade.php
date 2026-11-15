@@ -1,17 +1,17 @@
 {{-- Short trial form for ad landing pages. Same endpoint and validation as the contact form; on success interactive.js
-     fires the lead conversion and continues to /thank-you/ (data-thanks). Props: $p (page config), $slug. --}}
+     fires the lead conversion and continues to /thank-you/ (data-thanks). Variables from the landing page file: $slug, $service, $topic, $formTitle, $placeholder. --}}
 @php $captchaKey = config('services.recaptcha.site_key'); @endphp
 <div class="enquiry-card lp-form" id="trial">
     <form action="{{ route('contact.send') }}" method="post" enctype="multipart/form-data" novalidate data-contact-form
           data-thanks="{{ pu('thanks') }}" data-form-name="lp-{{ $slug }}">
         @csrf
         <div class="hp" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
-        <input type="hidden" name="service" value="{{ $p['service'] }}">
-        <input type="hidden" name="topic" value="{{ $p['topic'] }} (free trial)">
+        <input type="hidden" name="service" value="{{ $service }}">
+        <input type="hidden" name="topic" value="{{ $topic }} (free trial)">
         <input type="hidden" name="lp" value="{{ $slug }}">
 
         <p class="lp-form__badge"><x-icon name="sparkles" /> Free 3-day trial</p>
-        <h2 class="display-h display-h--sm">{{ $p['formTitle'] }}</h2>
+        <h2 class="display-h display-h--sm">{{ $formTitle ?? 'Start your free trial' }}</h2>
         <p class="lp-form__sub">We reply within one business day with what the trial will cover.</p>
 
         <div class="f-field">
@@ -30,7 +30,7 @@
         </div>
         <div class="f-field">
             <label for="lp-message">What do you need? <b>*</b></label>
-            <textarea id="lp-message" name="message" rows="3" required minlength="10" maxlength="4000" placeholder="{{ $p['placeholder'] }}"></textarea>
+            <textarea id="lp-message" name="message" rows="3" required minlength="10" maxlength="4000" placeholder="{{ $placeholder }}"></textarea>
             <p class="f-err" data-err-for="message"></p>
         </div>
 

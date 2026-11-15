@@ -1,9 +1,21 @@
 @extends('layouts.app')
-{{-- Google Ads landing page. Props: $slug, $p (config/landing.php pages.*), $trial (config/landing.php trial). --}}
+{{-- Shared frame of the Google Ads landing pages (/lp/{slug}/). Each page lives in resources/views/landing/{slug}.blade.php and
+     supplies: $slug, $service, $topic, $formTitle, $placeholder, $image (key + alt), $faqs, and the sections
+     eyebrow, h1, lead, bullets, work and (optional) price. Everything else below is the same on every landing page.
+     The site layout (layouts/app) adds the logo header, footer, cookie banner, Tawk chat and analytics. --}}
 @php
     use App\Support\Content;
     use App\Support\Portfolio;
-    $img = Portfolio::img($p['image']['key']);
+    $img = Portfolio::img($image['key']);
+    $trial = [
+        'title' => 'Free 3-Day Trial',
+        'text'  => 'Send one real task. Our team works on it free for up to 3 working days, so you can judge the quality, speed and communication before you pay anything. No card, no contract.',
+        'steps' => [
+            ['n' => '01', 'icon' => 'upload',  'title' => 'Send one real task',   'text' => 'Upload your plans, model or sketches and tell us what you need back. A link to your files works too.'],
+            ['n' => '02', 'icon' => 'message', 'title' => 'We confirm the scope', 'text' => 'Within one business day we reply with what we will deliver in the trial and when, or ask what is missing.'],
+            ['n' => '03', 'icon' => 'eye',     'title' => 'Judge the work',       'text' => 'Review real output from your own project. Continue only if you are happy, with a written quote first.'],
+        ],
+    ];
 @endphp
 
 @push('head')
@@ -16,10 +28,10 @@
     <div class="wrap wrap--wide">
         <div class="lp-hero__grid">
             <div class="lp-hero__copy">
-                <p class="eyebrow">{{ $p['eyebrow'] }}</p>
-                <h1 class="display-h lp-hero__h1">{!! $p['h1'] !!}</h1>
-                <p class="lead-p">{{ $p['lead'] }}</p>
-                <ul class="check-list lp-hero__list">@foreach ($p['bullets'] as $b)<li><x-icon name="check" /> {{ $b }}</li>@endforeach</ul>
+                <p class="eyebrow">@yield('eyebrow')</p>
+                <h1 class="display-h lp-hero__h1">@yield('h1')</h1>
+                <p class="lead-p">@yield('lead')</p>
+                <ul class="check-list lp-hero__list">@yield('bullets')</ul>
             </div>
             <div class="lp-hero__form">
                 @include('partials.lp-form')
@@ -27,7 +39,7 @@
             <div class="lp-hero__visual">
                 <figure class="lp-hero__media">
                     <img src="{{ $img['thumb'] }}" srcset="{{ $img['thumb'] }} {{ $img['tw'] }}w, {{ $img['src'] }} {{ $img['w'] }}w" sizes="(min-width: 992px) 50vw, 100vw"
-                         width="{{ $img['w'] }}" height="{{ $img['h'] }}" alt="{{ $p['image']['alt'] }}" fetchpriority="high" decoding="async">
+                         width="{{ $img['w'] }}" height="{{ $img['h'] }}" alt="{{ $image['alt'] }}" fetchpriority="high" decoding="async">
                 </figure>
                 <p class="lp-hero__trust"><x-icon name="shield" /> Architive LLC, a US company registered in Delaware, with its own production studio.</p>
             </div>
@@ -58,27 +70,7 @@
     </div>
 </section>
 
-<section class="section section--alt" aria-labelledby="lp-work">
-    <div class="wrap">
-        <div class="section-head">
-            <div>
-                <p class="eyebrow">Our work</p>
-                <h2 class="display-h display-h--md mb-0" id="lp-work">{!! $p['galleryTitle'] ?? 'Drawing Sets <em>We Have Drafted</em>' !!}</h2>
-            </div>
-            <p class="lead-p mb-0" style="max-width: 44ch">Real projects from our studio. Select any image to enlarge it.</p>
-        </div>
-        @if (! empty($p['sets']))
-            <div class="cadpairs">
-                @foreach (Portfolio::cadPairs() as $pair)
-                    @include('partials.cad-pair', ['pair' => $pair])
-                @endforeach
-            </div>
-            <p class="note-line mt-3">Where drawings must be signed or sealed, your locally licensed professional reviews and stamps them.</p>
-        @else
-            @include('partials.work-gallery', ['only' => $p['gallery'], 'withNew' => true])
-        @endif
-    </div>
-</section>
+@yield('work')
 
 <section class="section" aria-labelledby="lp-trial">
     <div class="wrap">
@@ -138,40 +130,13 @@
     </div>
 </section>
 
-@if (! empty($p['price']))
-<section class="section" aria-labelledby="lp-price">
-    <div class="wrap">
-        <div class="row g-4 align-items-stretch">
-            <div class="col-lg-7">
-                <article class="feature-card h-100">
-                    <span class="feature-card__ic"><x-icon name="receipt" /></span>
-                    <p class="eyebrow">Pricing</p>
-                    <h2 class="display-h display-h--sm" id="lp-price">{!! $p['priceTitle'] ?? 'How it is <em>priced</em>' !!}</h2>
-                    @foreach ($p['price'] as $para)<p class="{{ $loop->last ? 'mb-0' : '' }}">{{ $para }}</p>@endforeach
-                </article>
-            </div>
-            <div class="col-lg-5">
-                <article class="feature-card h-100 lp-talk">
-                    <span class="feature-card__ic"><x-icon name="message" /></span>
-                    <p class="eyebrow">Prefer to talk first?</p>
-                    <h2 class="display-h display-h--sm">Ask us <em>anything</em></h2>
-                    <p>Call or message us and we reply the same working day. No form needed.</p>
-                    <p class="lp-talk__links mb-0">
-                        <a class="btn-ay btn-ay--ghost" href="tel:{{ config('site.phone') }}">Call {{ config('site.phone_display') }}</a>
-                        <a class="btn-ay btn-ay--ghost" href="https://wa.me/{{ ltrim(config('site.phone'), '+') }}" target="_blank" rel="noopener">WhatsApp us</a>
-                    </p>
-                </article>
-            </div>
-        </div>
-    </div>
-</section>
-@endif
+@yield('price')
 
 <section class="section section--alt" aria-labelledby="lp-faq">
     <div class="wrap wrap--narrow">
         <p class="eyebrow eyebrow--center">Questions</p>
         <h2 class="display-h text-center mb-5" id="lp-faq">Before You <em>Start</em></h2>
-        @include('partials.faq-list', ['items' => $p['faqs'], 'uid' => 'lpfaq'])
+        @include('partials.faq-list', ['items' => $faqs, 'uid' => 'lpfaq'])
     </div>
 </section>
 

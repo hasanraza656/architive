@@ -27,13 +27,16 @@ class PageController extends Controller
     public function terms()         { return view('pages.terms'); }
     public function sitemap()       { return view('pages.sitemap'); }
 
-    /** Google Ads landing page: one offer, proof, short form. Content in config/landing.php. */
+    /**
+     * Google Ads landing page: one offer, proof, short form. Each page is its own Blade file,
+     * resources/views/landing/{slug}.blade.php (shared frame: layouts/landing.blade.php).
+     * To add a page, copy one of those files; the URL is /lp/{file name}/.
+     */
     public function landing(string $slug)
     {
-        $p = config("landing.pages.{$slug}") ?? abort(404);
+        abort_unless(view()->exists("landing.{$slug}"), 404);
 
-        return view('pages.landing', ['slug' => $slug, 'p' => $p, 'trial' => config('landing.trial'), 'lp' => true,
-            'seo' => ['title' => $p['title'], 'description' => $p['description'], 'robots' => 'noindex,follow']]);
+        return view("landing.{$slug}");
     }
 
     /** Where ad landing page forms finish (?ref = request number). */

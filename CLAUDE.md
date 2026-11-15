@@ -234,3 +234,6 @@ How it is used:
 - Remote `origin` = https://github.com/hasanraza656/architive.git, branch `main`.
 - `.env` is git-ignored (only `.env.example` is tracked). `vendor/`, logs, node_modules ignored → after cloning run `composer install`, copy `.env.example` → `.env`, `php artisan key:generate`.
 - Commit messages end with the attribution line required by the session (Co-Authored-By …) when created by Claude.
+
+## 4o. Google Ads landing pages are Blade files (2026-11-15)
+- `/lp/{slug}/` renders `resources/views/landing/{slug}.blade.php` (3d-rendering, 3d-floor-plans, cad-drafting). All text of a page is in its own file (SEO title/description in the `@extends` array, `@php` block for service/topic/placeholder/hero image/FAQs, `@section` eyebrow/h1/lead/bullets/work/price). Shared frame (proof, trial steps, reviews, why-us, final call, sticky bar) = `layouts/landing.blade.php`, which extends `layouts/app` (so header, footer, consent banner, Tawk chat, analytics come from there). New page = copy a file in `resources/views/landing/`, URL = file name. `config/landing.php` was removed. Gotcha: write `@section('x')` on its own line, `@section('x')text@endsection` on one line does NOT compile.

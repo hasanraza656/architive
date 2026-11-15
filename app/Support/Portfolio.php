@@ -88,8 +88,17 @@ class Portfolio
             ['viz/cabin-floorplan-ground',    'floorplans', 'Cabin ground floor with fire pit',  'Isometric 3D floor plan of the cabin ground floor with a games room and a fire pit patio', '50% 50%'],
             ['viz/assisted-living-floorplan', 'floorplans', 'Assisted living floor, 3D plan',    'Isometric 3D floor plan of an assisted living floor with furnished resident rooms and lounges', '50% 50%'],
             ['viz/event-floorplan-iso',       'floorplans', 'Corporate event floor, 3D plan',    'Isometric 3D floor plan of a hotel event floor with banquet tables, a stage and lounges', '50% 50%'],
-            ['viz/event-floorplan-top',       'floorplans', 'Banquet hall, top-down plan',       'Top-down 3D plan of a banquet hall with round tables and a red carpet', '50% 50%'],
-            ['viz/unit-marketing-plan',       'floorplans', '2D marketing plan, 765 sq ft unit', 'Colour 2D marketing floor plan of a one-bedroom apartment, Unit 201, 765 square feet', '50% 50%'],
+            // 13 Nov 2026: banquet top-down and the 2D unit plan were removed; the client's new selection follows (the assisted-living and event-floor renders she re-sent are already above).
+            ['viz/cabin-floorplan-upper',        'floorplans', 'Vacation cabin, upper level',        'Isometric 3D floor plan of the upper level of a timber vacation cabin with a deck, stairs, a hot tub and a fire pit', '50% 50%'],
+            ['viz/apartment-floorplan-iso',      'floorplans', 'Apartment, isometric 3D plan',       'Isometric 3D floor plan of a furnished apartment with two bedrooms, a kitchen and a living area', '50% 50%'],
+            ['viz/apartment-floorplan-iso-2',    'floorplans', 'One-bedroom apartment, 3D plan',     'Isometric 3D floor plan of a furnished one-bedroom apartment with a bedroom, living room, kitchen, bathroom and terrace', '50% 50%'],
+            ['viz/penthouse-floorplan-top',      'floorplans', 'Penthouse, top-down 3D plan',        'Top-down 3D floor plan of a large furnished penthouse with curved terraces, several bedrooms and an open living area', '50% 50%'],
+            ['viz/banquet-hall-floorplan-iso',   'floorplans', 'Banquet hall, isometric 3D plan',    'Isometric 3D floor plan of a banquet hall with round tables, a stage and a red carpet', '50% 50%'],
+            ['viz/commercial-unit-floorplan-iso', 'floorplans', 'Commercial unit, isometric 3D plan', 'Isometric cutaway 3D floor plan of a long commercial unit with fitted equipment and partition walls', '50% 50%'],
+            ['viz/warehouse-floorplan-iso',      'floorplans', 'Warehouse and logistics, 3D plan',   'Isometric cutaway 3D floor plan of a warehouse with offices, racking, a loading bay and trucks', '50% 50%'],
+            ['viz/courtyard-floorplan-top',      'floorplans', 'Courtyard building, top-down plan',  'Top-down 3D floor plan of a courtyard-style building with rooms arranged around a central void', '50% 50%'],
+            ['viz/hotel-floorplan-top',          'floorplans', 'Hotel floor, top-down 3D plan',      'Top-down 3D floor plan of a hotel floor with guest rooms, corridors, lounges and green roofs', '50% 50%'],
+            ['viz/site-floorplan-plantation',    'floorplans', 'Ground floor with landscaping',      'Top-down 3D ground floor plan of a residential scheme with courtyards, planting and paved terraces on a black background', '50% 50%'],
         ];
 
         return array_map(fn ($i) => self::img($i[0]) + ['cat' => $i[1], 'title' => $i[2], 'alt' => $i[3], 'pos' => $i[4]], $items);
