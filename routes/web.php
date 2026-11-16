@@ -51,6 +51,8 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
 
     Route::get('how-it-works/', [PageController::class, 'process'])->name('process');
     Route::get('faqs/', [PageController::class, 'faqs'])->name('faqs');
+    Route::get('free-trial/', [PageController::class, 'freeTrial'])->name('free-trial');
+    Route::get('what-we-need/', [PageController::class, 'whatWeNeed'])->name('what-we-need');
     Route::get('contact/', [PageController::class, 'contact'])->name('contact');
 
     Route::get('privacy-policy/', [PageController::class, 'privacy'])->name('privacy');

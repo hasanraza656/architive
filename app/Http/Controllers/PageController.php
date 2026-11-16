@@ -20,6 +20,8 @@ class PageController extends Controller
     /** Production support is no longer a separate page; the old URL permanently redirects to Services. */
     public function outsourcing()   { return redirect()->away(pu('services.index'), 301); }
     public function process()       { return view('pages.process'); }
+    public function freeTrial()     { return view('pages.free-trial'); }
+    public function whatWeNeed()    { return view('pages.what-we-need'); }
     public function team()          { return view('pages.team'); }
     public function faqs()          { return view('pages.faqs'); }
     public function contact()       { return view('pages.contact'); }
