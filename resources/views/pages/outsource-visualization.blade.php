@@ -1,0 +1,68 @@
+@extends('layouts.app')
+
+@section('content')
+@include('partials.service-detail', ['d' => [
+    'key' => 'ov', 'name' => 'Outsource Architectural Visualization', 'type' => 'Outsourced architectural visualization',
+    'desc' => config('seo.pages')['services.outsource-visualization']['description'],
+    'schemaItems' => ['Outsourced exterior and interior rendering', 'Outsourced 3D floor plans', 'Overflow capacity for studios during busy periods', 'Rendering in your templates and styles', 'Written quote before work starts'],
+    'eyebrow' => 'Outsource architectural visualization',
+    'title' => 'Outsource Your Renders. <em>Keep Your Clients and Your Style.</em>',
+    'lead' => 'Architects, designers and builders send us the drawings. We return exterior renders, interior renders and 3D floor plans in your standards, so your team keeps designing instead of waiting on visuals.',
+    'heroItems' => ['Exterior and interior renders', '3D floor plans', 'Overflow capacity when you are busy', 'Written quote before work starts'],
+    'image' => ['key' => 'viz/floorplan-3d-top', 'alt' => 'Top-down 3D floor plan with herringbone flooring and furniture layout, rendered by Architive'],
+    'cta' => 'Get an outsourcing quote', 'topic' => 'Outsource visualization', 'service' => 'visualization',
+    'gallery' => 'floorplans', 'galleryTitle' => 'Visuals We Have <em>Produced for Studios</em>',
+    'galleryLead' => 'Plans, renders and layouts built from client drawings. Select any image to enlarge it.',
+    'cardsEyebrow' => 'What you can outsource', 'cardsTitle' => 'Hand Over the Visuals. <em>Keep the Design.</em>',
+    'cardsLead' => 'You keep the design decisions and the client relationship. We take on the production of the visuals.',
+    'cards' => [
+        ['icon' => 'building', 'title' => 'Exterior renders', 'text' => 'Photoreal exteriors from your plans, elevations or model, for planning, marketing and client sign-off.'],
+        ['icon' => 'home', 'title' => 'Interior renders', 'text' => 'Kitchens, baths, living spaces and commercial interiors built from your drawings and finish schedule.'],
+        ['icon' => 'grid', 'title' => '3D floor plans', 'text' => 'Furnished top-down or isometric plans from your 2D drawings, for listings, brochures and presentations.'],
+        ['icon' => 'layers', 'title' => 'Overflow capacity', 'text' => 'Busy week, three deadlines? Send the overflow and keep your own team on the projects that need them.'],
+        ['icon' => 'pencil-ruler', 'title' => 'Your templates and style', 'text' => 'Share your sample sheets, finishes and style references. We apply them so the work looks like yours.'],
+        ['icon' => 'refresh', 'title' => 'Repeat projects', 'text' => 'Once a style is set up, later projects reuse it, so each new brief needs less explanation.'],
+    ],
+    'forTitle' => 'Who Outsources <em>Visualization</em>',
+    'forItems' => [
+        ['Architecture studios', 'send us renders and 3D floor plans when the in-house team is full, so deadlines are not tied to headcount.'],
+        ['Interior designers', 'use outsourced renders to show clients a design before anything is bought.'],
+        ['Builders and developers', 'use outsourced visuals for planning packs, sales material and investor decks.'],
+        ['Real estate and marketing teams', 'use outsourced 3D floor plans and renders for listings without hiring a visualization team.'],
+    ],
+    'sendTitle' => 'Your Starting <em>Pack</em>',
+    'send' => [
+        'Drawings or model: DWG, PDF, Revit, SketchUp or images',
+        'Which views you need: exterior, interior, floor plan or a mix',
+        'Finish, material and style references',
+        'Your template or a sample of work you want to match',
+        'Number of images and your deadline',
+        'Anything the client has already approved or rejected',
+    ],
+    'sendNote' => 'Not sure what to send? Send what you have. We will tell you what is missing before we quote.',
+    'stepsTitle' => 'A Simple Way to <em>Hand Work Over</em>',
+    'stepsLead' => 'One contact, written scopes and review stages, so outsourcing does not add management work.',
+    'steps' => [
+        ['n' => '01', 'icon' => 'upload', 'title' => 'Send the brief', 'text' => 'Drawings, references and deadline. We check them and confirm views, revision rounds, delivery date and price in a written quote.'],
+        ['n' => '02', 'icon' => 'ruler', 'title' => 'Set up your style', 'text' => 'We note your templates, finishes and preferences and confirm them with you before production.'],
+        ['n' => '03', 'icon' => 'layers', 'title' => 'Build and review', 'text' => 'You review the work in defined stages, so changes are caught early instead of at the end.'],
+        ['n' => '04', 'icon' => 'image', 'title' => 'Final images', 'text' => 'High-resolution files for client presentations, planning packs and marketing.'],
+        ['n' => '05', 'icon' => 'refresh', 'title' => 'Repeat', 'text' => 'Next project, same style, same contact. Less to explain each time.'],
+    ],
+    'priceTitle' => 'What Decides <em>the Price</em>',
+    'price' => [
+        'Outsourced visualization is quoted per project. The main factors are the number of images, how complex the building or interior is, the level of detail and the revision rounds.',
+        'You get one written quote listing every image, revision round and delivery date before work starts. Several images in one style cost less each, because the setup is done once.',
+    ],
+    'faqs' => [
+        1 => ['q' => 'Can we outsource architectural visualization and keep our client relationship?', 'a' => 'Yes. You keep the client relationship and the design decisions. We produce the renders or floor plans from your drawings and send them back to you.'],
+        2 => ['q' => 'What do we need to send to start?', 'a' => 'Drawings or a model, the views you need, finish and style references, and your deadline. We tell you what is missing before we quote.'],
+        3 => ['q' => 'Do you sign an NDA?', 'a' => 'Yes. We can review and sign an NDA before you share project details.'],
+        4 => ['q' => 'How much does outsourced visualization cost?', 'a' => 'It is priced per project. The number of images, complexity, level of detail and revision rounds decide it. You get a written quote before work starts.'],
+        5 => ['q' => 'What if you miss something we asked for?', 'a' => 'Your quotation states the revision rounds included. If we miss an agreed instruction, we fix it at no charge. New requests or changed scope are quoted first.'],
+        6 => ['q' => 'Can we try you on one small job first?', 'a' => 'Yes. Start with one defined task, review the result, and decide whether to send more.'],
+    ],
+    'related' => 'Looking for one service? See <a href="' . pu('services.exterior') . '">exterior rendering</a>, <a href="' . pu('services.interior') . '">interior rendering</a>, <a href="' . pu('services.floorplans') . '">3D floor plans</a> or <a href="' . pu('services.cad') . '">CAD drafting</a>.',
+    'ctaTitle' => 'Send One Project. <em>See How We Work.</em>',
+]])
+@endsection

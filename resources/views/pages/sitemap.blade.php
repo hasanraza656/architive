@@ -26,6 +26,7 @@
                 <ul class="sitemap-list">
                     <li><a href="{{ pu('services.index') }}">All services</a></li>
                     <li><a href="{{ pu('services.visualization') }}">Architectural Visualization and Rendering</a></li>
+                    <li><a href="{{ pu('services.outsource-visualization') }}">Outsource Architectural Visualization</a></li>
                     <li><a href="{{ pu('services.bim') }}">BIM and Revit, Scan to BIM</a></li>
                     <li><a href="{{ pu('services.cad') }}">CAD Drafting and Permit Support</a></li>
                     <li><a href="{{ pu('permit-revisions') }}">Permit Revisions (estimate and enquiry)</a></li>
