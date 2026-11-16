@@ -38,6 +38,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('customers/create', [Admin\CustomerController::class, 'create'])->middleware('can:customers.create')->name('customers.create');
         Route::post('customers', [Admin\CustomerController::class, 'store'])->middleware('can:customers.create')->name('customers.store');
         Route::get('customers/{customer}', [Admin\CustomerController::class, 'show'])->middleware('can:customers.view')->name('customers.show');
+        Route::post('customers/{customer}/welcome', [Admin\CustomerController::class, 'welcome'])->middleware('can:customers.edit')->name('customers.welcome');
         Route::get('customers/{customer}/edit', [Admin\CustomerController::class, 'edit'])->middleware('can:customers.edit')->name('customers.edit');
         Route::put('customers/{customer}', [Admin\CustomerController::class, 'update'])->middleware('can:customers.edit')->name('customers.update');
         Route::delete('customers/{customer}', [Admin\CustomerController::class, 'destroy'])->middleware('can:customers.delete')->name('customers.destroy');
@@ -96,6 +97,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::patch('tasks/{task}', [Admin\TaskController::class, 'update'])->name('tasks.update');
         Route::post('tasks/{task}/move', [Admin\TaskController::class, 'move'])->name('tasks.move');
         Route::delete('tasks/{task}', [Admin\TaskController::class, 'destroy'])->name('tasks.destroy');
+        /* to-do checklists inside tasks and projects ({type} = task | project) */
+        Route::get('checklists/{type}/{id}', [Admin\ChecklistController::class, 'index'])->where('type', 'task|project')->middleware('throttle:240,1')->name('checklists.index');
+        Route::post('checklists/{type}/{id}', [Admin\ChecklistController::class, 'store'])->where('type', 'task|project')->middleware('throttle:120,1')->name('checklists.store');
+        Route::post('checklists/{type}/{id}/reorder', [Admin\ChecklistController::class, 'reorder'])->where('type', 'task|project')->middleware('throttle:120,1')->name('checklists.reorder');
+        Route::patch('checklist-items/{item}', [Admin\ChecklistController::class, 'update'])->middleware('throttle:240,1')->name('checklists.update');
+        Route::delete('checklist-items/{item}', [Admin\ChecklistController::class, 'destroy'])->middleware('throttle:120,1')->name('checklists.destroy');
         Route::post('tasks/{task}/comments', [Admin\TaskController::class, 'comment'])->middleware('throttle:60,1')->name('tasks.comment');
 
         /* team: members and roles */

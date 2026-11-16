@@ -61,6 +61,7 @@
   $('[data-nc-save]', newBox).addEventListener('click', function () {
     var btn = this, fields = ['first_name', 'last_name', 'email', 'phone_country', 'phone'], data = {};
     fields.forEach(function (f) { var el = $('[name="nc_' + f + '"]', newBox); data[f] = el ? el.value : ''; });
+    var wc = $('[name="nc_send_welcome"]', newBox); data.send_welcome = !!(wc && wc.checked);
     $$('.pfield__error', newBox).forEach(function (e) { e.remove(); });
     $$('.has-error', newBox).forEach(function (e) { e.classList.remove('has-error'); });
     btn.classList.add('is-loading'); btn.disabled = true;
@@ -77,8 +78,8 @@
         }
         var c = { id: res.json.id, name: res.json.name, email: res.json.email };
         customers.unshift(c); renderList(); choose(c);
-        newBox.classList.remove('is-open'); $$('input', newBox).forEach(function (i) { if (i.type !== 'hidden') { i.value = ''; } });
-        flash('Customer ' + c.name + ' created and selected.');
+        newBox.classList.remove('is-open'); $$('input', newBox).forEach(function (i) { if (i.type !== 'hidden' && i.type !== 'checkbox') { i.value = ''; } });
+        flash('Customer ' + c.name + ' created and selected.' + (res.json.welcome === true ? ' Welcome e-mail sent.' : '') + (res.json.welcome === false ? ' The welcome e-mail could not be sent.' : ''), res.json.welcome === false);
       })
       .catch(function () { flash('Could not create the customer. Check your connection.', true); })
       .then(function () { btn.classList.remove('is-loading'); btn.disabled = false; });

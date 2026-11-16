@@ -34,6 +34,21 @@ class Project extends Model
         return $this->hasMany(Task::class)->orderBy('position')->orderBy('id');
     }
 
+    /** The project's own to-do checklist (Notion style). */
+    public function checklist(): HasMany
+    {
+        return $this->hasMany(ChecklistItem::class, 'owner_id')->where('owner_type', 'project')->orderBy('position')->orderBy('id');
+    }
+
+    protected static function booted(): void
+    {
+        // the database removes the tasks by itself, so clean up the checklists of the project and of its tasks here
+        static::deleting(function (Project $p) {
+            ChecklistItem::where('owner_type', 'task')->whereIn('owner_id', $p->tasks()->pluck('id'))->delete();
+            ChecklistItem::where('owner_type', 'project')->where('owner_id', $p->id)->delete();
+        });
+    }
+
     public function members(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'project_members')->withPivot('role')->withTimestamps()->orderBy('first_name');

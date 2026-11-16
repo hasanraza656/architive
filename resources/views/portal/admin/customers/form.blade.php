@@ -22,6 +22,9 @@
             </div>
             <x-portal.field name="email" label="E-mail address" hint="Invoices and sign-in codes are sent here."><input class="pinput" type="email" id="email" name="email" value="{{ old('email', $customer->email) }}" autocomplete="off" required></x-portal.field>
             @include('portal.shared.phone-field', ['countries' => $countries, 'country' => $customer->phone_country, 'phone' => $customer->phone])
+            @unless ($editing)
+                <label class="pcheck"><input type="checkbox" name="send_welcome" value="1" @checked(old('send_welcome', ! $errors->any()))> Send a welcome e-mail to the customer now</label>
+            @endunless
             @if ($editing)
                 <label class="pcheck"><input type="checkbox" name="is_active" value="1" @checked(old('is_active', $customer->is_active))> Account is active (can sign in)</label>
             @endif

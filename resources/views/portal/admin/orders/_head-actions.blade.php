@@ -13,6 +13,11 @@
         </form>
     @endcan
 @endif
+@can('customers.edit')
+    <form method="post" action="{{ route('admin.customers.welcome', $order->customer) }}" data-loading data-confirm="Send the welcome e-mail to {{ $order->customer->email }}?">@csrf
+        <button class="pbtn pbtn--ghost pbtn--sm" type="submit"><x-icon name="send" /> Send welcome e-mail</button>
+    </form>
+@endcan
 @if ($order->status !== S::Draft && $canBilling)
     <button class="pbtn pbtn--ghost pbtn--sm" type="button" data-copy="{{ $order->customerUrl() }}"><x-icon name="copy" /> <span data-copy-label>Copy customer link</span></button>
 @endif

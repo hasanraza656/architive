@@ -4,6 +4,7 @@
 
 @push('head')
     <link rel="stylesheet" href="{{ asset_v('assets/css/portal-tasks.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('assets/css/portal-checklist.css') }}">
 @endpush
 
 @section('content')
@@ -15,4 +16,5 @@
 
 @push('scripts')
     <script src="{{ asset_v('assets/js/portal-tasks.js') }}"></script>
+    <script src="{{ asset_v('assets/js/portal-checklist.js') }}"></script>
 @endpush

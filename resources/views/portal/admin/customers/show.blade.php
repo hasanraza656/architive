@@ -13,6 +13,11 @@
             </div>
         </div>
         <div class="phead__actions">
+            @can('customers.edit')
+                <form method="post" action="{{ route('admin.customers.welcome', $customer) }}" data-loading data-confirm="Send the welcome e-mail to {{ $customer->email }}?">@csrf
+                    <button class="pbtn pbtn--ghost" type="submit"><x-icon name="send" /> Send welcome e-mail</button>
+                </form>
+            @endcan
             <a class="pbtn pbtn--ghost" href="{{ route('admin.customers.edit', $customer) }}"><x-icon name="edit" /> Edit</a>
             <a class="pbtn pbtn--primary" href="{{ route('admin.orders.create', ['customer' => $customer->id]) }}"><x-icon name="plus" /> New order</a>
             <button class="pbtn pbtn--danger" type="button" data-dialog-open="deleteCustomer"><x-icon name="trash" /> Delete</button>

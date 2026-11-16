@@ -1,0 +1,94 @@
+/* To-do checklists inside tasks and projects. Calm on purpose: soft motion, no loud colours. Uses the portal tokens. */
+
+.clist { display: grid; gap: .55rem; }
+.clist__head { display: flex; align-items: baseline; justify-content: space-between; gap: .8rem; }
+.clist__title { margin: 0; font: 700 .7rem/1.2 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); }
+.clist__count { font: 600 .74rem/1 var(--f-mono); letter-spacing: .06em; color: var(--ink-3); transition: color .3s; }
+.clist__bar { height: 4px; border-radius: 99px; background: var(--line); overflow: hidden; }
+.clist__bar i { display: block; height: 100%; width: 0; border-radius: 99px; background: var(--accent); transition: width .5s cubic-bezier(.2, .8, .2, 1), background-color .4s; }
+.clist__bar.is-all i { background: #2fb457; }
+.clist.is-empty .clist__bar { opacity: 0; }
+.clist__hint { margin: .15rem 0 0; font-size: .74rem; color: var(--ink-3); }
+.clist__hint kbd { padding: .05rem .35rem; border: 1px solid var(--line-2); border-bottom-width: 2px; border-radius: 5px; background: var(--surface); font: 600 .68rem/1.4 var(--f-mono); color: var(--ink-2); }
+.clist.is-readonly .clist__hint { display: none; }
+
+.clist__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1px; }
+
+/* one line */
+.cl { position: relative; display: flex; align-items: flex-start; gap: .5rem; padding: .3rem .4rem .3rem .1rem; border-radius: 10px; max-height: 600px; overflow: visible;
+  transition: background-color .2s, opacity .22s, transform .22s, max-height .22s ease, padding .22s; }
+.cl:hover { background: var(--surface-2); }
+.cl.is-new { animation: clIn .34s cubic-bezier(.2, .8, .2, 1); }
+.cl.is-flash { animation: clFlash 1.8s ease-out; }
+.cl.is-leaving { opacity: 0; transform: translateX(-8px); max-height: 0 !important; padding-block: 0; overflow: hidden; }
+.cl.is-drag { opacity: .45; }
+.clist.is-booting .cl, .clist.is-booting .cl * { animation: none !important; transition: none !important; }
+@keyframes clIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: none; } }
+@keyframes clFlash { 0%, 35% { background-color: rgba(255, 214, 10, .28); } 100% { background-color: transparent; } }
+
+.cl__grip { flex: none; width: 16px; padding-top: .28rem; display: grid; justify-items: center; color: var(--ink-3); opacity: 0; cursor: grab; transition: opacity .18s; }
+.cl:hover .cl__grip { opacity: .55; }
+.cl__grip:hover { opacity: 1 !important; color: var(--ink); }
+.cl--draft .cl__grip, .clist.is-readonly .cl__grip { visibility: hidden; cursor: default; }
+
+/* the tick box */
+.cl__box { flex: none; position: relative; width: 22px; height: 22px; margin-top: .12rem; display: grid; place-items: center; padding: 0; border: 1.7px solid var(--line-2); border-radius: 7px; background: var(--surface); color: transparent; cursor: pointer;
+  transition: background-color .22s, border-color .22s, transform .22s cubic-bezier(.3, 1.6, .5, 1), box-shadow .22s; }
+.cl__box:hover:not(:disabled) { border-color: var(--ink-2); }
+.cl__box:active:not(:disabled) { transform: scale(.88); }
+.cl__box:disabled { cursor: default; }
+.cl__box svg { transform: scale(.4); opacity: 0; transition: transform .3s cubic-bezier(.3, 1.6, .5, 1), opacity .15s; }
+.cl.is-done .cl__box { background: var(--accent); border-color: var(--accent-2); color: #141414; box-shadow: 0 0 0 4px rgba(255, 214, 10, .18); }
+.cl.is-done .cl__box svg { transform: none; opacity: 1; }
+.cl__box--ghost { border-style: dashed; border-color: var(--line-2); background: transparent; color: var(--ink-3); cursor: text; }
+.cl--draft .cl__box--ghost svg { transform: none; opacity: .75; }
+.cl--draft:focus-within .cl__box--ghost { border-color: var(--ink-3); color: var(--ink-2); }
+
+/* the text: a line is drawn through it when the item is done */
+.cl__main { flex: 1; min-width: 0; padding-top: .12rem; }
+.cl__text { display: inline; min-width: 1px; outline: none; font-size: .95rem; line-height: 1.55; color: var(--ink); overflow-wrap: anywhere; white-space: pre-wrap; cursor: text;
+  background-image: linear-gradient(currentColor, currentColor); background-repeat: no-repeat; background-position: 0 58%; background-size: 0% 1.7px;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  transition: background-size .45s cubic-bezier(.65, 0, .35, 1), color .35s; }
+.cl.is-done .cl__text { background-size: 100% 1.7px; color: var(--ink-3); }
+.cl__text:empty::before { content: attr(data-ph); color: var(--ink-3); pointer-events: none; }
+.clist.is-readonly .cl__text { cursor: default; }
+
+/* who ticked it */
+.cl__by { display: block; max-height: 0; overflow: hidden; opacity: 0; font: 500 .72rem/1.3 var(--f-body); color: var(--ink-3); transform: translateY(-3px); transition: max-height .3s, opacity .3s, transform .3s; }
+.cl.is-done .cl__by { max-height: 1.6em; opacity: 1; transform: none; }
+
+.cl__del { flex: none; width: 28px; height: 28px; margin-top: .05rem; display: grid; place-items: center; padding: 0; border: 0; border-radius: 8px; background: transparent; color: var(--ink-3); opacity: 0; cursor: pointer; transition: opacity .18s, background-color .18s, color .18s; }
+.cl:hover .cl__del, .cl:focus-within .cl__del { opacity: 1; }
+.cl__del:hover { background: var(--grey-bg); color: #b42318; }
+@media (hover: none) { .cl__grip { display: none; } .cl__del { opacity: .55; } }
+
+/* soft note at the bottom of the screen */
+.cltoast { position: fixed; left: 50%; bottom: 1.4rem; z-index: 3000; display: flex; align-items: center; gap: .6rem; max-width: min(92vw, 420px); padding: .6rem .9rem; border-radius: 14px; background: rgba(20, 20, 20, .94); color: #fff; font-size: .84rem; line-height: 1.35;
+  box-shadow: 0 14px 34px -14px rgba(0, 0, 0, .5); opacity: 0; transform: translate(-50%, 12px); pointer-events: none; transition: opacity .25s, transform .3s cubic-bezier(.2, .8, .2, 1); }
+.cltoast.is-on { opacity: 1; transform: translate(-50%, 0); pointer-events: auto; }
+.cltoast__dot { flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.cltoast.is-bad .cltoast__dot { background: #f97066; }
+.cltoast__undo { flex: none; padding: .2rem .55rem; border: 0; border-radius: 8px; background: rgba(255, 255, 255, .14); color: #fff; font: 600 .76rem/1.2 var(--f-body); cursor: pointer; transition: background-color .2s; }
+.cltoast__undo:hover { background: rgba(255, 255, 255, .26); }
+
+/* board card chip */
+.tcard__cl { display: inline-flex; align-items: center; gap: .25rem; color: var(--ink-3); font-size: .76rem; }
+.tcard__cl .ic { width: 13px; height: 13px; }
+.tcard__cl b { font-weight: 600; }
+.tcard__cl.is-all { color: #1a7f3c; }
+.tcard__cl.is-empty { display: none; }
+.tsection--checklist { margin-top: 1.1rem; }
+
+@media (prefers-reduced-motion: reduce) {
+  .cl, .cl__box, .cl__box svg, .cl__text, .cl__by, .clist__bar i, .cltoast { transition: none !important; animation: none !important; }
+}
+
+/* Focus: no hard black outline hugging the text. The whole row gets a soft, roomy highlight instead. */
+.portal .cl__text:focus, .portal .cl__text:focus-visible { outline: none; }
+.cl { padding-right: .55rem; box-shadow: inset 0 0 0 1px transparent; transition: background-color .2s, box-shadow .2s, opacity .22s, transform .22s, max-height .22s ease, padding .22s; }
+.cl:focus-within { background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); }
+.cl--draft:focus-within { background: rgba(255, 214, 10, .09); box-shadow: inset 0 0 0 1px rgba(255, 214, 10, .55); }
+.cl__text { caret-color: #b98f00; }
+.portal .cl__box:focus-visible, .portal .cl__del:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(255, 214, 10, .5); }
+.cl__main { padding-block: .1rem; }

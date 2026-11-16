@@ -38,6 +38,7 @@ class StoreCustomerRequest extends FormRequest
             'phone_country' => ['nullable', 'required_with:phone', Rule::in(array_keys(config('countries')))],
             'phone' => ['nullable', 'digits_between:4,14'],
             'is_active' => ['sometimes', 'boolean'],
+            'send_welcome' => ['sometimes', 'boolean'],      // new customers only: send the welcome e-mail
         ];
     }
 
@@ -46,10 +47,16 @@ class StoreCustomerRequest extends FormRequest
         return ['email.unique' => 'A customer with this e-mail address already exists.'];
     }
 
+    public function wantsWelcome(): bool
+    {
+        return $this->boolean('send_welcome');
+    }
+
     /** Fields ready to save: the phone is stored as "+<dial code><number>". */
     public function customerData(): array
     {
         $data = $this->validated();
+        unset($data['send_welcome']);
         $country = $data['phone_country'] ?? null;
         $data['phone'] = ! empty($data['phone']) && $country ? '+' . config("countries.$country.1") . ltrim($data['phone'], '0') : null;
         $data['phone_country'] = $data['phone'] ? $country : null;

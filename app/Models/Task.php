@@ -50,6 +50,27 @@ class Task extends Model
         return $this->hasMany(TaskComment::class)->orderBy('id');
     }
 
+    /** To-do checklist lines (Notion style), in the order the team arranged them. */
+    public function checklist(): HasMany
+    {
+        return $this->hasMany(ChecklistItem::class, 'owner_id')->where('owner_type', 'task')->orderBy('position')->orderBy('id');
+    }
+
+    /** [done, total]. Uses the withCount values when the list was loaded with them, so a board does not run a query per card. */
+    public function checklistProgress(): array
+    {
+        if (isset($this->checklist_total)) {
+            return [(int) $this->checklist_done, (int) $this->checklist_total];
+        }
+
+        return [$this->checklist()->where('is_done', true)->count(), $this->checklist()->count()];
+    }
+
+    protected static function booted(): void
+    {
+        static::deleted(fn (Task $t) => ChecklistItem::where('owner_type', 'task')->where('owner_id', $t->id)->delete());
+    }
+
     public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

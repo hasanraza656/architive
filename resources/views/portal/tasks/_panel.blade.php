@@ -80,6 +80,9 @@
     </div>
 
     @if ($team)
+        <div class="tsection tsection--checklist">
+            @include('portal.tasks._checklist', ['owner' => 'task', 'ownerId' => $task->id, 'canManage' => $canStatus])
+        </div>
         <div class="tsection">
             <h3>Activity</h3>
             <ul class="acts" data-activity>@include('portal.tasks._activity', ['activity' => $activity])</ul>

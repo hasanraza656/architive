@@ -66,10 +66,12 @@
 
 @push('head')
     <link rel="stylesheet" href="{{ asset_v('assets/css/portal-tasks.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('assets/css/portal-checklist.css') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/portal-chat.css') }}">
 @endpush
 
 @push('scripts')
     <script src="{{ asset_v('assets/js/portal-tasks.js') }}"></script>
+    <script src="{{ asset_v('assets/js/portal-checklist.js') }}"></script>
     <script src="{{ asset_v('assets/js/chat-core.js') }}"></script>
 @endpush

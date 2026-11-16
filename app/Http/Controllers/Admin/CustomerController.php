@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreCustomerRequest;
+use App\Mail\Portal\WelcomeCustomer;
 use App\Models\User;
+use App\Services\Notifications\PortalMailer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,6 +18,10 @@ use Illuminate\Support\Facades\DB;
  */
 class CustomerController extends Controller
 {
+    public function __construct(private PortalMailer $mailer)
+    {
+    }
+
     public function index(Request $request)
     {
         $q = trim((string) $request->query('q'));
@@ -39,8 +45,12 @@ class CustomerController extends Controller
     {
         $customer = User::create($request->customerData() + ['role' => User::ROLE_CUSTOMER, 'is_active' => true]);
 
+        // the welcome e-mail is optional (tick box, on by default); a mail-server problem never stops the customer from being created
+        $welcome = $request->wantsWelcome() ? $this->mailer->send($customer->email, new WelcomeCustomer($customer)) : null;
+
         if ($request->expectsJson()) {
             return response()->json([
+                'welcome' => $welcome,
                 'id' => $customer->id,
                 'name' => $customer->name,
                 'email' => $customer->email,
@@ -48,7 +58,25 @@ class CustomerController extends Controller
             ], 201);
         }
 
-        return redirect()->route('admin.customers.show', $customer)->with('success', 'Customer created.');
+        $redirect = redirect()->route('admin.customers.show', $customer);
+
+        return match ($welcome) {
+            true => $redirect->with('success', 'Customer created. The welcome e-mail was sent to ' . $customer->email . '.'),
+            false => $redirect->with('error', 'Customer created, but the welcome e-mail could not be sent. You can try again with "Send welcome e-mail".'),
+            default => $redirect->with('success', 'Customer created.'),
+        };
+    }
+
+    /** Manual "send the welcome e-mail" button (customer page and order page). */
+    public function welcome(User $customer): RedirectResponse
+    {
+        if (! $customer->is_active) {
+            return back()->with('error', 'This account is switched off, so no welcome e-mail was sent.');
+        }
+
+        return $this->mailer->send($customer->email, new WelcomeCustomer($customer))
+            ? back()->with('success', 'Welcome e-mail sent to ' . $customer->email . '.')
+            : back()->with('error', 'The welcome e-mail could not be sent. Please check the mail settings and try again.');
     }
 
     public function show(User $customer)

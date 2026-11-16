@@ -62,6 +62,7 @@
                         </div>
                         <div class="pfield"><label for="nc_email">E-mail address</label><input class="pinput" type="email" id="nc_email" name="nc_email" autocomplete="off"></div>
                         @include('portal.shared.phone-field', ['countries' => $countries, 'country' => 'US', 'phone' => null, 'prefix' => 'nc_'])
+                        <label class="pcheck"><input type="checkbox" name="nc_send_welcome" value="1" checked> Send a welcome e-mail to the customer now</label>
                         <div class="pactions">
                             <button class="pbtn pbtn--dark pbtn--sm" type="button" data-nc-save>Create &amp; select</button>
                             <button class="pbtn pbtn--ghost pbtn--sm" type="button" data-nc-cancel>Cancel</button>

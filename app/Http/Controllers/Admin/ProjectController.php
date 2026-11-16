@@ -63,7 +63,7 @@ class ProjectController extends Controller
         $this->authorize('view', $project);
         $me = $request->user();
 
-        $tasks = $project->tasks()->with(['assignees'])->withCount(['comments' => fn ($c) => $c->where('kind', 'comment')])->get();
+        $tasks = $project->tasks()->with(['assignees'])->withCount(['comments' => fn ($c) => $c->where('kind', 'comment')])->withCount(['checklist as checklist_total', 'checklist as checklist_done' => fn ($c) => $c->where('is_done', true)])->get();
 
         return view('portal.admin.projects.show', [
             'project' => $project->load(['members', 'customer', 'order']),
@@ -74,6 +74,7 @@ class ProjectController extends Controller
             'canAddTask' => $me->can('addTask', $project),
             'canDelete' => $me->can('delete', $project),
             'form' => $this->formData(),
+            'checklistCount' => [\App\Models\ChecklistItem::where('owner_type', 'project')->where('owner_id', $project->id)->where('is_done', true)->count(), \App\Models\ChecklistItem::where('owner_type', 'project')->where('owner_id', $project->id)->count()],
             'progress' => $tasks->count() ? (int) round($tasks->where('status', 'done')->count() / $tasks->count() * 100) : 0,
             'version' => $this->version($tasks),
         ]);
@@ -86,7 +87,7 @@ class ProjectController extends Controller
     public function live(Request $request, Project $project): \Illuminate\Http\JsonResponse
     {
         $this->authorize('view', $project);
-        $tasks = $project->tasks()->with(['assignees'])->withCount(['comments' => fn ($c) => $c->where('kind', 'comment')])->get();
+        $tasks = $project->tasks()->with(['assignees'])->withCount(['comments' => fn ($c) => $c->where('kind', 'comment')])->withCount(['checklist as checklist_total', 'checklist as checklist_done' => fn ($c) => $c->where('is_done', true)])->get();
         $version = $this->version($tasks);
         if ($request->query('v') === $version) {
             return response()->json(['changed' => false, 'v' => $version]);
@@ -106,7 +107,7 @@ class ProjectController extends Controller
     private function version($tasks): string
     {
         return md5($tasks->map(fn (Task $t) => implode(':', [
-            $t->id, $t->title, $t->status, $t->priority, $t->due_date?->toDateString(), $t->position, $t->comments_count ?? 0, $t->assignees->pluck('id')->sort()->implode(','),
+            $t->id, $t->title, $t->status, $t->priority, $t->due_date?->toDateString(), $t->position, $t->comments_count ?? 0, $t->checklist_done ?? 0, $t->checklist_total ?? 0, $t->assignees->pluck('id')->sort()->implode(','),
         ]))->implode('|'));
     }
 

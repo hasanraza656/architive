@@ -4,6 +4,7 @@
 
 @push('head')
     <link rel="stylesheet" href="{{ asset_v('assets/css/portal-tasks.css') }}">
+    <link rel="stylesheet" href="{{ asset_v('assets/css/portal-checklist.css') }}">
 @endpush
 
 @section('content')
@@ -42,6 +43,7 @@
     <div class="tabs no-print" data-tabs data-default="board" role="tablist" aria-label="Project views" style="margin:1.1rem 0 .9rem">
         <button class="tab" type="button" role="tab" data-tab="board"><x-icon name="layers" /> Board</button>
         <button class="tab" type="button" role="tab" data-tab="list"><x-icon name="file-text" /> List <small data-list-count>{{ $tasks->count() }}</small></button>
+        <button class="tab" type="button" role="tab" data-tab="checklist"><x-icon name="check-circle" /> Checklist <small data-cl-badge="project:{{ $project->id }}">{{ $checklistCount[0] }}/{{ $checklistCount[1] }}</small></button>
         <button class="tab" type="button" role="tab" data-tab="details"><x-icon name="info" /> Details</button>
     </div>
 
@@ -70,6 +72,11 @@
 
     {{-- LIST --}}
     <div class="tabpane" data-pane="list" data-list-pane>@include('portal.admin.projects._list', ['columns' => $columns])</div>
+
+    {{-- CHECKLIST (the project's own to-do list; every task has its own inside the task) --}}
+    <div class="tabpane" data-pane="checklist">
+        <div class="pcard"><div class="pcard__body">@include('portal.tasks._checklist', ['owner' => 'project', 'ownerId' => $project->id, 'canManage' => $canAddTask, 'title' => 'Project to-dos'])</div></div>
+    </div>
 
     {{-- DETAILS --}}
     <div class="tabpane" data-pane="details">
@@ -136,5 +143,6 @@
 
 @push('scripts')
     <script src="{{ asset_v('assets/js/portal-tasks.js') }}"></script>
+    <script src="{{ asset_v('assets/js/portal-checklist.js') }}"></script>
     <script>(function () { var d = document.querySelector('dialog[data-open-on-load]'); if (d && d.showModal) { d.showModal(); } })();</script>
 @endpush
