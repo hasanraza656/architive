@@ -1,0 +1,67 @@
+@extends('layouts.app')
+
+@section('content')
+@include('partials.service-detail', ['d' => [
+    'key' => 'wn', 'name' => 'What We Need From You', 'type' => 'Project brief checklist for architectural visualization, CAD and BIM',
+    'desc' => config('seo.pages')['what-we-need']['description'],
+    'schemaItems' => ['Starting pack for 3D floor plans', 'Starting pack for interior and exterior renders', 'Starting pack for CAD drafting', 'Starting pack for BIM and Revit'],
+    'eyebrow' => 'What we need from you',
+    'title' => 'A Good Brief Gets You <em>a Faster, Cleaner Result.</em>',
+    'lead' => 'Send us what you have. This checklist shows what helps most for each type of work, and we tell you what is missing before we quote.',
+    'heroItems' => ['Drawings, model or sketches', 'Views or sheets you need', 'Style and finish references', 'Your deadline'],
+    'image' => ['key' => 'viz/floorplan-3d-top', 'alt' => 'Top-down 3D floor plan with herringbone flooring and furniture layout, rendered by Architive'],
+    'cta' => 'Send your brief', 'topic' => 'Project brief', 'service' => 'visualization',
+    'gallery' => null, 'galleryTitle' => '', 'galleryLead' => '',
+    'cardsEyebrow' => 'Starting packs', 'cardsTitle' => 'What to Send, <em>by Type of Work</em>',
+    'cardsLead' => 'You do not need everything on the list. Send what you have and we ask for the rest.',
+    'cards' => [
+        ['icon' => 'grid', 'title' => '3D floor plans', 'text' => 'The 2D plan (DWG, PDF, image or scan) with key dimensions, wall heights if known, flooring and furniture preferences, view type (top-down, isometric or both), number of plans and deadline.'],
+        ['icon' => 'home', 'title' => 'Interior renders', 'text' => 'Plans and elevations, a finish schedule or material references, furniture and lighting style, the camera views you want and your deadline.'],
+        ['icon' => 'building', 'title' => 'Exterior renders', 'text' => 'Plans, elevations and sections or a model, materials and landscape references, the time of day and camera views you want, and your deadline.'],
+        ['icon' => 'pencil-ruler', 'title' => 'CAD drafting', 'text' => 'Sketches, PDFs, surveys or markups, your title block, layers and conventions, the sheets you need and your deadline.'],
+        ['icon' => 'box', 'title' => 'BIM and Revit', 'text' => 'CAD files, surveys or point clouds, the model purpose and Revit version, the views and schedules you need, and your standards.'],
+        ['icon' => 'layers', 'title' => 'Not sure?', 'text' => 'Send what you have, even a sketch or a photo of a plan. We tell you what else we need before we quote.'],
+    ],
+    'forTitle' => 'Why a Clear Brief <em>Helps Both of Us</em>',
+    'forItems' => [
+        ['You', 'get an accurate written quote the first time, with fewer questions and fewer revision rounds.'],
+        ['Your team', 'spends less time answering questions and more time on design.'],
+        ['Your client', 'sees the first version closer to what they expected.'],
+        ['Us', 'can start production without guessing, which keeps delivery dates reliable.'],
+    ],
+    'sendTitle' => 'The Short <em>Checklist</em>',
+    'send' => [
+        'Drawings, model or sketches (DWG, PDF, Revit, SketchUp or images)',
+        'What you need back: renders, 3D floor plans, drawings or a BIM model',
+        'Scale or key dimensions',
+        'Style, finish and material references',
+        'Your templates or a sample of work you want to match',
+        'Your deadline and the number of images or sheets',
+    ],
+    'sendNote' => 'Missing something on the list? Send the brief anyway. We tell you what we still need before we quote.',
+    'stepsTitle' => 'What Happens <em>After You Send It</em>',
+    'stepsLead' => 'You always see the scope and price in writing before work starts.',
+    'steps' => [
+        ['n' => '01', 'icon' => 'upload', 'title' => 'You send the brief', 'text' => 'Files, references and deadline, by the contact form or email.'],
+        ['n' => '02', 'icon' => 'message', 'title' => 'We check it', 'text' => 'We review what you sent and tell you what is missing.'],
+        ['n' => '03', 'icon' => 'file-text', 'title' => 'Written quote', 'text' => 'Views or sheets, revision rounds, delivery date and price, in one written quote.'],
+        ['n' => '04', 'icon' => 'layers', 'title' => 'Production and review', 'text' => 'You review the work in defined stages.'],
+        ['n' => '05', 'icon' => 'download', 'title' => 'Delivery', 'text' => 'Final files in the formats you asked for.'],
+    ],
+    'priceTitle' => 'Does the Brief <em>Change the Price?</em>',
+    'price' => [
+        'A clearer brief usually means fewer revision rounds, which keeps your project cost predictable. The price itself is set by the size of the work, the level of detail and the number of images or sheets.',
+        'You always get a written quote first.',
+    ],
+    'faqs' => [
+        1 => ['q' => 'What if I only have a sketch?', 'a' => 'Send it. We tell you what else we need before we quote. For 3D floor plans, a sketch needs dimensions so we can redraw it accurately.'],
+        2 => ['q' => 'Which file formats can I send?', 'a' => 'DWG, PDF, Revit, SketchUp and images are all fine. A link to your files works too.'],
+        3 => ['q' => 'How do I send large files?', 'a' => 'Share a link to your own storage, or attach files on the contact form. If neither works, tell us and we will suggest a way.'],
+        4 => ['q' => 'Can you sign an NDA before I send files?', 'a' => 'Yes. We can review and sign an NDA before you share project details.'],
+        5 => ['q' => 'Do I need a finished design to start?', 'a' => 'No. Tell us where the project is, and we say what we can work from.'],
+        6 => ['q' => 'Will I get a price before work starts?', 'a' => 'Yes. You get a written quote listing the images or sheets, revision rounds and delivery date before work starts.'],
+    ],
+    'related' => 'See <a href="' . pu('process') . '">how projects work</a>. Not ready to send a full brief? Start with one task in the <a href="' . pu('free-trial') . '">free 3-day trial</a>, or <a href="' . pu('contact') . '">contact us</a> with a short description.',
+    'ctaTitle' => 'Send What You Have. <em>We Will Tell You the Rest.</em>',
+]])
+@endsection

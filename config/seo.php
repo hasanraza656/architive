@@ -47,6 +47,16 @@ return [
             'image'       => 'assets/img/og/viz-bandon.jpg',
             'sitemap'     => [0.9, 'monthly'],
         ],
+        'free-trial' => [
+            'title'       => 'Free 3-Day Trial | Architive',
+            'description' => 'Send one real task and we work on it free for up to 3 working days. Judge our quality, speed and communication. No card, no contract.',
+            'sitemap'     => [0.8, 'monthly'],
+        ],
+        'what-we-need' => [
+            'title'       => 'What We Need From You | Architive',
+            'description' => 'The files and details that help most for 3D floor plans, renders, CAD drafting and BIM. Send what you have and we tell you what is missing.',
+            'sitemap'     => [0.7, 'monthly'],
+        ],
         'services.interior' => [
             'title'       => '3D Interior Rendering Services | Architive',
             'description' => 'Photoreal 3D interior rendering services from your plans and finish schedule: kitchens, baths, living spaces and commercial interiors, with finish options.',

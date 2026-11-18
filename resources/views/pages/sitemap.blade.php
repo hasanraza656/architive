@@ -18,6 +18,8 @@
                     <li><a href="{{ pu('about') }}">About Architive</a></li>
                     <li><a href="{{ pu('process') }}">How It Works</a></li>
                     <li><a href="{{ pu('faqs') }}">FAQs</a></li>
+                    <li><a href="{{ pu('free-trial') }}">Free 3-Day Trial</a></li>
+                    <li><a href="{{ pu('what-we-need') }}">What We Need From You</a></li>
                     <li><a href="{{ pu('contact') }}">Contact</a></li>
                 </ul>
             </div>
