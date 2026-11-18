@@ -62,7 +62,7 @@
         5 => ['q' => 'Can you work from a hand sketch?', 'a' => 'Yes, as long as it has dimensions. We redraw it accurately first and send it for your approval before styling.'],
         6 => ['q' => 'How many revisions are included?', 'a' => 'Your quotation states the revision rounds included. If we miss an agreed instruction, we fix it at no charge. Changed layouts or extra plans are quoted first.'],
     ],
-    'related' => 'Want to go further? See our <a href="' . pu('services.interior') . '">interior rendering</a> and <a href="' . pu('services.exterior') . '">exterior rendering</a> services, or <a href="' . pu('services.cad') . '">CAD drafting</a> if you need the 2D plans drawn first.',
+    'related' => 'Want to go further? See our <a href="' . pu('services.interior') . '">interior rendering</a> and <a href="' . pu('services.exterior') . '">exterior rendering</a> services, or <a href="' . pu('services.cad') . '">CAD drafting</a> if you need the 2D plans drawn first. Studios with a full queue can <a href="' . pu('services.outsource-visualization') . '">outsource architectural visualization</a> to us.',
     'ctaTitle' => 'Send Your 2D Plan. <em>Get a Clear 3D Quote.</em>',
 ]])
 @endsection

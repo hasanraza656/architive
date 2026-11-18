@@ -67,6 +67,11 @@ return [
             'description' => 'Turn 2D floor plans into furnished 3D floor plans, top-down or isometric, for listings, brochures, leasing and client presentations.',
             'sitemap'     => [0.9, 'monthly'],
         ],
+        'services.outsource-visualization' => [
+            'title'       => 'Outsource Architectural Visualization | Architive',
+            'description' => 'Outsource exterior renders, interior renders and 3D floor plans. Send drawings, keep your clients and style, get a written quote first.',
+            'sitemap'     => [0.9, 'monthly'],
+        ],
         'services.animation' => [
             'title'       => 'Architectural Animation and 360 Views | Architive',
             'description' => 'Architectural animation, walkthroughs and 360-degree views built from your drawings or model, so clients and buyers can explore a design before it is built.',

@@ -14,7 +14,8 @@ class PageController extends Controller
     public function interior()      { return view('pages.interior'); }
     public function floorplans()    { return view('pages.floorplans'); }
     public function animation()     { return view('pages.animation'); }
-    public function rayon()         { return view('pages.rayon'); }
+    public function outsourceVisualization() { return view('pages.outsource-visualization'); }
+    public function rayon()        { return view('pages.rayon'); }
     public function bim()           { return view('pages.bim'); }
     public function cad()           { return view('pages.cad'); }
     /** Production support is no longer a separate page; the old URL permanently redirects to Services. */
