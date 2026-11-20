@@ -68,6 +68,7 @@
 
     @include('partials.schema')
     @include('partials.analytics')
+    @include('partials.meta-pixel')
     @stack('head')
 </head>
 <body class="page-{{ str_replace('.', '-', Route::currentRouteName() ?? 'error') }}{{ ($overlay ?? false) ? ' has-overlay' : '' }}">

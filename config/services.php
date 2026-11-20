@@ -53,6 +53,12 @@ return [
     ],
 
     // Google Analytics 4 (public Measurement ID, not a secret). Off outside production unless GA4_ENABLED=true.
+    // Meta (Facebook) Pixel. Public ID, not a secret. Empty = no pixel. Same on/off switch as analytics.
+    'meta_pixel' => [
+        'enabled' => env('META_PIXEL_ENABLED', env('APP_ENV', 'production') === 'production'),
+        'id'      => env('META_PIXEL_ID', '2689977914689070'),
+    ],
+
     'analytics' => [
         'enabled' => env('GA4_ENABLED', env('APP_ENV', 'production') === 'production'),
         'ga4_id'  => env('GA4_MEASUREMENT_ID', 'G-36RQKB0CMB'),
