@@ -52,7 +52,7 @@
         <div class="row g-5 align-items-center">
             <div class="col-lg-4" data-reveal="left">
                 <div class="founder-card">
-                    <div class="founder-card__mono" aria-hidden="true">MA</div>
+                    <img class="founder-card__photo" src="{{ asset_v('assets/img/founder-madiha.webp') }}" width="400" height="400" alt="Portrait of {{ config('site.founder') }}, {{ config('site.founder_role') }}" loading="lazy" decoding="async">
                     <h3>{{ config('site.founder') }}</h3>
                     <p>{{ config('site.founder_role') }}</p>
                 </div>

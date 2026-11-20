@@ -8,6 +8,9 @@
                     <span class="track-band__label"><b>{{ $t['unit'] }}</b> on {{ $t['label'] }}</span>
                 </li>
             @endforeach
+            @if (config('site.social.trustpilot'))
+                <li class="track-band__item track-band__item--tp" data-reveal style="--d: {{ count($track) * .12 }}s">@include('partials.trustpilot-badge', ['variant' => 'dark'])</li>
+            @endif
         </ul>
     </div>
 </section>

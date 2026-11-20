@@ -542,3 +542,27 @@
 @keyframes map-ring { 0% { transform: scale(.4); opacity: .95; } 80%, 100% { transform: scale(3.2); opacity: 0; } }
 @media (max-width: 767.98px) { .worldmap__pin--studio::before { left: -6px; top: -6px; width: 12px; height: 12px; } }
 @media (prefers-reduced-motion: reduce) { .worldmap__pin--studio::before { animation: none; display: none; } .worldmap__dot { animation: none !important; } }
+
+/* Trustpilot badge (our own drawing): wordmark, five star boxes, numbers. 'dark' variant sits on the dark footer / dark cards. */
+.tp { display: inline-flex; flex-wrap: wrap; align-items: center; gap: .55rem 1rem; text-decoration: none; color: var(--ink); transition: transform .35s var(--ease), opacity .3s; }
+.tp:hover { transform: translateY(-2px); }
+.tp:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 8px; }
+.tp--dark { color: #fff; }
+.tp__brand { display: inline-flex; align-items: center; gap: .45rem; }
+.tp__word { font: 700 1.28rem/1 var(--f-body); letter-spacing: -.01em; }
+.tp__stars { display: block; width: 132px; height: auto; flex: none; }
+.tp__text { font-size: .86rem; line-height: 1.35; color: var(--ink-2); }
+.tp__text b { font-weight: 700; color: inherit; }
+.tp__text i { font-style: normal; opacity: .5; padding: 0 .15rem; }
+.tp--dark .tp__text { color: rgba(255, 255, 255, .78); }
+.tp__text--cta { display: inline-flex; align-items: center; gap: .4rem; font: 500 .72rem/1.3 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.tp:hover .tp__text--cta svg { transform: translateX(3px); }
+.tp__text--cta svg { transition: transform .3s var(--ease); }
+.track-band__item--tp { grid-column: 1 / -1; justify-content: center; }
+.footer-top .tp { margin-top: .2rem; }
+.hero__proof { margin-top: 1.1rem; }
+.hero__proof .tp { gap: .45rem .85rem; }
+.hero__proof .tp__word { font-size: 1.1rem; }
+.hero__proof .tp__stars { width: 112px; }
+.hero__proof .tp__text { color: rgba(255, 255, 255, .85); font-size: .8rem; }
+@media (max-width: 575.98px) { .hero__proof { margin-top: .9rem; } }

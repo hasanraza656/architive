@@ -426,3 +426,7 @@
 .enquiry-success__next { max-width: 44ch; margin: 0 auto 1.4rem; padding: 1rem 1.2rem; border-radius: 14px; background: var(--bg-alt); border: 1px solid var(--line); text-align: left; font-size: .9rem; color: var(--ink-2); }
 .enquiry-success__next b { color: var(--ink); }
 .enquiry-success__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: .7rem; }
+
+/* Founder portrait (Madiha Altaf): round photo with the same yellow ring the monogram had */
+.founder-card__photo { display: block; width: 168px; height: 168px; margin: 0 auto 1.4rem; border-radius: 50%; object-fit: cover; background: var(--alt); box-shadow: 0 0 0 6px var(--bg), 0 0 0 8px var(--accent), 0 18px 36px -18px rgba(0, 0, 0, .35); }
+.who__avatar { display: block; width: 92px; height: 92px; margin: 0 auto .6rem; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 5px var(--bg), 0 0 0 7px var(--accent); }

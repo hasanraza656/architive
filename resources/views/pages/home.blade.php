@@ -35,6 +35,7 @@
                 <a class="link-arrow link-arrow--light" href="#services">See our services <x-icon name="arrow-down" /></a>
             </div>
             <p class="hero__note">No overheads, no hiring, no delays.</p>
+            <div class="hero__proof">@include('partials.trustpilot-badge', ['variant' => 'dark'])</div>
         </div>
     </div>
 </section>
@@ -112,7 +113,7 @@
         <h2 class="display-h" id="who-title" data-split>Who We Are <em>and What We Do.</em></h2>
         <p class="lead-p" data-reveal style="--d:.1s">I started Architive in {{ config('site.founded') }} as a freelance architectural engineer on Fiverr and Upwork. What began with helping clients turn ideas into drawings and 3D visuals grew through repeat projects and long-term working relationships into a multidisciplinary architectural production studio.</p>
         <p class="lead-p" data-reveal style="--d:.18s">Today we provide architectural visualization, BIM and Revit, and CAD drafting under one roof. You lead the design and the client relationship; we turn approved information into accurate drawings, structured models and presentation-ready visuals, in your formats and to your standards.</p>
-        <p class="who__sig who__sig--center" data-reveal style="--d:.26s"><span class="signature__name">{{ config('site.founder') }}</span><span class="signature__role">{{ config('site.founder_role') }}</span><a class="link-arrow" href="{{ pu('about') }}">Read our story <x-icon name="arrow-right" /></a></p>
+        <p class="who__sig who__sig--center" data-reveal style="--d:.26s"><img class="who__avatar" src="{{ asset_v('assets/img/founder-madiha.webp') }}" width="400" height="400" alt="Portrait of {{ config('site.founder') }}" loading="lazy" decoding="async"><span class="signature__name">{{ config('site.founder') }}</span><span class="signature__role">{{ config('site.founder_role') }}</span><a class="link-arrow" href="{{ pu('about') }}">Read our story <x-icon name="arrow-right" /></a></p>
     </div>
 </section>
 

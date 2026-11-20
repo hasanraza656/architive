@@ -16,7 +16,7 @@
         'telephone'    => config('site.phone'),
         'description'  => 'Architectural production studio providing architectural visualization, BIM and Revit, and CAD drafting for architecture firms, interior design studios, developers, contractors and homeowners worldwide.',
         'foundingDate' => (string) config('site.founded'),
-        'founder'      => ['@type' => 'Person', 'name' => config('site.founder'), 'jobTitle' => config('site.founder_role')],
+        'founder'      => ['@type' => 'Person', 'name' => config('site.founder'), 'jobTitle' => config('site.founder_role'), 'image' => asset('assets/img/founder-madiha.webp')],
         'address'      => ['@type' => 'PostalAddress', 'addressLocality' => 'Newark', 'addressRegion' => 'Delaware', 'addressCountry' => 'US'],
         'areaServed'   => 'Worldwide',
         'knowsAbout'   => ['Architectural visualization', 'Architectural rendering', 'BIM modeling', 'Revit', 'Scan to BIM', 'CAD drafting', 'PDF to DWG conversion', 'Architectural production support'],
