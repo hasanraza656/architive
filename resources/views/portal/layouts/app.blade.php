@@ -6,7 +6,8 @@
     <meta name="robots" content="noindex, nofollow">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Portal') · Architive</title>
-    <link rel="icon" href="{{ asset('assets/img/favicon-32.png') }}">
+    <meta name="theme-color" content="#FFD60A">
+    @include('partials.app-icons')
     <link rel="stylesheet" href="{{ asset_v('assets/css/portal.css') }}">
     <link rel="stylesheet" href="{{ asset_v('assets/css/portal-drawer.css') }}">
     @stack('head')

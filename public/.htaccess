@@ -23,6 +23,11 @@
     RewriteRule ^ index.php [L]
 </IfModule>
 
+# ---- Web app manifest type ---------------------------------------------------
+<IfModule mod_mime.c>
+    AddType application/manifest+json .webmanifest
+</IfModule>
+
 # ---- Performance: compression -------------------------------------------------
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/xhtml+xml

@@ -628,3 +628,16 @@ html { scroll-padding-top: calc(var(--top-h) + 14px); }
 @media (max-width: 520px) { .avatar-edit { flex-direction: column; align-items: flex-start; } }
 
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* Dashboard "new requests" rows on phones: avatar + full-width text, source chip and time on a second line, long text kept to two lines. */
+@media (max-width: 575.98px) {
+  .list-row--req { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "av main main" "av chip time"; column-gap: .75rem; row-gap: .4rem; align-items: start; padding-block: .85rem; }
+  .list-row--req .pavatar { grid-area: av; }
+  .list-row--req .list-row__main { grid-area: main; }
+  .list-row--req .list-row__main b { font-size: .95rem; }
+  .list-row--req .list-row__main small { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; margin-top: .15rem; font-size: .8rem; line-height: 1.4; overflow-wrap: anywhere; }
+  .list-row--req .chip { grid-area: chip; justify-self: start; align-self: center; }
+  .list-row--req time { grid-area: time; justify-self: end; align-self: center; font-size: .78rem; white-space: nowrap; }
+  .pcard__head:has(+ .list-row--req) { flex-wrap: wrap; gap: .4rem 1rem; }
+  .pcard__head:has(+ .list-row--req) .pcard__title { flex: 1 1 14rem; line-height: 1.5; }
+}
