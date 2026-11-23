@@ -35,12 +35,14 @@
 @endphp
 <section class="chat" data-chat aria-label="Conversation" data-config='@json($config, JSON_HEX_APOS | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE)'>
     <header class="chat__bar">
+        <button class="chat__bar-btn chat__back" type="button" data-chat-expand aria-label="Back to the order"><x-icon name="arrow-left" /></button>
+        <span class="chat__title"><b>{{ $order->number }}</b><small>{{ $order->title }}</small></span>
         <button class="chat__people" type="button" data-open-members aria-label="People in this conversation">
             <span class="chat__avs" data-chat-avs></span>
             <span class="chat__people-n" data-chat-people-count>…</span>
         </button>
         <span class="chat__bar-space"></span>
-        <button class="chat__bar-btn chat__expand" type="button" data-chat-expand aria-label="Full screen chat" title="Full screen"><x-icon name="arrow-up-right" /></button>
+        <button class="chat__bar-btn chat__expand" type="button" data-chat-expand aria-label="Full screen chat" title="Full screen"><x-icon name="arrow-up-right" /><span class="chat__bar-label">Full screen</span></button>
     </header>
 
     <div class="chat__list" data-chat-list aria-live="polite" aria-relevant="additions">
@@ -62,7 +64,7 @@
                     <button class="chat__btn" type="button" data-chat-emoji aria-label="Add an emoji" title="Emoji"><x-icon name="smile" /></button>
                 </div>
                 <textarea name="body" rows="1" maxlength="5000" aria-label="Message" data-chat-input
-                          placeholder="{{ $team ? 'Write a message…  @ tags a person · # tags a task or project' : 'Write a message…  type @ to tag someone' }}"></textarea>
+                          data-ph-short="Write a message…" placeholder="{{ $team ? 'Write a message…  @ tags a person · # tags a task or project' : 'Write a message…  type @ to tag someone' }}"></textarea>
                 <button class="chat__btn chat__btn--send" type="submit" data-chat-send aria-label="Send message"><x-icon name="send" /></button>
             </div>
             <input type="file" multiple hidden data-chat-file>

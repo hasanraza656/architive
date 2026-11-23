@@ -464,6 +464,7 @@
     var self = this; opts = opts || {};
     var input = $('[data-chat-input]', form), box = $('[data-chat-files]', form), err = $('[data-chat-err]', form), send = $('[data-chat-send]', form), fileIn = $('[data-chat-file]', form),
         taggedBox = $('[data-chat-tagged]', form), pop = $('[data-chat-tagpop]', form), row = $('[data-chat-row]', form);
+    if (input && input.getAttribute("data-ph-short") && window.matchMedia && window.matchMedia("(max-width: 767.98px)").matches) { input.placeholder = input.getAttribute("data-ph-short"); }
     var pending = [], picks = [], sending = false, popItems = [], popIndex = 0, popKind = null, popTimer = null, popReq = 0;
     self.form = form; self.input = input;
 
@@ -829,9 +830,15 @@
   }
 
   /* ------------------------------------------------------------------ expand (phones) */
-  var expandBtn = root.querySelector('[data-chat-expand]');
-  if (expandBtn) { expandBtn.addEventListener('click', function () { var on = root.classList.toggle('chat--full'); document.body.classList.toggle('chat-full', on); if (on) { toBottom(); } }); }
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.classList.contains('chat--full') && !(window.PortalDrawer && window.PortalDrawer.isOpen())) { root.classList.remove('chat--full'); document.body.classList.remove('chat-full'); } });
+  function setFull(on) {
+    if (root.classList.contains('chat--full') === on) { return; }
+    root.classList.toggle('chat--full', on); document.body.classList.toggle('chat-full', on);
+    if (on) { try { history.pushState({ chatFull: 1 }, ''); } catch (e) {} toBottom(); }
+    else if (history.state && history.state.chatFull) { try { history.back(); } catch (e) {} }
+  }
+  root.querySelectorAll('[data-chat-expand]').forEach(function (btn) { btn.addEventListener('click', function () { setFull(!root.classList.contains('chat--full')); }); });
+  window.addEventListener('popstate', function () { if (root.classList.contains('chat--full')) { root.classList.remove('chat--full'); document.body.classList.remove('chat-full'); } });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && root.classList.contains('chat--full') && !(window.PortalDrawer && window.PortalDrawer.isOpen())) { setFull(false); } });
 
   /* ------------------------------------------------------------------ jump to a message (?m=ID from the inbox) */
   function highlight(el) { if (!el) { return false; } var box = el.getBoundingClientRect(), lb = list.getBoundingClientRect(); list.scrollTop += (box.top - lb.top) - (list.clientHeight / 2 - box.height / 2); el.classList.remove('msg--focus'); void el.offsetWidth; el.classList.add('msg--focus'); return true; }
