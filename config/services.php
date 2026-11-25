@@ -52,6 +52,13 @@ return [
         'widget_id'   => env('TAWK_WIDGET_ID', '1ivl35vbb'),
     ],
 
+    // OpenAI (ChatGPT Ads) measurement pixel. Public ID, not a secret. Empty = no pixel. debug logs to the browser console while testing.
+    'openai_pixel' => [
+        'enabled' => env('OPENAI_PIXEL_ENABLED', env('APP_ENV', 'production') === 'production'),
+        'id'      => env('OPENAI_PIXEL_ID', 'YPTyqKwCMSTuLdM7QmBV88'),
+        'debug'   => env('OPENAI_PIXEL_DEBUG', false),
+    ],
+
     // Meta (Facebook) Pixel. Public ID, not a secret. Empty = no pixel. Same on/off switch as analytics.
     'meta_pixel' => [
         'enabled' => env('META_PIXEL_ENABLED', env('APP_ENV', 'production') === 'production'),

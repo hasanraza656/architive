@@ -38,6 +38,7 @@
       window.gtag('consent', 'update', { analytics_storage: v, ad_storage: v, ad_user_data: v, ad_personalization: v });
     }
     if (typeof window.fbq === 'function') { window.fbq('consent', analytics ? 'grant' : 'revoke'); }
+    if (typeof window.oaiq === 'function') { window.oaiq('consent', !!analytics); }
   }
   function show() { box.hidden = false; }
   function hide() { box.hidden = true; }

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-{{-- Thank-you page after an ad landing page form. The lead conversion is sent on the form page before arriving here,
+{{-- Thank-you page after an ad landing page form. The Google lead conversion is sent on the form page before arriving here (OpenAI lead_created is sent below, once),
      so reloading this page never counts twice. $ref = request number (optional). --}}
 @push('head')
     <link rel="stylesheet" href="{{ asset_v('assets/css/landing.css') }}">
@@ -27,3 +27,16 @@
     </div>
 </section>
 @endsection
+
+@push('scripts')
+    {{-- OpenAI Ads lead_created: only for a real submission (request number in the address, or the flag the form set just before redirecting),
+         and only once per request, so refreshing or revisiting /thank-you/ never counts a second lead. --}}
+    <script>
+        (function () {
+            try {
+                var ref = new URLSearchParams(location.search).get('ref') || sessionStorage.getItem('architive-lead');
+                if (ref && window.architiveOaiLead) { window.architiveOaiLead(ref === '1' ? '' : ref); }
+            } catch (e) {}
+        })();
+    </script>
+@endpush

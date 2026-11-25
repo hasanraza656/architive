@@ -221,9 +221,11 @@
             }
             var thanks = $f.data('thanks');   // ad landing pages continue to the thank-you page
             if (thanks) {
+              try { sessionStorage.setItem('architive-lead', o.data.request || '1'); } catch (e) {}   // lets /thank-you/ confirm a real submission
               setTimeout(function () { location.href = thanks + (o.data.request ? '?ref=' + encodeURIComponent(o.data.request) : ''); }, 600);
               return;
             }
+            if (window.architiveOaiLead) { window.architiveOaiLead(o.data.request); }   // OpenAI lead_created (forms that stay on the page)
             form.reset();
             $f.prop('hidden', true); $s.prop('hidden', false).addClass('is-shown');
             if (!$f.closest('.modal').length) { $s[0].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' }); }
