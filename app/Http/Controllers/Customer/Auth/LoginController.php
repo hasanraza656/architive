@@ -31,14 +31,33 @@ class LoginController extends Controller
     /** Step 1 submit: send the code. */
     public function sendCode(Request $request): RedirectResponse
     {
-        $data = $request->validate(['email' => ['required', 'email', 'max:190']]);
+        $data = $request->validate([
+            'email' => ['required', 'email', 'max:190'],
+            // same rule as the website forms: required in production, skipped only in local/testing without keys
+            'g-recaptcha-response' => [
+                (! config('services.recaptcha.secret_key') && app()->environment('local', 'testing')) ? 'nullable' : 'required',
+                new \App\Rules\Recaptcha,
+            ],
+        ], ['g-recaptcha-response.required' => 'Please tick “I’m not a robot” to continue.']);
         $email = mb_strtolower(trim($data['email']));
 
-        $key = 'otp-send|' . $request->ip();
-        if (RateLimiter::tooManyAttempts($key, 8)) {
-            throw ValidationException::withMessages(['email' => 'Too many requests. Please wait a minute and try again.']);
+        // Honeypot: real people never fill the hidden field. Pretend it worked, send nothing.
+        if ($request->filled('website')) {
+            $request->session()->put(self::SESSION_EMAIL, $email);
+
+            return redirect()->route('customer.login.verify')->with('success', 'If this address has an account, a 6-digit code is on its way.');
         }
-        RateLimiter::hit($key, 60);
+
+        // Codes cost us sender reputation (mail providers throttle a server that mails strangers), so cap them per visitor as well as per address
+        $minute = 'otp-send|' . $request->ip();
+        $hour = 'otp-send-h|' . $request->ip();
+        $day = 'otp-send-d|' . $request->ip();
+        if (RateLimiter::tooManyAttempts($minute, 5) || RateLimiter::tooManyAttempts($hour, 10) || RateLimiter::tooManyAttempts($day, 25)) {
+            throw ValidationException::withMessages(['email' => 'Too many requests. Please try again later.']);
+        }
+        RateLimiter::hit($minute, 60);
+        RateLimiter::hit($hour, 3600);
+        RateLimiter::hit($day, 86400);
 
         $result = $this->otp->send($email, $request->ip());
         $request->session()->put(self::SESSION_EMAIL, $email);

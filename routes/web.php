@@ -66,6 +66,7 @@ Route::middleware(EnsureTrailingSlash::class)->group(function () {
 });
 
 Route::post('contact/send', [ContactController::class, 'store'])->middleware('throttle:6,1')->name('contact.send');
+Route::post('ads/whatsapp', [\App\Http\Controllers\AdsEventController::class, 'whatsapp'])->middleware('throttle:30,1')->name('ads.whatsapp');
 Route::post('permit-revisions/send', [PermitRevisionController::class, 'store'])->middleware('throttle:permit')->name('permit-revisions.send');
 
 Route::get('blog/feed.xml', [BlogController::class, 'feed'])->name('blog.feed');

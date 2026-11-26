@@ -37,6 +37,12 @@ class OtpService
             return self::TOO_SOON;
         }
 
+        // Nobody can be mailed more than 3 codes an hour or 6 a day (stops someone using the form to flood a stranger's inbox)
+        if (LoginCode::where('email', $email)->where('created_at', '>', now()->subHour())->count() >= 3
+            || LoginCode::where('email', $email)->where('created_at', '>', now()->subDay())->count() >= 6) {
+            return self::TOO_SOON;
+        }
+
         LoginCode::where('email', $email)->whereNull('consumed_at')->update(['consumed_at' => now()]);   // older codes stop working
 
         $len = (int) config('portal.otp.length');

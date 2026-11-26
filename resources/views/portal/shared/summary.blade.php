@@ -10,6 +10,11 @@
                 @if ($order->company)<div><dt>Company</dt><dd>{{ $order->company }}</dd></div>@endif
                 @if ($order->requested_deadline)<div><dt>Wanted by</dt><dd><time data-dt="date" datetime="{{ $order->requested_deadline->toIso8601String() }}">{{ $order->requested_deadline->format('M j, Y') }}</time></dd></div>@endif
                 <div><dt>Came from</dt><dd>{{ ['website' => 'Website form', 'portal' => 'Client area'][$order->source] ?? 'Admin' }}</dd></div>
+                @if ($isAdmin && ! empty($order->attribution))
+                    @foreach (\App\Support\Attribution::lines(json_encode($order->attribution)) as $label => $line)
+                        <div><dt>Campaign · {{ strtolower($label) }}</dt><dd>{{ $line }}</dd></div>
+                    @endforeach
+                @endif
             </dl>
             <p>{{ \Illuminate\Support\Str::limit($order->brief, 600) }}</p>
         </div>

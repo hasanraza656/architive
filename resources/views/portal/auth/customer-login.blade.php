@@ -22,6 +22,13 @@
         <x-portal.field name="email" label="E-mail address">
             <input class="pinput" type="email" id="email" name="email" value="{{ $email }}" autocomplete="email" placeholder="you@company.com" autofocus required>
         </x-portal.field>
+        {{-- Spam protection: bots used this form to mail codes to strangers. Honeypot (hidden) + the same "I'm not a robot" check as the contact form. --}}
+        <div style="position:absolute;left:-9999px;" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+        @if (config('services.recaptcha.site_key'))
+            <div class="g-recaptcha" data-sitekey="{{ config('services.recaptcha.site_key') }}" style="margin:0 0 14px;"></div>
+            @error('g-recaptcha-response')<p class="f-err" style="color:#b3261e;font-size:.85rem;margin:-6px 0 12px;">{{ $message }}</p>@enderror
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        @endif
         <button class="pbtn pbtn--primary pbtn--lg pbtn--block" type="submit">Continue with e-mail <x-icon name="arrow-right" /></button>
     </form>
 @endsection

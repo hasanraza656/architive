@@ -12,6 +12,7 @@ class EncryptCookies extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        '__oppref',   // OpenAI ads pixel cookies are plain text set by the pixel; the server reads them for server-side events
+        '__obref',
     ];
 }

@@ -68,7 +68,7 @@ return [
     // Verified completed-work figures supplied by the client (shown once, in the "Who We Are" track record).
     // Reviews are intentionally NOT shown until the client confirms exact numbers.
     // Trustpilot rating shown on the badge (partials/trustpilot-badge). Set both in .env once confirmed on our Trustpilot page; until then no stars are shown.
-    'trustpilot_rating' => ['score' => env('TRUSTPILOT_SCORE', 4.8), 'count' => env('TRUSTPILOT_REVIEWS')],
+    'trustpilot_rating' => ['score' => env('TRUSTPILOT_SCORE', 4.0), 'count' => env('TRUSTPILOT_REVIEWS', 4)],
 
     'track_record_updated' => 'October 2026',
     'track_record' => [

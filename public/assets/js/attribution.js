@@ -2,7 +2,7 @@
    landing page, referrer) in localStorage for 90 days and adds them to every enquiry form as a hidden "attribution"
    field, so each lead e-mail says which ad, campaign and keyword brought it. Nothing is sent anywhere else. */
 (function () {
-  var KEY = 'architive-src', TTL = 90 * 864e5, KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid'];
+  var KEY = 'architive-src', TTL = 90 * 864e5, KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'oppref'];
   function read() { try { var s = JSON.parse(localStorage.getItem(KEY) || 'null'); return s && Date.now() - s.t < TTL ? s : null; } catch (e) { return null; } }
   function write(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) {} }
 
@@ -25,6 +25,26 @@
       if (!i) { i = document.createElement('input'); i.type = 'hidden'; i.name = 'attribution'; f.appendChild(i); }
       i.defaultValue = i.value = val;   // defaultValue survives form.reset() after a successful send
     });
+    consentField();
   }
+
+  // Campaign tags for contact-click events (WhatsApp / phone / email): latest tagged touch, else the first one.
+  window.architiveAttr = function () {
+    var c = read(), out = {}; if (!c) { return out; }
+    var t = (c.last && c.last.utm_source) ? c.last : ((c.first && c.first.utm_source) ? c.first : null); if (!t) { return out; }
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].forEach(function (k) { if (t[k]) { out[k] = t[k]; } });
+    return out;
+  };
+
+  // Tells the server whether ad measurement is allowed for this visitor (cookie choice), so server-side ad events respect it.
+  function consentField() {
+    var ok = typeof window.architiveAdsConsent === 'function' && window.architiveAdsConsent() ? '1' : '0';
+    document.querySelectorAll('form[data-contact-form]').forEach(function (f) {
+      var i = f.querySelector('input[name="ads_consent"]');
+      if (!i) { i = document.createElement('input'); i.type = 'hidden'; i.name = 'ads_consent'; f.appendChild(i); }
+      i.defaultValue = i.value = ok;
+    });
+  }
+  document.addEventListener('submit', consentField, true);   // refreshed at the moment of sending
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', attach); } else { attach(); }
 })();

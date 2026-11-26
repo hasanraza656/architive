@@ -36,12 +36,35 @@
                 if (a.id && label) { gtag('event', 'conversion', { send_to: a.id + '/' + label }); }
             } catch (e) {}
         };
+        // Where on the site a tapped contact link sits (GA4 custom dimension button_location)
+        function btnLoc(l) {
+            var b = document.body.className || '';
+            if (l.closest('.lp-sticky')) { return 'floating_widget'; }
+            if (l.closest('header, .mobile-menu')) { return 'header'; }
+            if (l.closest('footer')) { return 'footer'; }
+            if (b.indexOf('page-thanks') !== -1) { return 'thank_you_page'; }
+            if (b.indexOf('page-contact') !== -1) { return 'contact_page'; }
+            if (location.pathname.indexOf('/lp/') === 0) { return 'landing_page'; }
+            return 'other_page';
+        }
         // Taps on WhatsApp, phone and email links anywhere on the site
         document.addEventListener('click', function (e) {
             var l = e.target.closest && e.target.closest('a[href]');
             if (!l) { return; }
             var h = l.getAttribute('href') || '', m = /^tel:/i.test(h) ? 'phone' : (/^mailto:/i.test(h) ? 'email' : (/(wa\.me\/\d|api\.whatsapp\.com\/send\?phone=|whatsapp:\/\/send\?phone=)/i.test(h) ? 'whatsapp' : null));
-            if (m) { window.architiveTrack('contact_click', { method: m, link_location: l.closest('header') ? 'header' : (l.closest('footer') ? 'footer' : 'page') }); }
+            if (m) {
+                var loc = btnLoc(l);
+                window.architiveTrack('contact_click', { method: m, link_location: loc });
+                // Dedicated contact-intent events (never counted as a lead): whatsapp_click / phone_click / email_click. One per tap.
+                var ev = m + '_click', ct = (window.architiveCt = window.architiveCt || {});
+                if (Date.now() - (ct[ev] || 0) > 1500) {
+                    ct[ev] = Date.now();
+                    var p = { button_location: loc, page_path: location.pathname, page_location: location.origin + location.pathname + location.search };
+                    var at = window.architiveAttr ? window.architiveAttr() : {};
+                    for (var k in at) { p[k] = at[k]; }
+                    window.architiveTrack(ev, p);
+                }
+            }
         }, true);
         // Every other useful click: buttons and quote links (cta_click), files (file_download), other sites (outbound_click), sample work (view_work_click). GA4 only, never an Ads conversion.
         document.addEventListener('click', function (e) {

@@ -13,6 +13,12 @@ abstract class PortalTestCase extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config(['services.recaptcha.secret_key' => null, 'services.recaptcha.site_key' => null]);   // the real keys in .env must not switch the sign-in captcha on during tests
+    }
+
     protected function admin(array $attrs = []): User
     {
         return User::create($attrs + [

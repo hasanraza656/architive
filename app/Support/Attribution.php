@@ -5,6 +5,44 @@ namespace App\Support;
 /** Turns the attribution.js JSON (first and latest campaign touch) into readable lines for lead e-mails. */
 final class Attribution
 {
+    /** Keeps only the known campaign fields (first + latest touch), so a stored lead never holds anything else. */
+    public static function clean(?string $json): ?array
+    {
+        $raw = json_decode((string) $json, true);
+        if (! is_array($raw)) {
+            return null;
+        }
+        $keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'oppref', 'landing', 'referrer', 'at'];
+        $out = [];
+        foreach (['first', 'last'] as $k) {
+            if (is_array($raw[$k] ?? null)) {
+                $t = [];
+                foreach ($keys as $key) {
+                    if (isset($raw[$k][$key]) && is_scalar($raw[$k][$key]) && trim((string) $raw[$k][$key]) !== '') {
+                        $t[$key] = \Illuminate\Support\Str::limit(trim((string) $raw[$k][$key]), 200, '');
+                    }
+                }
+                if ($t) {
+                    $out[$k] = $t;
+                }
+            }
+        }
+
+        return $out ?: null;
+    }
+
+    /** The OpenAI click reference saved with the campaign (latest touch first). */
+    public static function oppref(?array $clean): ?string
+    {
+        foreach (['last', 'first'] as $k) {
+            if (! empty($clean[$k]['oppref'])) {
+                return (string) $clean[$k]['oppref'];
+            }
+        }
+
+        return null;
+    }
+
     public static function lines(?string $json): array
     {
         $raw = json_decode((string) $json, true);

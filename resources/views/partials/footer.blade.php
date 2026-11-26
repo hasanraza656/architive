@@ -9,10 +9,6 @@
                     <a class="footer-mail" href="tel:{{ config('site.phone') }}">{{ config('site.phone_display') }}</a>
                     <a class="footer-wa" href="https://wa.me/{{ ltrim(config('site.phone'), '+') }}" target="_blank" rel="noopener" aria-label="Chat with Architive on WhatsApp">WhatsApp</a>
                 </div>
-                @if (config('site.social.trustpilot'))
-                    <h2 class="footer-h footer-h--spaced">Trust and reviews</h2>
-                    @include('partials.trustpilot-badge', ['variant' => 'dark'])
-                @endif
             </div>
             <div class="col-6 col-lg-2 offset-lg-1">
                 <h2 class="footer-h">Quick links</h2>

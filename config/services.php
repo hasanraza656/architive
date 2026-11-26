@@ -57,6 +57,10 @@ return [
         'enabled' => env('OPENAI_PIXEL_ENABLED', env('APP_ENV', 'production') === 'production'),
         'id'      => env('OPENAI_PIXEL_ID', 'YPTyqKwCMSTuLdM7QmBV88'),
         'debug'   => env('OPENAI_PIXEL_DEBUG', false),
+        // Server-to-server Conversions API (same events as the pixel, same ids, so OpenAI counts each once). Key = .env ONLY, never in code.
+        'api_key'         => env('OPENAI_CAPI_KEY'),
+        'server_events'   => env('OPENAI_SERVER_EVENTS', true),    // lead_created from the server
+        'server_whatsapp' => env('OPENAI_SERVER_WHATSAPP', true),  // WhatsApp taps through /ads/whatsapp
     ],
 
     // Meta (Facebook) Pixel. Public ID, not a secret. Empty = no pixel. Same on/off switch as analytics.

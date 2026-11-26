@@ -76,6 +76,10 @@ class ContactController extends Controller
             report($e);   // never block the enquiry: fall back to the plain e-mail below
         }
 
+        if ($order) {
+            $this->afterLead($request, $order, $data['attribution'] ?? null);
+        }
+
         // admin notification (with the portal link when a request was created)
         if ($order) {
             $adminOk = $this->requests->notifyAdmin($order, $enquiry, $meta);
@@ -92,6 +96,33 @@ class ContactController extends Controller
         }
 
         return $this->respond($request, $order);
+    }
+
+    /**
+     * Keeps the campaign with the lead (which ad / campaign / click reference brought it) and sends the server-side OpenAI lead_created
+     * (same id as the pixel's, so OpenAI counts it once). Neither can ever stop or delay the enquiry.
+     */
+    private function afterLead(Request $request, $order, ?string $attributionJson): void
+    {
+        try {
+            $clean = \App\Support\Attribution::clean($attributionJson);
+            if ($clean && \Illuminate\Support\Facades\Schema::hasColumn('orders', 'attribution')) {
+                $order->forceFill(['attribution' => $clean])->save();
+            }
+
+            if ($request->input('ads_consent') === '1') {
+                app(\App\Services\Ads\OpenAiEvents::class)->lead($order, [
+                    'consent' => true,
+                    'oppref' => \App\Support\Attribution::oppref($clean) ?: (string) $request->cookie('__oppref'),
+                    'obref' => (string) $request->cookie('__obref'),
+                    'ip' => $request->ip(),
+                    'user_agent' => mb_substr((string) $request->userAgent(), 0, 300),
+                    'source_url' => url()->previous() ?: pu('contact', [], [], true),
+                ]);
+            }
+        } catch (\Throwable $e) {
+            report($e);
+        }
     }
 
     private function respond(Request $request, $order = null)

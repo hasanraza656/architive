@@ -30,6 +30,7 @@ class Order extends Model
         'customer_id' => 'integer',          // always a number, so ids compare correctly whatever the database driver returns
         'tax_rate' => 'decimal:2',
         'requested_deadline' => 'date',
+        'attribution' => 'array',   // campaign that brought a website request (App\Support\Attribution::clean)
         'due_at' => 'datetime',
         'sent_at' => 'datetime',
         'paid_at' => 'datetime',
