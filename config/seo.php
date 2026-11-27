@@ -15,8 +15,8 @@ return [
 
     'pages' => [
         'home' => [
-            'title'       => 'Architectural Visualization, BIM and CAD | Architive',
-            'description' => 'Architectural visualization, BIM and Revit, and CAD drafting for architecture firms, interior designers, developers and homeowners worldwide.',
+            'title'       => 'Architive | Architectural Outsourcing, CAD, BIM & 3D Visualization',
+            'description' => 'Architectural outsourcing for US, UK, Gulf and global firms. CAD drafting, Revit BIM, Scan-to-BIM and 3D visualization, aligned with your studio standards.',
             'sitemap'     => [1.0, 'weekly'],
         ],
         'blog.index' => [
