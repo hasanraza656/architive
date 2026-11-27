@@ -20,19 +20,19 @@ return [
             'sitemap'     => [1.0, 'weekly'],
         ],
         'blog.index' => [
-            'title'       => 'Architectural Visualization, BIM and CAD Insights | Architive Blog',
-            'description' => 'Practical guides on architectural visualization, BIM and Revit, and CAD drafting from the Architive studio: costs, workflows, file standards and how to brief a production team.',
+            'title'       => 'Architectural Visualization, BIM and CAD Blog | Architive',
+            'description' => 'Practical guides on architectural visualization, BIM and Revit, and CAD drafting: costs, workflows, file standards and how to brief a production team.',
             'sitemap'     => [0.8, 'daily'],
         ],
         'about' => [
-            'title'       => 'Who We Are | About Architive, Architectural Production Studio',
+            'title'       => 'About Architive | Architectural Production Studio',
             'description' => 'Meet Architive, an established architectural production studio providing visualization, BIM and Revit, and CAD drafting worldwide.',
             'image'       => 'assets/img/og/blueprint-tools.jpg',
             'sitemap'     => [0.8, 'monthly'],
         ],
         'services.index' => [
-            'title'       => 'Architectural Visualization, BIM and CAD Services | Architive',
-            'description' => 'Three connected services—architectural visualization, BIM and Revit, and CAD drafting—plus flexible production support for architecture and design firms.',
+            'title'       => 'CAD, BIM and 3D Visualization Services | Architive',
+            'description' => 'Three connected services: architectural visualization, BIM and Revit, and CAD drafting, plus flexible production support for architecture and design firms.',
             'sitemap'     => [0.9, 'monthly'],
         ],
         'services.visualization' => [
@@ -48,12 +48,12 @@ return [
             'sitemap'     => [0.9, 'monthly'],
         ],
         'free-trial' => [
-            'title'       => 'Free 3-Day Trial | Architive',
+            'title'       => 'Free 3-Day Trial: CAD, BIM and 3D Rendering | Architive',
             'description' => 'Send one real task and we work on it free for up to 3 working days. Judge our quality, speed and communication. No card, no contract.',
             'sitemap'     => [0.8, 'monthly'],
         ],
         'what-we-need' => [
-            'title'       => 'What We Need From You | Architive',
+            'title'       => 'What to Send for CAD, BIM and 3D Rendering | Architive',
             'description' => 'The files and details that help most for 3D floor plans, renders, CAD drafting and BIM. Send what you have and we tell you what is missing.',
             'sitemap'     => [0.7, 'monthly'],
         ],
@@ -78,7 +78,7 @@ return [
             'sitemap'     => [0.8, 'monthly'],
         ],
         'services.rayon' => [
-            'title'       => 'Rayon CAD Drafting Services for Interior Designers | Architive',
+            'title'       => 'Rayon CAD Drafting for Interior Designers | Architive',
             'description' => 'Rayon drafting services: PDF, DWG and scan to Rayon drawings, template and block setup, furniture layouts, test fits and DWG exports for consultants.',
             'sitemap'     => [0.8, 'monthly'],
         ],
@@ -89,14 +89,14 @@ return [
             'sitemap'     => [0.9, 'monthly'],
         ],
         'services.cad' => [
-            'title'       => 'CAD Drafting and Permit Drawing Support | Architive',
-            'description' => 'CAD drafting for architects, interior designers and contractors, including plans, elevations, sections, PDF to DWG, redlines and permit-support packages.',
+            'title'       => '2D CAD Drafting and Permit Drawing Services | Architive',
+            'description' => '2D CAD drafting for architects, designers and contractors: floor plans, elevations, sections, as-builts, PDF to DWG and permit sets. Free trial on one task.',
             'image'       => 'assets/img/og/cad-permit.jpg',
             'sitemap'     => [0.9, 'monthly'],
         ],
         'permit-revisions' => [
             'title'       => 'Permit Drawing Revisions: Fix City Comments | Architive',
-            'description' => 'Upload your drawings and city comment letter, answer a few questions and get an estimated cost before sending your enquiry. Permit revision drafting by Architive.',
+            'description' => 'Upload your drawings and city comment letter, answer a few questions and get an estimated cost before you send your enquiry. Permit revision drafting.',
             'image'       => 'assets/img/og/cad-permit.jpg',
             'sitemap'     => [0.8, 'monthly'],
         ],
@@ -111,7 +111,7 @@ return [
             'sitemap'     => [0.8, 'monthly'],
         ],
         'process' => [
-            'title'       => 'How Architive Projects Work',
+            'title'       => 'How Architive Works: Scope, Quote and Delivery | Architive',
             'description' => 'Share your files, receive a clear scope and quotation, review progress at agreed stages and receive final visualization, Revit or CAD deliverables.',
             'image'       => 'assets/img/og/cad-plan-pen.jpg',
             'sitemap'     => [0.8, 'monthly'],
@@ -140,12 +140,12 @@ return [
         ],
         'terms' => [
             'title'       => 'Terms of Service | Architive',
-            'description' => 'The terms that apply to your use of the Architive website and to project enquiries.',
+            'description' => 'The terms that apply to your use of the Architive website, to project enquiries and to work delivered by the Architive studio.',
             'sitemap'     => [0.3, 'yearly'],
         ],
         'sitemap.html' => [
             'title'       => 'Site Map | Architive Pages and Services',
-            'description' => 'A complete list of Architive pages: services, collaborations, process, FAQs and contact.',
+            'description' => 'A complete list of Architive pages: services, collaborations, blog, process, free trial, FAQs and contact, all in one place.',
             'sitemap'     => [0.2, 'monthly'],
         ],
     ],

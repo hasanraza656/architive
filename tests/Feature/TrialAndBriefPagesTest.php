@@ -13,8 +13,8 @@ class TrialAndBriefPagesTest extends TestCase
     public static function pages(): array
     {
         return [
-            'free-trial' => ['/free-trial/', 'Free 3-Day Trial | Architive', 'Is the trial really free?'],
-            'what-we-need' => ['/what-we-need/', 'What We Need From You | Architive', 'What if I only have a sketch?'],
+            'free-trial' => ['/free-trial/', 'Free 3-Day Trial: CAD, BIM and 3D Rendering | Architive', 'Is the trial really free?'],
+            'what-we-need' => ['/what-we-need/', 'What to Send for CAD, BIM and 3D Rendering | Architive', 'What if I only have a sketch?'],
         ];
     }
 
