@@ -26,10 +26,10 @@
         <div class="hero__content">
             <h1 class="hero__kicker">Architectural Production Studio</h1>
             <h2 class="hero__title">
-                <span class="line"><span>One brief.</span></span>
-                <span class="line line--serif"><span><em>One team.</em></span></span>
+                <span class="line"><span>Your Back-End</span></span>
+                <span class="line line--serif"><span><em>Architectural Support Team.</em></span></span>
             </h2>
-            <p class="hero__lead">Coordinated team for Architectural Visualization, BIM and Revit, and CAD Drafting.</p>
+            <p class="hero__lead">CAD drafting, Revit BIM and 3D visualization. Your studio standards. Our support.</p>
             <div class="hero__actions">
                 <a class="btn-ay btn-ay--lg" href="{{ pu('contact') }}" data-magnetic>Start your project <i class="btn-ay__dot"></i></a>
                 <a class="link-arrow link-arrow--light" href="#services">See our services <x-icon name="arrow-down" /></a>
